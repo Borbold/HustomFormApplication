@@ -1,0 +1,94 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "BinaryFormat/0.1.5": {
+        "runtime": {
+          "lib/net6.0/BinaryFormat.dll": {
+            "assemblyVersion": "0.1.5.0",
+            "fileVersion": "0.1.5.0"
+          }
+        }
+      },
+      "BinaryFormat.IPv4/0.1.5": {
+        "dependencies": {
+          "BinaryFormat": "0.1.5"
+        },
+        "runtime": {
+          "lib/net6.0/BinaryFormat.IPv4.dll": {
+            "assemblyVersion": "0.1.5.0",
+            "fileVersion": "0.1.5.0"
+          }
+        }
+      },
+      "IPNetwork2/2.6.560": {
+        "runtime": {
+          "lib/net6.0/System.Net.IPNetwork.dll": {
+            "assemblyVersion": "2.6.560.0",
+            "fileVersion": "2.6.560.0"
+          }
+        }
+      },
+      "MPAPI_ipv4/1.0.0": {
+        "dependencies": {
+          "RL_lpv4": "1.0.0"
+        },
+        "runtime": {
+          "lib/net20/MPAPI.dll": {
+            "assemblyVersion": "1.1.2.41302",
+            "fileVersion": "1.1.2.0"
+          }
+        }
+      },
+      "RL_lpv4/1.0.0": {
+        "runtime": {
+          "lib/RL_ipv4.dll": {
+            "assemblyVersion": "1.2.5.0",
+            "fileVersion": "1.2.5.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BinaryFormat/0.1.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fQ1pKBDh8F/LnpWKeY73hneLIt/F9ubYVrllcSK4dStWJnS6PJ6VjCEfPFXEga4oV3NcpNieeTgZUdEVTD6VYA==",
+      "path": "binaryformat/0.1.5",
+      "hashPath": "binaryformat.0.1.5.nupkg.sha512"
+    },
+    "BinaryFormat.IPv4/0.1.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2ZlSJj1q1rpg5SxF80/iD1ubIMm86i2I4K8uSzABfd5a0TB/hwG4aG90aDXht6zyrB0QGFKDf9zXGiw09viveg==",
+      "path": "binaryformat.ipv4/0.1.5",
+      "hashPath": "binaryformat.ipv4.0.1.5.nupkg.sha512"
+    },
+    "IPNetwork2/2.6.560": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-J/99AQJWvenj7aXC++r4Twl2JKK7ZXcw4UxjBeU64a9/YaHURrvoIQkGFU7n7ep/VqheyCR8/FusTXrLGCvXDA==",
+      "path": "ipnetwork2/2.6.560",
+      "hashPath": "ipnetwork2.2.6.560.nupkg.sha512"
+    },
+    "MPAPI_ipv4/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fvSmVhxLWacD1bAgknd9uAfKisb8zPVBpS60sXyihMeU3Bi6IP6dclQiF04EIc44QT0EQ4U/EZYj8Mqc024NZw==",
+      "path": "mpapi_ipv4/1.0.0",
+      "hashPath": "mpapi_ipv4.1.0.0.nupkg.sha512"
+    },
+    "RL_lpv4/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sgQ72Wv/ND81mpHWG+o3SEBMLXsbg5bvXrVK+ZFurLBzHttW8JV2am0PwMcfVafun8+0oFaf/qIWE2iu3JGh8g==",
+      "path": "rl_lpv4/1.0.0",
+      "hashPath": "rl_lpv4.1.0.0.nupkg.sha512"
+    }
+  }
+}

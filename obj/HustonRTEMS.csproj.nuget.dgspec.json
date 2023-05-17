@@ -1,0 +1,80 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj": {}
+  },
+  "projects": {
+    "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj",
+        "projectName": "HustonRTEMS",
+        "projectPath": "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj",
+        "packagesPath": "C:\\Users\\Ivar\\.nuget\\packages\\",
+        "outputPath": "D:\\VS_Code\\HustonRTEMS\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ivar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "BinaryFormat.IPv4": {
+              "target": "Package",
+              "version": "[0.1.5, )"
+            },
+            "IPNetwork2": {
+              "target": "Package",
+              "version": "[2.6.560, )"
+            },
+            "MPAPI_ipv4": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

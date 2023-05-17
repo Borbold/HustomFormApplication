@@ -1,0 +1,250 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0-windows7.0": {
+      "BinaryFormat/0.1.5": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/BinaryFormat.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/BinaryFormat.dll": {}
+        }
+      },
+      "BinaryFormat.IPv4/0.1.5": {
+        "type": "package",
+        "dependencies": {
+          "BinaryFormat": "0.1.5"
+        },
+        "compile": {
+          "lib/net6.0/BinaryFormat.IPv4.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/BinaryFormat.IPv4.dll": {}
+        }
+      },
+      "IPNetwork2/2.6.560": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/System.Net.IPNetwork.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.Net.IPNetwork.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "MPAPI_ipv4/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "RL_lpv4": "1.0.0"
+        },
+        "compile": {
+          "lib/net20/MPAPI.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/net20/MPAPI.dll": {
+            "related": ".pdb"
+          }
+        }
+      },
+      "RL_lpv4/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/RL_ipv4.dll": {}
+        },
+        "runtime": {
+          "lib/RL_ipv4.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BinaryFormat/0.1.5": {
+      "sha512": "fQ1pKBDh8F/LnpWKeY73hneLIt/F9ubYVrllcSK4dStWJnS6PJ6VjCEfPFXEga4oV3NcpNieeTgZUdEVTD6VYA==",
+      "type": "package",
+      "path": "binaryformat/0.1.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "binaryformat.0.1.5.nupkg.sha512",
+        "binaryformat.nuspec",
+        "lib/net6.0/BinaryFormat.dll"
+      ]
+    },
+    "BinaryFormat.IPv4/0.1.5": {
+      "sha512": "2ZlSJj1q1rpg5SxF80/iD1ubIMm86i2I4K8uSzABfd5a0TB/hwG4aG90aDXht6zyrB0QGFKDf9zXGiw09viveg==",
+      "type": "package",
+      "path": "binaryformat.ipv4/0.1.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "binaryformat.ipv4.0.1.5.nupkg.sha512",
+        "binaryformat.ipv4.nuspec",
+        "lib/net6.0/BinaryFormat.IPv4.dll"
+      ]
+    },
+    "IPNetwork2/2.6.560": {
+      "sha512": "J/99AQJWvenj7aXC++r4Twl2JKK7ZXcw4UxjBeU64a9/YaHURrvoIQkGFU7n7ep/VqheyCR8/FusTXrLGCvXDA==",
+      "type": "package",
+      "path": "ipnetwork2/2.6.560",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "ipnetwork2.2.6.560.nupkg.sha512",
+        "ipnetwork2.nuspec",
+        "lib/net462/System.Net.IPNetwork.dll",
+        "lib/net462/System.Net.IPNetwork.xml",
+        "lib/net47/System.Net.IPNetwork.dll",
+        "lib/net47/System.Net.IPNetwork.xml",
+        "lib/net48/System.Net.IPNetwork.dll",
+        "lib/net48/System.Net.IPNetwork.xml",
+        "lib/net6.0/System.Net.IPNetwork.dll",
+        "lib/net6.0/System.Net.IPNetwork.xml",
+        "lib/netcoreapp3.1/System.Net.IPNetwork.dll",
+        "lib/netcoreapp3.1/System.Net.IPNetwork.xml",
+        "lib/netstandard2.0/System.Net.IPNetwork.dll",
+        "lib/netstandard2.0/System.Net.IPNetwork.xml",
+        "lib/netstandard2.1/System.Net.IPNetwork.dll",
+        "lib/netstandard2.1/System.Net.IPNetwork.xml"
+      ]
+    },
+    "MPAPI_ipv4/1.0.0": {
+      "sha512": "fvSmVhxLWacD1bAgknd9uAfKisb8zPVBpS60sXyihMeU3Bi6IP6dclQiF04EIc44QT0EQ4U/EZYj8Mqc024NZw==",
+      "type": "package",
+      "path": "mpapi_ipv4/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/MPAPI.dll",
+        "lib/net20/MPAPI.pdb",
+        "mpapi_ipv4.1.0.0.nupkg.sha512",
+        "mpapi_ipv4.nuspec"
+      ]
+    },
+    "RL_lpv4/1.0.0": {
+      "sha512": "sgQ72Wv/ND81mpHWG+o3SEBMLXsbg5bvXrVK+ZFurLBzHttW8JV2am0PwMcfVafun8+0oFaf/qIWE2iu3JGh8g==",
+      "type": "package",
+      "path": "rl_lpv4/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/RL_ipv4.dll",
+        "lib/RL_ipv4.pdb",
+        "rl_lpv4.1.0.0.nupkg.sha512",
+        "rl_lpv4.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0-windows7.0": [
+      "BinaryFormat.IPv4 >= 0.1.5",
+      "IPNetwork2 >= 2.6.560",
+      "MPAPI_ipv4 >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Ivar\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj",
+      "projectName": "HustonRTEMS",
+      "projectPath": "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj",
+      "packagesPath": "C:\\Users\\Ivar\\.nuget\\packages\\",
+      "outputPath": "D:\\VS_Code\\HustonRTEMS\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Ivar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
+        "dependencies": {
+          "BinaryFormat.IPv4": {
+            "target": "Package",
+            "version": "[0.1.5, )"
+          },
+          "IPNetwork2": {
+            "target": "Package",
+            "version": "[2.6.560, )"
+          },
+          "MPAPI_ipv4": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"MPAPI_ipv4 1.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net6.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "MPAPI_ipv4",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"RL_lpv4 1.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net6.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "RL_lpv4",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
+}

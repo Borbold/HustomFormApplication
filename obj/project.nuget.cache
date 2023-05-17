@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "dgSpecHash": "xMnslbRB/m9m4ft+BHj5LGv1U4eJN5kIWlULwb2q5G+F2mEkZz17PZdF6rsDGXVz51RV0lZ5OO+vKsEVRTUDJw==",
+  "success": true,
+  "projectFilePath": "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ivar\\.nuget\\packages\\binaryformat\\0.1.5\\binaryformat.0.1.5.nupkg.sha512",
+    "C:\\Users\\Ivar\\.nuget\\packages\\binaryformat.ipv4\\0.1.5\\binaryformat.ipv4.0.1.5.nupkg.sha512",
+    "C:\\Users\\Ivar\\.nuget\\packages\\ipnetwork2\\2.6.560\\ipnetwork2.2.6.560.nupkg.sha512",
+    "C:\\Users\\Ivar\\.nuget\\packages\\mpapi_ipv4\\1.0.0\\mpapi_ipv4.1.0.0.nupkg.sha512",
+    "C:\\Users\\Ivar\\.nuget\\packages\\rl_lpv4\\1.0.0\\rl_lpv4.1.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"MPAPI_ipv4 1.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net6.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "MPAPI_ipv4",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"RL_lpv4 1.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net6.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "RL_lpv4",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
+}
