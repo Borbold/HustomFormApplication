@@ -1,5 +1,8 @@
 using System.Net;
 using System.Net.Sockets;
+using System.Linq;
+using System.Security.Policy;
+using System.Runtime.InteropServices;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
@@ -7,12 +10,34 @@ namespace HustonRTEMS {
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x1, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
+        private readonly byte[] hardBufWrite = {
+            0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
+            0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x04, 0x00, 0x00, 0x98, 0xAD, 0x45, 0xC0 };
 
         private readonly int headerLength = 18;
         private int message_size;
         private Socket client;
         private byte[] buffer;
         private readonly int kissBuff = 256;
+
+        [StructLayout(LayoutKind.Explicit)]
+        private struct fl_un {
+            [FieldOffset(0)]
+            public byte byte1;
+
+            [FieldOffset(1)]
+            public byte byte2;
+
+            [FieldOffset(2)]
+            public byte byte3;
+
+            [FieldOffset(3)]
+            public byte byte4;
+
+            [FieldOffset(0)]
+            public float fl1;
+        }
+        private fl_un fl;
 
         public Form1() {
             InitializeComponent();
@@ -96,19 +121,28 @@ namespace HustonRTEMS {
                 _ = await listener.SendAsync(hardBuf, SocketFlags.None);
                 TestBox.Text = $"Write";
 
+                TestBox.Text = "";
                 while(true) {
                     message_size = await listener.ReceiveAsync(buffer, SocketFlags.None);
 
                     if(message_size > 0) {
-                        TestBox.Text =
-                            $"Socket server response message: ";
+                        TestBox.Text +=
+                            $"Socket server response message: \r\n";
                         while(raw_buffer_size < message_size) {
                             if(raw_buffer_size >= 0) {
                                 TestBox.Text += $"{buffer[raw_buffer_size]:X} ";
                             }
                             raw_buffer_size++;
                         }
-                        break;
+                        //break;
+                        message_size = 0;
+                        TestBox.Text += $"\r\nWait new message!\r\n";
+                        fl.fl1 = (float)Convert.ToDouble(LabTemp.Text);
+                        hardBufWrite[26] = fl.byte1;
+                        hardBufWrite[27] = fl.byte2;
+                        hardBufWrite[28] = fl.byte3;
+                        hardBufWrite[29] = fl.byte4;
+                        _ = await listener.SendAsync(hardBufWrite, SocketFlags.None);
                     }
                     raw_buffer_size = 0;
                 }
@@ -150,42 +184,44 @@ namespace HustonRTEMS {
         }
 
         // Track bar
-        private void Change_Val_Track(int value, Label lab) {
+        private void Change_Val_Track(float value, Label lab) {
             lab.Text = value.ToString();
         }
 
         private void TrackBarTemp_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackBarTemp.Value, LabTemp);
+        }
+        private void TrackBarTemp_ValueChanged(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarTemp.Value / 5.0f, LabTemp);
         }
 
         private void TrackBarRotX_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackBarRotX.Value, LabRotX);
+            Change_Val_Track(TrackBarRotX.Value / 5.0f, LabRotX);
         }
         private void TrackBarRotY_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackBarRotY.Value, LabRotY);
+            Change_Val_Track(TrackBarRotY.Value / 5.0f, LabRotY);
         }
         private void TrackBarRotZ_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackBarRotZ.Value, LabRotZ);
+            Change_Val_Track(TrackBarRotZ.Value / 5.0f, LabRotZ);
         }
 
         private void TrackMagX_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagX.Value, LabMagX);
+            Change_Val_Track(TrackMagX.Value / 5.0f, LabMagX);
         }
         private void TrackMagY_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagY.Value, LabMagY);
+            Change_Val_Track(TrackMagY.Value / 5.0f, LabMagY);
         }
         private void TrackMagZ_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagZ.Value, LabMagZ);
+            Change_Val_Track(TrackMagZ.Value / 5.0f, LabMagZ);
         }
 
         private void TrackMagX_2_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagX_2.Value, LabMagX_2);
+            Change_Val_Track(TrackMagX_2.Value / 5.0f, LabMagX_2);
         }
         private void TrackMagY_2_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagY_2.Value, LabMagY_2);
+            Change_Val_Track(TrackMagY_2.Value / 5.0f, LabMagY_2);
         }
         private void TrackMagZ_2_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagZ_2.Value, LabMagZ_2);
+            Change_Val_Track(TrackMagZ_2.Value / 5.0f, LabMagZ_2);
         }
         // Track bar
 
@@ -194,6 +230,15 @@ namespace HustonRTEMS {
 
         }
         // Settings
+
+        private void UseInternet_CheckedChanged(object sender, EventArgs e) {
+            if(UseInternet.Checked)
+                UseCan.Checked = false;
+        }
+        private void UseCan_CheckedChanged(object sender, EventArgs e) {
+            if(UseCan.Checked)
+                UseInternet.Checked = false;
+        }
     }
 }
 

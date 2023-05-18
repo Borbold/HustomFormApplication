@@ -71,14 +71,17 @@
             tabPage2 = new TabPage();
             TabSettings = new TabControl();
             Izernet = new TabPage();
+            UseInternet = new RadioButton();
             PortTextBox = new TextBox();
             IPTextBox = new TextBox();
             label9 = new Label();
             label8 = new Label();
             CANPort = new TabPage();
+            UseCan = new RadioButton();
+            comboBox1 = new ComboBox();
+            label14 = new Label();
             SpeedTextBox = new TextBox();
             label10 = new Label();
-            tabPage3 = new TabPage();
             CheckBox = new CheckBox();
             SubTabControl.SuspendLayout();
             TabTemperature.SuspendLayout();
@@ -195,13 +198,14 @@
             // 
             TrackBarTemp.LargeChange = 1;
             TrackBarTemp.Location = new Point(330, 18);
-            TrackBarTemp.Maximum = 40;
-            TrackBarTemp.Minimum = 20;
+            TrackBarTemp.Maximum = 500;
+            TrackBarTemp.Minimum = 100;
             TrackBarTemp.Name = "TrackBarTemp";
             TrackBarTemp.Size = new Size(300, 45);
             TrackBarTemp.TabIndex = 8;
-            TrackBarTemp.Value = 20;
+            TrackBarTemp.Value = 100;
             TrackBarTemp.Scroll += TrackBarTemp_Scroll;
+            TrackBarTemp.ValueChanged += TrackBarTemp_ValueChanged;
             // 
             // label3
             // 
@@ -278,24 +282,24 @@
             // 
             TrackMagZ_2.LargeChange = 1;
             TrackMagZ_2.Location = new Point(361, 281);
-            TrackMagZ_2.Maximum = 40;
-            TrackMagZ_2.Minimum = 20;
+            TrackMagZ_2.Maximum = 500;
+            TrackMagZ_2.Minimum = 100;
             TrackMagZ_2.Name = "TrackMagZ_2";
             TrackMagZ_2.Size = new Size(300, 45);
             TrackMagZ_2.TabIndex = 34;
-            TrackMagZ_2.Value = 20;
+            TrackMagZ_2.Value = 100;
             TrackMagZ_2.Scroll += TrackMagZ_2_Scroll;
             // 
             // TrackMagY_2
             // 
             TrackMagY_2.LargeChange = 1;
             TrackMagY_2.Location = new Point(361, 230);
-            TrackMagY_2.Maximum = 40;
-            TrackMagY_2.Minimum = 20;
+            TrackMagY_2.Maximum = 500;
+            TrackMagY_2.Minimum = 100;
             TrackMagY_2.Name = "TrackMagY_2";
             TrackMagY_2.Size = new Size(300, 45);
             TrackMagY_2.TabIndex = 33;
-            TrackMagY_2.Value = 20;
+            TrackMagY_2.Value = 100;
             TrackMagY_2.Scroll += TrackMagY_2_Scroll;
             // 
             // label17
@@ -322,12 +326,12 @@
             // 
             TrackMagX_2.LargeChange = 1;
             TrackMagX_2.Location = new Point(361, 179);
-            TrackMagX_2.Maximum = 40;
-            TrackMagX_2.Minimum = 20;
+            TrackMagX_2.Maximum = 500;
+            TrackMagX_2.Minimum = 100;
             TrackMagX_2.Name = "TrackMagX_2";
             TrackMagX_2.Size = new Size(300, 45);
             TrackMagX_2.TabIndex = 30;
-            TrackMagX_2.Value = 20;
+            TrackMagX_2.Value = 100;
             TrackMagX_2.Scroll += TrackMagX_2_Scroll;
             // 
             // label19
@@ -384,24 +388,24 @@
             // 
             TrackMagZ.LargeChange = 1;
             TrackMagZ.Location = new Point(361, 120);
-            TrackMagZ.Maximum = 40;
-            TrackMagZ.Minimum = 20;
+            TrackMagZ.Maximum = 500;
+            TrackMagZ.Minimum = 100;
             TrackMagZ.Name = "TrackMagZ";
             TrackMagZ.Size = new Size(300, 45);
             TrackMagZ.TabIndex = 24;
-            TrackMagZ.Value = 20;
+            TrackMagZ.Value = 100;
             TrackMagZ.Scroll += TrackMagZ_Scroll;
             // 
             // TrackMagY
             // 
             TrackMagY.LargeChange = 1;
             TrackMagY.Location = new Point(361, 69);
-            TrackMagY.Maximum = 40;
-            TrackMagY.Minimum = 20;
+            TrackMagY.Maximum = 500;
+            TrackMagY.Minimum = 100;
             TrackMagY.Name = "TrackMagY";
             TrackMagY.Size = new Size(300, 45);
             TrackMagY.TabIndex = 23;
-            TrackMagY.Value = 20;
+            TrackMagY.Value = 100;
             TrackMagY.Scroll += TrackMagY_Scroll;
             // 
             // label11
@@ -428,12 +432,12 @@
             // 
             TrackMagX.LargeChange = 1;
             TrackMagX.Location = new Point(361, 18);
-            TrackMagX.Maximum = 40;
-            TrackMagX.Minimum = 20;
+            TrackMagX.Maximum = 500;
+            TrackMagX.Minimum = 100;
             TrackMagX.Name = "TrackMagX";
             TrackMagX.Size = new Size(300, 45);
             TrackMagX.TabIndex = 20;
-            TrackMagX.Value = 20;
+            TrackMagX.Value = 100;
             TrackMagX.Scroll += TrackMagX_Scroll;
             // 
             // label13
@@ -520,24 +524,24 @@
             // 
             TrackBarRotZ.LargeChange = 1;
             TrackBarRotZ.Location = new Point(200, 120);
-            TrackBarRotZ.Maximum = 40;
-            TrackBarRotZ.Minimum = 20;
+            TrackBarRotZ.Maximum = 500;
+            TrackBarRotZ.Minimum = 100;
             TrackBarRotZ.Name = "TrackBarRotZ";
             TrackBarRotZ.Size = new Size(300, 45);
             TrackBarRotZ.TabIndex = 15;
-            TrackBarRotZ.Value = 20;
+            TrackBarRotZ.Value = 100;
             TrackBarRotZ.Scroll += TrackBarRotZ_Scroll;
             // 
             // TrackBarRotY
             // 
             TrackBarRotY.LargeChange = 1;
             TrackBarRotY.Location = new Point(200, 69);
-            TrackBarRotY.Maximum = 40;
-            TrackBarRotY.Minimum = 20;
+            TrackBarRotY.Maximum = 500;
+            TrackBarRotY.Minimum = 100;
             TrackBarRotY.Name = "TrackBarRotY";
             TrackBarRotY.Size = new Size(300, 45);
             TrackBarRotY.TabIndex = 14;
-            TrackBarRotY.Value = 20;
+            TrackBarRotY.Value = 100;
             TrackBarRotY.Scroll += TrackBarRotY_Scroll;
             // 
             // label7
@@ -564,12 +568,12 @@
             // 
             TrackBarRotX.LargeChange = 1;
             TrackBarRotX.Location = new Point(200, 18);
-            TrackBarRotX.Maximum = 40;
-            TrackBarRotX.Minimum = 20;
+            TrackBarRotX.Maximum = 500;
+            TrackBarRotX.Minimum = 100;
             TrackBarRotX.Name = "TrackBarRotX";
             TrackBarRotX.Size = new Size(300, 45);
             TrackBarRotX.TabIndex = 11;
-            TrackBarRotX.Value = 20;
+            TrackBarRotX.Value = 100;
             TrackBarRotX.Scroll += TrackBarRotX_Scroll;
             // 
             // label4
@@ -596,7 +600,6 @@
             // 
             MainTabControll.Controls.Add(tabPage1);
             MainTabControll.Controls.Add(tabPage2);
-            MainTabControll.Controls.Add(tabPage3);
             MainTabControll.Location = new Point(12, 12);
             MainTabControll.Name = "MainTabControll";
             MainTabControll.SelectedIndex = 0;
@@ -637,6 +640,7 @@
             // 
             // Izernet
             // 
+            Izernet.Controls.Add(UseInternet);
             Izernet.Controls.Add(PortTextBox);
             Izernet.Controls.Add(IPTextBox);
             Izernet.Controls.Add(label9);
@@ -649,6 +653,21 @@
             Izernet.TabIndex = 0;
             Izernet.Text = "Интернет";
             Izernet.UseVisualStyleBackColor = true;
+            // 
+            // UseInternet
+            // 
+            UseInternet.AutoSize = true;
+            UseInternet.CheckAlign = ContentAlignment.MiddleRight;
+            UseInternet.Checked = true;
+            UseInternet.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            UseInternet.Location = new Point(750, 3);
+            UseInternet.Name = "UseInternet";
+            UseInternet.Size = new Size(120, 36);
+            UseInternet.TabIndex = 8;
+            UseInternet.TabStop = true;
+            UseInternet.Text = "Use that";
+            UseInternet.UseVisualStyleBackColor = true;
+            UseInternet.CheckedChanged += UseInternet_CheckedChanged;
             // 
             // PortTextBox
             // 
@@ -686,6 +705,9 @@
             // 
             // CANPort
             // 
+            CANPort.Controls.Add(UseCan);
+            CANPort.Controls.Add(comboBox1);
+            CANPort.Controls.Add(label14);
             CANPort.Controls.Add(SpeedTextBox);
             CANPort.Controls.Add(label10);
             CANPort.Location = new Point(4, 24);
@@ -693,8 +715,42 @@
             CANPort.Padding = new Padding(3);
             CANPort.Size = new Size(873, 405);
             CANPort.TabIndex = 1;
-            CANPort.Text = "КАН";
+            CANPort.Text = "CAN";
             CANPort.UseVisualStyleBackColor = true;
+            // 
+            // UseCan
+            // 
+            UseCan.AutoSize = true;
+            UseCan.CheckAlign = ContentAlignment.MiddleRight;
+            UseCan.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            UseCan.Location = new Point(750, 3);
+            UseCan.Name = "UseCan";
+            UseCan.Size = new Size(120, 36);
+            UseCan.TabIndex = 7;
+            UseCan.TabStop = true;
+            UseCan.Text = "Use that";
+            UseCan.UseVisualStyleBackColor = true;
+            UseCan.CheckedChanged += UseCan_CheckedChanged;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Com1", "Com2", "Com3" });
+            comboBox1.Location = new Point(65, 34);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(121, 23);
+            comboBox1.TabIndex = 5;
+            comboBox1.Text = "Com1";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Location = new Point(18, 36);
+            label14.Name = "label14";
+            label14.Size = new Size(38, 21);
+            label14.TabIndex = 4;
+            label14.Text = "Port";
             // 
             // SpeedTextBox
             // 
@@ -713,19 +769,11 @@
             label10.TabIndex = 0;
             label10.Text = "Speed";
             // 
-            // tabPage3
-            // 
-            tabPage3.Location = new Point(4, 24);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(893, 445);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "Датчики полезной нагрузки";
-            tabPage3.UseVisualStyleBackColor = true;
-            // 
             // CheckBox
             // 
             CheckBox.AutoSize = true;
+            CheckBox.Checked = true;
+            CheckBox.CheckState = CheckState.Checked;
             CheckBox.Location = new Point(12, 564);
             CheckBox.Name = "CheckBox";
             CheckBox.Size = new Size(61, 19);
@@ -832,7 +880,10 @@
         private TrackBar TrackMagX_2;
         private Label label19;
         private Label label20;
-        private TabPage tabPage3;
         private CheckBox CheckBox;
+        private ComboBox comboBox1;
+        private Label label14;
+        private RadioButton UseCan;
+        private RadioButton UseInternet;
     }
 }
