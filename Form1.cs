@@ -1,13 +1,10 @@
 using System.Net;
 using System.Net.Sockets;
-using System.Linq;
-using System.Security.Policy;
-using System.Runtime.InteropServices;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
-        readonly GeneralFunctional GF = new();
-        readonly DefaultTransmission DT = new();
+        private readonly GeneralFunctional GF = new();
+        private readonly DefaultTransmission DT = new();
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x1, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
@@ -81,12 +78,14 @@ namespace HustonRTEMS {
         // Settings
 
         private void UseInternet_CheckedChanged(object sender, EventArgs e) {
-            if(UseInternet.Checked)
+            if(UseInternet.Checked) {
                 UseCan.Checked = false;
+            }
         }
         private void UseCan_CheckedChanged(object sender, EventArgs e) {
-            if(UseCan.Checked)
+            if(UseCan.Checked) {
                 UseInternet.Checked = false;
+            }
         }
 
         private Socket serverListener;
@@ -106,7 +105,7 @@ namespace HustonRTEMS {
                 try {
                     serverListener.Connect(ipep);
                     LogBox.Text = $"Socet open";
-                    serverListener.Send(hardBuf);
+                    _ = serverListener.Send(hardBuf);
                 }
                 catch(Exception ex) {
                     LogBox.Text = ex.Message;
@@ -165,8 +164,9 @@ namespace HustonRTEMS {
             serverListener.Close();
         }
         private void CloseSocketServer_Click(object sender, EventArgs e) {
-            if(serverListener != null && serverListener.Connected)
+            if(serverListener != null && serverListener.Connected) {
                 serverListener.Disconnect(true);
+            }
         }
 
         // Send data

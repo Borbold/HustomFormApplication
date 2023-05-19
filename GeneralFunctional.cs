@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HustonRTEMS {
     [StructLayout(LayoutKind.Explicit)]
@@ -55,7 +50,7 @@ namespace HustonRTEMS {
                 hardBufWrite[27] = fl.byte2;
                 hardBufWrite[28] = fl.byte3;
                 hardBufWrite[29] = fl.byte4;
-                await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
+                _ = await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
             } else {
                 logBox.Text = "Socet don't open!";
             }
