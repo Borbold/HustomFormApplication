@@ -23,7 +23,7 @@
         ///  the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            TestBox = new TextBox();
+            LogBox = new TextBox();
             ListenPort = new Button();
             TemperatureLable = new Label();
             SubTabControl = new TabControl();
@@ -54,10 +54,10 @@
             LabMagY = new Label();
             label19 = new Label();
             label20 = new Label();
-            button1 = new Button();
+            SendMagnetometer = new Button();
             label1 = new Label();
             TabAcselerometr = new TabPage();
-            button2 = new Button();
+            SendAcselerometer = new Button();
             LabRotY = new Label();
             LabRotZ = new Label();
             LabRotX = new Label();
@@ -109,16 +109,16 @@
             SensorReadings.SuspendLayout();
             SuspendLayout();
             // 
-            // TestBox
+            // LogBox
             // 
-            TestBox.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            TestBox.Location = new Point(187, 491);
-            TestBox.Multiline = true;
-            TestBox.Name = "TestBox";
-            TestBox.ReadOnly = true;
-            TestBox.ScrollBars = ScrollBars.Vertical;
-            TestBox.Size = new Size(726, 151);
-            TestBox.TabIndex = 1;
+            LogBox.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LogBox.Location = new Point(187, 491);
+            LogBox.Multiline = true;
+            LogBox.Name = "LogBox";
+            LogBox.ReadOnly = true;
+            LogBox.ScrollBars = ScrollBars.Vertical;
+            LogBox.Size = new Size(726, 151);
+            LogBox.TabIndex = 1;
             // 
             // ListenPort
             // 
@@ -215,7 +215,7 @@
             // TabMagnetometer
             // 
             TabMagnetometer.Controls.Add(panel1);
-            TabMagnetometer.Controls.Add(button1);
+            TabMagnetometer.Controls.Add(SendMagnetometer);
             TabMagnetometer.Controls.Add(label1);
             TabMagnetometer.Location = new Point(4, 26);
             TabMagnetometer.Name = "TabMagnetometer";
@@ -465,15 +465,16 @@
             label20.TabIndex = 28;
             label20.Text = "Магнитное поле 2";
             // 
-            // button1
+            // SendMagnetometer
             // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(6, 343);
-            button1.Name = "button1";
-            button1.Size = new Size(156, 57);
-            button1.TabIndex = 38;
-            button1.Text = "Отправить данные магнитометра";
-            button1.UseVisualStyleBackColor = true;
+            SendMagnetometer.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendMagnetometer.Location = new Point(6, 343);
+            SendMagnetometer.Name = "SendMagnetometer";
+            SendMagnetometer.Size = new Size(156, 57);
+            SendMagnetometer.TabIndex = 38;
+            SendMagnetometer.Text = "Отправить данные магнитометра";
+            SendMagnetometer.UseVisualStyleBackColor = true;
+            SendMagnetometer.Click += SendMagnetometer_Click;
             // 
             // label1
             // 
@@ -487,7 +488,7 @@
             // 
             // TabAcselerometr
             // 
-            TabAcselerometr.Controls.Add(button2);
+            TabAcselerometr.Controls.Add(SendAcselerometer);
             TabAcselerometr.Controls.Add(LabRotY);
             TabAcselerometr.Controls.Add(LabRotZ);
             TabAcselerometr.Controls.Add(LabRotX);
@@ -506,15 +507,16 @@
             TabAcselerometr.Text = "Acselerometer";
             TabAcselerometr.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // SendAcselerometer
             // 
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button2.Location = new Point(6, 343);
-            button2.Name = "button2";
-            button2.Size = new Size(156, 57);
-            button2.TabIndex = 19;
-            button2.Text = "Отправить данные акселерометра";
-            button2.UseVisualStyleBackColor = true;
+            SendAcselerometer.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendAcselerometer.Location = new Point(6, 343);
+            SendAcselerometer.Name = "SendAcselerometer";
+            SendAcselerometer.Size = new Size(156, 57);
+            SendAcselerometer.TabIndex = 19;
+            SendAcselerometer.Text = "Отправить данные акселерометра";
+            SendAcselerometer.UseVisualStyleBackColor = true;
+            SendAcselerometer.Click += SendAcselerometer_Click;
             // 
             // LabRotY
             // 
@@ -833,7 +835,7 @@
             ClientSize = new Size(925, 654);
             Controls.Add(MainTabControll);
             Controls.Add(ListenPort);
-            Controls.Add(TestBox);
+            Controls.Add(LogBox);
             Name = "Form1";
             Text = "TCP API";
             SubTabControl.ResumeLayout(false);
@@ -868,7 +870,7 @@
         }
 
         #endregion
-        private TextBox TestBox;
+        private TextBox LogBox;
         private Button ListenPort;
         private Label TemperatureLable;
         private TabControl SubTabControl;
@@ -928,8 +930,8 @@
         private RadioButton UseInternet;
         private Button OpenSocetServer;
         private Button SendTemperature;
-        private Button button1;
-        private Button button2;
+        private Button SendMagnetometer;
+        private Button SendAcselerometer;
         private Panel panel1;
     }
 }

@@ -30,7 +30,7 @@ namespace HustonRTEMS {
         }
 
         private void ClearLog_Click(object sender, EventArgs e) {
-            TestBox.Text = "";
+            LogBox.Text = "";
         }
 
         // Track bar
@@ -106,11 +106,11 @@ namespace HustonRTEMS {
             if(CheckBox.Checked && !serverListener.Connected) {
                 try {
                     serverListener.Connect(ipep);
-                    TestBox.Text = $"Socet open";
+                    LogBox.Text = $"Socet open";
                     serverListener.Send(hardBuf);
                 }
                 catch(Exception ex) {
-                    TestBox.Text = ex.Message;
+                    LogBox.Text = ex.Message;
                 }
 
                 while(serverListener.Connected) {
@@ -118,42 +118,42 @@ namespace HustonRTEMS {
                         message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
                     }
                     catch(Exception ex) {
-                        TestBox.Text = ex.Message;
+                        LogBox.Text = ex.Message;
                     }
 
                     if(message_size > 0) {
-                        TestBox.Text +=
+                        LogBox.Text +=
                             $"Socket server response message: \r\n";
                         while(raw_buffer_size < message_size) {
                             if(raw_buffer_size >= 0) {
-                                TestBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                                LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
                             }
                             raw_buffer_size++;
                         }
                         //break;
                         message_size = 0;
-                        TestBox.Text += $"\r\nWait new message!\r\n";
+                        LogBox.Text += $"\r\nWait new message!\r\n";
                     }
                     raw_buffer_size = 0;
                 }
             } else if(!CheckBox.Checked) {
                 serverListener.Bind(ipep);
                 serverListener.Listen(200);
-                TestBox.Text = "Waiting for a client...";
+                LogBox.Text = "Waiting for a client...";
 
                 client = await serverListener.AcceptAsync();
                 IPEndPoint? clientep = client.RemoteEndPoint as IPEndPoint;
-                TestBox.Text = $"Connected with {clientep.Address} at port {clientep.Port}";
+                LogBox.Text = $"Connected with {clientep.Address} at port {clientep.Port}";
                 // Receive message.
                 while(true) {
                     message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
 
                     if(message_size > 0) {
-                        TestBox.Text =
+                        LogBox.Text =
                             $"RTEMS message: ";
                         while(raw_buffer_size < message_size) {
                             if(raw_buffer_size >= 0) {
-                                TestBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                                LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
                             }
                             raw_buffer_size++;
                         }
@@ -169,10 +169,18 @@ namespace HustonRTEMS {
 
         }
 
+        // Send data
         private void SendTemperature_Click(object sender, EventArgs e) {
             GF.SendMessageInSocket(serverListener, fl, it,
-                DT, hardBufWrite, (float)Convert.ToDouble(LabTemp.Text), TestBox);
+                DT, hardBufWrite, (float)Convert.ToDouble(LabTemp.Text), LogBox);
         }
+        private void SendMagnetometer_Click(object sender, EventArgs e) {
+
+        }
+        private void SendAcselerometer_Click(object sender, EventArgs e) {
+
+        }
+        // Send data
     }
 }
 
