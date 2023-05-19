@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
+        readonly GeneralFunctional GF = new();
         readonly DefaultTransmission DT = new();
         private readonly FunctionalChecker FC = new();
         private readonly byte[] hardBuf = {
@@ -21,32 +22,8 @@ namespace HustonRTEMS {
         private byte[] buffer;
         private readonly int kissBuff = 256;
 
-        [StructLayout(LayoutKind.Explicit)]
-        private struct fl_un {
-            [FieldOffset(0)]
-            public byte byte1;
-            [FieldOffset(1)]
-            public byte byte2;
-            [FieldOffset(2)]
-            public byte byte3;
-            [FieldOffset(3)]
-            public byte byte4;
-
-            [FieldOffset(0)]
-            public float fl1;
-        }
-        private fl_un fl;
-        [StructLayout(LayoutKind.Explicit)]
-        private struct it_un {
-            [FieldOffset(0)]
-            public byte byte1;
-            [FieldOffset(1)]
-            public byte byte2;
-
-            [FieldOffset(0)]
-            public int it1;
-        }
-        private it_un it;
+        public fl_un fl;
+        public it_un it;
 
         public Form1() {
             InitializeComponent();
@@ -192,20 +169,9 @@ namespace HustonRTEMS {
 
         }
 
-        private async void SendTemperature_Click(object sender, EventArgs e) {
-            if(serverListener.Connected) {
-                it.it1 = DT.temperatureTransmission.TAddres.addres;
-                hardBufWrite[20] = it.byte1;
-                hardBufWrite[21] = it.byte2;
-                fl.fl1 = (float)Convert.ToDouble(LabTemp.Text);
-                hardBufWrite[26] = fl.byte1;
-                hardBufWrite[27] = fl.byte2;
-                hardBufWrite[28] = fl.byte3;
-                hardBufWrite[29] = fl.byte4;
-                await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
-            } else {
-                TestBox.Text = "Open socet!!!";
-            }
+        private void SendTemperature_Click(object sender, EventArgs e) {
+            GF.SendMessageInSocket(serverListener, fl, it,
+                DT, hardBufWrite, (float)Convert.ToDouble(LabTemp.Text), TestBox);
         }
     }
 }
