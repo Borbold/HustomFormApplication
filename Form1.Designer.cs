@@ -71,6 +71,8 @@
             tabPage2 = new TabPage();
             TabSettings = new TabControl();
             Izernet = new TabPage();
+            CheckBox = new CheckBox();
+            OpenSocetServer = new Button();
             UseInternet = new RadioButton();
             PortTextBox = new TextBox();
             IPTextBox = new TextBox();
@@ -82,7 +84,7 @@
             label14 = new Label();
             SpeedTextBox = new TextBox();
             label10 = new Label();
-            CheckBox = new CheckBox();
+            SendTemperature = new Button();
             SubTabControl.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -108,11 +110,11 @@
             // OpenSocet
             // 
             OpenSocet.Font = new Font("Times New Roman", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            OpenSocet.Location = new Point(12, 590);
+            OpenSocet.Location = new Point(12, 568);
             OpenSocet.Name = "OpenSocet";
-            OpenSocet.Size = new Size(191, 52);
+            OpenSocet.Size = new Size(222, 74);
             OpenSocet.TabIndex = 0;
-            OpenSocet.Text = "Отправить данные";
+            OpenSocet.Text = "Отправить данные по открытому сокету";
             OpenSocet.UseVisualStyleBackColor = true;
             OpenSocet.Click += OpenSocet_Click;
             // 
@@ -172,6 +174,7 @@
             // 
             // TabTemperature
             // 
+            TabTemperature.Controls.Add(SendTemperature);
             TabTemperature.Controls.Add(LabTemp);
             TabTemperature.Controls.Add(TrackBarTemp);
             TabTemperature.Controls.Add(label3);
@@ -640,6 +643,8 @@
             // 
             // Izernet
             // 
+            Izernet.Controls.Add(CheckBox);
+            Izernet.Controls.Add(OpenSocetServer);
             Izernet.Controls.Add(UseInternet);
             Izernet.Controls.Add(PortTextBox);
             Izernet.Controls.Add(IPTextBox);
@@ -653,6 +658,30 @@
             Izernet.TabIndex = 0;
             Izernet.Text = "Интернет";
             Izernet.UseVisualStyleBackColor = true;
+            // 
+            // CheckBox
+            // 
+            CheckBox.AutoSize = true;
+            CheckBox.Checked = true;
+            CheckBox.CheckState = CheckState.Checked;
+            CheckBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CheckBox.Location = new Point(3, 323);
+            CheckBox.Name = "CheckBox";
+            CheckBox.Size = new Size(77, 25);
+            CheckBox.TabIndex = 14;
+            CheckBox.Text = "RTEMS";
+            CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // OpenSocetServer
+            // 
+            OpenSocetServer.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            OpenSocetServer.Location = new Point(3, 354);
+            OpenSocetServer.Name = "OpenSocetServer";
+            OpenSocetServer.Size = new Size(346, 45);
+            OpenSocetServer.TabIndex = 9;
+            OpenSocetServer.Text = "Открыть сокет на прослушку";
+            OpenSocetServer.UseVisualStyleBackColor = true;
+            OpenSocetServer.Click += OpenSocetServer_Click;
             // 
             // UseInternet
             // 
@@ -671,23 +700,27 @@
             // 
             // PortTextBox
             // 
-            PortTextBox.Location = new Point(53, 34);
+            PortTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            PortTextBox.Location = new Point(53, 40);
             PortTextBox.Name = "PortTextBox";
-            PortTextBox.Size = new Size(100, 23);
+            PortTextBox.Size = new Size(100, 29);
             PortTextBox.TabIndex = 3;
+            PortTextBox.Text = "5555";
             // 
             // IPTextBox
             // 
+            IPTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IPTextBox.Location = new Point(53, 5);
             IPTextBox.Name = "IPTextBox";
-            IPTextBox.Size = new Size(100, 23);
+            IPTextBox.Size = new Size(100, 29);
             IPTextBox.TabIndex = 2;
+            IPTextBox.Text = "127.0.0.1";
             // 
             // label9
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(6, 36);
+            label9.Location = new Point(3, 43);
             label9.Name = "label9";
             label9.Size = new Size(38, 21);
             label9.TabIndex = 1;
@@ -697,7 +730,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(6, 3);
+            label8.Location = new Point(6, 8);
             label8.Name = "label8";
             label8.Size = new Size(23, 21);
             label8.TabIndex = 0;
@@ -769,24 +802,22 @@
             label10.TabIndex = 0;
             label10.Text = "Speed";
             // 
-            // CheckBox
+            // SendTemperature
             // 
-            CheckBox.AutoSize = true;
-            CheckBox.Checked = true;
-            CheckBox.CheckState = CheckState.Checked;
-            CheckBox.Location = new Point(12, 564);
-            CheckBox.Name = "CheckBox";
-            CheckBox.Size = new Size(61, 19);
-            CheckBox.TabIndex = 14;
-            CheckBox.Text = "RTEMS";
-            CheckBox.UseVisualStyleBackColor = true;
+            SendTemperature.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendTemperature.Location = new Point(6, 343);
+            SendTemperature.Name = "SendTemperature";
+            SendTemperature.Size = new Size(156, 57);
+            SendTemperature.TabIndex = 10;
+            SendTemperature.Text = "Отправить данные температуры";
+            SendTemperature.UseVisualStyleBackColor = true;
+            SendTemperature.Click += SendTemperature_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(925, 654);
-            Controls.Add(CheckBox);
             Controls.Add(MainTabControll);
             Controls.Add(ListenPort);
             Controls.Add(OpenServer);
@@ -885,5 +916,7 @@
         private Label label14;
         private RadioButton UseCan;
         private RadioButton UseInternet;
+        private Button OpenSocetServer;
+        private Button SendTemperature;
     }
 }

@@ -24,13 +24,10 @@ namespace HustonRTEMS {
         private struct fl_un {
             [FieldOffset(0)]
             public byte byte1;
-
             [FieldOffset(1)]
             public byte byte2;
-
             [FieldOffset(2)]
             public byte byte3;
-
             [FieldOffset(3)]
             public byte byte4;
 
@@ -38,13 +35,30 @@ namespace HustonRTEMS {
             public float fl1;
         }
         private fl_un fl;
+        [StructLayout(LayoutKind.Explicit)]
+        private struct it_un {
+            [FieldOffset(0)]
+            public byte byte1;
+            [FieldOffset(1)]
+            public byte byte2;
+
+            [FieldOffset(0)]
+            public int it1;
+        }
+        private it_un it;
 
         public Form1() {
             InitializeComponent();
         }
 
         private async void OpenSocet_Click(object sender, EventArgs e) {
-            int unican_size = 32;
+            if(serverListener.Connected) {
+                await serverListener.SendAsync(hardBuf, SocketFlags.None);
+            } else {
+                TestBox.Text = "Open socet!!!";
+            }
+
+            /*int unican_size = 32;
             int send_size = 18 + 1 + 8 + unican_size;
             int total_sended = headerLength + 1;
             byte[] buf = new byte[send_size];
@@ -70,7 +84,7 @@ namespace HustonRTEMS {
                     buf[bufPos] = (byte)(unican_size & 0xFF);
                 } else if(index == 6) {
                     buf[bufPos] = (byte)(unican_size >> 8);
-                }/**/ else if(index == 7) {
+                } else if(index == 7) {
                     buf[bufPos] = 0x1;
                 } else if(index == 8) {
                     buf[bufPos] = 0x2;
@@ -101,79 +115,10 @@ namespace HustonRTEMS {
             }
             buf[send_size - 1] = 192;
 
-            _ = await client.SendAsync(buf, SocketFlags.None);
+            _ = await client.SendAsync(buf, SocketFlags.None);*/
         }
 
-        private async void OpenServer_Click(object sender, EventArgs e) {
-            IPEndPoint ipep = new(IPAddress.Parse("127.0.0.1"), 5555);
-            Socket listener = new(
-                AddressFamily.InterNetwork,
-                SocketType.Stream,
-                ProtocolType.Tcp);
-
-            int KISSBUFFER_SIZE = 256;
-            buffer = new byte[KISSBUFFER_SIZE];
-            int raw_buffer_size = 0;
-            if(CheckBox.Checked) {
-                TestBox.Text = $"Wait connect";
-                listener.Connect(ipep);
-                TestBox.Text = $"Connected";
-                _ = await listener.SendAsync(hardBuf, SocketFlags.None);
-                TestBox.Text = $"Write";
-
-                TestBox.Text = "";
-                while(true) {
-                    message_size = await listener.ReceiveAsync(buffer, SocketFlags.None);
-
-                    if(message_size > 0) {
-                        TestBox.Text +=
-                            $"Socket server response message: \r\n";
-                        while(raw_buffer_size < message_size) {
-                            if(raw_buffer_size >= 0) {
-                                TestBox.Text += $"{buffer[raw_buffer_size]:X} ";
-                            }
-                            raw_buffer_size++;
-                        }
-                        //break;
-                        message_size = 0;
-                        TestBox.Text += $"\r\nWait new message!\r\n";
-                        fl.fl1 = (float)Convert.ToDouble(LabTemp.Text);
-                        hardBufWrite[26] = fl.byte1;
-                        hardBufWrite[27] = fl.byte2;
-                        hardBufWrite[28] = fl.byte3;
-                        hardBufWrite[29] = fl.byte4;
-                        _ = await listener.SendAsync(hardBufWrite, SocketFlags.None);
-                    }
-                    raw_buffer_size = 0;
-                }
-            } else if(!CheckBox.Checked) {
-                listener.Bind(ipep);
-                listener.Listen(200);
-                TestBox.Text = "Waiting for a client...";
-
-                client = await listener.AcceptAsync();
-                IPEndPoint? clientep = client.RemoteEndPoint as IPEndPoint;
-                TestBox.Text = $"Connected with {clientep.Address} at port {clientep.Port}";
-                // Receive message.
-                while(true) {
-                    message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
-
-                    if(message_size > 0) {
-                        TestBox.Text =
-                            $"RTEMS message: ";
-                        while(raw_buffer_size < message_size) {
-                            if(raw_buffer_size >= 0) {
-                                TestBox.Text += $"{buffer[raw_buffer_size]:X} ";
-                            }
-                            raw_buffer_size++;
-                        }
-                        break;
-                    }
-                    raw_buffer_size = 0;
-                }
-            }
-
-            listener.Close();
+        private void OpenServer_Click(object sender, EventArgs e) {
         }
 
         private void ListenPort_Click(object sender, EventArgs e) {
@@ -238,6 +183,100 @@ namespace HustonRTEMS {
         private void UseCan_CheckedChanged(object sender, EventArgs e) {
             if(UseCan.Checked)
                 UseInternet.Checked = false;
+        }
+
+        private Socket serverListener;
+        private async void OpenSocetServer_Click(object sender, EventArgs e) {
+            IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
+                Convert.ToInt16(PortTextBox.Text));
+            serverListener = new(
+                AddressFamily.InterNetwork,
+                SocketType.Stream,
+                ProtocolType.Tcp
+            );
+
+            int KISSBUFFER_SIZE = 256;
+            buffer = new byte[KISSBUFFER_SIZE];
+            int raw_buffer_size = 0;
+            if(CheckBox.Checked && !serverListener.Connected) {
+                try {
+                    serverListener.Connect(ipep);
+                    TestBox.Text = $"Socet open";
+                    serverListener.Send(hardBuf);
+                }
+                catch(Exception ex) {
+                    TestBox.Text = ex.Message;
+                }
+
+                while(serverListener.Connected) {
+                    try {
+                        message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
+                    }catch(Exception ex) {
+                        TestBox.Text = ex.Message;
+                    }
+
+                    if(message_size > 0) {
+                        TestBox.Text +=
+                            $"Socket server response message: \r\n";
+                        while(raw_buffer_size < message_size) {
+                            if(raw_buffer_size >= 0) {
+                                TestBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                            }
+                            raw_buffer_size++;
+                        }
+                        //break;
+                        message_size = 0;
+                        TestBox.Text += $"\r\nWait new message!\r\n";
+                    }
+                    raw_buffer_size = 0;
+                }
+            } else if(!CheckBox.Checked) {
+                serverListener.Bind(ipep);
+                serverListener.Listen(200);
+                TestBox.Text = "Waiting for a client...";
+
+                client = await serverListener.AcceptAsync();
+                IPEndPoint? clientep = client.RemoteEndPoint as IPEndPoint;
+                TestBox.Text = $"Connected with {clientep.Address} at port {clientep.Port}";
+                // Receive message.
+                while(true) {
+                    message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
+
+                    if(message_size > 0) {
+                        TestBox.Text =
+                            $"RTEMS message: ";
+                        while(raw_buffer_size < message_size) {
+                            if(raw_buffer_size >= 0) {
+                                TestBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                            }
+                            raw_buffer_size++;
+                        }
+                        break;
+                    }
+                    raw_buffer_size = 0;
+                }
+            }
+
+            serverListener.Close();
+        }
+        private void SendOpenSocetServer_Click(object sender, EventArgs e) {
+
+        }
+
+        private async void SendTemperature_Click(object sender, EventArgs e) {
+            if(serverListener.Connected) {
+                it.it1 = 9;
+                hardBufWrite[20] = it.byte1;
+                hardBufWrite[21] = it.byte2;
+                fl.fl1 = (float)Convert.ToDouble(LabTemp.Text);
+                hardBufWrite[26] = fl.byte1;
+                hardBufWrite[27] = fl.byte2;
+                hardBufWrite[28] = fl.byte3;
+                hardBufWrite[29] = fl.byte4;
+                await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
+            } else {
+                TestBox.Text = "Open socet!!!";
+            }
         }
     }
 }
