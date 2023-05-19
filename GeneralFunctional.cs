@@ -46,7 +46,7 @@ namespace HustonRTEMS {
 
         public async void SendMessageInSocket(Socket serverListener, fl_un fl, it_un it,
             DefaultTransmission DT, byte[] hardBufWrite, float value, TextBox logBox) {
-            if(serverListener.Connected) {
+            if(serverListener != null && serverListener.Connected) {
                 it.it1 = DT.temperatureTransmission.TAddres.addres;
                 hardBufWrite[20] = it.byte1;
                 hardBufWrite[21] = it.byte2;
@@ -57,7 +57,7 @@ namespace HustonRTEMS {
                 hardBufWrite[29] = fl.byte4;
                 await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
             } else {
-                logBox.Text = "Open socet!!!";
+                logBox.Text = "Socet don't open!";
             }
         }
     }

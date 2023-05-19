@@ -73,7 +73,7 @@
             TabSettings = new TabControl();
             Izernet = new TabPage();
             CheckBox = new CheckBox();
-            OpenSocetServer = new Button();
+            OpenSocketServer = new Button();
             UseInternet = new RadioButton();
             PortTextBox = new TextBox();
             IPTextBox = new TextBox();
@@ -86,6 +86,7 @@
             SpeedTextBox = new TextBox();
             label10 = new Label();
             SensorReadings = new TabPage();
+            CloseSocketServer = new Button();
             SubTabControl.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -657,8 +658,9 @@
             // 
             // Izernet
             // 
+            Izernet.Controls.Add(CloseSocketServer);
             Izernet.Controls.Add(CheckBox);
-            Izernet.Controls.Add(OpenSocetServer);
+            Izernet.Controls.Add(OpenSocketServer);
             Izernet.Controls.Add(UseInternet);
             Izernet.Controls.Add(PortTextBox);
             Izernet.Controls.Add(IPTextBox);
@@ -686,16 +688,16 @@
             CheckBox.Text = "RTEMS";
             CheckBox.UseVisualStyleBackColor = true;
             // 
-            // OpenSocetServer
+            // OpenSocketServer
             // 
-            OpenSocetServer.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            OpenSocetServer.Location = new Point(3, 354);
-            OpenSocetServer.Name = "OpenSocetServer";
-            OpenSocetServer.Size = new Size(346, 45);
-            OpenSocetServer.TabIndex = 9;
-            OpenSocetServer.Text = "Открыть сокет на прослушку";
-            OpenSocetServer.UseVisualStyleBackColor = true;
-            OpenSocetServer.Click += OpenSocetServer_Click;
+            OpenSocketServer.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            OpenSocketServer.Location = new Point(3, 354);
+            OpenSocketServer.Name = "OpenSocketServer";
+            OpenSocketServer.Size = new Size(346, 45);
+            OpenSocketServer.TabIndex = 9;
+            OpenSocketServer.Text = "Открыть сокет на прослушку";
+            OpenSocketServer.UseVisualStyleBackColor = true;
+            OpenSocketServer.Click += OpenSocetServer_Click;
             // 
             // UseInternet
             // 
@@ -828,6 +830,17 @@
             SensorReadings.Text = "Показания датчиков";
             SensorReadings.UseVisualStyleBackColor = true;
             // 
+            // CloseSocketServer
+            // 
+            CloseSocketServer.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            CloseSocketServer.Location = new Point(355, 354);
+            CloseSocketServer.Name = "CloseSocketServer";
+            CloseSocketServer.Size = new Size(273, 45);
+            CloseSocketServer.TabIndex = 15;
+            CloseSocketServer.Text = "Закрыть подключение";
+            CloseSocketServer.UseVisualStyleBackColor = true;
+            CloseSocketServer.Click += CloseSocketServer_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -928,10 +941,11 @@
         private Label label14;
         private RadioButton UseCan;
         private RadioButton UseInternet;
-        private Button OpenSocetServer;
+        private Button OpenSocketServer;
         private Button SendTemperature;
         private Button SendMagnetometer;
         private Button SendAcselerometer;
         private Panel panel1;
+        private Button CloseSocketServer;
     }
 }

@@ -8,7 +8,6 @@ namespace HustonRTEMS {
     public partial class Form1: Form {
         readonly GeneralFunctional GF = new();
         readonly DefaultTransmission DT = new();
-        private readonly FunctionalChecker FC = new();
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x1, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
@@ -165,8 +164,9 @@ namespace HustonRTEMS {
 
             serverListener.Close();
         }
-        private void SendOpenSocetServer_Click(object sender, EventArgs e) {
-
+        private void CloseSocketServer_Click(object sender, EventArgs e) {
+            if(serverListener != null && serverListener.Connected)
+                serverListener.Disconnect(true);
         }
 
         // Send data
@@ -181,51 +181,5 @@ namespace HustonRTEMS {
 
         }
         // Send data
-    }
-}
-
-namespace HustonRTEMS {
-    public class FunctionalChecker {
-        public bool CheckDevice(int headerLength, byte[] hardBuf, TextBox TestBox) {
-            int checkV = 0;
-            for(int i = headerLength, j = 0; i < hardBuf.Length; i++, j++) {
-                switch(j) {
-                    case 0:
-                        checkV = hardBuf[i];
-                        break;
-                    case 1:
-                        checkV |= hardBuf[i] << 8;
-                        TestBox.Text += $"id: {checkV:X} \r\n";
-                        if(checkV != 0xB0) {
-                            return false;
-                        }
-
-                        break;
-                    case 2:
-                        checkV = hardBuf[i];
-                        break;
-                    case 3:
-                        checkV |= hardBuf[i] << 8;
-                        TestBox.Text += $"Base station address: {checkV:X} \r\n";
-                        if(checkV != 0x1) {
-                            return false;
-                        }
-
-                        break;
-                    case 4:
-                        checkV = hardBuf[i];
-                        break;
-                    case 5:
-                        checkV |= hardBuf[i] << 8;
-                        TestBox.Text += $"Device address: {checkV:X} \r\n";
-                        if(checkV != 0x1C) {
-                            return false;
-                        }
-
-                        break;
-                }
-            }
-            return true;
-        }
     }
 }
