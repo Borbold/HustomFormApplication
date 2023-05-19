@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
+        readonly DefaultTransmission DT = new();
         private readonly FunctionalChecker FC = new();
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
@@ -51,81 +52,8 @@ namespace HustonRTEMS {
             InitializeComponent();
         }
 
-        private async void OpenSocet_Click(object sender, EventArgs e) {
-            if(serverListener.Connected) {
-                await serverListener.SendAsync(hardBuf, SocketFlags.None);
-            } else {
-                TestBox.Text = "Open socet!!!";
-            }
-
-            /*int unican_size = 32;
-            int send_size = 18 + 1 + 8 + unican_size;
-            int total_sended = headerLength + 1;
-            byte[] buf = new byte[send_size];
-
-            for(int i = 0; i <= headerLength; i++) {
-                buf[i] = hardBuf[i];
-            }
-
-            int bufPos = headerLength + 1;
-            int index = 0;
-            while(total_sended < send_size) {
-                if(index == 0) {
-                    buf[bufPos] = 0x1B0 >> 8;
-                } else if(index == 1) {
-                    buf[bufPos] = 0x1C & 0xFF;
-                } else if(index == 2) {
-                    buf[bufPos] = 0x1C >> 8;
-                } else if(index == 3) {
-                    buf[bufPos] = 0x1 & 0xFF;
-                } else if(index == 4) {
-                    buf[bufPos] = 0x1 >> 8;
-                } else if(index == 5) {
-                    buf[bufPos] = (byte)(unican_size & 0xFF);
-                } else if(index == 6) {
-                    buf[bufPos] = (byte)(unican_size >> 8);
-                } else if(index == 7) {
-                    buf[bufPos] = 0x1;
-                } else if(index == 8) {
-                    buf[bufPos] = 0x2;
-                } else if(index == 9) {
-                    buf[bufPos] = (byte)(Convert.ToInt16(TrackBarTemp.Value) & 0xFF);
-                    bufPos++;
-                    buf[bufPos] = (byte)(Convert.ToInt16(TrackBarTemp.Value) >> 8);
-                } else if(index == 11) {
-                    buf[bufPos] = 0x2;
-                } else if(index == 13) {
-                    buf[bufPos] = 0x2;
-                } else if(index == 15) {
-                    buf[bufPos] = 0x2;
-                } else if(index == 16) {
-                    buf[bufPos] = 0x2;
-                } else if(index == 18) {
-                    buf[bufPos] = 0x2;
-                } else if(index == 19) {
-                    buf[bufPos] = 0x2;
-                } else if(index == 21) {
-                    buf[bufPos] = 0x2;
-                } else if(index == 23) {
-                    buf[bufPos] = 0x2;
-                }
-                total_sended++;
-                bufPos++;
-                index++;
-            }
-            buf[send_size - 1] = 192;
-
-            _ = await client.SendAsync(buf, SocketFlags.None);*/
-        }
-
-        private void OpenServer_Click(object sender, EventArgs e) {
-        }
-
-        private void ListenPort_Click(object sender, EventArgs e) {
+        private void ClearLog_Click(object sender, EventArgs e) {
             TestBox.Text = "";
-            if(!FC.CheckDevice(headerLength, hardBuf, TestBox)) {
-                TestBox.Text = "Errore checker!";
-            }
         }
 
         // Track bar
@@ -211,7 +139,8 @@ namespace HustonRTEMS {
                 while(serverListener.Connected) {
                     try {
                         message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
-                    }catch(Exception ex) {
+                    }
+                    catch(Exception ex) {
                         TestBox.Text = ex.Message;
                     }
 
@@ -265,7 +194,7 @@ namespace HustonRTEMS {
 
         private async void SendTemperature_Click(object sender, EventArgs e) {
             if(serverListener.Connected) {
-                it.it1 = 9;
+                it.it1 = DT.temperatureTransmission.TAddres.addres;
                 hardBufWrite[20] = it.byte1;
                 hardBufWrite[21] = it.byte2;
                 fl.fl1 = (float)Convert.ToDouble(LabTemp.Text);
