@@ -12,11 +12,9 @@ namespace HustonRTEMS {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x04, 0x00, 0x00, 0x98, 0xAD, 0x45, 0xC0 };
 
-        private readonly int headerLength = 18;
         private int message_size;
         private Socket client;
         private byte[] buffer;
-        private readonly int kissBuff = 256;
 
         public fl_un fl;
         public it_un it;
@@ -181,5 +179,10 @@ namespace HustonRTEMS {
 
         }
         // Send data
+
+        private void Form1_Load(object sender, EventArgs e) {
+            AddresTemperature.Text = $"{DT.temperatureTransmission.TAddres.addres:X}";
+            IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
+        }
     }
 }

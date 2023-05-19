@@ -28,6 +28,10 @@
             TemperatureLable = new Label();
             SubTabControl = new TabControl();
             TabTemperature = new TabPage();
+            label16 = new Label();
+            IdTemperature = new TextBox();
+            label15 = new Label();
+            AddresTemperature = new TextBox();
             SendTemperature = new Button();
             LabTemp = new Label();
             TrackBarTemp = new TrackBar();
@@ -72,6 +76,7 @@
             Settings = new TabPage();
             TabSettings = new TabControl();
             Izernet = new TabPage();
+            CloseSocketServer = new Button();
             CheckBox = new CheckBox();
             OpenSocketServer = new Button();
             UseInternet = new RadioButton();
@@ -86,7 +91,6 @@
             SpeedTextBox = new TextBox();
             label10 = new Label();
             SensorReadings = new TabPage();
-            CloseSocketServer = new Button();
             SubTabControl.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -156,6 +160,10 @@
             // 
             // TabTemperature
             // 
+            TabTemperature.Controls.Add(label16);
+            TabTemperature.Controls.Add(IdTemperature);
+            TabTemperature.Controls.Add(label15);
+            TabTemperature.Controls.Add(AddresTemperature);
             TabTemperature.Controls.Add(SendTemperature);
             TabTemperature.Controls.Add(LabTemp);
             TabTemperature.Controls.Add(TrackBarTemp);
@@ -168,6 +176,46 @@
             TabTemperature.TabIndex = 0;
             TabTemperature.Text = "Temperature";
             TabTemperature.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label16.Location = new Point(729, 33);
+            label16.Name = "label16";
+            label16.Size = new Size(116, 21);
+            label16.TabIndex = 14;
+            label16.Text = "Id переменной";
+            // 
+            // IdTemperature
+            // 
+            IdTemperature.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdTemperature.Location = new Point(673, 30);
+            IdTemperature.Name = "IdTemperature";
+            IdTemperature.ReadOnly = true;
+            IdTemperature.Size = new Size(50, 29);
+            IdTemperature.TabIndex = 13;
+            IdTemperature.Text = "?";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label15.Location = new Point(44, 311);
+            label15.Name = "label15";
+            label15.Size = new Size(115, 21);
+            label15.TabIndex = 12;
+            label15.Text = "Адрес датчика";
+            // 
+            // AddresTemperature
+            // 
+            AddresTemperature.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresTemperature.Location = new Point(6, 308);
+            AddresTemperature.Name = "AddresTemperature";
+            AddresTemperature.ReadOnly = true;
+            AddresTemperature.Size = new Size(32, 29);
+            AddresTemperature.TabIndex = 11;
+            AddresTemperature.Text = "?";
             // 
             // SendTemperature
             // 
@@ -675,6 +723,17 @@
             Izernet.Text = "Интернет";
             Izernet.UseVisualStyleBackColor = true;
             // 
+            // CloseSocketServer
+            // 
+            CloseSocketServer.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            CloseSocketServer.Location = new Point(355, 354);
+            CloseSocketServer.Name = "CloseSocketServer";
+            CloseSocketServer.Size = new Size(273, 45);
+            CloseSocketServer.TabIndex = 15;
+            CloseSocketServer.Text = "Закрыть подключение";
+            CloseSocketServer.UseVisualStyleBackColor = true;
+            CloseSocketServer.Click += CloseSocketServer_Click;
+            // 
             // CheckBox
             // 
             CheckBox.AutoSize = true;
@@ -830,17 +889,6 @@
             SensorReadings.Text = "Показания датчиков";
             SensorReadings.UseVisualStyleBackColor = true;
             // 
-            // CloseSocketServer
-            // 
-            CloseSocketServer.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            CloseSocketServer.Location = new Point(355, 354);
-            CloseSocketServer.Name = "CloseSocketServer";
-            CloseSocketServer.Size = new Size(273, 45);
-            CloseSocketServer.TabIndex = 15;
-            CloseSocketServer.Text = "Закрыть подключение";
-            CloseSocketServer.UseVisualStyleBackColor = true;
-            CloseSocketServer.Click += CloseSocketServer_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -851,6 +899,7 @@
             Controls.Add(LogBox);
             Name = "Form1";
             Text = "TCP API";
+            Load += Form1_Load;
             SubTabControl.ResumeLayout(false);
             TabTemperature.ResumeLayout(false);
             TabTemperature.PerformLayout();
@@ -947,5 +996,9 @@
         private Button SendAcselerometer;
         private Panel panel1;
         private Button CloseSocketServer;
+        private Label label16;
+        private TextBox IdTemperature;
+        private Label label15;
+        private TextBox AddresTemperature;
     }
 }
