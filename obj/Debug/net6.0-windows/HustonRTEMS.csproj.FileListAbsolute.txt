@@ -21,3 +21,4 @@ D:\VS_Code\HustonRTEMS\bin\Debug\net6.0-windows\BinaryFormat.IPv4.dll
 D:\VS_Code\HustonRTEMS\bin\Debug\net6.0-windows\MPAPI.dll
 D:\VS_Code\HustonRTEMS\bin\Debug\net6.0-windows\RL_ipv4.dll
 D:\VS_Code\HustonRTEMS\obj\Debug\net6.0-windows\HustonRTEMS.Form1.resources
+D:\VS_Code\HustonRTEMS\bin\Debug\net6.0-windows\HustonRTEMS.dll.config

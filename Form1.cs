@@ -1,8 +1,10 @@
+using System.Configuration;
 using System.Net;
 using System.Net.Sockets;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
+        private Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
         private readonly DefaultTransmission DT = new();
         private readonly byte[] hardBuf = {
@@ -19,8 +21,44 @@ namespace HustonRTEMS {
         public fl_un fl;
         public it_un it;
 
-        public Form1() {
-            InitializeComponent();
+#pragma warning disable CS8618
+        public Form1() => InitializeComponent();
+#pragma warning restore CS8618
+        private void Form1_Load(object sender, EventArgs e) {
+            AddresTemperature.Text = $"{DT.temperatureTransmission.TAddres.addres:X}";
+            IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
+
+            AddresAcsel.Text = $"{DT.acselerometerTransmission.TAddres.addres:X}";
+            IdAscelX.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.X]:X}";
+            IdAscelY.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Y]:X}";
+            IdAscelZ.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Z]:X}";
+
+            AddresMag1.Text = $"{DT.magnitudeTransmission1.TAddres.addres:X}";
+            IdMag1X.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.X]:X}";
+            IdMag1Y.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.Y]:X}";
+            IdMag1Z.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.Z]:X}";
+
+            AddresMag2.Text = $"{DT.magnitudeTransmission2.TAddres.addres:X}";
+            IdMag2X.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.X]:X}";
+            IdMag2Y.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.Y]:X}";
+            IdMag2Z.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.Z]:X}";
+
+            if(cfg.GetSection("customProperty") is CustomProperty section) {
+                IPTextBox.Text = section.IP;
+                PortTextBox.Text = section.PORT;
+                CANSpeed.Text = section.CANSpeed;
+                CANPort.Text = section.CANPort;
+                cfg.Save();
+            }
+        }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
+            if(cfg.GetSection("customProperty") is CustomProperty section) {
+                section.IP = IPTextBox.Text;
+                section.PORT = PortTextBox.Text;
+                section.CANSpeed = CANSpeed.Text;
+                section.CANPort = CANPort.Text;
+                cfg.Save();
+            }
         }
 
         private void ClearLog_Click(object sender, EventArgs e) {
@@ -180,9 +218,7 @@ namespace HustonRTEMS {
         }
         // Send data
 
-        private void Form1_Load(object sender, EventArgs e) {
-            AddresTemperature.Text = $"{DT.temperatureTransmission.TAddres.addres:X}";
-            IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
+        private void IPTextBox_TextChanged(object sender, EventArgs e) {
         }
     }
 }

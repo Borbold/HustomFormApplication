@@ -10,6 +10,12 @@
         public StructurId TId;
     }
 
+    public enum VarEnum {
+        X,
+        Y,
+        Z,
+    }
+
     public class DefaultTransmission {
         public Transmission temperatureTransmission = new() {
             TAddres = new StructurAddresses {
@@ -24,25 +30,25 @@
 
         public Transmission magnitudeTransmission1 = new() {
             TAddres = new StructurAddresses {
-                addres = 15
+                addres = 9
             },
             TId = new StructurId {
                 getValue = new int[3] {
-                    0x120,
-                    0x121,
-                    0x122,
+                    0xB10,
+                    0xB11,
+                    0xB12,
                 }
             }
         };
         public Transmission magnitudeTransmission2 = new() {
             TAddres = new StructurAddresses {
-                addres = 15
+                addres = 9
             },
             TId = new StructurId {
                 getValue = new int[3] {
-                    0x123,
-                    0x124,
-                    0x125,
+                    0xB13,
+                    0xB14,
+                    0xB15,
                 }
             }
         };
@@ -53,9 +59,9 @@
             },
             TId = new StructurId {
                 getValue = new int[3] {
-                    0xB0,
-                    0xB1,
-                    0xB2,
+                    0xB16,
+                    0xB17,
+                    0xB18,
                 }
             }
         };

@@ -38,15 +38,33 @@
             label3 = new Label();
             TabMagnetometer = new TabPage();
             panel1 = new Panel();
+            label32 = new Label();
+            IdMag2Z = new TextBox();
+            label31 = new Label();
+            IdMag2Y = new TextBox();
+            label30 = new Label();
+            IdMag2X = new TextBox();
+            label29 = new Label();
+            IdMag1Z = new TextBox();
+            label28 = new Label();
+            IdMag1Y = new TextBox();
+            label27 = new Label();
+            AddresMag2 = new TextBox();
+            label24 = new Label();
+            AddresMag1 = new TextBox();
+            label21 = new Label();
+            IdMag1X = new TextBox();
+            button1 = new Button();
             TrackMagX = new TrackBar();
+            SendMagnetometer = new Button();
             label2 = new Label();
             LabMagY_2 = new Label();
+            TrackMagZ_2 = new TrackBar();
             label13 = new Label();
             LabMagZ_2 = new Label();
             label12 = new Label();
             LabMagX_2 = new Label();
             label11 = new Label();
-            TrackMagZ_2 = new TrackBar();
             TrackMagY = new TrackBar();
             TrackMagY_2 = new TrackBar();
             TrackMagZ = new TrackBar();
@@ -58,9 +76,16 @@
             LabMagY = new Label();
             label19 = new Label();
             label20 = new Label();
-            SendMagnetometer = new Button();
             label1 = new Label();
             TabAcselerometr = new TabPage();
+            label26 = new Label();
+            IdAscelZ = new TextBox();
+            label25 = new Label();
+            IdAscelY = new TextBox();
+            label22 = new Label();
+            AddresAcsel = new TextBox();
+            label23 = new Label();
+            IdAscelX = new TextBox();
             SendAcselerometer = new Button();
             LabRotY = new Label();
             LabRotZ = new Label();
@@ -75,7 +100,7 @@
             MainTabControll = new TabControl();
             Settings = new TabPage();
             TabSettings = new TabControl();
-            Izernet = new TabPage();
+            IzernetPage = new TabPage();
             CloseSocketServer = new Button();
             CheckBox = new CheckBox();
             OpenSocketServer = new Button();
@@ -84,11 +109,11 @@
             IPTextBox = new TextBox();
             label9 = new Label();
             label8 = new Label();
-            CANPort = new TabPage();
+            CANPage = new TabPage();
             UseCan = new RadioButton();
-            comboBox1 = new ComboBox();
+            CANPort = new ComboBox();
             label14 = new Label();
-            SpeedTextBox = new TextBox();
+            CANSpeed = new TextBox();
             label10 = new Label();
             SensorReadings = new TabPage();
             SubTabControl.SuspendLayout();
@@ -109,8 +134,8 @@
             MainTabControll.SuspendLayout();
             Settings.SuspendLayout();
             TabSettings.SuspendLayout();
-            Izernet.SuspendLayout();
-            CANPort.SuspendLayout();
+            IzernetPage.SuspendLayout();
+            CANPage.SuspendLayout();
             SensorReadings.SuspendLayout();
             SuspendLayout();
             // 
@@ -181,7 +206,7 @@
             // 
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label16.Location = new Point(729, 33);
+            label16.Location = new Point(754, 33);
             label16.Name = "label16";
             label16.Size = new Size(116, 21);
             label16.TabIndex = 14;
@@ -190,7 +215,7 @@
             // IdTemperature
             // 
             IdTemperature.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdTemperature.Location = new Point(673, 30);
+            IdTemperature.Location = new Point(698, 30);
             IdTemperature.Name = "IdTemperature";
             IdTemperature.ReadOnly = true;
             IdTemperature.Size = new Size(50, 29);
@@ -201,7 +226,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label15.Location = new Point(44, 311);
+            label15.Location = new Point(147, 72);
             label15.Name = "label15";
             label15.Size = new Size(115, 21);
             label15.TabIndex = 12;
@@ -210,7 +235,7 @@
             // AddresTemperature
             // 
             AddresTemperature.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresTemperature.Location = new Point(6, 308);
+            AddresTemperature.Location = new Point(109, 69);
             AddresTemperature.Name = "AddresTemperature";
             AddresTemperature.ReadOnly = true;
             AddresTemperature.Size = new Size(32, 29);
@@ -264,7 +289,6 @@
             // TabMagnetometer
             // 
             TabMagnetometer.Controls.Add(panel1);
-            TabMagnetometer.Controls.Add(SendMagnetometer);
             TabMagnetometer.Controls.Add(label1);
             TabMagnetometer.Location = new Point(4, 26);
             TabMagnetometer.Name = "TabMagnetometer";
@@ -277,15 +301,33 @@
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(label32);
+            panel1.Controls.Add(IdMag2Z);
+            panel1.Controls.Add(label31);
+            panel1.Controls.Add(IdMag2Y);
+            panel1.Controls.Add(label30);
+            panel1.Controls.Add(IdMag2X);
+            panel1.Controls.Add(label29);
+            panel1.Controls.Add(IdMag1Z);
+            panel1.Controls.Add(label28);
+            panel1.Controls.Add(IdMag1Y);
+            panel1.Controls.Add(label27);
+            panel1.Controls.Add(AddresMag2);
+            panel1.Controls.Add(label24);
+            panel1.Controls.Add(AddresMag1);
+            panel1.Controls.Add(label21);
+            panel1.Controls.Add(IdMag1X);
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(TrackMagX);
+            panel1.Controls.Add(SendMagnetometer);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(LabMagY_2);
+            panel1.Controls.Add(TrackMagZ_2);
             panel1.Controls.Add(label13);
             panel1.Controls.Add(LabMagZ_2);
             panel1.Controls.Add(label12);
             panel1.Controls.Add(LabMagX_2);
             panel1.Controls.Add(label11);
-            panel1.Controls.Add(TrackMagZ_2);
             panel1.Controls.Add(TrackMagY);
             panel1.Controls.Add(TrackMagY_2);
             panel1.Controls.Add(TrackMagZ);
@@ -302,6 +344,176 @@
             panel1.Size = new Size(595, 394);
             panel1.TabIndex = 39;
             // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label32.Location = new Point(680, 314);
+            label32.Name = "label32";
+            label32.Size = new Size(116, 21);
+            label32.TabIndex = 53;
+            label32.Text = "Id переменной";
+            // 
+            // IdMag2Z
+            // 
+            IdMag2Z.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdMag2Z.Location = new Point(624, 311);
+            IdMag2Z.Name = "IdMag2Z";
+            IdMag2Z.ReadOnly = true;
+            IdMag2Z.Size = new Size(50, 29);
+            IdMag2Z.TabIndex = 52;
+            IdMag2Z.Text = "?";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label31.Location = new Point(680, 263);
+            label31.Name = "label31";
+            label31.Size = new Size(116, 21);
+            label31.TabIndex = 51;
+            label31.Text = "Id переменной";
+            // 
+            // IdMag2Y
+            // 
+            IdMag2Y.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdMag2Y.Location = new Point(624, 260);
+            IdMag2Y.Name = "IdMag2Y";
+            IdMag2Y.ReadOnly = true;
+            IdMag2Y.Size = new Size(50, 29);
+            IdMag2Y.TabIndex = 50;
+            IdMag2Y.Text = "?";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label30.Location = new Point(680, 212);
+            label30.Name = "label30";
+            label30.Size = new Size(116, 21);
+            label30.TabIndex = 49;
+            label30.Text = "Id переменной";
+            // 
+            // IdMag2X
+            // 
+            IdMag2X.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdMag2X.Location = new Point(624, 209);
+            IdMag2X.Name = "IdMag2X";
+            IdMag2X.ReadOnly = true;
+            IdMag2X.Size = new Size(50, 29);
+            IdMag2X.TabIndex = 48;
+            IdMag2X.Text = "?";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label29.Location = new Point(680, 153);
+            label29.Name = "label29";
+            label29.Size = new Size(116, 21);
+            label29.TabIndex = 47;
+            label29.Text = "Id переменной";
+            // 
+            // IdMag1Z
+            // 
+            IdMag1Z.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdMag1Z.Location = new Point(624, 150);
+            IdMag1Z.Name = "IdMag1Z";
+            IdMag1Z.ReadOnly = true;
+            IdMag1Z.Size = new Size(50, 29);
+            IdMag1Z.TabIndex = 46;
+            IdMag1Z.Text = "?";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label28.Location = new Point(680, 102);
+            label28.Name = "label28";
+            label28.Size = new Size(116, 21);
+            label28.TabIndex = 45;
+            label28.Text = "Id переменной";
+            // 
+            // IdMag1Y
+            // 
+            IdMag1Y.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdMag1Y.Location = new Point(624, 99);
+            IdMag1Y.Name = "IdMag1Y";
+            IdMag1Y.ReadOnly = true;
+            IdMag1Y.Size = new Size(50, 29);
+            IdMag1Y.TabIndex = 44;
+            IdMag1Y.Text = "?";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label27.Location = new Point(64, 332);
+            label27.Name = "label27";
+            label27.Size = new Size(115, 21);
+            label27.TabIndex = 43;
+            label27.Text = "Адрес датчика";
+            // 
+            // AddresMag2
+            // 
+            AddresMag2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresMag2.Location = new Point(26, 329);
+            AddresMag2.Name = "AddresMag2";
+            AddresMag2.ReadOnly = true;
+            AddresMag2.Size = new Size(32, 29);
+            AddresMag2.TabIndex = 42;
+            AddresMag2.Text = "?";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label24.Location = new Point(64, 171);
+            label24.Name = "label24";
+            label24.Size = new Size(115, 21);
+            label24.TabIndex = 41;
+            label24.Text = "Адрес датчика";
+            // 
+            // AddresMag1
+            // 
+            AddresMag1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresMag1.Location = new Point(26, 168);
+            AddresMag1.Name = "AddresMag1";
+            AddresMag1.ReadOnly = true;
+            AddresMag1.Size = new Size(32, 29);
+            AddresMag1.TabIndex = 40;
+            AddresMag1.Text = "?";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label21.Location = new Point(680, 51);
+            label21.Name = "label21";
+            label21.Size = new Size(116, 21);
+            label21.TabIndex = 41;
+            label21.Text = "Id переменной";
+            // 
+            // IdMag1X
+            // 
+            IdMag1X.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdMag1X.Location = new Point(624, 48);
+            IdMag1X.Name = "IdMag1X";
+            IdMag1X.ReadOnly = true;
+            IdMag1X.Size = new Size(50, 29);
+            IdMag1X.TabIndex = 40;
+            IdMag1X.Text = "?";
+            // 
+            // button1
+            // 
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Location = new Point(23, 248);
+            button1.Name = "button1";
+            button1.Size = new Size(156, 81);
+            button1.TabIndex = 39;
+            button1.Text = "Отправить данные магнитометра\r\nвторого";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // TrackMagX
             // 
             TrackMagX.LargeChange = 1;
@@ -313,6 +525,17 @@
             TrackMagX.TabIndex = 20;
             TrackMagX.Value = 100;
             TrackMagX.Scroll += TrackMagX_Scroll;
+            // 
+            // SendMagnetometer
+            // 
+            SendMagnetometer.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendMagnetometer.Location = new Point(23, 87);
+            SendMagnetometer.Name = "SendMagnetometer";
+            SendMagnetometer.Size = new Size(156, 81);
+            SendMagnetometer.TabIndex = 38;
+            SendMagnetometer.Text = "Отправить данные магнитометра\r\nпервого";
+            SendMagnetometer.UseVisualStyleBackColor = true;
+            SendMagnetometer.Click += SendMagnetometer_Click;
             // 
             // label2
             // 
@@ -333,6 +556,18 @@
             LabMagY_2.Size = new Size(35, 30);
             LabMagY_2.TabIndex = 37;
             LabMagY_2.Text = "20";
+            // 
+            // TrackMagZ_2
+            // 
+            TrackMagZ_2.LargeChange = 1;
+            TrackMagZ_2.Location = new Point(245, 299);
+            TrackMagZ_2.Maximum = 500;
+            TrackMagZ_2.Minimum = 100;
+            TrackMagZ_2.Name = "TrackMagZ_2";
+            TrackMagZ_2.Size = new Size(300, 45);
+            TrackMagZ_2.TabIndex = 34;
+            TrackMagZ_2.Value = 100;
+            TrackMagZ_2.Scroll += TrackMagZ_2_Scroll;
             // 
             // label13
             // 
@@ -383,18 +618,6 @@
             label11.Size = new Size(25, 30);
             label11.TabIndex = 22;
             label11.Text = "Z";
-            // 
-            // TrackMagZ_2
-            // 
-            TrackMagZ_2.LargeChange = 1;
-            TrackMagZ_2.Location = new Point(245, 299);
-            TrackMagZ_2.Maximum = 500;
-            TrackMagZ_2.Minimum = 100;
-            TrackMagZ_2.Name = "TrackMagZ_2";
-            TrackMagZ_2.Size = new Size(300, 45);
-            TrackMagZ_2.TabIndex = 34;
-            TrackMagZ_2.Value = 100;
-            TrackMagZ_2.Scroll += TrackMagZ_2_Scroll;
             // 
             // TrackMagY
             // 
@@ -514,17 +737,6 @@
             label20.TabIndex = 28;
             label20.Text = "Магнитное поле 2";
             // 
-            // SendMagnetometer
-            // 
-            SendMagnetometer.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            SendMagnetometer.Location = new Point(6, 343);
-            SendMagnetometer.Name = "SendMagnetometer";
-            SendMagnetometer.Size = new Size(156, 57);
-            SendMagnetometer.TabIndex = 38;
-            SendMagnetometer.Text = "Отправить данные магнитометра";
-            SendMagnetometer.UseVisualStyleBackColor = true;
-            SendMagnetometer.Click += SendMagnetometer_Click;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -537,6 +749,14 @@
             // 
             // TabAcselerometr
             // 
+            TabAcselerometr.Controls.Add(label26);
+            TabAcselerometr.Controls.Add(IdAscelZ);
+            TabAcselerometr.Controls.Add(label25);
+            TabAcselerometr.Controls.Add(IdAscelY);
+            TabAcselerometr.Controls.Add(label22);
+            TabAcselerometr.Controls.Add(AddresAcsel);
+            TabAcselerometr.Controls.Add(label23);
+            TabAcselerometr.Controls.Add(IdAscelX);
             TabAcselerometr.Controls.Add(SendAcselerometer);
             TabAcselerometr.Controls.Add(LabRotY);
             TabAcselerometr.Controls.Add(LabRotZ);
@@ -555,6 +775,86 @@
             TabAcselerometr.TabIndex = 2;
             TabAcselerometr.Text = "Acselerometer";
             TabAcselerometr.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Location = new Point(626, 135);
+            label26.Name = "label26";
+            label26.Size = new Size(116, 21);
+            label26.TabIndex = 27;
+            label26.Text = "Id переменной";
+            // 
+            // IdAscelZ
+            // 
+            IdAscelZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdAscelZ.Location = new Point(570, 132);
+            IdAscelZ.Name = "IdAscelZ";
+            IdAscelZ.ReadOnly = true;
+            IdAscelZ.Size = new Size(50, 29);
+            IdAscelZ.TabIndex = 26;
+            IdAscelZ.Text = "?";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label25.Location = new Point(626, 84);
+            label25.Name = "label25";
+            label25.Size = new Size(116, 21);
+            label25.TabIndex = 25;
+            label25.Text = "Id переменной";
+            // 
+            // IdAscelY
+            // 
+            IdAscelY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdAscelY.Location = new Point(570, 81);
+            IdAscelY.Name = "IdAscelY";
+            IdAscelY.ReadOnly = true;
+            IdAscelY.Size = new Size(50, 29);
+            IdAscelY.TabIndex = 24;
+            IdAscelY.Text = "?";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Location = new Point(215, 182);
+            label22.Name = "label22";
+            label22.Size = new Size(115, 21);
+            label22.TabIndex = 23;
+            label22.Text = "Адрес датчика";
+            // 
+            // AddresAcsel
+            // 
+            AddresAcsel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresAcsel.Location = new Point(177, 179);
+            AddresAcsel.Name = "AddresAcsel";
+            AddresAcsel.ReadOnly = true;
+            AddresAcsel.Size = new Size(32, 29);
+            AddresAcsel.TabIndex = 22;
+            AddresAcsel.Text = "?";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label23.Location = new Point(626, 33);
+            label23.Name = "label23";
+            label23.Size = new Size(116, 21);
+            label23.TabIndex = 21;
+            label23.Text = "Id переменной";
+            // 
+            // IdAscelX
+            // 
+            IdAscelX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdAscelX.Location = new Point(570, 30);
+            IdAscelX.Name = "IdAscelX";
+            IdAscelX.ReadOnly = true;
+            IdAscelX.Size = new Size(50, 29);
+            IdAscelX.TabIndex = 20;
+            IdAscelX.Text = "?";
             // 
             // SendAcselerometer
             // 
@@ -696,32 +996,32 @@
             // 
             // TabSettings
             // 
-            TabSettings.Controls.Add(Izernet);
-            TabSettings.Controls.Add(CANPort);
+            TabSettings.Controls.Add(IzernetPage);
+            TabSettings.Controls.Add(CANPage);
             TabSettings.Location = new Point(6, 6);
             TabSettings.Name = "TabSettings";
             TabSettings.SelectedIndex = 0;
             TabSettings.Size = new Size(881, 433);
             TabSettings.TabIndex = 1;
             // 
-            // Izernet
+            // IzernetPage
             // 
-            Izernet.Controls.Add(CloseSocketServer);
-            Izernet.Controls.Add(CheckBox);
-            Izernet.Controls.Add(OpenSocketServer);
-            Izernet.Controls.Add(UseInternet);
-            Izernet.Controls.Add(PortTextBox);
-            Izernet.Controls.Add(IPTextBox);
-            Izernet.Controls.Add(label9);
-            Izernet.Controls.Add(label8);
-            Izernet.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            Izernet.Location = new Point(4, 24);
-            Izernet.Name = "Izernet";
-            Izernet.Padding = new Padding(3);
-            Izernet.Size = new Size(873, 405);
-            Izernet.TabIndex = 0;
-            Izernet.Text = "Интернет";
-            Izernet.UseVisualStyleBackColor = true;
+            IzernetPage.Controls.Add(CloseSocketServer);
+            IzernetPage.Controls.Add(CheckBox);
+            IzernetPage.Controls.Add(OpenSocketServer);
+            IzernetPage.Controls.Add(UseInternet);
+            IzernetPage.Controls.Add(PortTextBox);
+            IzernetPage.Controls.Add(IPTextBox);
+            IzernetPage.Controls.Add(label9);
+            IzernetPage.Controls.Add(label8);
+            IzernetPage.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            IzernetPage.Location = new Point(4, 24);
+            IzernetPage.Name = "IzernetPage";
+            IzernetPage.Padding = new Padding(3);
+            IzernetPage.Size = new Size(873, 405);
+            IzernetPage.TabIndex = 0;
+            IzernetPage.Text = "Интернет";
+            IzernetPage.UseVisualStyleBackColor = true;
             // 
             // CloseSocketServer
             // 
@@ -776,7 +1076,7 @@
             // PortTextBox
             // 
             PortTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            PortTextBox.Location = new Point(53, 40);
+            PortTextBox.Location = new Point(55, 41);
             PortTextBox.Name = "PortTextBox";
             PortTextBox.Size = new Size(100, 29);
             PortTextBox.TabIndex = 3;
@@ -785,11 +1085,12 @@
             // IPTextBox
             // 
             IPTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IPTextBox.Location = new Point(53, 5);
+            IPTextBox.Location = new Point(55, 6);
             IPTextBox.Name = "IPTextBox";
             IPTextBox.Size = new Size(100, 29);
             IPTextBox.TabIndex = 2;
             IPTextBox.Text = "127.0.0.1";
+            IPTextBox.TextChanged += IPTextBox_TextChanged;
             // 
             // label9
             // 
@@ -811,20 +1112,20 @@
             label8.TabIndex = 0;
             label8.Text = "IP";
             // 
-            // CANPort
+            // CANPage
             // 
-            CANPort.Controls.Add(UseCan);
-            CANPort.Controls.Add(comboBox1);
-            CANPort.Controls.Add(label14);
-            CANPort.Controls.Add(SpeedTextBox);
-            CANPort.Controls.Add(label10);
-            CANPort.Location = new Point(4, 24);
-            CANPort.Name = "CANPort";
-            CANPort.Padding = new Padding(3);
-            CANPort.Size = new Size(873, 405);
-            CANPort.TabIndex = 1;
-            CANPort.Text = "CAN";
-            CANPort.UseVisualStyleBackColor = true;
+            CANPage.Controls.Add(UseCan);
+            CANPage.Controls.Add(CANPort);
+            CANPage.Controls.Add(label14);
+            CANPage.Controls.Add(CANSpeed);
+            CANPage.Controls.Add(label10);
+            CANPage.Location = new Point(4, 24);
+            CANPage.Name = "CANPage";
+            CANPage.Padding = new Padding(3);
+            CANPage.Size = new Size(873, 405);
+            CANPage.TabIndex = 1;
+            CANPage.Text = "CAN";
+            CANPage.UseVisualStyleBackColor = true;
             // 
             // UseCan
             // 
@@ -840,39 +1141,41 @@
             UseCan.UseVisualStyleBackColor = true;
             UseCan.CheckedChanged += UseCan_CheckedChanged;
             // 
-            // comboBox1
+            // CANPort
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Com1", "Com2", "Com3" });
-            comboBox1.Location = new Point(65, 34);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 23);
-            comboBox1.TabIndex = 5;
-            comboBox1.Text = "Com1";
+            CANPort.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CANPort.FormattingEnabled = true;
+            CANPort.Items.AddRange(new object[] { "Com1", "Com2", "Com3" });
+            CANPort.Location = new Point(65, 40);
+            CANPort.Name = "CANPort";
+            CANPort.Size = new Size(121, 29);
+            CANPort.TabIndex = 5;
+            CANPort.Text = "Com1";
             // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label14.Location = new Point(18, 36);
+            label14.Location = new Point(3, 43);
             label14.Name = "label14";
             label14.Size = new Size(38, 21);
             label14.TabIndex = 4;
             label14.Text = "Port";
             // 
-            // SpeedTextBox
+            // CANSpeed
             // 
-            SpeedTextBox.Location = new Point(65, 5);
-            SpeedTextBox.Name = "SpeedTextBox";
-            SpeedTextBox.Size = new Size(100, 23);
-            SpeedTextBox.TabIndex = 1;
-            SpeedTextBox.Text = "100";
+            CANSpeed.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CANSpeed.Location = new Point(65, 5);
+            CANSpeed.Name = "CANSpeed";
+            CANSpeed.Size = new Size(100, 29);
+            CANSpeed.TabIndex = 1;
+            CANSpeed.Text = "100";
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label10.Location = new Point(6, 3);
+            label10.Location = new Point(0, 8);
             label10.Name = "label10";
             label10.Size = new Size(53, 21);
             label10.TabIndex = 0;
@@ -899,6 +1202,7 @@
             Controls.Add(LogBox);
             Name = "Form1";
             Text = "TCP API";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             SubTabControl.ResumeLayout(false);
             TabTemperature.ResumeLayout(false);
@@ -922,10 +1226,10 @@
             MainTabControll.ResumeLayout(false);
             Settings.ResumeLayout(false);
             TabSettings.ResumeLayout(false);
-            Izernet.ResumeLayout(false);
-            Izernet.PerformLayout();
-            CANPort.ResumeLayout(false);
-            CANPort.PerformLayout();
+            IzernetPage.ResumeLayout(false);
+            IzernetPage.PerformLayout();
+            CANPage.ResumeLayout(false);
+            CANPage.PerformLayout();
             SensorReadings.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -967,13 +1271,13 @@
         private TrackBar TrackMagX;
         private Label label13;
         private TabControl TabSettings;
-        private TabPage Izernet;
-        private TabPage CANPort;
+        private TabPage IzernetPage;
+        private TabPage CANPage;
         private TextBox PortTextBox;
         private TextBox IPTextBox;
         private Label label9;
         private Label label8;
-        private TextBox SpeedTextBox;
+        private TextBox CANSpeed;
         private Label label10;
         private Label LabMagY_2;
         private Label LabMagZ_2;
@@ -986,7 +1290,7 @@
         private Label label19;
         private Label label20;
         private CheckBox CheckBox;
-        private ComboBox comboBox1;
+        private ComboBox CANPort;
         private Label label14;
         private RadioButton UseCan;
         private RadioButton UseInternet;
@@ -1000,5 +1304,30 @@
         private TextBox IdTemperature;
         private Label label15;
         private TextBox AddresTemperature;
+        private Button button1;
+        private Label label27;
+        private TextBox AddresMag2;
+        private Label label24;
+        private TextBox AddresMag1;
+        private Label label21;
+        private TextBox IdMag1X;
+        private Label label26;
+        private TextBox IdAscelZ;
+        private Label label25;
+        private TextBox IdAscelY;
+        private Label label22;
+        private TextBox AddresAcsel;
+        private Label label23;
+        private TextBox IdAscelX;
+        private Label label32;
+        private TextBox IdMag2Z;
+        private Label label31;
+        private TextBox IdMag2Y;
+        private Label label30;
+        private TextBox IdMag2X;
+        private Label label29;
+        private TextBox IdMag1Z;
+        private Label label28;
+        private TextBox IdMag1Y;
     }
 }
