@@ -51,6 +51,10 @@
             "MPAPI_ipv4": {
               "target": "Package",
               "version": "[1.0.0, )"
+            },
+            "System.IO.Ports": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             }
           },
           "imports": [

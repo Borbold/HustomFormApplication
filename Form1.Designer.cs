@@ -54,9 +54,9 @@
             AddresMag1 = new TextBox();
             label21 = new Label();
             IdMag1X = new TextBox();
-            button1 = new Button();
+            SendMagnetometer2 = new Button();
             TrackMagX = new TrackBar();
-            SendMagnetometer = new Button();
+            SendMagnetometer1 = new Button();
             label2 = new Label();
             LabMagY_2 = new Label();
             TrackMagZ_2 = new TrackBar();
@@ -317,9 +317,9 @@
             panel1.Controls.Add(AddresMag1);
             panel1.Controls.Add(label21);
             panel1.Controls.Add(IdMag1X);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(SendMagnetometer2);
             panel1.Controls.Add(TrackMagX);
-            panel1.Controls.Add(SendMagnetometer);
+            panel1.Controls.Add(SendMagnetometer1);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(LabMagY_2);
             panel1.Controls.Add(TrackMagZ_2);
@@ -504,15 +504,16 @@
             IdMag1X.TabIndex = 40;
             IdMag1X.Text = "?";
             // 
-            // button1
+            // SendMagnetometer2
             // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(23, 248);
-            button1.Name = "button1";
-            button1.Size = new Size(156, 81);
-            button1.TabIndex = 39;
-            button1.Text = "Отправить данные магнитометра\r\nвторого";
-            button1.UseVisualStyleBackColor = true;
+            SendMagnetometer2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendMagnetometer2.Location = new Point(23, 248);
+            SendMagnetometer2.Name = "SendMagnetometer2";
+            SendMagnetometer2.Size = new Size(156, 81);
+            SendMagnetometer2.TabIndex = 39;
+            SendMagnetometer2.Text = "Отправить данные магнитометра\r\nвторого";
+            SendMagnetometer2.UseVisualStyleBackColor = true;
+            SendMagnetometer2.Click += SendMagnetometer2_Click;
             // 
             // TrackMagX
             // 
@@ -526,16 +527,16 @@
             TrackMagX.Value = 100;
             TrackMagX.Scroll += TrackMagX_Scroll;
             // 
-            // SendMagnetometer
+            // SendMagnetometer1
             // 
-            SendMagnetometer.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            SendMagnetometer.Location = new Point(23, 87);
-            SendMagnetometer.Name = "SendMagnetometer";
-            SendMagnetometer.Size = new Size(156, 81);
-            SendMagnetometer.TabIndex = 38;
-            SendMagnetometer.Text = "Отправить данные магнитометра\r\nпервого";
-            SendMagnetometer.UseVisualStyleBackColor = true;
-            SendMagnetometer.Click += SendMagnetometer_Click;
+            SendMagnetometer1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendMagnetometer1.Location = new Point(23, 87);
+            SendMagnetometer1.Name = "SendMagnetometer1";
+            SendMagnetometer1.Size = new Size(156, 81);
+            SendMagnetometer1.TabIndex = 38;
+            SendMagnetometer1.Text = "Отправить данные магнитометра\r\nпервого";
+            SendMagnetometer1.UseVisualStyleBackColor = true;
+            SendMagnetometer1.Click += SendMagnetometer1_Click;
             // 
             // label2
             // 
@@ -1296,7 +1297,7 @@
         private RadioButton UseInternet;
         private Button OpenSocketServer;
         private Button SendTemperature;
-        private Button SendMagnetometer;
+        private Button SendMagnetometer1;
         private Button SendAcselerometer;
         private Panel panel1;
         private Button CloseSocketServer;
@@ -1304,7 +1305,7 @@
         private TextBox IdTemperature;
         private Label label15;
         private TextBox AddresTemperature;
-        private Button button1;
+        private Button SendMagnetometer2;
         private Label label27;
         private TextBox AddresMag2;
         private Label label24;

@@ -12,6 +12,7 @@
     <PackageReference Include="BinaryFormat.IPv4" Version="0.1.5" />
     <PackageReference Include="IPNetwork2" Version="2.6.560" />
     <PackageReference Include="MPAPI_ipv4" Version="1.0.0" />
+    <PackageReference Include="System.IO.Ports" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

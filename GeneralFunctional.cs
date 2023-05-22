@@ -14,7 +14,7 @@ namespace HustonRTEMS {
         public byte byte4;
 
         [FieldOffset(0)]
-        public float fl1;
+        public float fl;
     }
 
     [StructLayout(LayoutKind.Explicit)]
@@ -25,7 +25,7 @@ namespace HustonRTEMS {
         public byte byte2;
 
         [FieldOffset(0)]
-        public int it1;
+        public int it;
     }
 }
 
@@ -40,12 +40,11 @@ namespace HustonRTEMS {
         }
 
         public async void SendMessageInSocket(Socket serverListener, fl_un fl, it_un it,
-            DefaultTransmission DT, byte[] hardBufWrite, float value, TextBox logBox) {
+            byte[] hardBufWrite, TextBox logBox) {
             if(serverListener != null && serverListener.Connected) {
-                it.it1 = DT.temperatureTransmission.TAddres.addres;
                 hardBufWrite[20] = it.byte1;
                 hardBufWrite[21] = it.byte2;
-                fl.fl1 = value;
+
                 hardBufWrite[26] = fl.byte1;
                 hardBufWrite[27] = fl.byte2;
                 hardBufWrite[28] = fl.byte3;
