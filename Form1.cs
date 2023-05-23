@@ -1,11 +1,7 @@
-using System;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Xml.Linq;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
@@ -27,7 +23,9 @@ namespace HustonRTEMS {
         public it_un it = new();
 
 #pragma warning disable CS8618
-        public Form1() => InitializeComponent();
+        public Form1() {
+            InitializeComponent();
+        }
 #pragma warning restore CS8618
         private void Form1_Load(object sender, EventArgs e) {
             AddresTemperature.Text = $"{DT.temperatureTransmission.TAddres.addres:X}";
@@ -288,6 +286,66 @@ namespace HustonRTEMS {
         // Send data
 
         private void IPTextBox_TextChanged(object sender, EventArgs e) {
+        }
+
+        private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
+            Read();
+        }
+
+        private void Read() {
+        }
+        private void CANTestWrite_Click(object sender, EventArgs e) {
+            /*serialPort.Write("V\r");
+            Thread.Sleep(100);
+
+            if(serialPort.BytesToRead > 0) {
+                byte[] data = new byte[8];
+                serialPort.Read(data, 0, 8);
+                for(int i = 0; i < data.Length; i++)
+                    LogBox.Text += " " + data[i].ToString();
+            }*/
+
+            serialPort.Write("t28011223344\r");
+            Thread.Sleep(100);
+        }
+        private void CANTestRead_Click(object sender, EventArgs e) {
+            if(serialPort.BytesToRead > 0) {
+                byte[] data = new byte[8];
+                _ = serialPort.Read(data, 0, 8);
+                for(int i = 0; i < data.Length; i++) {
+                    LogBox.Text += " " + data[i].ToString();
+                }
+            }
+        }
+
+        private SerialPort serialPort;
+        private void OpenRKSCAN_Click(object sender, EventArgs e) {
+            serialPort = new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
+            serialPort.DataReceived += new SerialDataReceivedEventHandler(ComPort_DataReceived);
+            try {
+                serialPort.Open();
+                // Открыть
+                serialPort.Write("O\r");
+                // Установить скорость
+                serialPort.Write(string.Format("S{0}\r", CANSpeed.SelectedIndex));
+
+                LogBox.Text = "Port open";
+            }
+            catch(Exception ex) {
+                LogBox.Text = ex.Message;
+            }
+        }
+        private void CloseRKSCAN_Click(object sender, EventArgs e) {
+            try {
+                // Закрыть
+                serialPort.Write("C\r");
+                serialPort.Close();
+
+                LogBox.Text = "Port close";
+            }
+            catch(Exception ex) {
+                LogBox.Text = ex.Message;
+            }
         }
     }
 }

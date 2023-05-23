@@ -110,12 +110,16 @@
             label9 = new Label();
             label8 = new Label();
             CANPage = new TabPage();
+            CANSpeed = new ComboBox();
+            OpenRKSCAN = new Button();
+            CANTestRead = new Button();
+            CANTestWrite = new Button();
             UseCan = new RadioButton();
             CANPort = new ComboBox();
             label14 = new Label();
-            CANSpeed = new TextBox();
             label10 = new Label();
             SensorReadings = new TabPage();
+            CloseRKSCAN = new Button();
             SubTabControl.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -1115,10 +1119,14 @@
             // 
             // CANPage
             // 
+            CANPage.Controls.Add(CloseRKSCAN);
+            CANPage.Controls.Add(CANSpeed);
+            CANPage.Controls.Add(OpenRKSCAN);
+            CANPage.Controls.Add(CANTestRead);
+            CANPage.Controls.Add(CANTestWrite);
             CANPage.Controls.Add(UseCan);
             CANPage.Controls.Add(CANPort);
             CANPage.Controls.Add(label14);
-            CANPage.Controls.Add(CANSpeed);
             CANPage.Controls.Add(label10);
             CANPage.Location = new Point(4, 24);
             CANPage.Name = "CANPage";
@@ -1127,6 +1135,48 @@
             CANPage.TabIndex = 1;
             CANPage.Text = "CAN";
             CANPage.UseVisualStyleBackColor = true;
+            // 
+            // CANSpeed
+            // 
+            CANSpeed.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CANSpeed.FormattingEnabled = true;
+            CANSpeed.Items.AddRange(new object[] { "10", "20", "50", "100", "125", "250", "500", "800", "1000" });
+            CANSpeed.Location = new Point(65, 5);
+            CANSpeed.Name = "CANSpeed";
+            CANSpeed.Size = new Size(121, 29);
+            CANSpeed.TabIndex = 11;
+            CANSpeed.Text = "500";
+            // 
+            // OpenRKSCAN
+            // 
+            OpenRKSCAN.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            OpenRKSCAN.Location = new Point(6, 75);
+            OpenRKSCAN.Name = "OpenRKSCAN";
+            OpenRKSCAN.Size = new Size(142, 35);
+            OpenRKSCAN.TabIndex = 10;
+            OpenRKSCAN.Text = "Open RKS+CAN";
+            OpenRKSCAN.UseVisualStyleBackColor = true;
+            OpenRKSCAN.Click += OpenRKSCAN_Click;
+            // 
+            // CANTestRead
+            // 
+            CANTestRead.Location = new Point(90, 376);
+            CANTestRead.Name = "CANTestRead";
+            CANTestRead.Size = new Size(75, 23);
+            CANTestRead.TabIndex = 9;
+            CANTestRead.Text = "Read";
+            CANTestRead.UseVisualStyleBackColor = true;
+            CANTestRead.Click += CANTestRead_Click;
+            // 
+            // CANTestWrite
+            // 
+            CANTestWrite.Location = new Point(6, 376);
+            CANTestWrite.Name = "CANTestWrite";
+            CANTestWrite.Size = new Size(75, 23);
+            CANTestWrite.TabIndex = 8;
+            CANTestWrite.Text = "Write";
+            CANTestWrite.UseVisualStyleBackColor = true;
+            CANTestWrite.Click += CANTestWrite_Click;
             // 
             // UseCan
             // 
@@ -1163,15 +1213,6 @@
             label14.TabIndex = 4;
             label14.Text = "Port";
             // 
-            // CANSpeed
-            // 
-            CANSpeed.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CANSpeed.Location = new Point(65, 5);
-            CANSpeed.Name = "CANSpeed";
-            CANSpeed.Size = new Size(100, 29);
-            CANSpeed.TabIndex = 1;
-            CANSpeed.Text = "100";
-            // 
             // label10
             // 
             label10.AutoSize = true;
@@ -1192,6 +1233,17 @@
             SensorReadings.TabIndex = 0;
             SensorReadings.Text = "Показания датчиков";
             SensorReadings.UseVisualStyleBackColor = true;
+            // 
+            // CloseRKSCAN
+            // 
+            CloseRKSCAN.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CloseRKSCAN.Location = new Point(6, 116);
+            CloseRKSCAN.Name = "CloseRKSCAN";
+            CloseRKSCAN.Size = new Size(142, 35);
+            CloseRKSCAN.TabIndex = 12;
+            CloseRKSCAN.Text = "Close RKS+CAN";
+            CloseRKSCAN.UseVisualStyleBackColor = true;
+            CloseRKSCAN.Click += CloseRKSCAN_Click;
             // 
             // Form1
             // 
@@ -1278,7 +1330,6 @@
         private TextBox IPTextBox;
         private Label label9;
         private Label label8;
-        private TextBox CANSpeed;
         private Label label10;
         private Label LabMagY_2;
         private Label LabMagZ_2;
@@ -1330,5 +1381,10 @@
         private TextBox IdMag1Z;
         private Label label28;
         private TextBox IdMag1Y;
+        private Button CANTestRead;
+        private Button CANTestWrite;
+        private Button OpenRKSCAN;
+        private ComboBox CANSpeed;
+        private Button CloseRKSCAN;
     }
 }
