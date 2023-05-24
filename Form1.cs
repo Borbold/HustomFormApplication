@@ -14,6 +14,10 @@ namespace HustonRTEMS {
         private readonly byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x04, 0x00, 0x00, 0x98, 0xAD, 0x45, 0xC0 };
+        private readonly byte[] canHardBufWrite = { //Get
+             0x74, 0x31, 0x37, 0x36, 0x00, 0x0D };
+        /*private readonly byte[] canHardBufWrite = { //Set
+             0x74, 0x34, 0x33, 0x32, 0x34, 0x31, 0x31, 0x32, 0x32, 0x33, 0x33, 0x34, 0x34, 0x0D };*/
 
         private int message_size = new();
         private Socket client;
@@ -291,7 +295,6 @@ namespace HustonRTEMS {
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
             Read();
         }
-
         private void Read() {
         }
         private void CANTestWrite_Click(object sender, EventArgs e) {
@@ -305,46 +308,72 @@ namespace HustonRTEMS {
                     LogBox.Text += " " + data[i].ToString();
             }*/
 
-            serialPort.Write("t28011223344\r");
+            int byteWrite = 0, offsetByte = 11;
+            while(byteWrite < canHardBufWrite.Length) {
+                int copyByte = byteWrite + offsetByte > canHardBufWrite.Length ?
+                    canHardBufWrite.Length - byteWrite : byteWrite + offsetByte;
+                byte[] data = new byte[copyByte];
+                Array.Copy(canHardBufWrite, byteWrite, data, 0, copyByte);
+                serialPort.Write(data, 0, copyByte);
+                for(int i = 0; i < data.Length; i++) {
+                    LogBox.Text += " " + $"{data[i]:X}";
+                }
+                byteWrite += offsetByte;
+            }
+            LogBox.Text += "\r\n";
+
+            /*serialPort.Write("t176411223344\r");
             Thread.Sleep(100);
+            if(serialPort.BytesToWrite > 0) {
+                LogBox.Text += " " + serialPort.BytesToWrite;
+            }*/
         }
         private void CANTestRead_Click(object sender, EventArgs e) {
-            if(serialPort.BytesToRead > 0) {
-                byte[] data = new byte[8];
-                _ = serialPort.Read(data, 0, 8);
+            int byteWrite = 0, offsetByte = 11;
+            while(byteWrite < serialPort.BytesToRead) {
+                int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
+                    serialPort.BytesToRead - byteWrite : byteWrite + offsetByte;
+                byte[] data = new byte[copyByte];
+                serialPort.Read(data, 0, copyByte);
                 for(int i = 0; i < data.Length; i++) {
-                    LogBox.Text += " " + data[i].ToString();
+                    LogBox.Text += " " + $"{data[i]:X}";
                 }
+                byteWrite += offsetByte;
             }
         }
 
         private SerialPort serialPort;
         private void OpenRKSCAN_Click(object sender, EventArgs e) {
-            serialPort = new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
-            serialPort.DataReceived += new SerialDataReceivedEventHandler(ComPort_DataReceived);
-            try {
-                serialPort.Open();
-                // Открыть
-                serialPort.Write("O\r");
-                // Установить скорость
-                serialPort.Write(string.Format("S{0}\r", CANSpeed.SelectedIndex));
+            serialPort ??= new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
 
-                LogBox.Text = "Port open";
-            }
-            catch(Exception ex) {
-                LogBox.Text = ex.Message;
+            if(!serialPort.IsOpen) {
+                serialPort.DataReceived += new SerialDataReceivedEventHandler(ComPort_DataReceived);
+                try {
+                    serialPort.Open();
+                    // Открыть
+                    serialPort.Write("O\r");
+                    // Установить скорость
+                    serialPort.Write(string.Format("S{0}\r", CANSpeed.SelectedIndex));
+
+                    LogBox.Text = "Port open";
+                }
+                catch(Exception ex) {
+                    LogBox.Text = ex.Message;
+                }
             }
         }
         private void CloseRKSCAN_Click(object sender, EventArgs e) {
-            try {
-                // Закрыть
-                serialPort.Write("C\r");
-                serialPort.Close();
+            if(serialPort.IsOpen) {
+                try {
+                    // Закрыть
+                    serialPort.Write("C\r");
+                    serialPort.Close();
 
-                LogBox.Text = "Port close";
-            }
-            catch(Exception ex) {
-                LogBox.Text = ex.Message;
+                    LogBox.Text = "Port close";
+                }
+                catch(Exception ex) {
+                    LogBox.Text = ex.Message;
+                }
             }
         }
     }
