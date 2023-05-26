@@ -14,6 +14,7 @@
         X,
         Y,
         Z,
+        W,
     }
 
     public class DefaultTransmission {
@@ -58,10 +59,50 @@
                 addres = 8
             },
             TId = new StructurId {
-                getValue = new int[3] {
+                getValue = new int[4] {
                     0xB16,
                     0xB17,
                     0xB18,
+                    0xB19,
+                }
+            }
+        };
+
+        public Transmission regulationTransmission = new() {
+            TAddres = new StructurAddresses {
+                addres = 8
+            },
+            TId = new StructurId {
+                getValue = new int[3] {
+                    0xB20,
+                    0xB21,
+                    0xB22,
+                }
+            }
+        };
+
+        public Transmission ratesensorTransmission = new() {
+            TAddres = new StructurAddresses {
+                addres = 8
+            },
+            TId = new StructurId {
+                getValue = new int[3] {
+                    0xC20,
+                    0xC21,
+                    0xC22,
+                }
+            }
+        };
+
+        public Transmission accelsensorTransmission = new() {
+            TAddres = new StructurAddresses {
+                addres = 8
+            },
+            TId = new StructurId {
+                getValue = new int[3] {
+                    0xD20,
+                    0xD21,
+                    0xD22,
                 }
             }
         };

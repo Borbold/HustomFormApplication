@@ -6,6 +6,50 @@ using System.Net.Sockets;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
+        void TestCharToByte() {
+            // С CAN приходит строка и преобразовываем в число
+            // С сервера приходит число которое преобразовываем в строку
+            byte[] testCan = new byte[255];
+            it_un id_un = new() {
+                byte1 = testInternetBuf[0],
+                byte2 = testInternetBuf[1]
+            }, to_addres = new() {
+                byte1 = testInternetBuf[2],
+                byte2 = testInternetBuf[3]
+            }, out_addres = new() {
+                byte1 = testInternetBuf[4],
+                byte2 = testInternetBuf[5]
+            };
+            // Пример приема с сервера. Число в строку
+            if(to_addres.it <= 31 && out_addres.it <= 31) {
+                testCan[0] = 0x74;
+                int offset_out = out_addres.it / 0xF;
+                to_addres.it = to_addres.it * 2 + offset_out;
+                testCan[1] = (byte)(to_addres.byte2 + 0x30);
+                testCan[2] = (byte)(to_addres.byte1 + 0x30);
+                testCan[3] = (byte)((out_addres.it & 0xF) + 0x37);
+                testCan[4] = 0x32;
+                testCan[5] = (byte)((id_un.byte1 >> 4) + 0x37);
+                testCan[6] = (byte)(0x30);
+                testCan[7] = 0x30;
+                testCan[8] = 0x30;
+                testCan[9] = 0xD;
+                foreach(byte i in testCan) {
+                    Debug.Write($"{i:X} ");
+                }
+            }
+            Debug.WriteLine("");
+            // Пример приема с CAN. Строку в число
+            testCan = new byte[testCANCharBuf.Length];
+            for(int i = 0; i < testCANCharBuf.Length; i++) {
+                testCan[i] = Convert.ToByte(testCANCharBuf[i]);
+            }
+            foreach(byte i in testCan) {
+                Debug.Write($"{i:X} ");
+            }
+            Debug.WriteLine("");
+        }
+
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
         private readonly DefaultTransmission DT = new();
@@ -49,48 +93,6 @@ namespace HustonRTEMS {
         }
 #pragma warning restore CS8618
         private void Form1_Load(object sender, EventArgs e) {
-            // С CAN приходит строка и преобразовываем в число
-            // С сервера приходит число которое преобразовываем в строку
-            byte[] testCan = new byte[255];
-            it_un id_un = new() {
-                byte1 = testInternetBuf[0],
-                byte2 = testInternetBuf[1]
-            }, to_addres = new() {
-                byte1 = testInternetBuf[2],
-                byte2 = testInternetBuf[3]
-            }, out_addres = new() {
-                byte1 = testInternetBuf[4],
-                byte2 = testInternetBuf[5]
-            };
-            // Пример приема с сервера. Число в строку
-            if(to_addres.it <= 31 && out_addres.it <= 31) {
-                testCan[0] = 0x74;
-                int offset_out = out_addres.it / 0xF;
-                to_addres.it = to_addres.it * 2 + offset_out;
-                testCan[1] = (byte)(to_addres.byte2 + 0x30);
-                testCan[2] = (byte)(to_addres.byte1 + 0x30);
-                testCan[3] = (byte)((out_addres.it & 0xF) + 0x37);
-                testCan[4] = 0x32;
-                testCan[5] = (byte)((id_un.byte1 >> 4) + 0x37);
-                testCan[6] = (byte)(0x30);
-                testCan[7] = 0x30;
-                testCan[8] = 0x30;
-                testCan[9] = 0xD;
-                foreach(byte i in testCan) {
-                    Debug.Write($"{i:X} ");
-                }
-            }
-            Debug.WriteLine("");
-            // Пример приема с CAN. Строку в число
-            testCan = new byte[testCANCharBuf.Length];
-            for(int i = 0; i < testCANCharBuf.Length; i++) {
-                testCan[i] = Convert.ToByte(testCANCharBuf[i]);
-            }
-            foreach(byte i in testCan) {
-                Debug.Write($"{i:X} ");
-            }
-            Debug.WriteLine("");
-
             AddresTemperature.Text = $"{DT.temperatureTransmission.TAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
@@ -98,6 +100,22 @@ namespace HustonRTEMS {
             IdAscelX.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdAscelY.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdAscelZ.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Z]:X}";
+            IdAscelW.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.W]:X}";
+
+            AddresRegul.Text = $"{DT.regulationTransmission.TAddres.addres:X}";
+            IdRegulX.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.X]:X}";
+            IdRegulY.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.Y]:X}";
+            IdRegulZ.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.Z]:X}";
+
+            AddresRates.Text = $"{DT.ratesensorTransmission.TAddres.addres:X}";
+            IdRatesX.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.X]:X}";
+            IdRatesY.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.Y]:X}";
+            IdRatesZ.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.Z]:X}";
+
+            AddresAccel.Text = $"{DT.accelsensorTransmission.TAddres.addres:X}";
+            IdAccelX.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.X]:X}";
+            IdAccelY.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.Y]:X}";
+            IdAccelZ.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.Z]:X}";
 
             AddresMag1.Text = $"{DT.magnitudeTransmission1.TAddres.addres:X}";
             IdMag1X.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.X]:X}";
@@ -143,13 +161,26 @@ namespace HustonRTEMS {
         }
 
         private void TrackBarRotX_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackBarRotX.Value / 5.0f, LabRotX);
+            Change_Val_Track(TrackBarRotX.Value / 100.0f, LabRotX);
         }
         private void TrackBarRotY_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackBarRotY.Value / 5.0f, LabRotY);
+            Change_Val_Track(TrackBarRotY.Value / 100.0f, LabRotY);
         }
         private void TrackBarRotZ_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackBarRotZ.Value / 5.0f, LabRotZ);
+            Change_Val_Track(TrackBarRotZ.Value / 100.0f, LabRotZ);
+        }
+        private void TrackBarRotW_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarRotW.Value / 100.0f, LabRotW);
+        }
+
+        private void TrackBarPosX_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarPosX.Value / 100.0f, LabPosX);
+        }
+        private void TrackBarPosY_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarPosY.Value / 100.0f, LabPosY);
+        }
+        private void TrackBarPosZ_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarPosZ.Value / 100.0f, LabPosZ);
         }
 
         private void TrackMagX_Scroll(object sender, EventArgs e) {
@@ -170,6 +201,26 @@ namespace HustonRTEMS {
         }
         private void TrackMagZ_2_Scroll(object sender, EventArgs e) {
             Change_Val_Track(TrackMagZ_2.Value / 5.0f, LabMagZ_2);
+        }
+
+        private void TrackBarRatesX_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarRatesX.Value / 100.0f, LabRatesX);
+        }
+        private void TrackBarRatesY_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarRatesY.Value / 100.0f, LabRatesY);
+        }
+        private void TrackBarRatesZ_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarRatesZ.Value / 100.0f, LabRatesZ);
+        }
+
+        private void TrackBarAccelX_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarAccelX.Value / 100.0f, LabAccelX);
+        }
+        private void TrackBarAccelY_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarAccelY.Value / 100.0f, LabAccelY);
+        }
+        private void TrackBarAccelZ_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(TrackBarAccelZ.Value / 100.0f, LabAccelZ);
         }
         // Track bar
 
