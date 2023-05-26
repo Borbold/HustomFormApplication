@@ -110,6 +110,7 @@
             label9 = new Label();
             label8 = new Label();
             CANPage = new TabPage();
+            CloseRKSCAN = new Button();
             CANSpeed = new ComboBox();
             OpenRKSCAN = new Button();
             CANTestRead = new Button();
@@ -119,7 +120,6 @@
             label14 = new Label();
             label10 = new Label();
             SensorReadings = new TabPage();
-            CloseRKSCAN = new Button();
             SubTabControl.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -1136,6 +1136,17 @@
             CANPage.Text = "CAN";
             CANPage.UseVisualStyleBackColor = true;
             // 
+            // CloseRKSCAN
+            // 
+            CloseRKSCAN.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CloseRKSCAN.Location = new Point(6, 116);
+            CloseRKSCAN.Name = "CloseRKSCAN";
+            CloseRKSCAN.Size = new Size(142, 35);
+            CloseRKSCAN.TabIndex = 12;
+            CloseRKSCAN.Text = "Close RKS+CAN";
+            CloseRKSCAN.UseVisualStyleBackColor = true;
+            CloseRKSCAN.Click += CloseRKSCAN_Click;
+            // 
             // CANSpeed
             // 
             CANSpeed.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -1196,7 +1207,7 @@
             // 
             CANPort.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             CANPort.FormattingEnabled = true;
-            CANPort.Items.AddRange(new object[] { "Com1", "Com2", "Com3" });
+            CANPort.Items.AddRange(new object[] { "Com1", "Com2", "Com3", "Com4", "Com5", "Com6" });
             CANPort.Location = new Point(65, 40);
             CANPort.Name = "CANPort";
             CANPort.Size = new Size(121, 29);
@@ -1233,17 +1244,6 @@
             SensorReadings.TabIndex = 0;
             SensorReadings.Text = "Показания датчиков";
             SensorReadings.UseVisualStyleBackColor = true;
-            // 
-            // CloseRKSCAN
-            // 
-            CloseRKSCAN.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CloseRKSCAN.Location = new Point(6, 116);
-            CloseRKSCAN.Name = "CloseRKSCAN";
-            CloseRKSCAN.Size = new Size(142, 35);
-            CloseRKSCAN.TabIndex = 12;
-            CloseRKSCAN.Text = "Close RKS+CAN";
-            CloseRKSCAN.UseVisualStyleBackColor = true;
-            CloseRKSCAN.Click += CloseRKSCAN_Click;
             // 
             // Form1
             // 

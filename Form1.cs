@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
@@ -14,10 +15,26 @@ namespace HustonRTEMS {
         private readonly byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x04, 0x00, 0x00, 0x98, 0xAD, 0x45, 0xC0 };
-        private readonly byte[] canHardBufWrite = { //Get
-             0x74, 0x31, 0x37, 0x36, 0x00, 0x0D };
+        /*private readonly byte[] canHardBufWrite = { //Get 11 - temperature
+             0x74, 0x30, 0x33, 0x43, 0x32, 0x42, 0x30, 0x30, 0x30, 0x0D };*/
         /*private readonly byte[] canHardBufWrite = { //Set
              0x74, 0x34, 0x33, 0x32, 0x34, 0x31, 0x31, 0x32, 0x32, 0x33, 0x33, 0x34, 0x34, 0x0D };*/
+        /*private readonly byte[] canHardBufWrite = { //Get 29
+            0x54, 0x42, 0x30, 0x00, 0x00, 0x31, 0x00, 0x31, 0x43, 0x33, 0x31, 0x31, 0x32, 0x32, 0x33, 0x33, 0x0D };*/
+        private readonly char[] testCANCharBuf = {
+            't', '0', '3', 'C', '2', 'B', '0', '0', '0', '\r',
+        };
+        private readonly byte[] testInternetBuf = {
+            0xB0, 0x00, 0x01, 0x00, 0x1C, 0x00, 0x04,
+            0x00, 0x00, 0x98, 0xAD, 0x45,
+            0xC0 };
+        private readonly byte[] canHardBufWrite = { //Get 29
+            0x54,
+            0x31, 0x37, 0x00, 0x00, 0x31, 0x00, 0x32, 0x38, 0x34,
+            0x31, 0x31, 0x32, 0x32, 0x33, 0x33, 0x33, 0x33,
+            0x0D };
+        /*private readonly byte[] canHardBufWrite = { //Set RTR
+             0x72, 0x32, 0x38, 0x38, 0x30, 0x0D };*/
 
         private int message_size = new();
         private Socket client;
@@ -32,6 +49,48 @@ namespace HustonRTEMS {
         }
 #pragma warning restore CS8618
         private void Form1_Load(object sender, EventArgs e) {
+            // С CAN приходит строка и преобразовываем в число
+            // С сервера приходит число которое преобразовываем в строку
+            byte[] testCan = new byte[255];
+            it_un id_un = new() {
+                byte1 = testInternetBuf[0],
+                byte2 = testInternetBuf[1]
+            }, to_addres = new() {
+                byte1 = testInternetBuf[2],
+                byte2 = testInternetBuf[3]
+            }, out_addres = new() {
+                byte1 = testInternetBuf[4],
+                byte2 = testInternetBuf[5]
+            };
+            // Пример приема с сервера. Число в строку
+            if(to_addres.it <= 31 && out_addres.it <= 31) {
+                testCan[0] = 0x74;
+                int offset_out = out_addres.it / 0xF;
+                to_addres.it = to_addres.it * 2 + offset_out;
+                testCan[1] = (byte)(to_addres.byte2 + 0x30);
+                testCan[2] = (byte)(to_addres.byte1 + 0x30);
+                testCan[3] = (byte)((out_addres.it & 0xF) + 0x37);
+                testCan[4] = 0x32;
+                testCan[5] = (byte)((id_un.byte1 >> 4) + 0x37);
+                testCan[6] = (byte)(0x30);
+                testCan[7] = 0x30;
+                testCan[8] = 0x30;
+                testCan[9] = 0xD;
+                foreach(byte i in testCan) {
+                    Debug.Write($"{i:X} ");
+                }
+            }
+            Debug.WriteLine("");
+            // Пример приема с CAN. Строку в число
+            testCan = new byte[testCANCharBuf.Length];
+            for(int i = 0; i < testCANCharBuf.Length; i++) {
+                testCan[i] = Convert.ToByte(testCANCharBuf[i]);
+            }
+            foreach(byte i in testCan) {
+                Debug.Write($"{i:X} ");
+            }
+            Debug.WriteLine("");
+
             AddresTemperature.Text = $"{DT.temperatureTransmission.TAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
@@ -293,9 +352,20 @@ namespace HustonRTEMS {
         }
 
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
-            Read();
+            //Read();
         }
         private void Read() {
+            int byteWrite = 0, offsetByte = 8;
+            while(byteWrite < serialPort.BytesToRead) {
+                int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
+                    serialPort.BytesToRead - byteWrite : offsetByte;
+                byte[] data = new byte[copyByte];
+                serialPort.Read(data, 0, copyByte);
+                for(int i = 0; i < data.Length; i++) {
+                    LogBox.Text += " " + $"{data[i]:X}";
+                }
+                byteWrite += offsetByte;
+            }
         }
         private void CANTestWrite_Click(object sender, EventArgs e) {
             /*serialPort.Write("V\r");
@@ -308,10 +378,15 @@ namespace HustonRTEMS {
                     LogBox.Text += " " + data[i].ToString();
             }*/
 
-            int byteWrite = 0, offsetByte = 11;
+            //serialPort.Write("T0000E3883223344\r");
+
+
+
+            LogBox.Text += "\r\n";
+            int byteWrite = 0, offsetByte = 8;
             while(byteWrite < canHardBufWrite.Length) {
-                int copyByte = byteWrite + offsetByte > canHardBufWrite.Length ?
-                    canHardBufWrite.Length - byteWrite : byteWrite + offsetByte;
+                int copyByte = byteWrite + offsetByte >= canHardBufWrite.Length ?
+                    canHardBufWrite.Length - byteWrite : offsetByte;
                 byte[] data = new byte[copyByte];
                 Array.Copy(canHardBufWrite, byteWrite, data, 0, copyByte);
                 serialPort.Write(data, 0, copyByte);
@@ -322,29 +397,15 @@ namespace HustonRTEMS {
             }
             LogBox.Text += "\r\n";
 
-            /*serialPort.Write("t176411223344\r");
-            Thread.Sleep(100);
-            if(serialPort.BytesToWrite > 0) {
-                LogBox.Text += " " + serialPort.BytesToWrite;
-            }*/
+            //serialPort.Write("t280411223344\r");
         }
         private void CANTestRead_Click(object sender, EventArgs e) {
-            int byteWrite = 0, offsetByte = 11;
-            while(byteWrite < serialPort.BytesToRead) {
-                int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
-                    serialPort.BytesToRead - byteWrite : byteWrite + offsetByte;
-                byte[] data = new byte[copyByte];
-                serialPort.Read(data, 0, copyByte);
-                for(int i = 0; i < data.Length; i++) {
-                    LogBox.Text += " " + $"{data[i]:X}";
-                }
-                byteWrite += offsetByte;
-            }
+            Read();
         }
 
         private SerialPort serialPort;
         private void OpenRKSCAN_Click(object sender, EventArgs e) {
-            serialPort ??= new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
+            serialPort = new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
 
             if(!serialPort.IsOpen) {
                 serialPort.DataReceived += new SerialDataReceivedEventHandler(ComPort_DataReceived);
@@ -352,14 +413,20 @@ namespace HustonRTEMS {
                     serialPort.Open();
                     // Открыть
                     serialPort.Write("O\r");
+                    Thread.Sleep(100);
+                    Read();
                     // Установить скорость
                     serialPort.Write(string.Format("S{0}\r", CANSpeed.SelectedIndex));
+                    Thread.Sleep(100);
+                    Read();
 
                     LogBox.Text = "Port open";
                 }
                 catch(Exception ex) {
                     LogBox.Text = ex.Message;
                 }
+            } else {
+                LogBox.Text = "serialPort is open";
             }
         }
         private void CloseRKSCAN_Click(object sender, EventArgs e) {
