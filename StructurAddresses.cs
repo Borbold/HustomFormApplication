@@ -6,7 +6,7 @@
         public int[] getValue;
     }
     public struct Transmission {
-        public StructurAddresses TAddres;
+        public StructurAddresses TShipAddres;
         public StructurId TId;
     }
 
@@ -19,8 +19,8 @@
 
     public class DefaultTransmission {
         public Transmission temperatureTransmission = new() {
-            TAddres = new StructurAddresses {
-                addres = 9
+            TShipAddres = new StructurAddresses {
+                addres = 0x09
             },
             TId = new StructurId {
                 getValue = new int[1] {
@@ -29,9 +29,12 @@
             }
         };
 
+        public StructurAddresses ReceiveMagAddres = new() {
+            addres = 0x01
+        };
         public Transmission magnitudeTransmission1 = new() {
-            TAddres = new StructurAddresses {
-                addres = 0xA1
+            TShipAddres = new StructurAddresses {
+                addres = 0x09
             },
             TId = new StructurId {
                 getValue = new int[3] {
@@ -42,8 +45,8 @@
             }
         };
         public Transmission magnitudeTransmission2 = new() {
-            TAddres = new StructurAddresses {
-                addres = 0xA2
+            TShipAddres = new StructurAddresses {
+                addres = 0x09
             },
             TId = new StructurId {
                 getValue = new int[3] {
@@ -55,7 +58,7 @@
         };
 
         public Transmission acselerometerTransmission = new() {
-            TAddres = new StructurAddresses {
+            TShipAddres = new StructurAddresses {
                 addres = 8
             },
             TId = new StructurId {
@@ -69,7 +72,7 @@
         };
 
         public Transmission regulationTransmission = new() {
-            TAddres = new StructurAddresses {
+            TShipAddres = new StructurAddresses {
                 addres = 8
             },
             TId = new StructurId {
@@ -82,7 +85,7 @@
         };
 
         public Transmission ratesensorTransmission = new() {
-            TAddres = new StructurAddresses {
+            TShipAddres = new StructurAddresses {
                 addres = 8
             },
             TId = new StructurId {
@@ -95,7 +98,7 @@
         };
 
         public Transmission accelsensorTransmission = new() {
-            TAddres = new StructurAddresses {
+            TShipAddres = new StructurAddresses {
                 addres = 8
             },
             TId = new StructurId {
@@ -109,7 +112,7 @@
 
         // Power on response
         public Transmission acknowledge = new() {
-            TAddres = new StructurAddresses {
+            TShipAddres = new StructurAddresses {
                 addres = 4
             },
             TId = new StructurId {

@@ -93,39 +93,43 @@ namespace HustonRTEMS {
         }
 #pragma warning restore CS8618
         private void Form1_Load(object sender, EventArgs e) {
-            AddresTemperature.Text = $"{DT.temperatureTransmission.TAddres.addres:X}";
+            AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
-            AddresAcsel.Text = $"{DT.acselerometerTransmission.TAddres.addres:X}";
+            AddresAcsel.Text = $"{DT.acselerometerTransmission.TShipAddres.addres:X}";
             IdAscelX.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdAscelY.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdAscelZ.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Z]:X}";
             IdAscelW.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.W]:X}";
 
-            AddresRegul.Text = $"{DT.regulationTransmission.TAddres.addres:X}";
+            AddresRegul.Text = $"{DT.regulationTransmission.TShipAddres.addres:X}";
             IdRegulX.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdRegulY.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdRegulZ.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.Z]:X}";
 
-            AddresRates.Text = $"{DT.ratesensorTransmission.TAddres.addres:X}";
+            AddresRates.Text = $"{DT.ratesensorTransmission.TShipAddres.addres:X}";
             IdRatesX.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdRatesY.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdRatesZ.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.Z]:X}";
 
-            AddresAccel.Text = $"{DT.accelsensorTransmission.TAddres.addres:X}";
+            AddresAccel.Text = $"{DT.accelsensorTransmission.TShipAddres.addres:X}";
             IdAccelX.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdAccelY.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdAccelZ.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.Z]:X}";
 
-            AddresMag1.Text = $"{DT.magnitudeTransmission1.TAddres.addres:X}";
+            // Mag
+            AddresReceiveMag.Text = $"{DT.ReceiveMagAddres.addres:X}";
+
+            AddresMag1.Text = $"{DT.magnitudeTransmission1.TShipAddres.addres:X}";
             IdMag1X.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.X]:X}";
             IdMag1Y.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.Y]:X}";
             IdMag1Z.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.Z]:X}";
 
-            AddresMag2.Text = $"{DT.magnitudeTransmission2.TAddres.addres:X}";
+            AddresMag2.Text = $"{DT.magnitudeTransmission2.TShipAddres.addres:X}";
             IdMag2X.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.X]:X}";
             IdMag2Y.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.Y]:X}";
             IdMag2Z.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.Z]:X}";
+            // Mag
 
             if(cfg.GetSection("customProperty") is CustomProperty section) {
                 IPTextBox.Text = section.IP;
@@ -296,9 +300,9 @@ namespace HustonRTEMS {
                             if(id.it == 0x40) {
                                 hardBufWrite[18] = id.byte1;
                                 hardBufWrite[19] = id.byte2;
-                                it.it = DT.acknowledge.TAddres.addres;
+                                it.it = DT.acknowledge.TShipAddres.addres;
 
-                                GF.SendMessageInSocket(serverListener, fl, it,
+                                GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                                     hardBufWrite, LogBox);
                             }
                         }
@@ -344,57 +348,57 @@ namespace HustonRTEMS {
 
         // Send data
         private void SendTemperature_Click(object sender, EventArgs e) {
-            it.it = DT.temperatureTransmission.TAddres.addres;
+            it.it = DT.temperatureTransmission.TShipAddres.addres;
 
             fl.fl = (float)Convert.ToDouble(LabTemp.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
         }
 
         private void SendMagnetometer1_Click(object sender, EventArgs e) {
-            it.it = DT.magnitudeTransmission1.TAddres.addres;
+            it.it = Convert.ToInt16(AddresMag1.Text);
 
             fl.fl = (float)Convert.ToDouble(LabMagX.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
 
             fl.fl = (float)Convert.ToDouble(LabMagY.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
 
             fl.fl = (float)Convert.ToDouble(LabMagZ.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
         }
         private void SendMagnetometer2_Click(object sender, EventArgs e) {
-            it.it = DT.magnitudeTransmission2.TAddres.addres;
+            it.it = DT.magnitudeTransmission2.TShipAddres.addres;
 
             fl.fl = (float)Convert.ToDouble(LabMagX_2.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
 
             fl.fl = (float)Convert.ToDouble(LabMagY_2.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
 
             fl.fl = (float)Convert.ToDouble(LabMagZ_2.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
         }
 
         private void SendAcselerometer_Click(object sender, EventArgs e) {
-            it.it = DT.acselerometerTransmission.TAddres.addres;
+            it.it = DT.acselerometerTransmission.TShipAddres.addres;
 
             fl.fl = (float)Convert.ToDouble(LabRotX.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
 
             fl.fl = (float)Convert.ToDouble(LabRotY.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
 
             fl.fl = (float)Convert.ToDouble(LabRotZ.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
+            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
         }
         // Send data
@@ -404,6 +408,17 @@ namespace HustonRTEMS {
 
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
             //Read();
+            int byteWrite = 0, offsetByte = 8;
+            while(byteWrite < serialPort.BytesToRead) {
+                int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
+                    serialPort.BytesToRead - byteWrite : offsetByte;
+                byte[] data = new byte[copyByte];
+                serialPort.Read(data, 0, copyByte);
+                for(int i = 0; i < data.Length; i++) {
+                    Debug.WriteLine(" " + $"{data[i]:X}");
+                }
+                byteWrite += offsetByte;
+            }
         }
         private void Read() {
             int byteWrite = 0, offsetByte = 8;
@@ -462,12 +477,12 @@ namespace HustonRTEMS {
                 serialPort.DataReceived += new SerialDataReceivedEventHandler(ComPort_DataReceived);
                 try {
                     serialPort.Open();
-                    // Открыть
-                    serialPort.Write("O\r");
-                    Thread.Sleep(100);
-                    Read();
                     // Установить скорость
                     serialPort.Write(string.Format("S{0}\r", CANSpeed.SelectedIndex));
+                    Thread.Sleep(100);
+                    Read();
+                    // Открыть
+                    serialPort.Write("O\r");
                     Thread.Sleep(100);
                     Read();
 

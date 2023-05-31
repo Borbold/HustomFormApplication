@@ -31,7 +31,7 @@ namespace HustonRTEMS {
 
 namespace HustonRTEMS {
     internal class GeneralFunctional {
-        public void ChangingPositionAccelerometer() {
+        public static void ChangingPositionAccelerometer() {
             int jon = 5;
             for(int i = 0; i < 5; i++) {
                 Thread.Sleep(100);
@@ -39,7 +39,7 @@ namespace HustonRTEMS {
             }
         }
 
-        public async void SendMessageInSocket(Socket serverListener, fl_un fl, it_un it,
+        public static async void SendMessageInSocket(Socket serverListener, fl_un fl, it_un it,
             byte[] hardBufWrite, TextBox logBox) {
             if(serverListener != null && serverListener.Connected) {
                 hardBufWrite[20] = it.byte1;

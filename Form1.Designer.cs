@@ -37,6 +37,8 @@
             TrackBarTemp = new TrackBar();
             label3 = new Label();
             TabMagnetometer = new TabPage();
+            label43 = new Label();
+            AddresReceiveMag = new TextBox();
             panel1 = new Panel();
             label32 = new Label();
             IdMag2Z = new TextBox();
@@ -373,6 +375,8 @@
             // 
             // TabMagnetometer
             // 
+            TabMagnetometer.Controls.Add(label43);
+            TabMagnetometer.Controls.Add(AddresReceiveMag);
             TabMagnetometer.Controls.Add(panel1);
             TabMagnetometer.Controls.Add(label1);
             TabMagnetometer.Location = new Point(4, 26);
@@ -382,6 +386,25 @@
             TabMagnetometer.TabIndex = 1;
             TabMagnetometer.Text = "Magnetometer";
             TabMagnetometer.UseVisualStyleBackColor = true;
+            // 
+            // label43
+            // 
+            label43.AutoSize = true;
+            label43.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label43.Location = new Point(52, 42);
+            label43.Name = "label43";
+            label43.Size = new Size(111, 21);
+            label43.TabIndex = 43;
+            label43.Text = "Адрес приема";
+            // 
+            // AddresReceiveMag
+            // 
+            AddresReceiveMag.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveMag.Location = new Point(14, 39);
+            AddresReceiveMag.Name = "AddresReceiveMag";
+            AddresReceiveMag.Size = new Size(32, 29);
+            AddresReceiveMag.TabIndex = 42;
+            AddresReceiveMag.Text = "?";
             // 
             // panel1
             // 
@@ -444,7 +467,6 @@
             IdMag2Z.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag2Z.Location = new Point(624, 311);
             IdMag2Z.Name = "IdMag2Z";
-            IdMag2Z.ReadOnly = true;
             IdMag2Z.Size = new Size(50, 29);
             IdMag2Z.TabIndex = 52;
             IdMag2Z.Text = "?";
@@ -464,7 +486,6 @@
             IdMag2Y.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag2Y.Location = new Point(624, 260);
             IdMag2Y.Name = "IdMag2Y";
-            IdMag2Y.ReadOnly = true;
             IdMag2Y.Size = new Size(50, 29);
             IdMag2Y.TabIndex = 50;
             IdMag2Y.Text = "?";
@@ -484,7 +505,6 @@
             IdMag2X.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag2X.Location = new Point(624, 209);
             IdMag2X.Name = "IdMag2X";
-            IdMag2X.ReadOnly = true;
             IdMag2X.Size = new Size(50, 29);
             IdMag2X.TabIndex = 48;
             IdMag2X.Text = "?";
@@ -504,7 +524,6 @@
             IdMag1Z.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag1Z.Location = new Point(624, 150);
             IdMag1Z.Name = "IdMag1Z";
-            IdMag1Z.ReadOnly = true;
             IdMag1Z.Size = new Size(50, 29);
             IdMag1Z.TabIndex = 46;
             IdMag1Z.Text = "?";
@@ -524,7 +543,6 @@
             IdMag1Y.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag1Y.Location = new Point(624, 99);
             IdMag1Y.Name = "IdMag1Y";
-            IdMag1Y.ReadOnly = true;
             IdMag1Y.Size = new Size(50, 29);
             IdMag1Y.TabIndex = 44;
             IdMag1Y.Text = "?";
@@ -544,7 +562,6 @@
             AddresMag2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             AddresMag2.Location = new Point(26, 329);
             AddresMag2.Name = "AddresMag2";
-            AddresMag2.ReadOnly = true;
             AddresMag2.Size = new Size(32, 29);
             AddresMag2.TabIndex = 42;
             AddresMag2.Text = "?";
@@ -564,7 +581,6 @@
             AddresMag1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             AddresMag1.Location = new Point(26, 168);
             AddresMag1.Name = "AddresMag1";
-            AddresMag1.ReadOnly = true;
             AddresMag1.Size = new Size(32, 29);
             AddresMag1.TabIndex = 40;
             AddresMag1.Text = "?";
@@ -584,7 +600,6 @@
             IdMag1X.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag1X.Location = new Point(624, 48);
             IdMag1X.Name = "IdMag1X";
-            IdMag1X.ReadOnly = true;
             IdMag1X.Size = new Size(50, 29);
             IdMag1X.TabIndex = 40;
             IdMag1X.Text = "?";
@@ -2255,5 +2270,7 @@
         private TrackBar TrackBarAccelX;
         private Label label63;
         private Label label64;
+        private Label label43;
+        private TextBox AddresReceiveMag;
     }
 }
