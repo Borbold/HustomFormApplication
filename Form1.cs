@@ -59,7 +59,7 @@ namespace HustonRTEMS {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0 };
         private byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
-            0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
+            0xC0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
         /*private readonly byte[] canHardBufWrite = { //Get 11 - temperature
              0x74, 0x30, 0x33, 0x43, 0x32, 0x42, 0x30, 0x30, 0x30, 0x0D };*/
         /*private readonly byte[] canHardBufWrite = { //Set
@@ -315,6 +315,7 @@ namespace HustonRTEMS {
                                 if(raw_buffer_size >= 0) {
                                     LogBox.Invoke(new Action(() => { LogBox.Text += $"{buffer[raw_buffer_size]:X} "; }));
                                 }
+                                GeneralFunctional.WriteChangeKissFESC(ref buffer);
                                 raw_buffer_size++;
                             }
                             message_size = 0;
@@ -464,6 +465,8 @@ namespace HustonRTEMS {
             sendBuf[37] = val.byte4;
 
             sendBuf[^1] = hardBuf[^1];
+
+            GeneralFunctional.SendChangeKissFESC(ref sendBuf);
 
             fl.fl = (float)Convert.ToDouble(LabMagZ.Text);
             GeneralFunctional.SendMessageInSocket(serverListener,
