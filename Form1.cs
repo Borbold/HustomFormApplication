@@ -276,7 +276,7 @@ namespace HustonRTEMS {
                     try {
                         serverListener.Connect(ipep);
                         LogBox.Invoke(new Action(() => {
-                            LogBox.Text = $"Socet open";
+                            LogBox.Text += $"Socet open";
                         }));
                         await serverListener.SendAsync(hardBuf, SocketFlags.None);
                     }
@@ -329,23 +329,24 @@ namespace HustonRTEMS {
                                 byte2 = buffer[21]
                             };
                             if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16)) {
-                                LogBox.Invoke(new Action(() => { LogBox.Text = "Get id\r\n"; }));
+                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get id\r\n"; }));
                                 if(addres.it == Convert.ToInt16(AddresReceiveMag.Text, 16)) {
                                     LogBox.Invoke(new Action(() => { LogBox.Text += "Get addres"; }));
                                     it_un idSend = new() {
                                         it = Convert.ToInt16(IdShippingMag.Text, 16)
                                     };
-                                    hardBufWrite[18] = idSend.byte1;
-                                    hardBufWrite[19] = idSend.byte2;
-
-                                    hardBufWrite[20] = buffer[22];
-                                    hardBufWrite[21] = buffer[23];
-
-                                    hardBufWrite[22] = buffer[20];
-                                    hardBufWrite[23] = buffer[21];
-
                                     byte[] sendBuf = new byte[buffer.Length + (3 * 4)];
-                                    Array.Copy(hardBuf, sendBuf, 23);
+                                    Array.Copy(hardBuf, sendBuf, 18);
+
+                                    sendBuf[18] = idSend.byte1;
+                                    sendBuf[19] = idSend.byte2;
+
+                                    sendBuf[20] = buffer[22];
+                                    sendBuf[21] = buffer[23];
+
+                                    sendBuf[22] = buffer[20];
+                                    sendBuf[23] = buffer[21];
+
                                     sendBuf[24] = 0x04;
                                     sendBuf[25] = 0x00;
 
