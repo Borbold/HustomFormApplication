@@ -321,6 +321,7 @@ namespace HustonRTEMS {
                                 hardBufWrite[23] = buffer[21];
 
                                 byte[] sendBuf = new byte[buffer.Length + 3 * 4];
+                                Array.Copy(hardBuf, sendBuf, 23);
                                 sendBuf[24] = 0x04;
                                 sendBuf[25] = 0x00;
 
@@ -345,6 +346,8 @@ namespace HustonRTEMS {
                                 sendBuf[35] = n_fl.byte2;
                                 sendBuf[36] = n_fl.byte3;
                                 sendBuf[37] = n_fl.byte4;
+
+                                sendBuf[^1] = buffer[^1];
 
                                 GeneralFunctional.SendMessageInSocket(serverListener,
                                     sendBuf, LogBox);
@@ -405,19 +408,57 @@ namespace HustonRTEMS {
         }
 
         private void SendMagnetometer1_Click(object sender, EventArgs e) {
+            byte[] sendBuf = new byte[27 + 3 * 4];
+            Array.Copy(hardBuf, sendBuf, 18);
             it.it = Convert.ToInt16(AddresMag1.Text, 16);
+            it_un id = new() {
+                it = Convert.ToInt16(IdShippingMag.Text, 16)
+            };
+            sendBuf[18] = id.byte1;
+            sendBuf[19] = id.byte2;
+            id = new() {
+                it = Convert.ToInt16(AddresMag1.Text, 16)
+            };
+            sendBuf[20] = id.byte1;
+            sendBuf[21] = id.byte2;
+            id = new() {
+                it = Convert.ToInt16(AddresReceiveMag.Text, 16)
+            };
+            sendBuf[22] = id.byte1;
+            sendBuf[23] = id.byte2;
+            id = new() {
+                it = Convert.ToInt16("4", 16)
+            };
+            sendBuf[24] = id.byte1;
+            sendBuf[25] = id.byte2;
 
-            fl.fl = (float)Convert.ToDouble(LabMagX.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
+            fl_un val = new() {
+                fl = (float)Convert.ToDouble(LabMagX.Text)
+            };
+            sendBuf[26] = val.byte1;
+            sendBuf[27] = val.byte2;
+            sendBuf[28] = val.byte3;
+            sendBuf[29] = val.byte4;
+            val = new() {
+                fl = (float)Convert.ToDouble(LabMagY.Text)
+            };
+            sendBuf[30] = val.byte1;
+            sendBuf[31] = val.byte2;
+            sendBuf[32] = val.byte3;
+            sendBuf[33] = val.byte4;
+            val = new() {
+                fl = (float)Convert.ToDouble(LabMagZ.Text)
+            };
+            sendBuf[34] = val.byte1;
+            sendBuf[35] = val.byte2;
+            sendBuf[36] = val.byte3;
+            sendBuf[37] = val.byte4;
 
-            fl.fl = (float)Convert.ToDouble(LabMagY.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
+            sendBuf[^1] = hardBuf[^1];
 
             fl.fl = (float)Convert.ToDouble(LabMagZ.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
+            GeneralFunctional.SendMessageInSocket(serverListener,
+                sendBuf, LogBox);
         }
         private void SendMagnetometer2_Click(object sender, EventArgs e) {
             it.it = Convert.ToInt16(AddresMag2.Text, 16);
