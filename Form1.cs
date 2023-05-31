@@ -349,7 +349,7 @@ namespace HustonRTEMS {
                                     sendBuf[22] = buffer[20];
                                     sendBuf[23] = buffer[21];
 
-                                    sendBuf[24] = 0x04;
+                                    sendBuf[24] = 0x12;
                                     sendBuf[25] = 0x00;
 
                                     fl_un n_fl = new() {
