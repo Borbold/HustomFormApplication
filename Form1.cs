@@ -56,7 +56,7 @@ namespace HustonRTEMS {
         private readonly DefaultTransmission DT = new();
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
-            0xB0, 0x00, 0x1, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0 };
         private byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
@@ -278,7 +278,7 @@ namespace HustonRTEMS {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text = $"Socet open";
                         }));
-                        //_ = serverListener.Send(hardBuf);
+                        _ = serverListener.Send(hardBuf);
                     }
                     catch(Exception ex) {
                         try {
@@ -387,38 +387,13 @@ namespace HustonRTEMS {
                         }
                         raw_buffer_size = 0;
                     }
-                }/* else if(!CheckBox.Checked) {
-                    serverListener.Bind(ipep);
-                    serverListener.Listen(200);
-                    LogBox.Text = "Waiting for a client...";
-
-                    client = await serverListener.AcceptAsync();
-                    //IPEndPoint? clientep = client.RemoteEndPoint as IPEndPoint;
-                    //LogBox.Text = $"Connected with {clientep.Address} at port {clientep.Port}";
-                    // Receive message.
-                    while(true) {
-                        message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
-
-                        if(message_size > 0) {
-                            LogBox.Text =
-                                $"RTEMS message: ";
-                            while(raw_buffer_size < message_size) {
-                                if(raw_buffer_size >= 0) {
-                                    LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
-                                }
-                                raw_buffer_size++;
-                            }
-                            break;
-                        }
-                        raw_buffer_size = 0;
-                    }
-                }*/
+                }
 
                 serverListener.Close();
             }
         }
         Thread nThread;
-        private void OpenSocetServer_Click(object sender, EventArgs e) {
+        private void OpenSocetServer_ClickAsync(object sender, EventArgs e) {
             nThread = new(Open_thread);
             nThread.Start();
         }

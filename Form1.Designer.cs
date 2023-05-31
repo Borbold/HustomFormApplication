@@ -1910,7 +1910,7 @@
             OpenSocketServer.TabIndex = 9;
             OpenSocketServer.Text = "Открыть сокет на прослушку";
             OpenSocketServer.UseVisualStyleBackColor = true;
-            OpenSocketServer.Click += OpenSocetServer_Click;
+            OpenSocketServer.Click += OpenSocetServer_ClickAsync;
             // 
             // UseInternet
             // 
