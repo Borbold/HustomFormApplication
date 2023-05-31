@@ -438,7 +438,7 @@ namespace HustonRTEMS {
             sendBuf[22] = id.byte1;
             sendBuf[23] = id.byte2;
             id = new() {
-                it = 16
+                it = 3 * 4
             };
             sendBuf[24] = id.byte1;
             sendBuf[25] = id.byte2;
