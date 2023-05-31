@@ -336,7 +336,8 @@ namespace HustonRTEMS {
                                     it_un idSend = new() {
                                         it = Convert.ToInt16(IdShippingMag.Text, 16)
                                     };
-                                    byte[] sendBuf = new byte[buffer.Length + (3 * 4)];
+                                    // 27 Длина киса + кана
+                                    byte[] sendBuf = new byte[27 + (3 * 4)];
                                     Array.Copy(hardBuf, sendBuf, 18);
 
                                     sendBuf[18] = idSend.byte1;
