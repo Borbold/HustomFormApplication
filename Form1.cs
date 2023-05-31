@@ -56,7 +56,7 @@ namespace HustonRTEMS {
         private readonly DefaultTransmission DT = new();
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
-            0xB0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0 };
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0 };
         private byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
@@ -96,7 +96,6 @@ namespace HustonRTEMS {
         private void Form1_Load(object sender, EventArgs e) {
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
-
 
             AddresAcsel.Text = $"{DT.acselerometerTransmission.TShipAddres.addres:X}";
             IdAscelX.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.X]:X}";
@@ -439,7 +438,7 @@ namespace HustonRTEMS {
             sendBuf[22] = id.byte1;
             sendBuf[23] = id.byte2;
             id = new() {
-                it = Convert.ToInt16("4", 16)
+                it = 16
             };
             sendBuf[24] = id.byte1;
             sendBuf[25] = id.byte2;
