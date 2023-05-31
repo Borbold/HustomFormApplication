@@ -3,10 +3,11 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
-        void TestCharToByte() {
+        private void TestCharToByte() {
             // С CAN приходит строка и преобразовываем в число
             // С сервера приходит число которое преобразовываем в строку
             byte[] testCan = new byte[255];
@@ -24,13 +25,13 @@ namespace HustonRTEMS {
             if(to_addres.it <= 31 && out_addres.it <= 31) {
                 testCan[0] = 0x74;
                 int offset_out = out_addres.it / 0xF;
-                to_addres.it = to_addres.it * 2 + offset_out;
+                to_addres.it = (to_addres.it * 2) + offset_out;
                 testCan[1] = (byte)(to_addres.byte2 + 0x30);
                 testCan[2] = (byte)(to_addres.byte1 + 0x30);
                 testCan[3] = (byte)((out_addres.it & 0xF) + 0x37);
                 testCan[4] = 0x32;
                 testCan[5] = (byte)((id_un.byte1 >> 4) + 0x37);
-                testCan[6] = (byte)(0x30);
+                testCan[6] = 0x30;
                 testCan[7] = 0x30;
                 testCan[8] = 0x30;
                 testCan[9] = 0xD;
@@ -81,7 +82,7 @@ namespace HustonRTEMS {
              0x72, 0x32, 0x38, 0x38, 0x30, 0x0D };*/
 
         private int message_size = new();
-        private Socket client;
+        private readonly Socket client;
         private byte[] buffer;
 
         public fl_un fl = new();
@@ -254,146 +255,165 @@ namespace HustonRTEMS {
         }
 
         private Socket serverListener;
-        private async void OpenSocetServer_Click(object sender, EventArgs e) {
-            IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
-                Convert.ToInt16(PortTextBox.Text));
-            serverListener = new(
-                AddressFamily.InterNetwork,
-                SocketType.Stream,
-                ProtocolType.Tcp
-            );
+        async void Open_thread() {
+            while(true) {
+                LogBox.Invoke(new Action(() => {
+                    LogBox.Text += "Search socet\r\n";
+                }));
+                IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
+                    Convert.ToInt16(PortTextBox.Text));
+                serverListener = new(
+                    AddressFamily.InterNetwork,
+                    SocketType.Stream,
+                    ProtocolType.Tcp
+                );
 
-            int KISSBUFFER_SIZE = 256;
-            buffer = new byte[KISSBUFFER_SIZE];
-            int raw_buffer_size = 18; // Kiss header
-            if(CheckBox.Checked && !serverListener.Connected) {
-                try {
-                    serverListener.Connect(ipep);
-                    LogBox.Text = $"Socet open";
-                    _ = serverListener.Send(hardBuf);
-                }
-                catch(Exception ex) {
-                    LogBox.Text = ex.Message;
-                }
-
-                while(serverListener.Connected) {
+                int KISSBUFFER_SIZE = 256;
+                buffer = new byte[KISSBUFFER_SIZE];
+                int raw_buffer_size = 18; // Kiss header
+                if(CheckBox.Checked && !serverListener.Connected) {
                     try {
-                        message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
+                        serverListener.Connect(ipep);
+                        LogBox.Invoke(new Action(() => {
+                            LogBox.Text = $"Socet open";
+                        }));
+                        _ = serverListener.Send(hardBuf);
                     }
                     catch(Exception ex) {
-                        LogBox.Text = ex.Message;
+                        LogBox.Invoke(new Action(() => {
+                            LogBox.Text = ex.Message + "\r\n";
+                        }));
                     }
 
-                    if(message_size > 0) {
-                        LogBox.Text +=
-                            $"Socket server response message: \r\n";
-                        while(raw_buffer_size < message_size) {
-                            if(raw_buffer_size >= 0) {
-                                LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
-                            }
-                            raw_buffer_size++;
+                    while(serverListener.Connected) {
+                        try {
+                            message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
                         }
-                        message_size = 0;
-                        LogBox.Text += $"\r\nWait new message!\r\n";
+                        catch(Exception ex) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text = ex.Message;
+                            }));
+                        }
 
-                        // Example of sending a power-on response
-                        it_un id = new() {
-                            byte1 = buffer[18],
-                            byte2 = buffer[19]
-                        }, addres = new() {
-                            byte1 = buffer[20],
-                            byte2 = buffer[21]
-                        };
-                        if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16)) {
-                            LogBox.Text = "Get id\r\n";
-                            if(addres.it == Convert.ToInt16(AddresReceiveMag.Text, 16)) {
-                                LogBox.Text += "Get addres";
-                                it_un idSend = new() {
-                                    it = Convert.ToInt16(IdShippingMag.Text, 16)
-                                };
-                                hardBufWrite[18] = idSend.byte1;
-                                hardBufWrite[19] = idSend.byte2;
+                        if(message_size > 0) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text +=
+                                $"Socket server response message: \r\n";
+                            }));
+                            while(raw_buffer_size < message_size) {
+                                if(raw_buffer_size >= 0) {
+                                    LogBox.Invoke(new Action(() => { LogBox.Text += $"{buffer[raw_buffer_size]:X} "; }));
+                                }
+                                raw_buffer_size++;
+                            }
+                            message_size = 0;
+                            LogBox.Invoke(new Action(() => { LogBox.Text += $"\r\nWait new message!\r\n"; }));
 
-                                hardBufWrite[20] = buffer[22];
-                                hardBufWrite[21] = buffer[23];
+                            // Example of sending a power-on response
+                            it_un id = new() {
+                                byte1 = buffer[18],
+                                byte2 = buffer[19]
+                            }, addres = new() {
+                                byte1 = buffer[20],
+                                byte2 = buffer[21]
+                            };
+                            if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16)) {
+                                LogBox.Invoke(new Action(() => { LogBox.Text = "Get id\r\n"; }));
+                                if(addres.it == Convert.ToInt16(AddresReceiveMag.Text, 16)) {
+                                    LogBox.Invoke(new Action(() => { LogBox.Text += "Get addres"; }));
+                                    it_un idSend = new() {
+                                        it = Convert.ToInt16(IdShippingMag.Text, 16)
+                                    };
+                                    hardBufWrite[18] = idSend.byte1;
+                                    hardBufWrite[19] = idSend.byte2;
 
-                                hardBufWrite[22] = buffer[20];
-                                hardBufWrite[23] = buffer[21];
+                                    hardBufWrite[20] = buffer[22];
+                                    hardBufWrite[21] = buffer[23];
 
-                                byte[] sendBuf = new byte[buffer.Length + 3 * 4];
-                                Array.Copy(hardBuf, sendBuf, 23);
-                                sendBuf[24] = 0x04;
-                                sendBuf[25] = 0x00;
+                                    hardBufWrite[22] = buffer[20];
+                                    hardBufWrite[23] = buffer[21];
 
-                                fl_un n_fl = new() {
-                                    fl = (float)Convert.ToDecimal(LabMagX.Text)
-                                };
-                                sendBuf[26] = n_fl.byte1;
-                                sendBuf[27] = n_fl.byte2;
-                                sendBuf[28] = n_fl.byte3;
-                                sendBuf[29] = n_fl.byte4;
-                                n_fl = new() {
-                                    fl = (float)Convert.ToDecimal(LabMagY.Text)
-                                };
-                                sendBuf[30] = n_fl.byte1;
-                                sendBuf[31] = n_fl.byte2;
-                                sendBuf[32] = n_fl.byte3;
-                                sendBuf[33] = n_fl.byte4;
-                                n_fl = new() {
-                                    fl = (float)Convert.ToDecimal(LabMagZ.Text)
-                                };
-                                sendBuf[34] = n_fl.byte1;
-                                sendBuf[35] = n_fl.byte2;
-                                sendBuf[36] = n_fl.byte3;
-                                sendBuf[37] = n_fl.byte4;
+                                    byte[] sendBuf = new byte[buffer.Length + (3 * 4)];
+                                    Array.Copy(hardBuf, sendBuf, 23);
+                                    sendBuf[24] = 0x04;
+                                    sendBuf[25] = 0x00;
 
-                                sendBuf[^1] = buffer[^1];
+                                    fl_un n_fl = new() {
+                                        fl = (float)Convert.ToDecimal(LabMagX.Text)
+                                    };
+                                    sendBuf[26] = n_fl.byte1;
+                                    sendBuf[27] = n_fl.byte2;
+                                    sendBuf[28] = n_fl.byte3;
+                                    sendBuf[29] = n_fl.byte4;
+                                    n_fl = new() {
+                                        fl = (float)Convert.ToDecimal(LabMagY.Text)
+                                    };
+                                    sendBuf[30] = n_fl.byte1;
+                                    sendBuf[31] = n_fl.byte2;
+                                    sendBuf[32] = n_fl.byte3;
+                                    sendBuf[33] = n_fl.byte4;
+                                    n_fl = new() {
+                                        fl = (float)Convert.ToDecimal(LabMagZ.Text)
+                                    };
+                                    sendBuf[34] = n_fl.byte1;
+                                    sendBuf[35] = n_fl.byte2;
+                                    sendBuf[36] = n_fl.byte3;
+                                    sendBuf[37] = n_fl.byte4;
 
-                                GeneralFunctional.SendMessageInSocket(serverListener,
-                                    sendBuf, LogBox);
-                                hardBufWrite = sendBuf;
+                                    sendBuf[^1] = buffer[^1];
+
+                                    GeneralFunctional.SendMessageInSocket(serverListener,
+                                        sendBuf, LogBox);
+                                    hardBufWrite = sendBuf;
+                                } else {
+                                    LogBox.Invoke(new Action(() => { LogBox.Text = "Lost addres"; }));
+                                }
                             } else {
-                                LogBox.Text = "Lost addres";
+                                LogBox.Invoke(new Action(() => { LogBox.Text = "Lost information"; }));
                             }
                         } else {
-                            LogBox.Text = "Lost information";
+                            break;
                         }
-                    } else {
-                        break;
+                        raw_buffer_size = 0;
                     }
-                    raw_buffer_size = 0;
-                }
-            } else if(!CheckBox.Checked) {
-                serverListener.Bind(ipep);
-                serverListener.Listen(200);
-                LogBox.Text = "Waiting for a client...";
+                }/* else if(!CheckBox.Checked) {
+                    serverListener.Bind(ipep);
+                    serverListener.Listen(200);
+                    LogBox.Text = "Waiting for a client...";
 
-                client = await serverListener.AcceptAsync();
-                /*IPEndPoint? clientep = client.RemoteEndPoint as IPEndPoint;
-                LogBox.Text = $"Connected with {clientep.Address} at port {clientep.Port}";*/
-                // Receive message.
-                while(true) {
-                    message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
+                    client = await serverListener.AcceptAsync();
+                    //IPEndPoint? clientep = client.RemoteEndPoint as IPEndPoint;
+                    //LogBox.Text = $"Connected with {clientep.Address} at port {clientep.Port}";
+                    // Receive message.
+                    while(true) {
+                        message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
 
-                    if(message_size > 0) {
-                        LogBox.Text =
-                            $"RTEMS message: ";
-                        while(raw_buffer_size < message_size) {
-                            if(raw_buffer_size >= 0) {
-                                LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                        if(message_size > 0) {
+                            LogBox.Text =
+                                $"RTEMS message: ";
+                            while(raw_buffer_size < message_size) {
+                                if(raw_buffer_size >= 0) {
+                                    LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                                }
+                                raw_buffer_size++;
                             }
-                            raw_buffer_size++;
+                            break;
                         }
-                        break;
+                        raw_buffer_size = 0;
                     }
-                    raw_buffer_size = 0;
-                }
-            }
+                }*/
 
-            serverListener.Close();
+                serverListener.Close();
+            }
+        }
+        Thread nThread;
+        private void OpenSocetServer_Click(object sender, EventArgs e) {
+            nThread = new(Open_thread);
+            nThread.Start();
         }
         private void CloseSocketServer_Click(object sender, EventArgs e) {
             if(serverListener != null && serverListener.Connected) {
+                nThread.Join();
                 serverListener.Disconnect(true);
             }
         }
@@ -408,7 +428,7 @@ namespace HustonRTEMS {
         }
 
         private void SendMagnetometer1_Click(object sender, EventArgs e) {
-            byte[] sendBuf = new byte[27 + 3 * 4];
+            byte[] sendBuf = new byte[27 + (3 * 4)];
             Array.Copy(hardBuf, sendBuf, 18);
             it.it = Convert.ToInt16(AddresMag1.Text, 16);
             it_un id = new() {
@@ -503,7 +523,7 @@ namespace HustonRTEMS {
                 int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
                     serialPort.BytesToRead - byteWrite : offsetByte;
                 byte[] data = new byte[copyByte];
-                serialPort.Read(data, 0, copyByte);
+                _ = serialPort.Read(data, 0, copyByte);
                 for(int i = 0; i < data.Length; i++) {
                     Debug.WriteLine(" " + $"{data[i]:X}");
                 }
@@ -516,7 +536,7 @@ namespace HustonRTEMS {
                 int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
                     serialPort.BytesToRead - byteWrite : offsetByte;
                 byte[] data = new byte[copyByte];
-                serialPort.Read(data, 0, copyByte);
+                _ = serialPort.Read(data, 0, copyByte);
                 for(int i = 0; i < data.Length; i++) {
                     LogBox.Text += " " + $"{data[i]:X}";
                 }
