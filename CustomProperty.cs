@@ -6,6 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HustonRTEMS {
+    struct SaveAddres {
+
+    }
+}
+
+namespace HustonRTEMS {
     internal class CustomProperty : ConfigurationSection {
         [ConfigurationProperty("IP", IsRequired = false)]
         public string IP {
