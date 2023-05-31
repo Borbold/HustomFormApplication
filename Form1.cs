@@ -56,7 +56,7 @@ namespace HustonRTEMS {
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x1, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
-        private readonly byte[] hardBufWrite = {
+        private byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
         /*private readonly byte[] canHardBufWrite = { //Get 11 - temperature
@@ -305,7 +305,7 @@ namespace HustonRTEMS {
                             byte2 = buffer[21]
                         };
                         if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16)) {
-                            LogBox.Text = "Get id";
+                            LogBox.Text = "Get id\r\n";
                             if(addres.it == Convert.ToInt16(AddresReceiveMag.Text, 16)) {
                                 LogBox.Text += "Get addres";
                                 it_un idSend = new() {
@@ -347,7 +347,8 @@ namespace HustonRTEMS {
                                 sendBuf[37] = n_fl.byte4;
 
                                 GeneralFunctional.SendMessageInSocket(serverListener,
-                                    hardBufWrite, LogBox);
+                                    sendBuf, LogBox);
+                                hardBufWrite = sendBuf;
                             } else {
                                 LogBox.Text = "Lost addres";
                             }
@@ -404,7 +405,7 @@ namespace HustonRTEMS {
         }
 
         private void SendMagnetometer1_Click(object sender, EventArgs e) {
-            it.it = Convert.ToInt16(AddresMag1.Text);
+            it.it = Convert.ToInt16(AddresMag1.Text, 16);
 
             fl.fl = (float)Convert.ToDouble(LabMagX.Text);
             GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
@@ -419,7 +420,7 @@ namespace HustonRTEMS {
                 hardBufWrite, LogBox);
         }
         private void SendMagnetometer2_Click(object sender, EventArgs e) {
-            it.it = DT.magnitudeTransmission2.TShipAddres.addres;
+            it.it = Convert.ToInt16(AddresMag2.Text, 16);
 
             fl.fl = (float)Convert.ToDouble(LabMagX_2.Text);
             GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
