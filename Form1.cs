@@ -278,20 +278,27 @@ namespace HustonRTEMS {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text = $"Socet open";
                         }));
-                        _ = serverListener.Send(hardBuf);
+                        //_ = serverListener.Send(hardBuf);
                     }
                     catch(Exception ex) {
-                        LogBox.Invoke(new Action(() => {
-                            LogBox.Text = ex.Message + "\r\n";
-                        }));
+                        try {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text = ex.Message + "\r\n";
+                            }));
+                        }
+                        catch(Exception) { 
+                        }
                     }
 
                     while(serverListener.Connected) {
                         try {
                             LogBox.Invoke(new Action(() => {
-                                LogBox.Text += $"\r\nWait message";
+                                LogBox.Text += $"\r\nWait message, message_count: ";
                             }));
                             message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += message_size;
+                            }));
                         }
                         catch(Exception ex) {
                             LogBox.Invoke(new Action(() => {
@@ -417,8 +424,10 @@ namespace HustonRTEMS {
         }
         private void CloseSocketServer_Click(object sender, EventArgs e) {
             if(serverListener != null && serverListener.Connected) {
-                nThread.Join();
                 serverListener.Disconnect(true);
+            }
+            if(nThread.IsAlive) {
+                nThread.Interrupt();
             }
         }
 
