@@ -58,7 +58,7 @@ namespace HustonRTEMS {
             0xB0, 0x00, 0x1, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
         private readonly byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
-            0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x04, 0x00, 0x00, 0x98, 0xAD, 0x45, 0xC0 };
+            0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
         /*private readonly byte[] canHardBufWrite = { //Get 11 - temperature
              0x74, 0x30, 0x33, 0x43, 0x32, 0x42, 0x30, 0x30, 0x30, 0x0D };*/
         /*private readonly byte[] canHardBufWrite = { //Set
@@ -119,6 +119,8 @@ namespace HustonRTEMS {
 
             // Mag
             AddresReceiveMag.Text = $"{DT.ReceiveMagAddres.addres:X}";
+            IdReceiveMag.Text = $"{DT.IdReceiveMag.addres:X}";
+            IdShippingMag.Text = $"{DT.IdShipingMag.addres:X}";
 
             AddresMag1.Text = $"{DT.magnitudeTransmission1.TShipAddres.addres:X}";
             IdMag1X.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.X]:X}";
@@ -296,15 +298,55 @@ namespace HustonRTEMS {
                             byte1 = buffer[20],
                             byte2 = buffer[21]
                         };
-                        if(addres.it == 4) {
-                            if(id.it == 0x40) {
-                                hardBufWrite[18] = id.byte1;
-                                hardBufWrite[19] = id.byte2;
-                                it.it = DT.acknowledge.TShipAddres.addres;
+                        if(id.it == Convert.ToInt16(IdReceiveMag.Text)) {
+                            LogBox.Text = "Get id";
+                            if(addres.it == Convert.ToInt16(AddresReceiveMag.Text)) {
+                                LogBox.Text += "Get addres";
+                                it_un idSend = new() {
+                                    it = Convert.ToInt16(IdShippingMag.Text)
+                                };
+                                hardBufWrite[18] = idSend.byte1;
+                                hardBufWrite[19] = idSend.byte2;
 
-                                GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
+                                hardBufWrite[20] = buffer[22];
+                                hardBufWrite[21] = buffer[23];
+
+                                hardBufWrite[22] = buffer[20];
+                                hardBufWrite[23] = buffer[21];
+
+                                byte[] sendBuf = new byte[buffer.Length + 3 * 4];
+                                sendBuf[24] = 0x04;
+                                sendBuf[25] = 0x00;
+
+                                fl_un n_fl = new() {
+                                    fl = (float)Convert.ToDecimal(LabMagX.Text)
+                                };
+                                sendBuf[26] = n_fl.byte1;
+                                sendBuf[27] = n_fl.byte2;
+                                sendBuf[28] = n_fl.byte3;
+                                sendBuf[29] = n_fl.byte4;
+                                n_fl = new() {
+                                    fl = (float)Convert.ToDecimal(LabMagY.Text)
+                                };
+                                sendBuf[30] = n_fl.byte1;
+                                sendBuf[31] = n_fl.byte2;
+                                sendBuf[32] = n_fl.byte3;
+                                sendBuf[33] = n_fl.byte4;
+                                n_fl = new() {
+                                    fl = (float)Convert.ToDecimal(LabMagZ.Text)
+                                };
+                                sendBuf[34] = n_fl.byte1;
+                                sendBuf[35] = n_fl.byte2;
+                                sendBuf[36] = n_fl.byte3;
+                                sendBuf[37] = n_fl.byte4;
+
+                                GeneralFunctional.SendMessageInSocket(serverListener,
                                     hardBufWrite, LogBox);
+                            } else {
+                                LogBox.Text = "Lost addres";
                             }
+                        } else {
+                            LogBox.Text = "Lost information";
                         }
                     } else {
                         break;

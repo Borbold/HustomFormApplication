@@ -29,6 +29,12 @@
             }
         };
 
+        public StructurAddresses IdReceiveMag = new() {
+            addres = 0xBD0
+        };
+        public StructurAddresses IdShipingMag = new() {
+            addres = 0xBF1
+        };
         public StructurAddresses ReceiveMagAddres = new() {
             addres = 0x01
         };

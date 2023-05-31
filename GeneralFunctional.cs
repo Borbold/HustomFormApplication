@@ -40,7 +40,7 @@ namespace HustonRTEMS {
         }
 
         public static async void SendMessageInSocket(Socket serverListener, fl_un fl, it_un it,
-            byte[] hardBufWrite, TextBox logBox) {
+                byte[] hardBufWrite, TextBox logBox) {
             if(serverListener != null && serverListener.Connected) {
                 hardBufWrite[20] = it.byte1;
                 hardBufWrite[21] = it.byte2;
@@ -49,6 +49,15 @@ namespace HustonRTEMS {
                 hardBufWrite[27] = fl.byte2;
                 hardBufWrite[28] = fl.byte3;
                 hardBufWrite[29] = fl.byte4;
+                _ = await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
+            } else {
+                logBox.Text = "Socet don't open!";
+            }
+        }
+
+        public static async void SendMessageInSocket(Socket serverListener,
+                byte[] hardBufWrite, TextBox logBox) {
+            if(serverListener != null && serverListener.Connected) {
                 _ = await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
             } else {
                 logBox.Text = "Socet don't open!";

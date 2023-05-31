@@ -37,6 +37,10 @@
             TrackBarTemp = new TrackBar();
             label3 = new Label();
             TabMagnetometer = new TabPage();
+            label49 = new Label();
+            IdShippingMag = new TextBox();
+            label44 = new Label();
+            IdReceiveMag = new TextBox();
             label43 = new Label();
             AddresReceiveMag = new TextBox();
             panel1 = new Panel();
@@ -375,6 +379,10 @@
             // 
             // TabMagnetometer
             // 
+            TabMagnetometer.Controls.Add(label49);
+            TabMagnetometer.Controls.Add(IdShippingMag);
+            TabMagnetometer.Controls.Add(label44);
+            TabMagnetometer.Controls.Add(IdReceiveMag);
             TabMagnetometer.Controls.Add(label43);
             TabMagnetometer.Controls.Add(AddresReceiveMag);
             TabMagnetometer.Controls.Add(panel1);
@@ -387,11 +395,49 @@
             TabMagnetometer.Text = "Magnetometer";
             TabMagnetometer.UseVisualStyleBackColor = true;
             // 
+            // label49
+            // 
+            label49.AutoSize = true;
+            label49.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label49.Location = new Point(72, 144);
+            label49.Name = "label49";
+            label49.Size = new Size(74, 21);
+            label49.TabIndex = 47;
+            label49.Text = "Id ответа";
+            // 
+            // IdShippingMag
+            // 
+            IdShippingMag.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingMag.Location = new Point(14, 141);
+            IdShippingMag.Name = "IdShippingMag";
+            IdShippingMag.Size = new Size(52, 29);
+            IdShippingMag.TabIndex = 46;
+            IdShippingMag.Text = "?";
+            // 
+            // label44
+            // 
+            label44.AutoSize = true;
+            label44.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label44.Location = new Point(72, 108);
+            label44.Name = "label44";
+            label44.Size = new Size(84, 21);
+            label44.TabIndex = 45;
+            label44.Text = "Id запроса";
+            // 
+            // IdReceiveMag
+            // 
+            IdReceiveMag.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveMag.Location = new Point(14, 105);
+            IdReceiveMag.Name = "IdReceiveMag";
+            IdReceiveMag.Size = new Size(52, 29);
+            IdReceiveMag.TabIndex = 44;
+            IdReceiveMag.Text = "?";
+            // 
             // label43
             // 
             label43.AutoSize = true;
             label43.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label43.Location = new Point(52, 42);
+            label43.Location = new Point(72, 42);
             label43.Name = "label43";
             label43.Size = new Size(111, 21);
             label43.TabIndex = 43;
@@ -402,7 +448,7 @@
             AddresReceiveMag.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             AddresReceiveMag.Location = new Point(14, 39);
             AddresReceiveMag.Name = "AddresReceiveMag";
-            AddresReceiveMag.Size = new Size(32, 29);
+            AddresReceiveMag.Size = new Size(52, 29);
             AddresReceiveMag.TabIndex = 42;
             AddresReceiveMag.Text = "?";
             // 
@@ -2272,5 +2318,9 @@
         private Label label64;
         private Label label43;
         private TextBox AddresReceiveMag;
+        private Label label49;
+        private TextBox IdShippingMag;
+        private Label label44;
+        private TextBox IdReceiveMag;
     }
 }
