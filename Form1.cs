@@ -278,7 +278,7 @@ namespace HustonRTEMS {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text = $"Socet open";
                         }));
-                        _ = serverListener.Send(hardBuf);
+                        await serverListener.SendAsync(hardBuf, SocketFlags.None);
                     }
                     catch(Exception ex) {
                         try {
