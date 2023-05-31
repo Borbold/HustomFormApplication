@@ -29,5 +29,21 @@ namespace HustonRTEMS {
             get { return (string)base["CANPort"]; }
             set { base["CANPort"] = value; }
         }
+
+        [ConfigurationProperty("ReceiveMagAddres", IsRequired = false)]
+        public string ReceiveMagAddres {
+            get { return (string)base["ReceiveMagAddres"]; }
+            set { base["ReceiveMagAddres"] = value; }
+        }
+        [ConfigurationProperty("IdReceiveMag", IsRequired = false)]
+        public string IdReceiveMag {
+            get { return (string)base["IdReceiveMag"]; }
+            set { base["IdReceiveMag"] = value; }
+        }
+        [ConfigurationProperty("IdShipingMag", IsRequired = false)]
+        public string IdShipingMag {
+            get { return (string)base["IdShipingMag"]; }
+            set { base["IdShipingMag"] = value; }
+        }
     }
 }

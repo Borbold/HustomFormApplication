@@ -138,6 +138,9 @@ namespace HustonRTEMS {
                 PortTextBox.Text = section.PORT;
                 CANSpeed.Text = section.CANSpeed;
                 CANPort.Text = section.CANPort;
+                AddresReceiveMag.Text = section.ReceiveMagAddres;
+                IdReceiveMag.Text = section.IdReceiveMag;
+                IdShippingMag.Text = section.IdShipingMag;
                 cfg.Save();
             }
         }
@@ -147,6 +150,9 @@ namespace HustonRTEMS {
                 section.PORT = PortTextBox.Text;
                 section.CANSpeed = CANSpeed.Text;
                 section.CANPort = CANPort.Text;
+                section.ReceiveMagAddres = AddresReceiveMag.Text;
+                section.IdReceiveMag = IdReceiveMag.Text;
+                section.IdShipingMag = IdShippingMag.Text;
                 cfg.Save();
             }
         }
