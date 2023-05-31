@@ -257,6 +257,7 @@ namespace HustonRTEMS {
         private Socket serverListener;
         async void Open_thread() {
             while(true) {
+                Thread.Sleep(1000);
                 LogBox.Invoke(new Action(() => {
                     LogBox.Text += "Search socet\r\n";
                 }));
@@ -287,6 +288,9 @@ namespace HustonRTEMS {
 
                     while(serverListener.Connected) {
                         try {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += $"\r\nWait message";
+                            }));
                             message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
                         }
                         catch(Exception ex) {
