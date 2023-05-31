@@ -56,10 +56,10 @@ namespace HustonRTEMS {
         private readonly DefaultTransmission DT = new();
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0 };
+            0xB0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0 };
         private byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
-            0xC0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
+            0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
         /*private readonly byte[] canHardBufWrite = { //Get 11 - temperature
              0x74, 0x30, 0x33, 0x43, 0x32, 0x42, 0x30, 0x30, 0x30, 0x0D };*/
         /*private readonly byte[] canHardBufWrite = { //Set
@@ -96,6 +96,7 @@ namespace HustonRTEMS {
         private void Form1_Load(object sender, EventArgs e) {
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
+
 
             AddresAcsel.Text = $"{DT.acselerometerTransmission.TShipAddres.addres:X}";
             IdAscelX.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.X]:X}";
@@ -374,7 +375,7 @@ namespace HustonRTEMS {
                                     sendBuf[36] = n_fl.byte3;
                                     sendBuf[37] = n_fl.byte4;
 
-                                    sendBuf[^1] = buffer[^1];
+                                    sendBuf[^1] = 0xC0;
 
                                     GeneralFunctional.SendMessageInSocket(serverListener,
                                         sendBuf, LogBox);
