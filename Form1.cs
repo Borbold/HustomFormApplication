@@ -304,12 +304,12 @@ namespace HustonRTEMS {
                             byte1 = buffer[20],
                             byte2 = buffer[21]
                         };
-                        if(id.it == Convert.ToInt16(IdReceiveMag.Text)) {
+                        if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16)) {
                             LogBox.Text = "Get id";
-                            if(addres.it == Convert.ToInt16(AddresReceiveMag.Text)) {
+                            if(addres.it == Convert.ToInt16(AddresReceiveMag.Text, 16)) {
                                 LogBox.Text += "Get addres";
                                 it_un idSend = new() {
-                                    it = Convert.ToInt16(IdShippingMag.Text)
+                                    it = Convert.ToInt16(IdShippingMag.Text, 16)
                                 };
                                 hardBufWrite[18] = idSend.byte1;
                                 hardBufWrite[19] = idSend.byte2;
