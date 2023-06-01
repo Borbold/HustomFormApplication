@@ -370,65 +370,47 @@ namespace HustonRTEMS {
                             ItUn id = new() {
                                 byte1 = buffer[18],
                                 byte2 = buffer[19]
-                            }, addres = new() {
+                            }, addresIn = new() {
                                 byte1 = buffer[20],
                                 byte2 = buffer[21]
+                            }, addresOut = new() {
+                                byte1 = buffer[22],
+                                byte2 = buffer[23]
                             };
-                            if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16)) {
-                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get id\r\n"; }));
-                                if(addres.it == Convert.ToInt16(AddresReceiveMag.Text, 16)) {
-                                    LogBox.Invoke(new Action(() => { LogBox.Text += "Get addres"; }));
-                                    ItUn idSend = new() {
-                                        it = Convert.ToInt16(IdShippingMag.Text, 16)
-                                    };
-                                    // 27 Длина киса + кана
-                                    byte[] sendBuf = new byte[27 + (3 * 4)];
-                                    Array.Copy(hardBuf, sendBuf, 18);
-
-                                    sendBuf[18] = idSend.byte1;
-                                    sendBuf[19] = idSend.byte2;
-
-                                    sendBuf[20] = buffer[22];
-                                    sendBuf[21] = buffer[23];
-
-                                    sendBuf[22] = buffer[20];
-                                    sendBuf[23] = buffer[21];
-
-                                    sendBuf[24] = 0xC;
-                                    sendBuf[25] = 0x00;
-
-                                    FlUn n_fl = new() {
-                                        fl = (float)Convert.ToDecimal(LabMagX.Text)
-                                    };
-                                    sendBuf[26] = n_fl.byte1;
-                                    sendBuf[27] = n_fl.byte2;
-                                    sendBuf[28] = n_fl.byte3;
-                                    sendBuf[29] = n_fl.byte4;
-                                    n_fl = new() {
-                                        fl = (float)Convert.ToDecimal(LabMagY.Text)
-                                    };
-                                    sendBuf[30] = n_fl.byte1;
-                                    sendBuf[31] = n_fl.byte2;
-                                    sendBuf[32] = n_fl.byte3;
-                                    sendBuf[33] = n_fl.byte4;
-                                    n_fl = new() {
-                                        fl = (float)Convert.ToDecimal(LabMagZ.Text)
-                                    };
-                                    sendBuf[34] = n_fl.byte1;
-                                    sendBuf[35] = n_fl.byte2;
-                                    sendBuf[36] = n_fl.byte3;
-                                    sendBuf[37] = n_fl.byte4;
-
-                                    sendBuf[^1] = 0xC0;
-
-                                    GeneralFunctional.SendMessageInSocket(serverListener,
-                                        sendBuf, LogBox);
-                                    hardBufWrite = sendBuf;
-                                } else {
-                                    LogBox.Invoke(new Action(() => { LogBox.Text = "Lost addres"; }));
-                                }
+                            if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
+                                addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
+                                addresOut.it == Convert.ToInt16(AddresMag1.Text, 16)) {
+                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                SendMagnetometer1_Click(null, null);
+                            } else if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
+                                addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
+                                addresOut.it == Convert.ToInt16(AddresMag2.Text, 16)) {
+                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                SendMagnetometer2_Click(null, null);
+                            } else if(id.it == Convert.ToInt16(IdReceiveAcs.Text, 16) &&
+                                addresIn.it == Convert.ToInt16(AddresReceiveAcs.Text, 16) &&
+                                addresOut.it == Convert.ToInt16(AddresAcs.Text, 16)) {
+                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                SendAcselerometer_Click(null, null);
+                            } else if(id.it == Convert.ToInt16(IdReceiveReg.Text, 16) &&
+                                addresIn.it == Convert.ToInt16(AddresReceiveReg.Text, 16) &&
+                                addresOut.it == Convert.ToInt16(AddresReg.Text, 16)) {
+                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                SendRegulation_Click(null, null);
+                            } else if(id.it == Convert.ToInt16(IdReceiveRat.Text, 16) &&
+                                addresIn.it == Convert.ToInt16(AddresReceiveRat.Text, 16) &&
+                                addresOut.it == Convert.ToInt16(AddresRat.Text, 16)) {
+                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                SendRatesensor_Click(null, null);
+                            } else if(id.it == Convert.ToInt16(IdReceiveAcc.Text, 16) &&
+                                addresIn.it == Convert.ToInt16(AddresReceiveAcc.Text, 16) &&
+                                addresOut.it == Convert.ToInt16(AddresAcc.Text, 16)) {
+                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                SendAccelsensor_Click(null, null);
                             } else {
-                                LogBox.Invoke(new Action(() => { LogBox.Text = "Lost information"; }));
+                                LogBox.Invoke(new Action(() => {
+                                    LogBox.Text = "Wrong address or id";
+                                }));
                             }
                         } else {
                             break;
@@ -469,7 +451,7 @@ namespace HustonRTEMS {
                 hardBufWrite, LogBox);
         }
 
-        private void SendMagnetometer1_Click(object sender, EventArgs e) {
+        private void SendMagnetometer1_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
             int addresValue = Convert.ToInt16(AddresMag1.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
@@ -485,7 +467,7 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox);
         }
-        private void SendMagnetometer2_Click(object sender, EventArgs e) {
+        private void SendMagnetometer2_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
             int addresValue = Convert.ToInt16(AddresMag2.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
@@ -502,7 +484,7 @@ namespace HustonRTEMS {
                 LogBox);
         }
 
-        private void SendAcselerometer_Click(object sender, EventArgs e) {
+        private void SendAcselerometer_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingAcs.Text, 16);
             int addresValue = Convert.ToInt16(AddresAcs.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveAcs.Text, 16);
@@ -520,7 +502,7 @@ namespace HustonRTEMS {
                 LogBox);
         }
 
-        private void SendRegulation_Click(object sender, EventArgs e) {
+        private void SendRegulation_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingReg.Text, 16);
             int addresValue = Convert.ToInt16(AddresReg.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveReg.Text, 16);
@@ -537,7 +519,7 @@ namespace HustonRTEMS {
                 LogBox);
         }
 
-        private void SendRatesensor_Click(object sender, EventArgs e) {
+        private void SendRatesensor_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingRat.Text, 16);
             int addresValue = Convert.ToInt16(AddresRat.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveRat.Text, 16);
@@ -554,7 +536,7 @@ namespace HustonRTEMS {
                 LogBox);
         }
 
-        private void SendAccelsensor_Click(object sender, EventArgs e) {
+        private void SendAccelsensor_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingAcc.Text, 16);
             int addresValue = Convert.ToInt16(AddresAcc.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveAcc.Text, 16);
