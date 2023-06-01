@@ -84,6 +84,12 @@
             label20 = new Label();
             label1 = new Label();
             TabAcselerometr = new TabPage();
+            label58 = new Label();
+            IdShippingAcs = new TextBox();
+            label59 = new Label();
+            IdReceiveAcs = new TextBox();
+            label60 = new Label();
+            AddresReceiveAcs = new TextBox();
             label33 = new Label();
             IdAscelW = new TextBox();
             LabRotW = new Label();
@@ -94,7 +100,7 @@
             label25 = new Label();
             IdAscelY = new TextBox();
             label22 = new Label();
-            AddresAcsel = new TextBox();
+            AddresAcs = new TextBox();
             label23 = new Label();
             IdAscelX = new TextBox();
             SendAcselerometer = new Button();
@@ -109,13 +115,19 @@
             label4 = new Label();
             label5 = new Label();
             tabPage1 = new TabPage();
-            button1 = new Button();
+            label65 = new Label();
+            IdShippingReg = new TextBox();
+            label66 = new Label();
+            IdReceiveReg = new TextBox();
+            label67 = new Label();
+            AddresReceiveReg = new TextBox();
+            SendRegulation = new Button();
             label38 = new Label();
             IdRegulZ = new TextBox();
             label39 = new Label();
             IdRegulY = new TextBox();
             label40 = new Label();
-            AddresRegul = new TextBox();
+            AddresReg = new TextBox();
             label41 = new Label();
             IdRegulX = new TextBox();
             LabPosY = new Label();
@@ -129,13 +141,19 @@
             label47 = new Label();
             label48 = new Label();
             tabPage2 = new TabPage();
-            button2 = new Button();
+            label68 = new Label();
+            IdShippingRat = new TextBox();
+            label69 = new Label();
+            IdReceiveRat = new TextBox();
+            label70 = new Label();
+            AddresReceiveRat = new TextBox();
+            SendRatesensor = new Button();
             label34 = new Label();
             IdRatesZ = new TextBox();
             label36 = new Label();
             IdRatesY = new TextBox();
             label37 = new Label();
-            AddresRates = new TextBox();
+            AddresRat = new TextBox();
             label42 = new Label();
             IdRatesX = new TextBox();
             LabRatesY = new Label();
@@ -149,13 +167,19 @@
             label52 = new Label();
             label53 = new Label();
             tabPage3 = new TabPage();
-            button3 = new Button();
+            label71 = new Label();
+            IdShippingAcc = new TextBox();
+            label72 = new Label();
+            IdReceiveAcc = new TextBox();
+            label73 = new Label();
+            AddresReceiveAcc = new TextBox();
+            SendAccelsensor = new Button();
             label54 = new Label();
             IdAccelZ = new TextBox();
             label55 = new Label();
             IdAccelY = new TextBox();
             label56 = new Label();
-            AddresAccel = new TextBox();
+            AddresAcc = new TextBox();
             label57 = new Label();
             IdAccelX = new TextBox();
             LabAccelY = new Label();
@@ -328,7 +352,6 @@
             AddresTemperature.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             AddresTemperature.Location = new Point(109, 69);
             AddresTemperature.Name = "AddresTemperature";
-            AddresTemperature.ReadOnly = true;
             AddresTemperature.Size = new Size(32, 29);
             AddresTemperature.TabIndex = 11;
             AddresTemperature.Text = "?";
@@ -513,6 +536,7 @@
             IdMag2Z.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag2Z.Location = new Point(624, 311);
             IdMag2Z.Name = "IdMag2Z";
+            IdMag2Z.ReadOnly = true;
             IdMag2Z.Size = new Size(50, 29);
             IdMag2Z.TabIndex = 52;
             IdMag2Z.Text = "?";
@@ -532,6 +556,7 @@
             IdMag2Y.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag2Y.Location = new Point(624, 260);
             IdMag2Y.Name = "IdMag2Y";
+            IdMag2Y.ReadOnly = true;
             IdMag2Y.Size = new Size(50, 29);
             IdMag2Y.TabIndex = 50;
             IdMag2Y.Text = "?";
@@ -551,6 +576,7 @@
             IdMag2X.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag2X.Location = new Point(624, 209);
             IdMag2X.Name = "IdMag2X";
+            IdMag2X.ReadOnly = true;
             IdMag2X.Size = new Size(50, 29);
             IdMag2X.TabIndex = 48;
             IdMag2X.Text = "?";
@@ -570,6 +596,7 @@
             IdMag1Z.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag1Z.Location = new Point(624, 150);
             IdMag1Z.Name = "IdMag1Z";
+            IdMag1Z.ReadOnly = true;
             IdMag1Z.Size = new Size(50, 29);
             IdMag1Z.TabIndex = 46;
             IdMag1Z.Text = "?";
@@ -589,6 +616,7 @@
             IdMag1Y.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag1Y.Location = new Point(624, 99);
             IdMag1Y.Name = "IdMag1Y";
+            IdMag1Y.ReadOnly = true;
             IdMag1Y.Size = new Size(50, 29);
             IdMag1Y.TabIndex = 44;
             IdMag1Y.Text = "?";
@@ -646,6 +674,7 @@
             IdMag1X.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             IdMag1X.Location = new Point(624, 48);
             IdMag1X.Name = "IdMag1X";
+            IdMag1X.ReadOnly = true;
             IdMag1X.Size = new Size(50, 29);
             IdMag1X.TabIndex = 40;
             IdMag1X.Text = "?";
@@ -896,6 +925,12 @@
             // 
             // TabAcselerometr
             // 
+            TabAcselerometr.Controls.Add(label58);
+            TabAcselerometr.Controls.Add(IdShippingAcs);
+            TabAcselerometr.Controls.Add(label59);
+            TabAcselerometr.Controls.Add(IdReceiveAcs);
+            TabAcselerometr.Controls.Add(label60);
+            TabAcselerometr.Controls.Add(AddresReceiveAcs);
             TabAcselerometr.Controls.Add(label33);
             TabAcselerometr.Controls.Add(IdAscelW);
             TabAcselerometr.Controls.Add(LabRotW);
@@ -906,7 +941,7 @@
             TabAcselerometr.Controls.Add(label25);
             TabAcselerometr.Controls.Add(IdAscelY);
             TabAcselerometr.Controls.Add(label22);
-            TabAcselerometr.Controls.Add(AddresAcsel);
+            TabAcselerometr.Controls.Add(AddresAcs);
             TabAcselerometr.Controls.Add(label23);
             TabAcselerometr.Controls.Add(IdAscelX);
             TabAcselerometr.Controls.Add(SendAcselerometer);
@@ -928,11 +963,68 @@
             TabAcselerometr.Text = "Acselerometer";
             TabAcselerometr.UseVisualStyleBackColor = true;
             // 
+            // label58
+            // 
+            label58.AutoSize = true;
+            label58.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label58.Location = new Point(71, 143);
+            label58.Name = "label58";
+            label58.Size = new Size(74, 21);
+            label58.TabIndex = 53;
+            label58.Text = "Id ответа";
+            // 
+            // IdShippingAcs
+            // 
+            IdShippingAcs.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingAcs.Location = new Point(13, 140);
+            IdShippingAcs.Name = "IdShippingAcs";
+            IdShippingAcs.Size = new Size(52, 29);
+            IdShippingAcs.TabIndex = 52;
+            IdShippingAcs.Text = "?";
+            // 
+            // label59
+            // 
+            label59.AutoSize = true;
+            label59.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label59.Location = new Point(71, 107);
+            label59.Name = "label59";
+            label59.Size = new Size(84, 21);
+            label59.TabIndex = 51;
+            label59.Text = "Id запроса";
+            // 
+            // IdReceiveAcs
+            // 
+            IdReceiveAcs.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveAcs.Location = new Point(13, 104);
+            IdReceiveAcs.Name = "IdReceiveAcs";
+            IdReceiveAcs.Size = new Size(52, 29);
+            IdReceiveAcs.TabIndex = 50;
+            IdReceiveAcs.Text = "?";
+            // 
+            // label60
+            // 
+            label60.AutoSize = true;
+            label60.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label60.Location = new Point(71, 41);
+            label60.Name = "label60";
+            label60.Size = new Size(111, 21);
+            label60.TabIndex = 49;
+            label60.Text = "Адрес приема";
+            // 
+            // AddresReceiveAcs
+            // 
+            AddresReceiveAcs.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveAcs.Location = new Point(13, 38);
+            AddresReceiveAcs.Name = "AddresReceiveAcs";
+            AddresReceiveAcs.Size = new Size(52, 29);
+            AddresReceiveAcs.TabIndex = 48;
+            AddresReceiveAcs.Text = "?";
+            // 
             // label33
             // 
             label33.AutoSize = true;
             label33.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label33.Location = new Point(626, 186);
+            label33.Location = new Point(671, 187);
             label33.Name = "label33";
             label33.Size = new Size(116, 21);
             label33.TabIndex = 32;
@@ -941,7 +1033,7 @@
             // IdAscelW
             // 
             IdAscelW.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdAscelW.Location = new Point(570, 183);
+            IdAscelW.Location = new Point(615, 184);
             IdAscelW.Name = "IdAscelW";
             IdAscelW.ReadOnly = true;
             IdAscelW.Size = new Size(50, 29);
@@ -952,7 +1044,7 @@
             // 
             LabRotW.AutoSize = true;
             LabRotW.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabRotW.Location = new Point(506, 186);
+            LabRotW.Location = new Point(551, 187);
             LabRotW.Name = "LabRotW";
             LabRotW.Size = new Size(24, 30);
             LabRotW.TabIndex = 30;
@@ -961,7 +1053,7 @@
             // TrackBarRotW
             // 
             TrackBarRotW.LargeChange = 1;
-            TrackBarRotW.Location = new Point(200, 171);
+            TrackBarRotW.Location = new Point(245, 172);
             TrackBarRotW.Maximum = 100;
             TrackBarRotW.Name = "TrackBarRotW";
             TrackBarRotW.Size = new Size(300, 45);
@@ -972,7 +1064,7 @@
             // 
             label35.AutoSize = true;
             label35.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label35.Location = new Point(169, 186);
+            label35.Location = new Point(214, 187);
             label35.Name = "label35";
             label35.Size = new Size(33, 30);
             label35.TabIndex = 28;
@@ -982,7 +1074,7 @@
             // 
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label26.Location = new Point(626, 135);
+            label26.Location = new Point(671, 136);
             label26.Name = "label26";
             label26.Size = new Size(116, 21);
             label26.TabIndex = 27;
@@ -991,7 +1083,7 @@
             // IdAscelZ
             // 
             IdAscelZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdAscelZ.Location = new Point(570, 132);
+            IdAscelZ.Location = new Point(615, 133);
             IdAscelZ.Name = "IdAscelZ";
             IdAscelZ.ReadOnly = true;
             IdAscelZ.Size = new Size(50, 29);
@@ -1002,7 +1094,7 @@
             // 
             label25.AutoSize = true;
             label25.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label25.Location = new Point(626, 84);
+            label25.Location = new Point(671, 85);
             label25.Name = "label25";
             label25.Size = new Size(116, 21);
             label25.TabIndex = 25;
@@ -1011,7 +1103,7 @@
             // IdAscelY
             // 
             IdAscelY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdAscelY.Location = new Point(570, 81);
+            IdAscelY.Location = new Point(615, 82);
             IdAscelY.Name = "IdAscelY";
             IdAscelY.ReadOnly = true;
             IdAscelY.Size = new Size(50, 29);
@@ -1022,27 +1114,26 @@
             // 
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label22.Location = new Point(221, 225);
+            label22.Location = new Point(266, 226);
             label22.Name = "label22";
             label22.Size = new Size(115, 21);
             label22.TabIndex = 23;
             label22.Text = "Адрес датчика";
             // 
-            // AddresAcsel
+            // AddresAcs
             // 
-            AddresAcsel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresAcsel.Location = new Point(183, 222);
-            AddresAcsel.Name = "AddresAcsel";
-            AddresAcsel.ReadOnly = true;
-            AddresAcsel.Size = new Size(32, 29);
-            AddresAcsel.TabIndex = 22;
-            AddresAcsel.Text = "?";
+            AddresAcs.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresAcs.Location = new Point(228, 223);
+            AddresAcs.Name = "AddresAcs";
+            AddresAcs.Size = new Size(32, 29);
+            AddresAcs.TabIndex = 22;
+            AddresAcs.Text = "?";
             // 
             // label23
             // 
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label23.Location = new Point(626, 33);
+            label23.Location = new Point(671, 34);
             label23.Name = "label23";
             label23.Size = new Size(116, 21);
             label23.TabIndex = 21;
@@ -1051,7 +1142,7 @@
             // IdAscelX
             // 
             IdAscelX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdAscelX.Location = new Point(570, 30);
+            IdAscelX.Location = new Point(615, 31);
             IdAscelX.Name = "IdAscelX";
             IdAscelX.ReadOnly = true;
             IdAscelX.Size = new Size(50, 29);
@@ -1073,7 +1164,7 @@
             // 
             LabRotY.AutoSize = true;
             LabRotY.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabRotY.Location = new Point(506, 84);
+            LabRotY.Location = new Point(551, 85);
             LabRotY.Name = "LabRotY";
             LabRotY.Size = new Size(24, 30);
             LabRotY.TabIndex = 18;
@@ -1083,7 +1174,7 @@
             // 
             LabRotZ.AutoSize = true;
             LabRotZ.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabRotZ.Location = new Point(506, 135);
+            LabRotZ.Location = new Point(551, 136);
             LabRotZ.Name = "LabRotZ";
             LabRotZ.Size = new Size(24, 30);
             LabRotZ.TabIndex = 17;
@@ -1093,7 +1184,7 @@
             // 
             LabRotX.AutoSize = true;
             LabRotX.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabRotX.Location = new Point(506, 33);
+            LabRotX.Location = new Point(551, 34);
             LabRotX.Name = "LabRotX";
             LabRotX.Size = new Size(24, 30);
             LabRotX.TabIndex = 16;
@@ -1102,7 +1193,7 @@
             // TrackBarRotZ
             // 
             TrackBarRotZ.LargeChange = 1;
-            TrackBarRotZ.Location = new Point(200, 120);
+            TrackBarRotZ.Location = new Point(245, 121);
             TrackBarRotZ.Maximum = 100;
             TrackBarRotZ.Name = "TrackBarRotZ";
             TrackBarRotZ.Size = new Size(300, 45);
@@ -1112,7 +1203,7 @@
             // TrackBarRotY
             // 
             TrackBarRotY.LargeChange = 1;
-            TrackBarRotY.Location = new Point(200, 69);
+            TrackBarRotY.Location = new Point(245, 70);
             TrackBarRotY.Maximum = 100;
             TrackBarRotY.Name = "TrackBarRotY";
             TrackBarRotY.Size = new Size(300, 45);
@@ -1124,7 +1215,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(169, 135);
+            label7.Location = new Point(214, 136);
             label7.Name = "label7";
             label7.Size = new Size(25, 30);
             label7.TabIndex = 13;
@@ -1134,7 +1225,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(169, 84);
+            label6.Location = new Point(214, 85);
             label6.Name = "label6";
             label6.Size = new Size(25, 30);
             label6.TabIndex = 12;
@@ -1143,7 +1234,7 @@
             // TrackBarRotX
             // 
             TrackBarRotX.LargeChange = 1;
-            TrackBarRotX.Location = new Point(200, 18);
+            TrackBarRotX.Location = new Point(245, 19);
             TrackBarRotX.Maximum = 100;
             TrackBarRotX.Name = "TrackBarRotX";
             TrackBarRotX.Size = new Size(300, 45);
@@ -1154,7 +1245,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(3, 3);
+            label4.Location = new Point(3, 0);
             label4.Name = "label4";
             label4.Size = new Size(191, 30);
             label4.TabIndex = 10;
@@ -1164,7 +1255,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(169, 33);
+            label5.Location = new Point(214, 34);
             label5.Name = "label5";
             label5.Size = new Size(25, 30);
             label5.TabIndex = 9;
@@ -1172,13 +1263,19 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(label65);
+            tabPage1.Controls.Add(IdShippingReg);
+            tabPage1.Controls.Add(label66);
+            tabPage1.Controls.Add(IdReceiveReg);
+            tabPage1.Controls.Add(label67);
+            tabPage1.Controls.Add(AddresReceiveReg);
+            tabPage1.Controls.Add(SendRegulation);
             tabPage1.Controls.Add(label38);
             tabPage1.Controls.Add(IdRegulZ);
             tabPage1.Controls.Add(label39);
             tabPage1.Controls.Add(IdRegulY);
             tabPage1.Controls.Add(label40);
-            tabPage1.Controls.Add(AddresRegul);
+            tabPage1.Controls.Add(AddresReg);
             tabPage1.Controls.Add(label41);
             tabPage1.Controls.Add(IdRegulX);
             tabPage1.Controls.Add(LabPosY);
@@ -1199,21 +1296,79 @@
             tabPage1.Text = "Regulation";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // label65
             // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(6, 343);
-            button1.Name = "button1";
-            button1.Size = new Size(156, 57);
-            button1.TabIndex = 56;
-            button1.Text = "Отправить данные положения";
-            button1.UseVisualStyleBackColor = true;
+            label65.AutoSize = true;
+            label65.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label65.Location = new Point(71, 150);
+            label65.Name = "label65";
+            label65.Size = new Size(74, 21);
+            label65.TabIndex = 62;
+            label65.Text = "Id ответа";
+            // 
+            // IdShippingReg
+            // 
+            IdShippingReg.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingReg.Location = new Point(13, 147);
+            IdShippingReg.Name = "IdShippingReg";
+            IdShippingReg.Size = new Size(52, 29);
+            IdShippingReg.TabIndex = 61;
+            IdShippingReg.Text = "?";
+            // 
+            // label66
+            // 
+            label66.AutoSize = true;
+            label66.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label66.Location = new Point(71, 114);
+            label66.Name = "label66";
+            label66.Size = new Size(84, 21);
+            label66.TabIndex = 60;
+            label66.Text = "Id запроса";
+            // 
+            // IdReceiveReg
+            // 
+            IdReceiveReg.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveReg.Location = new Point(13, 111);
+            IdReceiveReg.Name = "IdReceiveReg";
+            IdReceiveReg.Size = new Size(52, 29);
+            IdReceiveReg.TabIndex = 59;
+            IdReceiveReg.Text = "?";
+            // 
+            // label67
+            // 
+            label67.AutoSize = true;
+            label67.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label67.Location = new Point(71, 48);
+            label67.Name = "label67";
+            label67.Size = new Size(111, 21);
+            label67.TabIndex = 58;
+            label67.Text = "Адрес приема";
+            // 
+            // AddresReceiveReg
+            // 
+            AddresReceiveReg.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveReg.Location = new Point(13, 45);
+            AddresReceiveReg.Name = "AddresReceiveReg";
+            AddresReceiveReg.Size = new Size(52, 29);
+            AddresReceiveReg.TabIndex = 57;
+            AddresReceiveReg.Text = "?";
+            // 
+            // SendRegulation
+            // 
+            SendRegulation.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendRegulation.Location = new Point(6, 343);
+            SendRegulation.Name = "SendRegulation";
+            SendRegulation.Size = new Size(156, 57);
+            SendRegulation.TabIndex = 56;
+            SendRegulation.Text = "Отправить данные положения";
+            SendRegulation.UseVisualStyleBackColor = true;
+            SendRegulation.Click += SendRegulation_Click;
             // 
             // label38
             // 
             label38.AutoSize = true;
             label38.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label38.Location = new Point(658, 138);
+            label38.Location = new Point(724, 147);
             label38.Name = "label38";
             label38.Size = new Size(116, 21);
             label38.TabIndex = 50;
@@ -1222,7 +1377,7 @@
             // IdRegulZ
             // 
             IdRegulZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRegulZ.Location = new Point(602, 135);
+            IdRegulZ.Location = new Point(668, 144);
             IdRegulZ.Name = "IdRegulZ";
             IdRegulZ.ReadOnly = true;
             IdRegulZ.Size = new Size(50, 29);
@@ -1233,7 +1388,7 @@
             // 
             label39.AutoSize = true;
             label39.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label39.Location = new Point(658, 87);
+            label39.Location = new Point(724, 96);
             label39.Name = "label39";
             label39.Size = new Size(116, 21);
             label39.TabIndex = 48;
@@ -1242,7 +1397,7 @@
             // IdRegulY
             // 
             IdRegulY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRegulY.Location = new Point(602, 84);
+            IdRegulY.Location = new Point(668, 93);
             IdRegulY.Name = "IdRegulY";
             IdRegulY.ReadOnly = true;
             IdRegulY.Size = new Size(50, 29);
@@ -1253,27 +1408,26 @@
             // 
             label40.AutoSize = true;
             label40.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label40.Location = new Point(256, 183);
+            label40.Location = new Point(322, 192);
             label40.Name = "label40";
             label40.Size = new Size(115, 21);
             label40.TabIndex = 46;
             label40.Text = "Адрес датчика";
             // 
-            // AddresRegul
+            // AddresReg
             // 
-            AddresRegul.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresRegul.Location = new Point(218, 180);
-            AddresRegul.Name = "AddresRegul";
-            AddresRegul.ReadOnly = true;
-            AddresRegul.Size = new Size(32, 29);
-            AddresRegul.TabIndex = 45;
-            AddresRegul.Text = "?";
+            AddresReg.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReg.Location = new Point(284, 189);
+            AddresReg.Name = "AddresReg";
+            AddresReg.Size = new Size(32, 29);
+            AddresReg.TabIndex = 45;
+            AddresReg.Text = "?";
             // 
             // label41
             // 
             label41.AutoSize = true;
             label41.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label41.Location = new Point(658, 36);
+            label41.Location = new Point(724, 45);
             label41.Name = "label41";
             label41.Size = new Size(116, 21);
             label41.TabIndex = 44;
@@ -1282,7 +1436,7 @@
             // IdRegulX
             // 
             IdRegulX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRegulX.Location = new Point(602, 33);
+            IdRegulX.Location = new Point(668, 42);
             IdRegulX.Name = "IdRegulX";
             IdRegulX.ReadOnly = true;
             IdRegulX.Size = new Size(50, 29);
@@ -1293,7 +1447,7 @@
             // 
             LabPosY.AutoSize = true;
             LabPosY.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabPosY.Location = new Point(538, 87);
+            LabPosY.Location = new Point(604, 96);
             LabPosY.Name = "LabPosY";
             LabPosY.Size = new Size(24, 30);
             LabPosY.TabIndex = 42;
@@ -1303,7 +1457,7 @@
             // 
             LabPosZ.AutoSize = true;
             LabPosZ.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabPosZ.Location = new Point(538, 138);
+            LabPosZ.Location = new Point(604, 147);
             LabPosZ.Name = "LabPosZ";
             LabPosZ.Size = new Size(24, 30);
             LabPosZ.TabIndex = 41;
@@ -1313,7 +1467,7 @@
             // 
             LabPosX.AutoSize = true;
             LabPosX.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabPosX.Location = new Point(538, 36);
+            LabPosX.Location = new Point(604, 45);
             LabPosX.Name = "LabPosX";
             LabPosX.Size = new Size(24, 30);
             LabPosX.TabIndex = 40;
@@ -1322,7 +1476,7 @@
             // TrackBarPosZ
             // 
             TrackBarPosZ.LargeChange = 1;
-            TrackBarPosZ.Location = new Point(232, 123);
+            TrackBarPosZ.Location = new Point(298, 132);
             TrackBarPosZ.Maximum = 100;
             TrackBarPosZ.Name = "TrackBarPosZ";
             TrackBarPosZ.Size = new Size(300, 45);
@@ -1332,7 +1486,7 @@
             // TrackBarPosY
             // 
             TrackBarPosY.LargeChange = 1;
-            TrackBarPosY.Location = new Point(232, 72);
+            TrackBarPosY.Location = new Point(298, 81);
             TrackBarPosY.Maximum = 100;
             TrackBarPosY.Name = "TrackBarPosY";
             TrackBarPosY.Size = new Size(300, 45);
@@ -1343,7 +1497,7 @@
             // 
             label45.AutoSize = true;
             label45.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label45.Location = new Point(140, 135);
+            label45.Location = new Point(206, 144);
             label45.Name = "label45";
             label45.Size = new Size(86, 30);
             label45.TabIndex = 37;
@@ -1353,7 +1507,7 @@
             // 
             label46.AutoSize = true;
             label46.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label46.Location = new Point(120, 84);
+            label46.Location = new Point(186, 93);
             label46.Name = "label46";
             label46.Size = new Size(106, 30);
             label46.TabIndex = 36;
@@ -1362,7 +1516,7 @@
             // TrackBarPosX
             // 
             TrackBarPosX.LargeChange = 1;
-            TrackBarPosX.Location = new Point(232, 21);
+            TrackBarPosX.Location = new Point(298, 30);
             TrackBarPosX.Maximum = 100;
             TrackBarPosX.Name = "TrackBarPosX";
             TrackBarPosX.Size = new Size(300, 45);
@@ -1383,7 +1537,7 @@
             // 
             label48.AutoSize = true;
             label48.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label48.Location = new Point(138, 36);
+            label48.Location = new Point(204, 45);
             label48.Name = "label48";
             label48.Size = new Size(88, 30);
             label48.TabIndex = 33;
@@ -1391,13 +1545,19 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(button2);
+            tabPage2.Controls.Add(label68);
+            tabPage2.Controls.Add(IdShippingRat);
+            tabPage2.Controls.Add(label69);
+            tabPage2.Controls.Add(IdReceiveRat);
+            tabPage2.Controls.Add(label70);
+            tabPage2.Controls.Add(AddresReceiveRat);
+            tabPage2.Controls.Add(SendRatesensor);
             tabPage2.Controls.Add(label34);
             tabPage2.Controls.Add(IdRatesZ);
             tabPage2.Controls.Add(label36);
             tabPage2.Controls.Add(IdRatesY);
             tabPage2.Controls.Add(label37);
-            tabPage2.Controls.Add(AddresRates);
+            tabPage2.Controls.Add(AddresRat);
             tabPage2.Controls.Add(label42);
             tabPage2.Controls.Add(IdRatesX);
             tabPage2.Controls.Add(LabRatesY);
@@ -1418,21 +1578,79 @@
             tabPage2.Text = "Ratesensor";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // label68
             // 
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button2.Location = new Point(9, 344);
-            button2.Name = "button2";
-            button2.Size = new Size(156, 57);
-            button2.TabIndex = 75;
-            button2.Text = "Отправить данные скорости";
-            button2.UseVisualStyleBackColor = true;
+            label68.AutoSize = true;
+            label68.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label68.Location = new Point(71, 144);
+            label68.Name = "label68";
+            label68.Size = new Size(74, 21);
+            label68.TabIndex = 81;
+            label68.Text = "Id ответа";
+            // 
+            // IdShippingRat
+            // 
+            IdShippingRat.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingRat.Location = new Point(13, 141);
+            IdShippingRat.Name = "IdShippingRat";
+            IdShippingRat.Size = new Size(52, 29);
+            IdShippingRat.TabIndex = 80;
+            IdShippingRat.Text = "?";
+            // 
+            // label69
+            // 
+            label69.AutoSize = true;
+            label69.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label69.Location = new Point(71, 108);
+            label69.Name = "label69";
+            label69.Size = new Size(84, 21);
+            label69.TabIndex = 79;
+            label69.Text = "Id запроса";
+            // 
+            // IdReceiveRat
+            // 
+            IdReceiveRat.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveRat.Location = new Point(13, 105);
+            IdReceiveRat.Name = "IdReceiveRat";
+            IdReceiveRat.Size = new Size(52, 29);
+            IdReceiveRat.TabIndex = 78;
+            IdReceiveRat.Text = "?";
+            // 
+            // label70
+            // 
+            label70.AutoSize = true;
+            label70.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label70.Location = new Point(71, 42);
+            label70.Name = "label70";
+            label70.Size = new Size(111, 21);
+            label70.TabIndex = 77;
+            label70.Text = "Адрес приема";
+            // 
+            // AddresReceiveRat
+            // 
+            AddresReceiveRat.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveRat.Location = new Point(13, 39);
+            AddresReceiveRat.Name = "AddresReceiveRat";
+            AddresReceiveRat.Size = new Size(52, 29);
+            AddresReceiveRat.TabIndex = 76;
+            AddresReceiveRat.Text = "?";
+            // 
+            // SendRatesensor
+            // 
+            SendRatesensor.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendRatesensor.Location = new Point(9, 344);
+            SendRatesensor.Name = "SendRatesensor";
+            SendRatesensor.Size = new Size(156, 57);
+            SendRatesensor.TabIndex = 75;
+            SendRatesensor.Text = "Отправить данные скорости";
+            SendRatesensor.UseVisualStyleBackColor = true;
+            SendRatesensor.Click += SendRatesensor_Click;
             // 
             // label34
             // 
             label34.AutoSize = true;
             label34.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label34.Location = new Point(661, 139);
+            label34.Location = new Point(728, 136);
             label34.Name = "label34";
             label34.Size = new Size(116, 21);
             label34.TabIndex = 74;
@@ -1441,7 +1659,7 @@
             // IdRatesZ
             // 
             IdRatesZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRatesZ.Location = new Point(605, 136);
+            IdRatesZ.Location = new Point(672, 133);
             IdRatesZ.Name = "IdRatesZ";
             IdRatesZ.ReadOnly = true;
             IdRatesZ.Size = new Size(50, 29);
@@ -1452,7 +1670,7 @@
             // 
             label36.AutoSize = true;
             label36.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label36.Location = new Point(661, 88);
+            label36.Location = new Point(728, 85);
             label36.Name = "label36";
             label36.Size = new Size(116, 21);
             label36.TabIndex = 72;
@@ -1461,7 +1679,7 @@
             // IdRatesY
             // 
             IdRatesY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRatesY.Location = new Point(605, 85);
+            IdRatesY.Location = new Point(672, 82);
             IdRatesY.Name = "IdRatesY";
             IdRatesY.ReadOnly = true;
             IdRatesY.Size = new Size(50, 29);
@@ -1472,27 +1690,26 @@
             // 
             label37.AutoSize = true;
             label37.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label37.Location = new Point(259, 184);
+            label37.Location = new Point(326, 181);
             label37.Name = "label37";
             label37.Size = new Size(115, 21);
             label37.TabIndex = 70;
             label37.Text = "Адрес датчика";
             // 
-            // AddresRates
+            // AddresRat
             // 
-            AddresRates.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresRates.Location = new Point(221, 181);
-            AddresRates.Name = "AddresRates";
-            AddresRates.ReadOnly = true;
-            AddresRates.Size = new Size(32, 29);
-            AddresRates.TabIndex = 69;
-            AddresRates.Text = "?";
+            AddresRat.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresRat.Location = new Point(288, 178);
+            AddresRat.Name = "AddresRat";
+            AddresRat.Size = new Size(32, 29);
+            AddresRat.TabIndex = 69;
+            AddresRat.Text = "?";
             // 
             // label42
             // 
             label42.AutoSize = true;
             label42.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label42.Location = new Point(661, 37);
+            label42.Location = new Point(728, 34);
             label42.Name = "label42";
             label42.Size = new Size(116, 21);
             label42.TabIndex = 68;
@@ -1501,7 +1718,7 @@
             // IdRatesX
             // 
             IdRatesX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRatesX.Location = new Point(605, 34);
+            IdRatesX.Location = new Point(672, 31);
             IdRatesX.Name = "IdRatesX";
             IdRatesX.ReadOnly = true;
             IdRatesX.Size = new Size(50, 29);
@@ -1512,7 +1729,7 @@
             // 
             LabRatesY.AutoSize = true;
             LabRatesY.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabRatesY.Location = new Point(541, 88);
+            LabRatesY.Location = new Point(608, 85);
             LabRatesY.Name = "LabRatesY";
             LabRatesY.Size = new Size(24, 30);
             LabRatesY.TabIndex = 66;
@@ -1522,7 +1739,7 @@
             // 
             LabRatesZ.AutoSize = true;
             LabRatesZ.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabRatesZ.Location = new Point(541, 139);
+            LabRatesZ.Location = new Point(608, 136);
             LabRatesZ.Name = "LabRatesZ";
             LabRatesZ.Size = new Size(24, 30);
             LabRatesZ.TabIndex = 65;
@@ -1532,7 +1749,7 @@
             // 
             LabRatesX.AutoSize = true;
             LabRatesX.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabRatesX.Location = new Point(541, 37);
+            LabRatesX.Location = new Point(608, 34);
             LabRatesX.Name = "LabRatesX";
             LabRatesX.Size = new Size(24, 30);
             LabRatesX.TabIndex = 64;
@@ -1541,7 +1758,7 @@
             // TrackBarRatesZ
             // 
             TrackBarRatesZ.LargeChange = 1;
-            TrackBarRatesZ.Location = new Point(235, 124);
+            TrackBarRatesZ.Location = new Point(302, 121);
             TrackBarRatesZ.Maximum = 100;
             TrackBarRatesZ.Name = "TrackBarRatesZ";
             TrackBarRatesZ.Size = new Size(300, 45);
@@ -1551,7 +1768,7 @@
             // TrackBarRatesY
             // 
             TrackBarRatesY.LargeChange = 1;
-            TrackBarRatesY.Location = new Point(235, 73);
+            TrackBarRatesY.Location = new Point(302, 70);
             TrackBarRatesY.Maximum = 100;
             TrackBarRatesY.Name = "TrackBarRatesY";
             TrackBarRatesY.Size = new Size(300, 45);
@@ -1562,7 +1779,7 @@
             // 
             label50.AutoSize = true;
             label50.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label50.Location = new Point(204, 130);
+            label50.Location = new Point(271, 127);
             label50.Name = "label50";
             label50.Size = new Size(25, 30);
             label50.TabIndex = 61;
@@ -1572,7 +1789,7 @@
             // 
             label51.AutoSize = true;
             label51.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label51.Location = new Point(204, 85);
+            label51.Location = new Point(271, 82);
             label51.Name = "label51";
             label51.Size = new Size(25, 30);
             label51.TabIndex = 60;
@@ -1581,7 +1798,7 @@
             // TrackBarRatesX
             // 
             TrackBarRatesX.LargeChange = 1;
-            TrackBarRatesX.Location = new Point(235, 22);
+            TrackBarRatesX.Location = new Point(302, 19);
             TrackBarRatesX.Maximum = 100;
             TrackBarRatesX.Name = "TrackBarRatesX";
             TrackBarRatesX.Size = new Size(300, 45);
@@ -1602,7 +1819,7 @@
             // 
             label53.AutoSize = true;
             label53.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label53.Location = new Point(204, 37);
+            label53.Location = new Point(271, 34);
             label53.Name = "label53";
             label53.Size = new Size(25, 30);
             label53.TabIndex = 57;
@@ -1610,13 +1827,19 @@
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(button3);
+            tabPage3.Controls.Add(label71);
+            tabPage3.Controls.Add(IdShippingAcc);
+            tabPage3.Controls.Add(label72);
+            tabPage3.Controls.Add(IdReceiveAcc);
+            tabPage3.Controls.Add(label73);
+            tabPage3.Controls.Add(AddresReceiveAcc);
+            tabPage3.Controls.Add(SendAccelsensor);
             tabPage3.Controls.Add(label54);
             tabPage3.Controls.Add(IdAccelZ);
             tabPage3.Controls.Add(label55);
             tabPage3.Controls.Add(IdAccelY);
             tabPage3.Controls.Add(label56);
-            tabPage3.Controls.Add(AddresAccel);
+            tabPage3.Controls.Add(AddresAcc);
             tabPage3.Controls.Add(label57);
             tabPage3.Controls.Add(IdAccelX);
             tabPage3.Controls.Add(LabAccelY);
@@ -1637,21 +1860,79 @@
             tabPage3.Text = "Accelsensor";
             tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // label71
             // 
-            button3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            button3.Location = new Point(7, 343);
-            button3.Name = "button3";
-            button3.Size = new Size(156, 57);
-            button3.TabIndex = 75;
-            button3.Text = "Отправить данные ускорения";
-            button3.UseVisualStyleBackColor = true;
+            label71.AutoSize = true;
+            label71.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label71.Location = new Point(71, 143);
+            label71.Name = "label71";
+            label71.Size = new Size(74, 21);
+            label71.TabIndex = 81;
+            label71.Text = "Id ответа";
+            // 
+            // IdShippingAcc
+            // 
+            IdShippingAcc.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingAcc.Location = new Point(13, 140);
+            IdShippingAcc.Name = "IdShippingAcc";
+            IdShippingAcc.Size = new Size(52, 29);
+            IdShippingAcc.TabIndex = 80;
+            IdShippingAcc.Text = "?";
+            // 
+            // label72
+            // 
+            label72.AutoSize = true;
+            label72.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label72.Location = new Point(71, 107);
+            label72.Name = "label72";
+            label72.Size = new Size(84, 21);
+            label72.TabIndex = 79;
+            label72.Text = "Id запроса";
+            // 
+            // IdReceiveAcc
+            // 
+            IdReceiveAcc.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveAcc.Location = new Point(13, 104);
+            IdReceiveAcc.Name = "IdReceiveAcc";
+            IdReceiveAcc.Size = new Size(52, 29);
+            IdReceiveAcc.TabIndex = 78;
+            IdReceiveAcc.Text = "?";
+            // 
+            // label73
+            // 
+            label73.AutoSize = true;
+            label73.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label73.Location = new Point(71, 41);
+            label73.Name = "label73";
+            label73.Size = new Size(111, 21);
+            label73.TabIndex = 77;
+            label73.Text = "Адрес приема";
+            // 
+            // AddresReceiveAcc
+            // 
+            AddresReceiveAcc.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveAcc.Location = new Point(13, 38);
+            AddresReceiveAcc.Name = "AddresReceiveAcc";
+            AddresReceiveAcc.Size = new Size(52, 29);
+            AddresReceiveAcc.TabIndex = 76;
+            AddresReceiveAcc.Text = "?";
+            // 
+            // SendAccelsensor
+            // 
+            SendAccelsensor.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendAccelsensor.Location = new Point(7, 343);
+            SendAccelsensor.Name = "SendAccelsensor";
+            SendAccelsensor.Size = new Size(156, 57);
+            SendAccelsensor.TabIndex = 75;
+            SendAccelsensor.Text = "Отправить данные ускорения";
+            SendAccelsensor.UseVisualStyleBackColor = true;
+            SendAccelsensor.Click += SendAccelsensor_Click;
             // 
             // label54
             // 
             label54.AutoSize = true;
             label54.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label54.Location = new Point(659, 138);
+            label54.Location = new Point(734, 139);
             label54.Name = "label54";
             label54.Size = new Size(116, 21);
             label54.TabIndex = 74;
@@ -1660,7 +1941,7 @@
             // IdAccelZ
             // 
             IdAccelZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdAccelZ.Location = new Point(603, 135);
+            IdAccelZ.Location = new Point(678, 136);
             IdAccelZ.Name = "IdAccelZ";
             IdAccelZ.ReadOnly = true;
             IdAccelZ.Size = new Size(50, 29);
@@ -1671,7 +1952,7 @@
             // 
             label55.AutoSize = true;
             label55.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label55.Location = new Point(659, 87);
+            label55.Location = new Point(734, 88);
             label55.Name = "label55";
             label55.Size = new Size(116, 21);
             label55.TabIndex = 72;
@@ -1680,7 +1961,7 @@
             // IdAccelY
             // 
             IdAccelY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdAccelY.Location = new Point(603, 84);
+            IdAccelY.Location = new Point(678, 85);
             IdAccelY.Name = "IdAccelY";
             IdAccelY.ReadOnly = true;
             IdAccelY.Size = new Size(50, 29);
@@ -1691,27 +1972,26 @@
             // 
             label56.AutoSize = true;
             label56.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label56.Location = new Point(257, 183);
+            label56.Location = new Point(332, 184);
             label56.Name = "label56";
             label56.Size = new Size(115, 21);
             label56.TabIndex = 70;
             label56.Text = "Адрес датчика";
             // 
-            // AddresAccel
+            // AddresAcc
             // 
-            AddresAccel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresAccel.Location = new Point(219, 180);
-            AddresAccel.Name = "AddresAccel";
-            AddresAccel.ReadOnly = true;
-            AddresAccel.Size = new Size(32, 29);
-            AddresAccel.TabIndex = 69;
-            AddresAccel.Text = "?";
+            AddresAcc.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresAcc.Location = new Point(294, 181);
+            AddresAcc.Name = "AddresAcc";
+            AddresAcc.Size = new Size(32, 29);
+            AddresAcc.TabIndex = 69;
+            AddresAcc.Text = "?";
             // 
             // label57
             // 
             label57.AutoSize = true;
             label57.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label57.Location = new Point(659, 36);
+            label57.Location = new Point(734, 37);
             label57.Name = "label57";
             label57.Size = new Size(116, 21);
             label57.TabIndex = 68;
@@ -1720,7 +2000,7 @@
             // IdAccelX
             // 
             IdAccelX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdAccelX.Location = new Point(603, 33);
+            IdAccelX.Location = new Point(678, 34);
             IdAccelX.Name = "IdAccelX";
             IdAccelX.ReadOnly = true;
             IdAccelX.Size = new Size(50, 29);
@@ -1731,7 +2011,7 @@
             // 
             LabAccelY.AutoSize = true;
             LabAccelY.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabAccelY.Location = new Point(539, 87);
+            LabAccelY.Location = new Point(614, 88);
             LabAccelY.Name = "LabAccelY";
             LabAccelY.Size = new Size(24, 30);
             LabAccelY.TabIndex = 66;
@@ -1741,7 +2021,7 @@
             // 
             LabAccelZ.AutoSize = true;
             LabAccelZ.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabAccelZ.Location = new Point(539, 138);
+            LabAccelZ.Location = new Point(614, 139);
             LabAccelZ.Name = "LabAccelZ";
             LabAccelZ.Size = new Size(24, 30);
             LabAccelZ.TabIndex = 65;
@@ -1751,7 +2031,7 @@
             // 
             LabAccelX.AutoSize = true;
             LabAccelX.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabAccelX.Location = new Point(539, 36);
+            LabAccelX.Location = new Point(614, 37);
             LabAccelX.Name = "LabAccelX";
             LabAccelX.Size = new Size(24, 30);
             LabAccelX.TabIndex = 64;
@@ -1760,7 +2040,7 @@
             // TrackBarAccelZ
             // 
             TrackBarAccelZ.LargeChange = 1;
-            TrackBarAccelZ.Location = new Point(233, 123);
+            TrackBarAccelZ.Location = new Point(308, 124);
             TrackBarAccelZ.Maximum = 100;
             TrackBarAccelZ.Name = "TrackBarAccelZ";
             TrackBarAccelZ.Size = new Size(300, 45);
@@ -1770,7 +2050,7 @@
             // TrackBarAccelY
             // 
             TrackBarAccelY.LargeChange = 1;
-            TrackBarAccelY.Location = new Point(233, 72);
+            TrackBarAccelY.Location = new Point(308, 73);
             TrackBarAccelY.Maximum = 100;
             TrackBarAccelY.Name = "TrackBarAccelY";
             TrackBarAccelY.Size = new Size(300, 45);
@@ -1781,7 +2061,7 @@
             // 
             label61.AutoSize = true;
             label61.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label61.Location = new Point(202, 134);
+            label61.Location = new Point(277, 135);
             label61.Name = "label61";
             label61.Size = new Size(25, 30);
             label61.TabIndex = 61;
@@ -1791,7 +2071,7 @@
             // 
             label62.AutoSize = true;
             label62.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label62.Location = new Point(202, 87);
+            label62.Location = new Point(277, 88);
             label62.Name = "label62";
             label62.Size = new Size(25, 30);
             label62.TabIndex = 60;
@@ -1800,7 +2080,7 @@
             // TrackBarAccelX
             // 
             TrackBarAccelX.LargeChange = 1;
-            TrackBarAccelX.Location = new Point(233, 21);
+            TrackBarAccelX.Location = new Point(308, 22);
             TrackBarAccelX.Maximum = 100;
             TrackBarAccelX.Name = "TrackBarAccelX";
             TrackBarAccelX.Size = new Size(300, 45);
@@ -1821,7 +2101,7 @@
             // 
             label64.AutoSize = true;
             label64.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label64.Location = new Point(202, 36);
+            label64.Location = new Point(277, 37);
             label64.Name = "label64";
             label64.Size = new Size(25, 30);
             label64.TabIndex = 57;
@@ -2233,7 +2513,7 @@
         private Label label25;
         private TextBox IdAscelY;
         private Label label22;
-        private TextBox AddresAcsel;
+        private TextBox AddresAcs;
         private Label label23;
         private TextBox IdAscelX;
         private Label label32;
@@ -2257,13 +2537,13 @@
         private TrackBar TrackBarRotW;
         private Label label35;
         private TabPage tabPage1;
-        private Button button1;
+        private Button SendRegulation;
         private Label label38;
         private TextBox IdRegulZ;
         private Label label39;
         private TextBox IdRegulY;
         private Label label40;
-        private TextBox AddresRegul;
+        private TextBox AddresReg;
         private Label label41;
         private TextBox IdRegulX;
         private Label LabPosY;
@@ -2278,13 +2558,13 @@
         private Label label48;
         private TabPage tabPage2;
         private TabPage tabPage3;
-        private Button button2;
+        private Button SendRatesensor;
         private Label label34;
         private TextBox IdRatesZ;
         private Label label36;
         private TextBox IdRatesY;
         private Label label37;
-        private TextBox AddresRates;
+        private TextBox AddresRat;
         private Label label42;
         private TextBox IdRatesX;
         private Label LabRatesY;
@@ -2297,13 +2577,13 @@
         private TrackBar TrackBarRatesX;
         private Label label52;
         private Label label53;
-        private Button button3;
+        private Button SendAccelsensor;
         private Label label54;
         private TextBox IdAccelZ;
         private Label label55;
         private TextBox IdAccelY;
         private Label label56;
-        private TextBox AddresAccel;
+        private TextBox AddresAcc;
         private Label label57;
         private TextBox IdAccelX;
         private Label LabAccelY;
@@ -2322,5 +2602,29 @@
         private TextBox IdShippingMag;
         private Label label44;
         private TextBox IdReceiveMag;
+        private Label label58;
+        private TextBox IdShippingAcs;
+        private Label label59;
+        private TextBox IdReceiveAcs;
+        private Label label60;
+        private TextBox AddresReceiveAcs;
+        private Label label65;
+        private TextBox IdShippingReg;
+        private Label label66;
+        private TextBox IdReceiveReg;
+        private Label label67;
+        private TextBox AddresReceiveReg;
+        private Label label68;
+        private TextBox IdShippingRat;
+        private Label label69;
+        private TextBox IdReceiveRat;
+        private Label label70;
+        private TextBox AddresReceiveRat;
+        private Label label71;
+        private TextBox IdShippingAcc;
+        private Label label72;
+        private TextBox IdReceiveAcc;
+        private Label label73;
+        private TextBox AddresReceiveAcc;
     }
 }

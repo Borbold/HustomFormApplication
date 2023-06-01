@@ -11,7 +11,7 @@ namespace HustonRTEMS {
             // С CAN приходит строка и преобразовываем в число
             // С сервера приходит число которое преобразовываем в строку
             byte[] testCan = new byte[255];
-            it_un id_un = new() {
+            ItUn id_un = new() {
                 byte1 = testInternetBuf[0],
                 byte2 = testInternetBuf[1]
             }, to_addres = new() {
@@ -85,8 +85,8 @@ namespace HustonRTEMS {
         private readonly Socket client;
         private byte[] buffer;
 
-        public fl_un fl = new();
-        public it_un it = new();
+        public FlUn fl = new();
+        public ItUn it = new();
 
 #pragma warning disable CS8618
         public Form1() {
@@ -97,32 +97,28 @@ namespace HustonRTEMS {
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
-            AddresAcsel.Text = $"{DT.acselerometerTransmission.TShipAddres.addres:X}";
+            AddresAcs.Text = $"{DT.acselerometerTransmission.TShipAddres.addres:X}";
             IdAscelX.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdAscelY.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdAscelZ.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Z]:X}";
             IdAscelW.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.W]:X}";
 
-            AddresRegul.Text = $"{DT.regulationTransmission.TShipAddres.addres:X}";
+            AddresReg.Text = $"{DT.regulationTransmission.TShipAddres.addres:X}";
             IdRegulX.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdRegulY.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdRegulZ.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.Z]:X}";
 
-            AddresRates.Text = $"{DT.ratesensorTransmission.TShipAddres.addres:X}";
+            AddresRat.Text = $"{DT.ratesensorTransmission.TShipAddres.addres:X}";
             IdRatesX.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdRatesY.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdRatesZ.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.Z]:X}";
 
-            AddresAccel.Text = $"{DT.accelsensorTransmission.TShipAddres.addres:X}";
+            AddresAcc.Text = $"{DT.accelsensorTransmission.TShipAddres.addres:X}";
             IdAccelX.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.X]:X}";
             IdAccelY.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.Y]:X}";
             IdAccelZ.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.Z]:X}";
 
             // Mag
-            AddresReceiveMag.Text = $"{DT.ReceiveMagAddres.addres:X}";
-            IdReceiveMag.Text = $"{DT.IdReceiveMag.addres:X}";
-            IdShippingMag.Text = $"{DT.IdShipingMag.addres:X}";
-
             AddresMag1.Text = $"{DT.magnitudeTransmission1.TShipAddres.addres:X}";
             IdMag1X.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.X]:X}";
             IdMag1Y.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.Y]:X}";
@@ -139,9 +135,33 @@ namespace HustonRTEMS {
                 PortTextBox.Text = section.PORT;
                 CANSpeed.Text = section.CANSpeed;
                 CANPort.Text = section.CANPort;
+
                 AddresReceiveMag.Text = section.ReceiveMagAddres;
                 IdReceiveMag.Text = section.IdReceiveMag;
                 IdShippingMag.Text = section.IdShipingMag;
+                AddresMag1.Text = section.SensorMagAddress1;
+                AddresMag2.Text = section.SensorMagAddress2;
+
+                AddresReceiveAcs.Text = section.ReceiveAcsAddres;
+                IdReceiveAcs.Text = section.IdReceiveAcs;
+                IdShippingAcs.Text = section.IdShipingAcs;
+                AddresAcs.Text = section.SensorAcsAddress;
+
+                AddresReceiveReg.Text = section.ReceiveRegAddres;
+                IdReceiveReg.Text = section.IdReceiveReg;
+                IdShippingReg.Text = section.IdShipingReg;
+                AddresReg.Text = section.SensorRegAddress;
+
+                AddresReceiveRat.Text = section.ReceiveRatAddres;
+                IdReceiveRat.Text = section.IdReceiveRat;
+                IdShippingRat.Text = section.IdShipingRat;
+                AddresRat.Text = section.SensorRatAddress;
+
+                AddresReceiveAcc.Text = section.ReceiveAccAddres;
+                IdReceiveAcc.Text = section.IdReceiveAcc;
+                IdShippingAcc.Text = section.IdShipingAcc;
+                AddresAcc.Text = section.SensorAccAddress;
+
                 cfg.Save();
             }
         }
@@ -151,9 +171,33 @@ namespace HustonRTEMS {
                 section.PORT = PortTextBox.Text;
                 section.CANSpeed = CANSpeed.Text;
                 section.CANPort = CANPort.Text;
+
                 section.ReceiveMagAddres = AddresReceiveMag.Text;
                 section.IdReceiveMag = IdReceiveMag.Text;
                 section.IdShipingMag = IdShippingMag.Text;
+                section.SensorMagAddress1 = AddresMag1.Text;
+                section.SensorMagAddress2 = AddresMag2.Text;
+
+                section.ReceiveAcsAddres = AddresReceiveAcs.Text;
+                section.IdReceiveAcs = IdReceiveAcs.Text;
+                section.IdShipingAcs = IdShippingAcs.Text;
+                section.SensorAcsAddress = AddresAcs.Text;
+
+                section.ReceiveRegAddres = AddresReceiveReg.Text;
+                section.IdReceiveReg = IdReceiveReg.Text;
+                section.IdShipingReg = IdShippingReg.Text;
+                section.SensorRegAddress = AddresReg.Text;
+
+                section.ReceiveRatAddres = AddresReceiveRat.Text;
+                section.IdReceiveRat = IdReceiveRat.Text;
+                section.IdShipingRat = IdShippingRat.Text;
+                section.SensorRatAddress = AddresRat.Text;
+
+                section.ReceiveAccAddres = AddresReceiveAcc.Text;
+                section.IdReceiveAcc = IdReceiveAcc.Text;
+                section.IdShipingAcc = IdShippingAcc.Text;
+                section.SensorAccAddress = AddresAcc.Text;
+
                 cfg.Save();
             }
         }
@@ -256,8 +300,8 @@ namespace HustonRTEMS {
 
         private Socket serverListener;
         async void Open_thread() {
-            while(true) {
-                Thread.Sleep(1000);
+            while(flagRead) {
+                Thread.Sleep(100);
                 LogBox.Invoke(new Action(() => {
                     LogBox.Text += "Search socet\r\n";
                 }));
@@ -286,14 +330,14 @@ namespace HustonRTEMS {
                                 LogBox.Text = ex.Message + "\r\n";
                             }));
                         }
-                        catch(Exception) { 
+                        catch(Exception) {
                         }
                     }
 
                     while(serverListener.Connected) {
                         try {
                             LogBox.Invoke(new Action(() => {
-                                LogBox.Text += $"\r\nWait message, message_count: ";
+                                LogBox.Text = $"Wait message, message_count: ";
                             }));
                             message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
                             LogBox.Invoke(new Action(() => {
@@ -305,11 +349,12 @@ namespace HustonRTEMS {
                                 LogBox.Text = ex.Message;
                             }));
                         }
+                        Thread.Sleep(1000);
 
                         if(message_size > 0) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text +=
-                                $"Socket server response message: \r\n";
+                                $"\r\nSocket server response message: \r\n";
                             }));
                             while(raw_buffer_size < message_size) {
                                 if(raw_buffer_size >= 0) {
@@ -322,7 +367,7 @@ namespace HustonRTEMS {
                             LogBox.Invoke(new Action(() => { LogBox.Text += $"\r\nWait new message!\r\n"; }));
 
                             // Example of sending a power-on response
-                            it_un id = new() {
+                            ItUn id = new() {
                                 byte1 = buffer[18],
                                 byte2 = buffer[19]
                             }, addres = new() {
@@ -333,7 +378,7 @@ namespace HustonRTEMS {
                                 LogBox.Invoke(new Action(() => { LogBox.Text += "Get id\r\n"; }));
                                 if(addres.it == Convert.ToInt16(AddresReceiveMag.Text, 16)) {
                                     LogBox.Invoke(new Action(() => { LogBox.Text += "Get addres"; }));
-                                    it_un idSend = new() {
+                                    ItUn idSend = new() {
                                         it = Convert.ToInt16(IdShippingMag.Text, 16)
                                     };
                                     // 27 Длина киса + кана
@@ -352,7 +397,7 @@ namespace HustonRTEMS {
                                     sendBuf[24] = 0xC;
                                     sendBuf[25] = 0x00;
 
-                                    fl_un n_fl = new() {
+                                    FlUn n_fl = new() {
                                         fl = (float)Convert.ToDecimal(LabMagX.Text)
                                     };
                                     sendBuf[26] = n_fl.byte1;
@@ -388,6 +433,7 @@ namespace HustonRTEMS {
                         } else {
                             break;
                         }
+                        Thread.Sleep(1000);
                         raw_buffer_size = 0;
                     }
                 }
@@ -395,17 +441,22 @@ namespace HustonRTEMS {
                 serverListener.Close();
             }
         }
-        Thread nThread;
+        Thread nThread; bool flagRead;
         private void OpenSocetServer_ClickAsync(object sender, EventArgs e) {
+            flagRead = true;
             nThread = new(Open_thread);
             nThread.Start();
         }
-        private void CloseSocketServer_Click(object sender, EventArgs e) {
-            if(serverListener != null && serverListener.Connected) {
-                serverListener.Disconnect(true);
-            }
+        private async void CloseSocketServer_Click(object sender, EventArgs e) {
             if(nThread.IsAlive) {
-                nThread.Interrupt();
+                flagRead = false;
+            }
+            if(serverListener != null && serverListener.Connected) {
+                try {
+                    await serverListener.DisconnectAsync(true);
+                }
+                catch(Exception) {
+                }
             }
         }
 
@@ -419,90 +470,105 @@ namespace HustonRTEMS {
         }
 
         private void SendMagnetometer1_Click(object sender, EventArgs e) {
-            byte[] sendBuf = new byte[27 + (3 * 4)];
-            Array.Copy(hardBuf, sendBuf, 18);
-            it.it = Convert.ToInt16(AddresMag1.Text, 16);
-            it_un id = new() {
-                it = Convert.ToInt16(IdShippingMag.Text, 16)
-            };
-            sendBuf[18] = id.byte1;
-            sendBuf[19] = id.byte2;
-            id = new() {
-                it = Convert.ToInt16(AddresMag1.Text, 16)
-            };
-            sendBuf[20] = id.byte1;
-            sendBuf[21] = id.byte2;
-            id = new() {
-                it = Convert.ToInt16(AddresReceiveMag.Text, 16)
-            };
-            sendBuf[22] = id.byte1;
-            sendBuf[23] = id.byte2;
-            id = new() {
-                it = 3 * 4
-            };
-            sendBuf[24] = id.byte1;
-            sendBuf[25] = id.byte2;
-
-            fl_un val = new() {
-                fl = (float)Convert.ToDouble(LabMagX.Text)
-            };
-            sendBuf[26] = val.byte1;
-            sendBuf[27] = val.byte2;
-            sendBuf[28] = val.byte3;
-            sendBuf[29] = val.byte4;
-            val = new() {
-                fl = (float)Convert.ToDouble(LabMagY.Text)
-            };
-            sendBuf[30] = val.byte1;
-            sendBuf[31] = val.byte2;
-            sendBuf[32] = val.byte3;
-            sendBuf[33] = val.byte4;
-            val = new() {
-                fl = (float)Convert.ToDouble(LabMagZ.Text)
-            };
-            sendBuf[34] = val.byte1;
-            sendBuf[35] = val.byte2;
-            sendBuf[36] = val.byte3;
-            sendBuf[37] = val.byte4;
-
-            sendBuf[^1] = hardBuf[^1];
-
-            GeneralFunctional.SendChangeKissFESC(ref sendBuf);
-
-            fl.fl = (float)Convert.ToDouble(LabMagZ.Text);
+            int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
+            int addresValue = Convert.ToInt16(AddresMag1.Text, 16);
+            int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
+            int iCount = 0;
+            int fCount = 3;
+            int[] arIValue = Array.Empty<int>();
+            float[] arFValue = new float[fCount];
+            arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
+            arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
+            arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
             GeneralFunctional.SendMessageInSocket(serverListener,
-                sendBuf, LogBox);
+                idShipping, addresValue, addresReceive,
+                iCount, fCount, arIValue, arFValue,
+                LogBox);
         }
         private void SendMagnetometer2_Click(object sender, EventArgs e) {
-            it.it = Convert.ToInt16(AddresMag2.Text, 16);
-
-            fl.fl = (float)Convert.ToDouble(LabMagX_2.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
-
-            fl.fl = (float)Convert.ToDouble(LabMagY_2.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
-
-            fl.fl = (float)Convert.ToDouble(LabMagZ_2.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
+            int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
+            int addresValue = Convert.ToInt16(AddresMag2.Text, 16);
+            int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
+            int iCount = 0;
+            int fCount = 3;
+            int[] arIValue = Array.Empty<int>();
+            float[] arFValue = new float[fCount];
+            arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
+            arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
+            arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
+            GeneralFunctional.SendMessageInSocket(serverListener,
+                idShipping, addresValue, addresReceive,
+                iCount, fCount, arIValue, arFValue,
+                LogBox);
         }
 
         private void SendAcselerometer_Click(object sender, EventArgs e) {
-            it.it = DT.acselerometerTransmission.TShipAddres.addres;
+            int idShipping = Convert.ToInt16(IdShippingAcs.Text, 16);
+            int addresValue = Convert.ToInt16(AddresAcs.Text, 16);
+            int addresReceive = Convert.ToInt16(AddresReceiveAcs.Text, 16);
+            int iCount = 0;
+            int fCount = 4;
+            int[] arIValue = Array.Empty<int>();
+            float[] arFValue = new float[fCount];
+            arFValue[0] = (float)Convert.ToDouble(LabRotX.Text);
+            arFValue[1] = (float)Convert.ToDouble(LabRotY.Text);
+            arFValue[2] = (float)Convert.ToDouble(LabRotZ.Text);
+            arFValue[3] = (float)Convert.ToDouble(LabRotW.Text);
+            GeneralFunctional.SendMessageInSocket(serverListener,
+                idShipping, addresValue, addresReceive,
+                iCount, fCount, arIValue, arFValue,
+                LogBox);
+        }
 
-            fl.fl = (float)Convert.ToDouble(LabRotX.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
+        private void SendRegulation_Click(object sender, EventArgs e) {
+            int idShipping = Convert.ToInt16(IdShippingReg.Text, 16);
+            int addresValue = Convert.ToInt16(AddresReg.Text, 16);
+            int addresReceive = Convert.ToInt16(AddresReceiveReg.Text, 16);
+            int iCount = 0;
+            int fCount = 3;
+            int[] arIValue = Array.Empty<int>();
+            float[] arFValue = new float[fCount];
+            arFValue[0] = (float)Convert.ToDouble(LabPosX.Text);
+            arFValue[1] = (float)Convert.ToDouble(LabPosY.Text);
+            arFValue[2] = (float)Convert.ToDouble(LabPosZ.Text);
+            GeneralFunctional.SendMessageInSocket(serverListener,
+                idShipping, addresValue, addresReceive,
+                iCount, fCount, arIValue, arFValue,
+                LogBox);
+        }
 
-            fl.fl = (float)Convert.ToDouble(LabRotY.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
+        private void SendRatesensor_Click(object sender, EventArgs e) {
+            int idShipping = Convert.ToInt16(IdShippingRat.Text, 16);
+            int addresValue = Convert.ToInt16(AddresRat.Text, 16);
+            int addresReceive = Convert.ToInt16(AddresReceiveRat.Text, 16);
+            int iCount = 0;
+            int fCount = 3;
+            int[] arIValue = Array.Empty<int>();
+            float[] arFValue = new float[fCount];
+            arFValue[0] = (float)Convert.ToDouble(LabRatesX.Text);
+            arFValue[1] = (float)Convert.ToDouble(LabRatesY.Text);
+            arFValue[2] = (float)Convert.ToDouble(LabRatesZ.Text);
+            GeneralFunctional.SendMessageInSocket(serverListener,
+                idShipping, addresValue, addresReceive,
+                iCount, fCount, arIValue, arFValue,
+                LogBox);
+        }
 
-            fl.fl = (float)Convert.ToDouble(LabRotZ.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
+        private void SendAccelsensor_Click(object sender, EventArgs e) {
+            int idShipping = Convert.ToInt16(IdShippingAcc.Text, 16);
+            int addresValue = Convert.ToInt16(AddresAcc.Text, 16);
+            int addresReceive = Convert.ToInt16(AddresReceiveAcc.Text, 16);
+            int iCount = 0;
+            int fCount = 3;
+            int[] arIValue = Array.Empty<int>();
+            float[] arFValue = new float[fCount];
+            arFValue[0] = (float)Convert.ToDouble(LabAccelX.Text);
+            arFValue[1] = (float)Convert.ToDouble(LabAccelY.Text);
+            arFValue[2] = (float)Convert.ToDouble(LabAccelZ.Text);
+            GeneralFunctional.SendMessageInSocket(serverListener,
+                idShipping, addresValue, addresReceive,
+                iCount, fCount, arIValue, arFValue,
+                LogBox);
         }
         // Send data
 
