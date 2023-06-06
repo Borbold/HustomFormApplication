@@ -7,50 +7,6 @@ using System.Threading;
 
 namespace HustonRTEMS {
     public partial class Form1: Form {
-        private void TestCharToByte() {
-            // С CAN приходит строка и преобразовываем в число
-            // С сервера приходит число которое преобразовываем в строку
-            byte[] testCan = new byte[255];
-            ItUn id_un = new() {
-                byte1 = testInternetBuf[0],
-                byte2 = testInternetBuf[1]
-            }, to_addres = new() {
-                byte1 = testInternetBuf[2],
-                byte2 = testInternetBuf[3]
-            }, out_addres = new() {
-                byte1 = testInternetBuf[4],
-                byte2 = testInternetBuf[5]
-            };
-            // Пример приема с сервера. Число в строку
-            if(to_addres.it <= 31 && out_addres.it <= 31) {
-                testCan[0] = 0x74;
-                int offset_out = out_addres.it / 0xF;
-                to_addres.it = (to_addres.it * 2) + offset_out;
-                testCan[1] = (byte)(to_addres.byte2 + 0x30);
-                testCan[2] = (byte)(to_addres.byte1 + 0x30);
-                testCan[3] = (byte)((out_addres.it & 0xF) + 0x37);
-                testCan[4] = 0x32;
-                testCan[5] = (byte)((id_un.byte1 >> 4) + 0x37);
-                testCan[6] = 0x30;
-                testCan[7] = 0x30;
-                testCan[8] = 0x30;
-                testCan[9] = 0xD;
-                foreach(byte i in testCan) {
-                    Debug.Write($"{i:X} ");
-                }
-            }
-            Debug.WriteLine("");
-            // Пример приема с CAN. Строку в число
-            testCan = new byte[testCANCharBuf.Length];
-            for(int i = 0; i < testCANCharBuf.Length; i++) {
-                testCan[i] = Convert.ToByte(testCANCharBuf[i]);
-            }
-            foreach(byte i in testCan) {
-                Debug.Write($"{i:X} ");
-            }
-            Debug.WriteLine("");
-        }
-
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
         private readonly DefaultTransmission DT = new();
@@ -66,18 +22,24 @@ namespace HustonRTEMS {
              0x74, 0x34, 0x33, 0x32, 0x34, 0x31, 0x31, 0x32, 0x32, 0x33, 0x33, 0x34, 0x34, 0x0D };*/
         /*private readonly byte[] canHardBufWrite = { //Get 29
             0x54, 0x42, 0x30, 0x00, 0x00, 0x31, 0x00, 0x31, 0x43, 0x33, 0x31, 0x31, 0x32, 0x32, 0x33, 0x33, 0x0D };*/
+        //74 30 35 43 32 42 30 30
+        //30 30 30 30 30 D
         private readonly char[] testCANCharBuf = {
             't', '0', '3', 'C', '2', 'B', '0', '0', '0', '\r',
         };
         private readonly byte[] testInternetBuf = {
-            0xB0, 0x00, 0x01, 0x00, 0x1C, 0x00, 0x04,
-            0x00, 0x00, 0x98, 0xAD, 0x45,
+            0xB1, 0x00, 0x01, 0x00, 0x1C, 0x00, 0x04, 0x00,
+            0x00, 0x98, 0xAD, 0x45,
             0xC0 };
-        private readonly byte[] canHardBufWrite = { //Get 29
+        /*private readonly byte[] canHardBufWrite = { //Get 29
             0x54,
             0x31, 0x37, 0x00, 0x00, 0x31, 0x00, 0x32, 0x38, 0x34,
             0x31, 0x31, 0x32, 0x32, 0x33, 0x33, 0x33, 0x33,
-            0x0D };
+            0x0D };*/
+        private readonly byte[] canHardBufWrite = { //Get 11
+            0x74,
+            0x30, 0x33, 0x43, 0x32, 0x42, 0x30, 0x30,
+            0x30, 0x0D };
         /*private readonly byte[] canHardBufWrite = { //Set RTR
              0x72, 0x32, 0x38, 0x38, 0x30, 0x0D };*/
 
@@ -94,6 +56,8 @@ namespace HustonRTEMS {
         }
 #pragma warning restore CS8618
         private void Form1_Load(object sender, EventArgs e) {
+            AppToCan(testInternetBuf);
+
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
@@ -558,63 +522,48 @@ namespace HustonRTEMS {
         }
 
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
-            //Read();
-            int byteWrite = 0, offsetByte = 8;
-            while(byteWrite < serialPort.BytesToRead) {
-                int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
-                    serialPort.BytesToRead - byteWrite : offsetByte;
-                byte[] data = new byte[copyByte];
-                _ = serialPort.Read(data, 0, copyByte);
-                for(int i = 0; i < data.Length; i++) {
-                    Debug.WriteLine(" " + $"{data[i]:X}");
-                }
-                byteWrite += offsetByte;
-            }
+            Thread.Sleep(1000);
+            Read();
+            Thread.Sleep(1000);
         }
         private void Read() {
-            int byteWrite = 0, offsetByte = 8;
-            while(byteWrite < serialPort.BytesToRead) {
-                int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
-                    serialPort.BytesToRead - byteWrite : offsetByte;
-                byte[] data = new byte[copyByte];
-                _ = serialPort.Read(data, 0, copyByte);
-                for(int i = 0; i < data.Length; i++) {
-                    LogBox.Text += " " + $"{data[i]:X}";
-                }
-                byteWrite += offsetByte;
+            if(flagRead) {
+                LogBox.Invoke(new Action(() => {
+                    LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
+                }));
+                int byteWrite = 0, offsetByte = 8;
+                do {
+                    int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
+                        serialPort.BytesToRead - byteWrite : offsetByte;
+                    byte[] data = new byte[copyByte];
+                    serialPort.Read(data, 0, copyByte);
+                    for(int i = 0; i < data.Length; i++) {
+                        LogBox.Invoke(new Action(() => {
+                            LogBox.Text += $" {data[i]:X}";
+                        }));
+                    }
+                    byteWrite += copyByte;
+                } while(byteWrite < serialPort.BytesToRead);
             }
         }
         private void CANTestWrite_Click(object sender, EventArgs e) {
-            /*serialPort.Write("V\r");
-            Thread.Sleep(100);
-
-            if(serialPort.BytesToRead > 0) {
-                byte[] data = new byte[8];
-                serialPort.Read(data, 0, 8);
-                for(int i = 0; i < data.Length; i++)
-                    LogBox.Text += " " + data[i].ToString();
-            }*/
-
-            //serialPort.Write("T0000E3883223344\r");
-
-
-
+            byte[] sendToCan = AppToCan(testInternetBuf);
             LogBox.Text += "\r\n";
             int byteWrite = 0, offsetByte = 8;
-            while(byteWrite < canHardBufWrite.Length) {
-                int copyByte = byteWrite + offsetByte >= canHardBufWrite.Length ?
-                    canHardBufWrite.Length - byteWrite : offsetByte;
+            // Send from 8 bytes
+            while(byteWrite < sendToCan.Length) {
+                int copyByte = byteWrite + offsetByte >= sendToCan.Length ?
+                    sendToCan.Length - byteWrite : offsetByte;
                 byte[] data = new byte[copyByte];
-                Array.Copy(canHardBufWrite, byteWrite, data, 0, copyByte);
-                serialPort.Write(data, 0, copyByte);
+                Array.Copy(sendToCan, byteWrite, data, 0, copyByte);
+                if(serialPort != null)
+                    serialPort.Write(data, 0, copyByte);
                 for(int i = 0; i < data.Length; i++) {
                     LogBox.Text += " " + $"{data[i]:X}";
                 }
                 byteWrite += offsetByte;
             }
             LogBox.Text += "\r\n";
-
-            //serialPort.Write("t280411223344\r");
         }
         private void CANTestRead_Click(object sender, EventArgs e) {
             Read();
@@ -622,6 +571,7 @@ namespace HustonRTEMS {
 
         private SerialPort serialPort;
         private void OpenRKSCAN_Click(object sender, EventArgs e) {
+            flagRead = true;
             serialPort = new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
 
             if(!serialPort.IsOpen) {
@@ -637,7 +587,7 @@ namespace HustonRTEMS {
                     Thread.Sleep(100);
                     Read();
 
-                    LogBox.Text = "Port open";
+                    LogBox.Text += "\r\nPort open";
                 }
                 catch(Exception ex) {
                     LogBox.Text = ex.Message;
@@ -647,10 +597,12 @@ namespace HustonRTEMS {
             }
         }
         private void CloseRKSCAN_Click(object sender, EventArgs e) {
+            flagRead = false;
             if(serialPort.IsOpen) {
                 try {
                     // Закрыть
                     serialPort.Write("C\r");
+                    Thread.Sleep(1000);
                     serialPort.Close();
 
                     LogBox.Text = "Port close";
@@ -659,6 +611,93 @@ namespace HustonRTEMS {
                     LogBox.Text = ex.Message;
                 }
             }
+        }
+
+        private void CanToApp() {
+            byte[] testCan = new byte[17];
+            ItUn id_un = new() {
+                byte1 = testInternetBuf[0],
+                byte2 = testInternetBuf[1]
+            }, to_addres = new() {
+                byte1 = testInternetBuf[2],
+                byte2 = testInternetBuf[3]
+            }, out_addres = new() {
+                byte1 = testInternetBuf[4],
+                byte2 = testInternetBuf[5]
+            };
+            // Пример приема с CAN. Строку в число
+            testCan = new byte[testCANCharBuf.Length];
+            for(int i = 0; i < testCANCharBuf.Length; i++) {
+                testCan[i] = Convert.ToByte(testCANCharBuf[i]);
+            }
+            foreach(byte i in testCan) {
+                Debug.Write($"{i:X} ");
+            }
+            Debug.WriteLine("");
+        }
+        private byte[] AppToCan(byte[] charkArray) {
+            ItUn id_un = new() {
+                byte1 = charkArray[0],
+                byte2 = charkArray[1]
+            }, to_addres = new() {
+                byte1 = charkArray[2],
+                byte2 = charkArray[3]
+            }, out_addres = new() {
+                byte1 = charkArray[4],
+                byte2 = charkArray[5]
+            };
+
+            byte[] testCan = new byte[20];
+            // Пример приема с сервера. Число в строку
+            testCan[0] = Convert.ToByte('T');
+            for(int i = 1; i <= 19; i++) {
+                testCan[i] = 0x30;
+            }
+            //----------------------------------------------------------
+            if((charkArray[0] & 0xF) >= 0xA)
+                testCan[12] = (byte)((charkArray[0] & 0xF) + 0x30 + 7);
+            else
+                testCan[12] = (byte)((charkArray[0] & 0xF) + 0x30);
+            if((charkArray[0] >> 4) >= 0xA)
+                testCan[11] = (byte)((charkArray[0] >> 4) + 0x30 + 7);
+            else
+                testCan[11] = (byte)((charkArray[0] >> 4) + 0x30);
+            //----------------------------------------------------------
+            testCan[10] = 0x32;
+            //----------------------------------------------------------
+            if((charkArray[2] & 0xF) >= 0xA)
+                testCan[9] = (byte)((charkArray[2] & 0xF) + 0x30 + 7);
+            else
+                testCan[9] = (byte)((charkArray[2] & 0xF) + 0x30);
+            if((charkArray[2] >> 4) >= 0xA)
+                testCan[8] = (byte)((charkArray[2] >> 4) + 0x30 + 7);
+            else
+                testCan[8] = (byte)((charkArray[2] >> 4) + 0x30);
+            if((charkArray[3] & 0xF) >= 0xA)
+                testCan[7] = (byte)((charkArray[3] & 0xF) + 0x30 + 7);
+            else
+                testCan[7] = (byte)((charkArray[3] & 0xF) + 0x30);
+            //----------------------------------------------------------
+            if(charkArray[4] * 4 >= 0xA)
+                testCan[6] = (byte)(charkArray[4] * 4 + 0x30 + 7);
+            else
+                testCan[6] = (byte)(charkArray[4] * 4 + 0x30);
+            testCan[5] = 0x30;
+            Debug.Write($"{testCan[6]:X} ");
+            while(testCan[6] > 0x46) {
+                if(testCan[6] > 0x46) {
+                    testCan[5] += 0x01;
+                }
+                testCan[6] -= 0x17;
+            }
+            //----------------------------------------------------------
+            testCan[19] = 0xD;
+            foreach(byte i in testCan) {
+                Debug.Write($"{i:X} ");
+            }
+
+            Debug.WriteLine("");
+            return testCan;
         }
     }
 }
