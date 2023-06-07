@@ -529,7 +529,7 @@ namespace HustonRTEMS {
                 LogBox.Invoke(new Action(() => {
                     LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
                 }));
-                int byteWrite = 0, offsetByte = 8;
+                int byteWrite = 0, offsetByte = serialPort.BytesToRead;
                 do {
                     int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
                         serialPort.BytesToRead - byteWrite : offsetByte;
@@ -542,6 +542,7 @@ namespace HustonRTEMS {
                     }
                     byteWrite += copyByte;
                 } while(byteWrite < serialPort.BytesToRead);
+                //CanToApp(allData);
             }
         }
         private void CANTestWrite_Click(object sender, EventArgs e) {
@@ -611,22 +612,11 @@ namespace HustonRTEMS {
             }
         }
 
-        private void CanToApp() {
-            byte[] testCan = new byte[17];
-            ItUn id_un = new() {
-                byte1 = testInternetBuf[0],
-                byte2 = testInternetBuf[1]
-            }, to_addres = new() {
-                byte1 = testInternetBuf[2],
-                byte2 = testInternetBuf[3]
-            }, out_addres = new() {
-                byte1 = testInternetBuf[4],
-                byte2 = testInternetBuf[5]
-            };
+        private void CanToApp(byte[] charkArray) {
             // Пример приема с CAN. Строку в число
-            testCan = new byte[testCANCharBuf.Length];
-            for(int i = 0; i < testCANCharBuf.Length; i++) {
-                testCan[i] = Convert.ToByte(testCANCharBuf[i]);
+            byte[] testCan = new byte[charkArray.Length];
+            for(int i = 0; i < charkArray.Length; i++) {
+                testCan[i] = Convert.ToByte(charkArray[i]);
             }
             foreach(byte i in testCan) {
                 Debug.Write($"{i:X} ");
@@ -634,17 +624,6 @@ namespace HustonRTEMS {
             Debug.WriteLine("");
         }
         private byte[] AppToCan(byte[] charkArray) {
-            ItUn id_un = new() {
-                byte1 = charkArray[0],
-                byte2 = charkArray[1]
-            }, to_addres = new() {
-                byte1 = charkArray[2],
-                byte2 = charkArray[3]
-            }, out_addres = new() {
-                byte1 = charkArray[4],
-                byte2 = charkArray[5]
-            };
-
             int coutn_byte = 20;
             byte[] testCan = new byte[coutn_byte];
             // Пример приема с сервера. Число в строку
@@ -677,7 +656,7 @@ namespace HustonRTEMS {
             else
                 testCan[6] = (byte)((charkArray[3] & 0xF) + 0x30);
             //----------------------------------------------------------
-            int sumCharck = Convert.ToInt16(charkArray[4]);
+            int sumCharck = Convert.ToInt16(charkArray[4]) + Convert.ToInt16(charkArray[5]);
             while(sumCharck > 0) {
                 testCan[5] += 0x04;
                 if(testCan[5] >= 0x3A) {
@@ -695,7 +674,22 @@ namespace HustonRTEMS {
                     testCan[4] = 0x30;
                     testCan[3] += 0x01;
                 }
-                //???
+                //----------------------
+                if(testCan[3] == 0x3A) {
+                    testCan[3] += 0x07;
+                }
+                if(testCan[3] > 0x46) {
+                    testCan[3] = 0x30;
+                    testCan[2] += 0x01;
+                }
+                //----------------------
+                if(testCan[2] == 0x3A) {
+                    testCan[2] += 0x07;
+                }
+                if(testCan[2] > 0x46) {
+                    testCan[1] = 0x30;
+                    testCan[1] += 0x01;
+                }
                 sumCharck -= 1;
             }
             //----------------------------------------------------------
