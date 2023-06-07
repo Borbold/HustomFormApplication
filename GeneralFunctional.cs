@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System.Diagnostics;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 
 namespace HustonRTEMS {
@@ -163,6 +164,159 @@ namespace HustonRTEMS {
                 else if(chageByte[i] == KISS_TFESC)
                     chageByte[i] = KISS_FESC;
             }
+        }
+
+        public static void CanToApp11(byte[] charkArray) {
+            int coutn_byte = 14;
+            byte[] testCan = new byte[coutn_byte];
+            //----------------------------------------------------------
+            if(charkArray[6] - 0x30 != 0)
+                testCan[0] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 0 : 7)) << 4);
+            if(charkArray[5] - 0x30 != 0)
+                testCan[0] += (byte)((charkArray[5] - 0x30 - (charkArray[6] > 0x40 ? 0 : 7)) << 4);
+            //----------------------------------------------------------
+            if(charkArray[3] - 0x30 != 0)
+                testCan[2] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 0 : 7)) << 4);
+            //----------------------------------------------------------
+            testCan[coutn_byte - 1] = 0xD;
+
+            foreach(byte i in testCan) {
+                Debug.Write($"{i:X} ");
+            }
+
+            Debug.WriteLine("");
+        }
+        public static void CanToApp29(byte[] charkArray) {
+            // Пример приема с CAN. Строку в число
+            byte[] testCan = new byte[charkArray.Length];
+            for(int i = 0; i < charkArray.Length; i++) {
+                testCan[i] = Convert.ToByte(charkArray[i]);
+            }
+            foreach(byte i in testCan) {
+                Debug.Write($"{i:X} ");
+            }
+            Debug.WriteLine("");
+        }
+
+        public static byte[] AppToCan11(byte[] charkArray) {
+            int coutn_byte = 14;
+            byte[] testCan = new byte[coutn_byte];
+            // Пример приема с сервера. Число в строку
+            testCan[0] = Convert.ToByte('t');
+            for(int i = 1; i < coutn_byte; i++) {
+                testCan[i] = 0x30;
+            }
+            //----------------------------------------------------------
+            if((charkArray[0] & 0xF) >= 0xA)
+                testCan[6] = (byte)((charkArray[0] & 0xF) + 0x30 + 7);
+            else
+                testCan[6] = (byte)((charkArray[0] & 0xF) + 0x30);
+            if((charkArray[0] >> 4) >= 0xA)
+                testCan[5] = (byte)((charkArray[0] >> 4) + 0x30 + 7);
+            else
+                testCan[5] = (byte)((charkArray[0] >> 4) + 0x30);
+            //----------------------------------------------------------
+            testCan[4] = 0x32;
+            //----------------------------------------------------------
+            if((charkArray[2] & 0xF) >= 0xA)
+                testCan[3] = (byte)((charkArray[2] & 0xF) + 0x30 + 7);
+            else
+                testCan[3] = (byte)((charkArray[2] & 0xF) + 0x30);
+            //----------------------------------------------------------
+            int sumCharck = Convert.ToInt16(charkArray[4]) + Convert.ToInt16(charkArray[5]);
+            int sumToCharck = Convert.ToInt16(charkArray[2] >> 4);
+            testCan[2] += (byte)sumToCharck;
+            while(sumCharck > 0) {
+                testCan[2] += 0x02;
+                if(testCan[2] >= 0x3A) {
+                    testCan[2] += 0x07;
+                }
+                if(testCan[2] > 0x46) {
+                    testCan[2] = 0x30;
+                    testCan[1] += 0x01;
+                }
+                sumCharck -= 1;
+            }
+            //----------------------------------------------------------
+            testCan[coutn_byte - 1] = 0xD;
+
+            Debug.WriteLine("");
+            return testCan;
+        }
+        public static byte[] AppToCan29(byte[] charkArray) {
+            int coutn_byte = 20;
+            byte[] testCan = new byte[coutn_byte];
+            // Пример приема с сервера. Число в строку
+            testCan[0] = Convert.ToByte('T');
+            for(int i = 1; i < coutn_byte; i++) {
+                testCan[i] = 0x30;
+            }
+            //----------------------------------------------------------
+            if((charkArray[0] & 0xF) >= 0xA)
+                testCan[11] = (byte)((charkArray[0] & 0xF) + 0x30 + 7);
+            else
+                testCan[11] = (byte)((charkArray[0] & 0xF) + 0x30);
+            if((charkArray[0] >> 4) >= 0xA)
+                testCan[10] = (byte)((charkArray[0] >> 4) + 0x30 + 7);
+            else
+                testCan[10] = (byte)((charkArray[0] >> 4) + 0x30);
+            //----------------------------------------------------------
+            testCan[9] = 0x32;
+            //----------------------------------------------------------
+            if((charkArray[2] & 0xF) >= 0xA)
+                testCan[8] = (byte)((charkArray[2] & 0xF) + 0x30 + 7);
+            else
+                testCan[8] = (byte)((charkArray[2] & 0xF) + 0x30);
+            if((charkArray[2] >> 4) >= 0xA)
+                testCan[7] = (byte)((charkArray[2] >> 4) + 0x30 + 7);
+            else
+                testCan[7] = (byte)((charkArray[2] >> 4) + 0x30);
+            if((charkArray[3] & 0xF) >= 0xA)
+                testCan[6] = (byte)((charkArray[3] & 0xF) + 0x30 + 7);
+            else
+                testCan[6] = (byte)((charkArray[3] & 0xF) + 0x30);
+            //----------------------------------------------------------
+            int sumCharck = Convert.ToInt16(charkArray[4]) + Convert.ToInt16(charkArray[5]);
+            while(sumCharck > 0) {
+                testCan[5] += 0x04;
+                if(testCan[5] >= 0x3A) {
+                    testCan[5] += 0x07;
+                }
+                if(testCan[5] > 0x46) {
+                    testCan[5] = 0x30;
+                    testCan[4] += 0x01;
+                }
+                //----------------------
+                if(testCan[4] == 0x3A) {
+                    testCan[4] += 0x07;
+                }
+                if(testCan[4] > 0x46) {
+                    testCan[4] = 0x30;
+                    testCan[3] += 0x01;
+                }
+                //----------------------
+                if(testCan[3] == 0x3A) {
+                    testCan[3] += 0x07;
+                }
+                if(testCan[3] > 0x46) {
+                    testCan[3] = 0x30;
+                    testCan[2] += 0x01;
+                }
+                //----------------------
+                if(testCan[2] == 0x3A) {
+                    testCan[2] += 0x07;
+                }
+                if(testCan[2] > 0x46) {
+                    testCan[1] = 0x30;
+                    testCan[1] += 0x01;
+                }
+                sumCharck -= 1;
+            }
+            //----------------------------------------------------------
+            testCan[coutn_byte - 1] = 0xD;
+
+            Debug.WriteLine("");
+            return testCan;
         }
     }
 }
