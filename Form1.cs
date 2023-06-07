@@ -28,7 +28,7 @@ namespace HustonRTEMS {
             't', '0', '3', 'C', '2', 'B', '0', '0', '0', '\r',
         };
         private readonly byte[] testInternetBuf = {
-            0xB1, 0x00, 0x01, 0x00, 0x1C, 0x00, 0x04, 0x00,
+            0xB5, 0x00, 0x1C, 0x00, 0xFF, 0x00, 0x04, 0x00,
             0x00, 0x98, 0xAD, 0x45,
             0xC0 };
         /*private readonly byte[] canHardBufWrite = { //Get 29
@@ -56,8 +56,6 @@ namespace HustonRTEMS {
         }
 #pragma warning restore CS8618
         private void Form1_Load(object sender, EventArgs e) {
-            AppToCan(testInternetBuf);
-
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
@@ -549,19 +547,19 @@ namespace HustonRTEMS {
         private void CANTestWrite_Click(object sender, EventArgs e) {
             byte[] sendToCan = AppToCan(testInternetBuf);
             LogBox.Text += "\r\n";
-            int byteWrite = 0, offsetByte = 8;
+            int byteWrite = 0, offsetByte = 11;
             // Send from 8 bytes
             while(byteWrite < sendToCan.Length) {
                 int copyByte = byteWrite + offsetByte >= sendToCan.Length ?
                     sendToCan.Length - byteWrite : offsetByte;
                 byte[] data = new byte[copyByte];
                 Array.Copy(sendToCan, byteWrite, data, 0, copyByte);
-                if(serialPort != null)
-                    serialPort.Write(data, 0, copyByte);
+                serialPort?.Write(data, 0, copyByte);
                 for(int i = 0; i < data.Length; i++) {
                     LogBox.Text += " " + $"{data[i]:X}";
                 }
                 byteWrite += offsetByte;
+                LogBox.Text += "\r\n";
             }
             LogBox.Text += "\r\n";
         }
@@ -647,54 +645,61 @@ namespace HustonRTEMS {
                 byte2 = charkArray[5]
             };
 
-            byte[] testCan = new byte[20];
+            int coutn_byte = 20;
+            byte[] testCan = new byte[coutn_byte];
             // Пример приема с сервера. Число в строку
             testCan[0] = Convert.ToByte('T');
-            for(int i = 1; i <= 19; i++) {
+            for(int i = 1; i < coutn_byte; i++) {
                 testCan[i] = 0x30;
             }
             //----------------------------------------------------------
             if((charkArray[0] & 0xF) >= 0xA)
-                testCan[12] = (byte)((charkArray[0] & 0xF) + 0x30 + 7);
+                testCan[11] = (byte)((charkArray[0] & 0xF) + 0x30 + 7);
             else
-                testCan[12] = (byte)((charkArray[0] & 0xF) + 0x30);
+                testCan[11] = (byte)((charkArray[0] & 0xF) + 0x30);
             if((charkArray[0] >> 4) >= 0xA)
-                testCan[11] = (byte)((charkArray[0] >> 4) + 0x30 + 7);
+                testCan[10] = (byte)((charkArray[0] >> 4) + 0x30 + 7);
             else
-                testCan[11] = (byte)((charkArray[0] >> 4) + 0x30);
+                testCan[10] = (byte)((charkArray[0] >> 4) + 0x30);
             //----------------------------------------------------------
-            testCan[10] = 0x32;
+            testCan[9] = 0x32;
             //----------------------------------------------------------
             if((charkArray[2] & 0xF) >= 0xA)
-                testCan[9] = (byte)((charkArray[2] & 0xF) + 0x30 + 7);
+                testCan[8] = (byte)((charkArray[2] & 0xF) + 0x30 + 7);
             else
-                testCan[9] = (byte)((charkArray[2] & 0xF) + 0x30);
+                testCan[8] = (byte)((charkArray[2] & 0xF) + 0x30);
             if((charkArray[2] >> 4) >= 0xA)
-                testCan[8] = (byte)((charkArray[2] >> 4) + 0x30 + 7);
+                testCan[7] = (byte)((charkArray[2] >> 4) + 0x30 + 7);
             else
-                testCan[8] = (byte)((charkArray[2] >> 4) + 0x30);
+                testCan[7] = (byte)((charkArray[2] >> 4) + 0x30);
             if((charkArray[3] & 0xF) >= 0xA)
-                testCan[7] = (byte)((charkArray[3] & 0xF) + 0x30 + 7);
+                testCan[6] = (byte)((charkArray[3] & 0xF) + 0x30 + 7);
             else
-                testCan[7] = (byte)((charkArray[3] & 0xF) + 0x30);
+                testCan[6] = (byte)((charkArray[3] & 0xF) + 0x30);
             //----------------------------------------------------------
-            if(charkArray[4] * 4 >= 0xA)
-                testCan[6] = (byte)(charkArray[4] * 4 + 0x30 + 7);
-            else
-                testCan[6] = (byte)(charkArray[4] * 4 + 0x30);
-            testCan[5] = 0x30;
-            Debug.Write($"{testCan[6]:X} ");
-            while(testCan[6] > 0x46) {
-                if(testCan[6] > 0x46) {
-                    testCan[5] += 0x01;
+            int sumCharck = Convert.ToInt16(charkArray[4]);
+            while(sumCharck > 0) {
+                testCan[5] += 0x04;
+                if(testCan[5] >= 0x3A) {
+                    testCan[5] += 0x07;
                 }
-                testCan[6] -= 0x17;
+                if(testCan[5] > 0x46) {
+                    testCan[5] = 0x30;
+                    testCan[4] += 0x01;
+                }
+                //----------------------
+                if(testCan[4] == 0x3A) {
+                    testCan[4] += 0x07;
+                }
+                if(testCan[4] > 0x46) {
+                    testCan[4] = 0x30;
+                    testCan[3] += 0x01;
+                }
+                //???
+                sumCharck -= 1;
             }
             //----------------------------------------------------------
-            testCan[19] = 0xD;
-            foreach(byte i in testCan) {
-                Debug.Write($"{i:X} ");
-            }
+            testCan[coutn_byte - 1] = 0xD;
 
             Debug.WriteLine("");
             return testCan;
