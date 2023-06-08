@@ -171,30 +171,50 @@ namespace HustonRTEMS {
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
             if(charkArray[6] - 0x30 != 0)
-                testCan[0] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 0 : 7)) << 4);
+                testCan[0] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 7 : 0)) << 4);
             if(charkArray[5] - 0x30 != 0)
-                testCan[0] += (byte)((charkArray[5] - 0x30 - (charkArray[6] > 0x40 ? 0 : 7)) << 4);
+                testCan[0] += (byte)((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) << 4);
             //----------------------------------------------------------
             if(charkArray[3] - 0x30 != 0)
-                testCan[2] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 0 : 7)) << 4);
+                testCan[2] = (byte)((charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0)) & 0xF);
+            byte smesh = (byte)(((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 5));
+            if(charkArray[2] - 0x30 != 0)
+                testCan[2] += (byte)(smesh * 0x10);
             //----------------------------------------------------------
-            testCan[coutn_byte - 1] = 0xD;
-
-            foreach(byte i in testCan) {
-                Debug.Write($"{i:X} ");
-            }
+            if(charkArray[2] - 0x30 != 0)
+                testCan[4] = (byte)((((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 0xF) - smesh) / 2);
+            if(charkArray[1] - 0x30 != 0)
+                testCan[4] += (byte)((charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0)) & 0xF);
+            //----------------------------------------------------------
+            testCan[coutn_byte - 1] = 0xC0;
 
             Debug.WriteLine("");
         }
         public static void CanToApp29(byte[] charkArray) {
-            // Пример приема с CAN. Строку в число
-            byte[] testCan = new byte[charkArray.Length];
-            for(int i = 0; i < charkArray.Length; i++) {
-                testCan[i] = Convert.ToByte(charkArray[i]);
-            }
+            int coutn_byte = 20;
+            byte[] testCan = new byte[coutn_byte];
+            //----------------------------------------------------------
+            if(charkArray[11] - 0x30 != 0)
+                testCan[0] = (byte)((charkArray[11] - 0x30 - (charkArray[11] > 0x40 ? 7 : 0)) << 4);
+            if(charkArray[10] - 0x30 != 0)
+                testCan[0] += (byte)((charkArray[10] - 0x30 - (charkArray[10] > 0x40 ? 7 : 0)) << 4);
+            //----------------------------------------------------------
+            if(charkArray[8] - 0x30 != 0)
+                testCan[2] = (byte)((charkArray[8] - 0x30 - (charkArray[8] > 0x40 ? 7 : 0)) << 4);
+            if(charkArray[7] - 0x30 != 0)
+                testCan[2] += (byte)((charkArray[7] - 0x30 - (charkArray[7] > 0x40 ? 7 : 0)) << 4);
+            //----------------------------------------------------------
+            if(charkArray[5] - 0x30 != 0)
+                testCan[4] = (byte)((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) & 0xF);
+            if(charkArray[4] - 0x30 != 0)
+                testCan[4] += (byte)((charkArray[4] - 0x30 - (charkArray[4] > 0x40 ? 7 : 0)) & 0xF);
+            //----------------------------------------------------------
+            testCan[coutn_byte - 1] = 0xC0;
+
             foreach(byte i in testCan) {
                 Debug.Write($"{i:X} ");
             }
+
             Debug.WriteLine("");
         }
 

@@ -28,7 +28,10 @@ namespace HustonRTEMS {
             't', '0', '3', 'C', '2', 'B', '0', '0', '0', '\r',
         };
         private readonly byte[] testInternetBuf = {
-            0xB0, 0x00, 0x1C, 0x00, 0x01, 0x00, 0x04, 0x00,
+            0xB0, 0x00,
+            0x1C, 0x00,
+            0x01, 0x00,
+            0x04, 0x00,
             0x00, 0x98, 0xAD, 0x45,
             0xC0 };
         /*private readonly byte[] canHardBufWrite = { //Get 29
@@ -37,7 +40,12 @@ namespace HustonRTEMS {
             0x31, 0x31, 0x32, 0x32, 0x33, 0x33, 0x33, 0x33,
             0x0D };*/
         private readonly byte[] canHardBufWrite = { //Get 11
-            0x74, 0x30, 0x33, 0x43, 0x32, 0x42, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x0D };
+            0x74,
+            0x30, 0x33, 0x43,
+            0x32, 0x42, 0x30,
+            0x30,
+            0x30, 0x30, 0x30, 0x30, 0x30,
+            0x0D };
         /*private readonly byte[] canHardBufWrite = { //Set RTR
              0x72, 0x32, 0x38, 0x38, 0x30, 0x0D };*/
 
@@ -54,7 +62,7 @@ namespace HustonRTEMS {
         }
 #pragma warning restore CS8618
         private void Form1_Load(object sender, EventArgs e) {
-            GeneralFunctional.CanToApp11(canHardBufWrite);
+            GeneralFunctional.CanToApp29(canHardBufWrite);
 
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
