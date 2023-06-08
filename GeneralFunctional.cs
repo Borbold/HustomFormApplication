@@ -205,7 +205,7 @@ namespace HustonRTEMS {
                 testCan[2] += (byte)((charkArray[7] - 0x30 - (charkArray[7] > 0x40 ? 7 : 0)) << 4);
             //----------------------------------------------------------
             if(charkArray[5] - 0x30 != 0)
-                testCan[4] = (byte)((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) & 0xF);
+                testCan[4] = (byte)(((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) & 0xF) / 4);
             if(charkArray[4] - 0x30 != 0)
                 testCan[4] += (byte)((charkArray[4] - 0x30 - (charkArray[4] > 0x40 ? 7 : 0)) & 0xF);
             //----------------------------------------------------------
