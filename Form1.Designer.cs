@@ -215,6 +215,7 @@
             label14 = new Label();
             label10 = new Label();
             SensorReadings = new TabPage();
+            LogBox2 = new TextBox();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -253,13 +254,13 @@
             // 
             // LogBox
             // 
-            LogBox.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LogBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             LogBox.Location = new Point(187, 491);
             LogBox.Multiline = true;
             LogBox.Name = "LogBox";
             LogBox.ReadOnly = true;
             LogBox.ScrollBars = ScrollBars.Vertical;
-            LogBox.Size = new Size(726, 151);
+            LogBox.Size = new Size(360, 151);
             LogBox.TabIndex = 1;
             // 
             // ListenPort
@@ -2374,11 +2375,23 @@
             SensorReadings.Text = "Показания датчиков";
             SensorReadings.UseVisualStyleBackColor = true;
             // 
+            // LogBox2
+            // 
+            LogBox2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            LogBox2.Location = new Point(553, 491);
+            LogBox2.Multiline = true;
+            LogBox2.Name = "LogBox2";
+            LogBox2.ReadOnly = true;
+            LogBox2.ScrollBars = ScrollBars.Vertical;
+            LogBox2.Size = new Size(360, 151);
+            LogBox2.TabIndex = 14;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(925, 654);
+            Controls.Add(LogBox2);
             Controls.Add(MainTabControll);
             Controls.Add(ListenPort);
             Controls.Add(LogBox);
@@ -2626,5 +2639,6 @@
         private TextBox IdReceiveAcc;
         private Label label73;
         private TextBox AddresReceiveAcc;
+        private TextBox LogBox2;
     }
 }

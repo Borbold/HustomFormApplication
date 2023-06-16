@@ -1,3 +1,4 @@
+using MPAPI;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO.Ports;
@@ -62,8 +63,6 @@ namespace HustonRTEMS {
         }
 #pragma warning restore CS8618
         private void Form1_Load(object sender, EventArgs e) {
-            GeneralFunctional.CanToApp29(canHardBufWrite);
-
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
@@ -271,12 +270,17 @@ namespace HustonRTEMS {
         private Socket serverListener;
         async void Open_thread() {
             while(flagRead) {
-                Thread.Sleep(100);
-                LogBox.Invoke(new Action(() => {
-                    LogBox.Text += "Search socet\r\n";
-                }));
+                Thread.Sleep(1000);
+                try {
+                    LogBox2.Invoke(new Action(() => {
+                        LogBox2.Text += "Search socet\r\n";
+                    }));
+                }
+                catch(Exception) {
+                    break;
+                }
                 IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
-                    Convert.ToInt16(PortTextBox.Text));
+                    /*Convert.ToInt16(PortTextBox.Text)*/5555);
                 serverListener = new(
                     AddressFamily.InterNetwork,
                     SocketType.Stream,
@@ -289,15 +293,15 @@ namespace HustonRTEMS {
                 if(CheckBox.Checked && !serverListener.Connected) {
                     try {
                         serverListener.Connect(ipep);
-                        LogBox.Invoke(new Action(() => {
-                            LogBox.Text += $"Socet open";
+                        LogBox2.Invoke(new Action(() => {
+                            LogBox2.Text += $"Socet open";
                         }));
                         await serverListener.SendAsync(hardBuf, SocketFlags.None);
                     }
                     catch(Exception ex) {
                         try {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text = ex.Message + "\r\n";
+                            LogBox2.Invoke(new Action(() => {
+                                LogBox2.Text = ex.Message + "\r\n";
                             }));
                         }
                         catch(Exception) {
@@ -306,35 +310,35 @@ namespace HustonRTEMS {
 
                     while(serverListener.Connected) {
                         try {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text = $"Wait message, message_count: ";
+                            LogBox2.Invoke(new Action(() => {
+                                LogBox2.Text = $"Wait message, message_count: ";
                             }));
                             message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text += message_size;
+                            LogBox2.Invoke(new Action(() => {
+                                LogBox2.Text += message_size;
                             }));
                         }
                         catch(Exception ex) {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text = ex.Message;
+                            LogBox2.Invoke(new Action(() => {
+                                LogBox2.Text = ex.Message;
                             }));
                         }
                         Thread.Sleep(1000);
 
                         if(message_size > 0) {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text +=
+                            LogBox2.Invoke(new Action(() => {
+                                LogBox2.Text +=
                                 $"\r\nSocket server response message: \r\n";
                             }));
                             while(raw_buffer_size < message_size) {
                                 if(raw_buffer_size >= 0) {
-                                    LogBox.Invoke(new Action(() => { LogBox.Text += $"{buffer[raw_buffer_size]:X} "; }));
+                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += $"{buffer[raw_buffer_size]:X} "; }));
                                 }
                                 GeneralFunctional.WriteChangeKissFESC(ref buffer);
                                 raw_buffer_size++;
                             }
                             message_size = 0;
-                            LogBox.Invoke(new Action(() => { LogBox.Text += $"\r\nWait new message!\r\n"; }));
+                            LogBox2.Invoke(new Action(() => { LogBox2.Text += $"\r\nWait new message!\r\n"; }));
 
                             // Example of sending a power-on response
                             ItUn id = new() {
@@ -350,36 +354,36 @@ namespace HustonRTEMS {
                             if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresMag1.Text, 16)) {
-                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
                                 SendMagnetometer1_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresMag2.Text, 16)) {
-                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
                                 SendMagnetometer2_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveAcs.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveAcs.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresAcs.Text, 16)) {
-                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
                                 SendAcselerometer_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveReg.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveReg.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresReg.Text, 16)) {
-                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
                                 SendRegulation_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveRat.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveRat.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresRat.Text, 16)) {
-                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
                                 SendRatesensor_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveAcc.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveAcc.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresAcc.Text, 16)) {
-                                LogBox.Invoke(new Action(() => { LogBox.Text += "Get information\r\n"; }));
+                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
                                 SendAccelsensor_Click(null, null);
                             } else {
-                                LogBox.Invoke(new Action(() => {
-                                    LogBox.Text = "Wrong address or id";
+                                LogBox2.Invoke(new Action(() => {
+                                    LogBox2.Text = "Wrong address or id";
                                 }));
                             }
                         } else {
@@ -394,10 +398,55 @@ namespace HustonRTEMS {
             }
         }
         Thread nThread; bool flagRead;
-        private void OpenSocetServer_ClickAsync(object sender, EventArgs e) {
+        private async void OpenSocetServer_ClickAsync(object sender, EventArgs e) {
             flagRead = true;
             nThread = new(Open_thread);
             nThread.Start();
+
+            Socket client;
+            IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
+                Convert.ToInt16(PortTextBox.Text));
+            Socket serverListener_S = new(
+                AddressFamily.InterNetwork,
+                SocketType.Stream,
+                ProtocolType.Tcp
+            );
+
+            serverListener_S.Bind(ipep);
+            serverListener_S.Listen(200);
+            LogBox.Text = "Waiting for a client...";
+
+            int KISSBUFFER_SIZE = 256;
+            buffer = new byte[KISSBUFFER_SIZE];
+            int raw_buffer_size = 0; // Kiss header
+            client = await serverListener_S.AcceptAsync();
+            LogBox.Text = "Listen open";
+            // Receive message.
+            while(true) {
+                message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
+
+                if(message_size > 0) {
+                    LogBox.Text =
+                        $"HUSTON message: ";
+                    while(raw_buffer_size < message_size) {
+                        if(raw_buffer_size >= 0) {
+                            LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                        }
+                        raw_buffer_size++;
+                    }
+                    raw_buffer_size = 0;
+                    if(serverListener != null && serverListener.Connected) {
+                        LogBox.Text += "\r\nSend to RTEMS";
+                        await serverListener.SendAsync(buffer, SocketFlags.None);
+                    } else {
+                        LogBox.Text += "\r\nPort for RTEMS don't open";
+                    }
+                } else {
+                    break;
+                }
+            }
+            client.Disconnect(true);
+            serverListener_S.Close();
         }
         private async void CloseSocketServer_Click(object sender, EventArgs e) {
             if(nThread.IsAlive) {
