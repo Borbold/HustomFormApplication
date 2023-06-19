@@ -13,7 +13,7 @@ namespace HustonRTEMS {
         private readonly DefaultTransmission DT = new();
         private readonly byte[] hardBuf = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0 };
+            0xB0, 0x00, 0x01, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
         private byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
@@ -51,7 +51,6 @@ namespace HustonRTEMS {
              0x72, 0x32, 0x38, 0x38, 0x30, 0x0D };*/
 
         private int message_size = new();
-        private readonly Socket client;
         private byte[] buffer;
 
         public FlUn fl = new();
@@ -267,7 +266,7 @@ namespace HustonRTEMS {
             }
         }
 
-        private Socket serverListener;
+        private Socket serverListener, client;
         async void Open_thread() {
             while(flagRead) {
                 Thread.Sleep(1000);
@@ -380,10 +379,17 @@ namespace HustonRTEMS {
                                 addresIn.it == Convert.ToInt16(AddresReceiveAcc.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresAcc.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                SendAccelsensor_Click(null, null);
+                                SendAccelsensor_ClickAsync(null, null);
+                            } else if(id.it == 0x1B0 &&
+                                addresIn.it == 0x1C &&
+                                addresOut.it == 0x01) {
+                                // Send temperature
+                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
+                                if(CheckBox.Checked)
+                                    await client.SendAsync(buffer, SocketFlags.None);
                             } else {
                                 LogBox2.Invoke(new Action(() => {
-                                    LogBox2.Text = "Wrong address or id";
+                                    LogBox2.Text = string.Format($"Wrong address or id: '{0}''{1}''{2}'", id.it, addresIn.it, addresOut.it);
                                 }));
                             }
                         } else {
@@ -403,50 +409,51 @@ namespace HustonRTEMS {
             nThread = new(Open_thread);
             nThread.Start();
 
-            Socket client;
-            IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
+            if(CheckBox.Checked) {
+                IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
                 Convert.ToInt16(PortTextBox.Text));
-            Socket serverListener_S = new(
-                AddressFamily.InterNetwork,
-                SocketType.Stream,
-                ProtocolType.Tcp
-            );
+                Socket serverListener_S = new(
+                    AddressFamily.InterNetwork,
+                    SocketType.Stream,
+                    ProtocolType.Tcp
+                );
 
-            serverListener_S.Bind(ipep);
-            serverListener_S.Listen(200);
-            LogBox.Text = "Waiting for a client...";
+                serverListener_S.Bind(ipep);
+                serverListener_S.Listen(200);
+                LogBox.Text = "Waiting for a client...";
 
-            int KISSBUFFER_SIZE = 256;
-            buffer = new byte[KISSBUFFER_SIZE];
-            int raw_buffer_size = 0; // Kiss header
-            client = await serverListener_S.AcceptAsync();
-            LogBox.Text = "Listen open";
-            // Receive message.
-            while(true) {
-                message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
+                int KISSBUFFER_SIZE = 256;
+                buffer = new byte[KISSBUFFER_SIZE];
+                int raw_buffer_size = 0; // Kiss header
+                client = await serverListener_S.AcceptAsync();
+                LogBox.Text = "Listen open";
+                // Receive message.
+                while(true) {
+                    message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
 
-                if(message_size > 0) {
-                    LogBox.Text =
-                        $"HUSTON message: ";
-                    while(raw_buffer_size < message_size) {
-                        if(raw_buffer_size >= 0) {
-                            LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                    if(message_size > 0) {
+                        LogBox.Text =
+                            $"HUSTON message: ";
+                        while(raw_buffer_size < message_size) {
+                            if(raw_buffer_size >= 0) {
+                                LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
+                            }
+                            raw_buffer_size++;
                         }
-                        raw_buffer_size++;
-                    }
-                    raw_buffer_size = 0;
-                    if(serverListener != null && serverListener.Connected) {
-                        LogBox.Text += "\r\nSend to RTEMS";
-                        await serverListener.SendAsync(buffer, SocketFlags.None);
+                        raw_buffer_size = 0;
+                        if(serverListener != null && serverListener.Connected) {
+                            LogBox.Text += "\r\nSend to RTEMS";
+                            await serverListener.SendAsync(buffer, SocketFlags.None);
+                        } else {
+                            LogBox.Text += "\r\nPort for RTEMS don't open";
+                        }
                     } else {
-                        LogBox.Text += "\r\nPort for RTEMS don't open";
+                        break;
                     }
-                } else {
-                    break;
                 }
+                client.Disconnect(true);
+                serverListener_S.Close();
             }
-            client.Disconnect(true);
-            serverListener_S.Close();
         }
         private async void CloseSocketServer_Click(object sender, EventArgs e) {
             if(nThread.IsAlive) {
@@ -470,7 +477,7 @@ namespace HustonRTEMS {
                 hardBufWrite, LogBox);
         }
 
-        private void SendMagnetometer1_Click(object? sender, EventArgs? e) {
+        private async void SendMagnetometer1_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
             int addresValue = Convert.ToInt16(AddresMag1.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
@@ -485,8 +492,11 @@ namespace HustonRTEMS {
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox);
+
+            if(CheckBox.Checked)
+                await client.SendAsync(buffer, SocketFlags.None);
         }
-        private void SendMagnetometer2_Click(object? sender, EventArgs? e) {
+        private async void SendMagnetometer2_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
             int addresValue = Convert.ToInt16(AddresMag2.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
@@ -501,9 +511,12 @@ namespace HustonRTEMS {
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox);
+
+            if(CheckBox.Checked)
+                await client.SendAsync(buffer, SocketFlags.None);
         }
 
-        private void SendAcselerometer_Click(object? sender, EventArgs? e) {
+        private async void SendAcselerometer_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingAcs.Text, 16);
             int addresValue = Convert.ToInt16(AddresAcs.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveAcs.Text, 16);
@@ -519,9 +532,12 @@ namespace HustonRTEMS {
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox);
+
+            if(CheckBox.Checked)
+                await client.SendAsync(buffer, SocketFlags.None);
         }
 
-        private void SendRegulation_Click(object? sender, EventArgs? e) {
+        private async void SendRegulation_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingReg.Text, 16);
             int addresValue = Convert.ToInt16(AddresReg.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveReg.Text, 16);
@@ -536,9 +552,12 @@ namespace HustonRTEMS {
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox);
+
+            if(CheckBox.Checked)
+                await client.SendAsync(buffer, SocketFlags.None);
         }
 
-        private void SendRatesensor_Click(object? sender, EventArgs? e) {
+        private async void SendRatesensor_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingRat.Text, 16);
             int addresValue = Convert.ToInt16(AddresRat.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveRat.Text, 16);
@@ -553,9 +572,12 @@ namespace HustonRTEMS {
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox);
+
+            if(CheckBox.Checked)
+                await client.SendAsync(buffer, SocketFlags.None);
         }
 
-        private void SendAccelsensor_Click(object? sender, EventArgs? e) {
+        private async void SendAccelsensor_ClickAsync(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingAcc.Text, 16);
             int addresValue = Convert.ToInt16(AddresAcc.Text, 16);
             int addresReceive = Convert.ToInt16(AddresReceiveAcc.Text, 16);
@@ -570,6 +592,9 @@ namespace HustonRTEMS {
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox);
+
+            if(CheckBox.Checked)
+                await client.SendAsync(buffer, SocketFlags.None);
         }
         // Send data
 

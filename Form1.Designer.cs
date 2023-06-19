@@ -1927,7 +1927,7 @@
             SendAccelsensor.TabIndex = 75;
             SendAccelsensor.Text = "Отправить данные ускорения";
             SendAccelsensor.UseVisualStyleBackColor = true;
-            SendAccelsensor.Click += SendAccelsensor_Click;
+            SendAccelsensor.Click += SendAccelsensor_ClickAsync;
             // 
             // label54
             // 
@@ -2177,9 +2177,9 @@
             CheckBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             CheckBox.Location = new Point(3, 323);
             CheckBox.Name = "CheckBox";
-            CheckBox.Size = new Size(77, 25);
+            CheckBox.Size = new Size(165, 25);
             CheckBox.TabIndex = 14;
-            CheckBox.Text = "RTEMS";
+            CheckBox.Text = "RTEMS with Huston";
             CheckBox.UseVisualStyleBackColor = true;
             // 
             // OpenSocketServer
