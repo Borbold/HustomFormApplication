@@ -296,7 +296,7 @@ namespace HustonRTEMS {
                 int KISSBUFFER_SIZE = 256;
                 buffer = new byte[KISSBUFFER_SIZE];
                 int raw_buffer_size = kissHeader.Length; // Kiss header
-                if(CheckBox.Checked && !serverListener.Connected) {
+                if(!serverListener.Connected) {
                     try {
                         serverListener.Connect(ipep);
                         GeneralFunctional.InvokeTextBox(LogBox2, $"Socet open\r\n");
@@ -439,7 +439,7 @@ namespace HustonRTEMS {
                             LogBox.Text += "\r\nSend to RTEMS";
                             if(!CheckKISS.Checked) {
                                 byte[] mBuffer = buffer;
-                                buffer = new byte[mBuffer.Length - kissHeader.Length];
+                                buffer = new byte[mBuffer.Length];
                                 for(int i = kissHeader.Length; i < mBuffer.Length; i++) {
                                     buffer[i] = mBuffer[i];
                                 }

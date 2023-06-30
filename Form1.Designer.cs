@@ -2190,8 +2190,6 @@
             // CheckKISS
             // 
             CheckKISS.AutoSize = true;
-            CheckKISS.Checked = true;
-            CheckKISS.CheckState = CheckState.Checked;
             CheckKISS.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             CheckKISS.Location = new Point(3, 292);
             CheckKISS.Name = "CheckKISS";
@@ -2203,7 +2201,7 @@
             // PortHUSTON
             // 
             PortHUSTON.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            PortHUSTON.Location = new Point(315, 43);
+            PortHUSTON.Location = new Point(309, 41);
             PortHUSTON.Name = "PortHUSTON";
             PortHUSTON.Size = new Size(100, 29);
             PortHUSTON.TabIndex = 17;
@@ -2215,9 +2213,9 @@
             label74.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label74.Location = new Point(205, 45);
             label74.Name = "label74";
-            label74.Size = new Size(104, 21);
+            label74.Size = new Size(87, 21);
             label74.TabIndex = 16;
-            label74.Text = "Port HUSTON";
+            label74.Text = "Port Server";
             // 
             // CloseSocketServer
             // 
@@ -2233,8 +2231,6 @@
             // CheckBox
             // 
             CheckBox.AutoSize = true;
-            CheckBox.Checked = true;
-            CheckBox.CheckState = CheckState.Checked;
             CheckBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             CheckBox.Location = new Point(3, 323);
             CheckBox.Name = "CheckBox";
@@ -2294,9 +2290,9 @@
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label9.Location = new Point(3, 43);
             label9.Name = "label9";
-            label9.Size = new Size(90, 21);
+            label9.Size = new Size(82, 21);
             label9.TabIndex = 1;
-            label9.Text = "Port RTEMS";
+            label9.Text = "Port Client";
             // 
             // label8
             // 
