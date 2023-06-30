@@ -196,11 +196,16 @@
             Settings = new TabPage();
             TabSettings = new TabControl();
             IzernetPage = new TabPage();
+            PortHUSTONTelnet = new TextBox();
+            label75 = new Label();
+            CheckKISS = new CheckBox();
+            PortHUSTON = new TextBox();
+            label74 = new Label();
             CloseSocketServer = new Button();
             CheckBox = new CheckBox();
             OpenSocketServer = new Button();
             UseInternet = new RadioButton();
-            PortTextBox = new TextBox();
+            PortRTEMS = new TextBox();
             IPTextBox = new TextBox();
             label9 = new Label();
             label8 = new Label();
@@ -2141,11 +2146,16 @@
             // 
             // IzernetPage
             // 
+            IzernetPage.Controls.Add(PortHUSTONTelnet);
+            IzernetPage.Controls.Add(label75);
+            IzernetPage.Controls.Add(CheckKISS);
+            IzernetPage.Controls.Add(PortHUSTON);
+            IzernetPage.Controls.Add(label74);
             IzernetPage.Controls.Add(CloseSocketServer);
             IzernetPage.Controls.Add(CheckBox);
             IzernetPage.Controls.Add(OpenSocketServer);
             IzernetPage.Controls.Add(UseInternet);
-            IzernetPage.Controls.Add(PortTextBox);
+            IzernetPage.Controls.Add(PortRTEMS);
             IzernetPage.Controls.Add(IPTextBox);
             IzernetPage.Controls.Add(label9);
             IzernetPage.Controls.Add(label8);
@@ -2157,6 +2167,57 @@
             IzernetPage.TabIndex = 0;
             IzernetPage.Text = "Интернет";
             IzernetPage.UseVisualStyleBackColor = true;
+            // 
+            // PortHUSTONTelnet
+            // 
+            PortHUSTONTelnet.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            PortHUSTONTelnet.Location = new Point(161, 91);
+            PortHUSTONTelnet.Name = "PortHUSTONTelnet";
+            PortHUSTONTelnet.Size = new Size(100, 29);
+            PortHUSTONTelnet.TabIndex = 20;
+            PortHUSTONTelnet.Text = "5555";
+            // 
+            // label75
+            // 
+            label75.AutoSize = true;
+            label75.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label75.Location = new Point(3, 94);
+            label75.Name = "label75";
+            label75.Size = new Size(147, 21);
+            label75.TabIndex = 19;
+            label75.Text = "Port HUSTON telnet";
+            // 
+            // CheckKISS
+            // 
+            CheckKISS.AutoSize = true;
+            CheckKISS.Checked = true;
+            CheckKISS.CheckState = CheckState.Checked;
+            CheckKISS.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CheckKISS.Location = new Point(3, 292);
+            CheckKISS.Name = "CheckKISS";
+            CheckKISS.Size = new Size(90, 25);
+            CheckKISS.TabIndex = 18;
+            CheckKISS.Text = "Use KISS";
+            CheckKISS.UseVisualStyleBackColor = true;
+            // 
+            // PortHUSTON
+            // 
+            PortHUSTON.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            PortHUSTON.Location = new Point(315, 43);
+            PortHUSTON.Name = "PortHUSTON";
+            PortHUSTON.Size = new Size(100, 29);
+            PortHUSTON.TabIndex = 17;
+            PortHUSTON.Text = "5555";
+            // 
+            // label74
+            // 
+            label74.AutoSize = true;
+            label74.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label74.Location = new Point(205, 45);
+            label74.Name = "label74";
+            label74.Size = new Size(104, 21);
+            label74.TabIndex = 16;
+            label74.Text = "Port HUSTON";
             // 
             // CloseSocketServer
             // 
@@ -2208,14 +2269,14 @@
             UseInternet.UseVisualStyleBackColor = true;
             UseInternet.CheckedChanged += UseInternet_CheckedChanged;
             // 
-            // PortTextBox
+            // PortRTEMS
             // 
-            PortTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            PortTextBox.Location = new Point(55, 41);
-            PortTextBox.Name = "PortTextBox";
-            PortTextBox.Size = new Size(100, 29);
-            PortTextBox.TabIndex = 3;
-            PortTextBox.Text = "5555";
+            PortRTEMS.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            PortRTEMS.Location = new Point(99, 41);
+            PortRTEMS.Name = "PortRTEMS";
+            PortRTEMS.Size = new Size(100, 29);
+            PortRTEMS.TabIndex = 3;
+            PortRTEMS.Text = "5555";
             // 
             // IPTextBox
             // 
@@ -2233,9 +2294,9 @@
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label9.Location = new Point(3, 43);
             label9.Name = "label9";
-            label9.Size = new Size(38, 21);
+            label9.Size = new Size(90, 21);
             label9.TabIndex = 1;
-            label9.Text = "Port";
+            label9.Text = "Port RTEMS";
             // 
             // label8
             // 
@@ -2484,7 +2545,7 @@
         private TabControl TabSettings;
         private TabPage IzernetPage;
         private TabPage CANPage;
-        private TextBox PortTextBox;
+        private TextBox PortRTEMS;
         private TextBox IPTextBox;
         private Label label9;
         private Label label8;
@@ -2640,5 +2701,10 @@
         private Label label73;
         private TextBox AddresReceiveAcc;
         private TextBox LogBox2;
+        private TextBox PortHUSTON;
+        private Label label74;
+        private CheckBox CheckKISS;
+        private TextBox PortHUSTONTelnet;
+        private Label label75;
     }
 }

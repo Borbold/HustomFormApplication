@@ -12,6 +12,21 @@ namespace HustonRTEMS {
             get { return (string)base["IP"]; }
             set { base["IP"] = value; }
         }
+        [ConfigurationProperty("PortRTEMS", IsRequired = false)]
+        public string PortRTEMS {
+            get { return (string)base["PortRTEMS"]; }
+            set { base["PortRTEMS"] = value; }
+        }
+        [ConfigurationProperty("PortHUSTON", IsRequired = false)]
+        public string PortHUSTON {
+            get { return (string)base["PortHUSTON"]; }
+            set { base["PortHUSTON"] = value; }
+        }
+        [ConfigurationProperty("PortHUSTONTelnet", IsRequired = false)]
+        public string PortHUSTONTelnet {
+            get { return (string)base["PortHUSTONTelnet"]; }
+            set { base["PortHUSTONTelnet"] = value; }
+        }
         [ConfigurationProperty("PORT", IsRequired = false)]
         public string PORT {
             get { return (string)base["PORT"]; }

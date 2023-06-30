@@ -338,5 +338,26 @@ namespace HustonRTEMS {
             Debug.WriteLine("");
             return testCan;
         }
+
+        public static void ClearInvokeTextBox(TextBox textBox) {
+            try {
+                textBox.Invoke(new Action(() => {
+                    textBox.Text = "";
+                }));
+            }
+            catch(Exception ex) {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
+        public static void InvokeTextBox(TextBox textBox, string text) {
+            try {
+                textBox.Invoke(new Action(() => {
+                    textBox.Text += text;
+                }));
+            }
+            catch(Exception ex) {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
     }
 }
