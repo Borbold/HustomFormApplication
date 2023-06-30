@@ -221,6 +221,8 @@
             label10 = new Label();
             SensorReadings = new TabPage();
             LogBox2 = new TextBox();
+            textBoxDelay = new TextBox();
+            label76 = new Label();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -2146,6 +2148,8 @@
             // 
             // IzernetPage
             // 
+            IzernetPage.Controls.Add(label76);
+            IzernetPage.Controls.Add(textBoxDelay);
             IzernetPage.Controls.Add(PortHUSTONTelnet);
             IzernetPage.Controls.Add(label75);
             IzernetPage.Controls.Add(CheckKISS);
@@ -2443,6 +2447,25 @@
             LogBox2.Size = new Size(360, 151);
             LogBox2.TabIndex = 14;
             // 
+            // textBoxDelay
+            // 
+            textBoxDelay.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxDelay.Location = new Point(767, 370);
+            textBoxDelay.Name = "textBoxDelay";
+            textBoxDelay.Size = new Size(100, 29);
+            textBoxDelay.TabIndex = 21;
+            textBoxDelay.Text = "10";
+            // 
+            // label76
+            // 
+            label76.AutoSize = true;
+            label76.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label76.Location = new Point(767, 346);
+            label76.Name = "label76";
+            label76.Size = new Size(49, 21);
+            label76.TabIndex = 22;
+            label76.Text = "Delay";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2702,5 +2725,7 @@
         private CheckBox CheckKISS;
         private TextBox PortHUSTONTelnet;
         private Label label75;
+        private Label label76;
+        private TextBox textBoxDelay;
     }
 }

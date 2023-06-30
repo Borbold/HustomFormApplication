@@ -179,6 +179,7 @@ namespace HustonRTEMS {
 
         private void ClearLog_Click(object sender, EventArgs e) {
             LogBox.Text = "";
+            LogBox2.Text = "";
         }
 
         // Track bar
@@ -329,10 +330,9 @@ namespace HustonRTEMS {
                                 }
                                 raw_buffer_size = 0;
                             } else {
-                                raw_buffer_size = kissHeader.Length;
+                                raw_buffer_size = 0;
                             }
                             message_size = 0;
-                            GeneralFunctional.InvokeTextBox(LogBox2, $"\r\nWait new message!\r\n");
 
                             // Example of sending a power-on response
                             ItUn id = new() {
@@ -349,31 +349,49 @@ namespace HustonRTEMS {
                                 addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresMag1.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
+                                for(int i = 0; i < buffer.Length; i++) {
+                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
+                                }
                                 SendMagnetometer1_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresMag2.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
+                                for(int i = 0; i < buffer.Length; i++) {
+                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
+                                }
                                 SendMagnetometer2_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveAcs.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveAcs.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresAcs.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
+                                for(int i = 0; i < buffer.Length; i++) {
+                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
+                                }
                                 SendAcselerometer_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveReg.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveReg.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresReg.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
+                                for(int i = 0; i < buffer.Length; i++) {
+                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
+                                }
                                 SendRegulation_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveRat.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveRat.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresRat.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
+                                for(int i = 0; i < buffer.Length; i++) {
+                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
+                                }
                                 SendRatesensor_Click(null, null);
                             } else if(id.it == Convert.ToInt16(IdReceiveAcc.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveAcc.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresAcc.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
+                                for(int i = 0; i < buffer.Length; i++) {
+                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
+                                }
                                 SendAccelsensor_ClickAsync(null, null);
                             } else if(id.it == 0x1B0 &&
                                 addresIn.it == 0x1C &&
@@ -384,14 +402,15 @@ namespace HustonRTEMS {
                                     await client.SendAsync(buffer, SocketFlags.None);
                             } else {
                                 LogBox2.Invoke(new Action(() => {
-                                    LogBox2.Text = string.Format($"Wrong address or id: id:'{0}' adIn:'{1}' adOut:'{2}' mesCount'{3}'",
+                                    LogBox2.Text = string.Format("Wrong address or id.\r\nid:'{0}'\r\nadIn:'{1}'\r\nadOut:'{2}'\r\nmesCount'{3}'",
                                         id.it, addresIn.it, addresOut.it, message_size);
                                 }));
                             }
                         } else {
                             break;
                         }
-                        Thread.Sleep(5000);
+                        Thread.Sleep(Convert.ToInt16(textBoxDelay.Text) * 1000);
+                        GeneralFunctional.InvokeTextBox(LogBox2, $"\r\nWait new message!\r\n");
                     }
                 }
 
