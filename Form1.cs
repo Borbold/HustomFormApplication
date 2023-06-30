@@ -384,13 +384,14 @@ namespace HustonRTEMS {
                                     await client.SendAsync(buffer, SocketFlags.None);
                             } else {
                                 LogBox2.Invoke(new Action(() => {
-                                    LogBox2.Text = string.Format($"Wrong address or id: '{0}''{1}''{2}'", id.it, addresIn.it, addresOut.it);
+                                    LogBox2.Text = string.Format($"Wrong address or id: id:'{0}' adIn:'{1}' adOut:'{2}' mesCount'{3}'",
+                                        id.it, addresIn.it, addresOut.it, message_size);
                                 }));
                             }
                         } else {
                             break;
                         }
-                        Thread.Sleep(1000);
+                        Thread.Sleep(5000);
                     }
                 }
 
