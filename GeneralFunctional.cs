@@ -50,12 +50,15 @@ namespace HustonRTEMS {
             TextBox logBox, bool isKiss) {
             FlUn fValue = new();
             ItUn iValue = new();
-            byte[] sendBuf = new byte[27 + (fCount * 4) + (iCount * 2)];
+            byte[] sendBuf;
             // Header KISS
             int raw_buffer_size = 18;
             if(isKiss) {
+                sendBuf = new byte[27 + (fCount * 4) + (iCount * 2)];
                 Array.Copy(kissHeader, sendBuf, raw_buffer_size);
                 raw_buffer_size = 0;
+            } else {
+                sendBuf = new byte[26 + (fCount * 4) + (iCount * 2) - raw_buffer_size];
             }
             // Header UNICAN
             iValue.it = idShipping;
