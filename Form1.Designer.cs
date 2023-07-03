@@ -2479,8 +2479,8 @@
             Name = "MainForm";
             Tag = "";
             Text = "TCP API";
-            FormClosing += Form1_FormClosing;
-            Load += Form1_Load;
+            FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
             ResizeBegin += MainForm_ResizeBegin;
             TrackBarSpeedX.ResumeLayout(false);
             TabTemperature.ResumeLayout(false);

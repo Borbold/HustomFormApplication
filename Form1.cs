@@ -12,9 +12,6 @@ namespace HustonRTEMS {
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
         private readonly DefaultTransmission DT = new();
-        private readonly byte[] kissHeader = {
-            0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0
-        };
         private readonly byte[] hardBuf = {
             //0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x01, 0x00, 0x1C, 0x00, 0x00, 0x00, /*0xC0*/ };
@@ -89,7 +86,7 @@ namespace HustonRTEMS {
                 LogBox2.DataBindings.Add(newBinding);
             }
         }
-        private void Form1_Load(object sender, EventArgs e) {
+        private void MainForm_Load(object sender, EventArgs e) {
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
@@ -163,7 +160,7 @@ namespace HustonRTEMS {
                 cfg.Save();
             }
         }
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             if(cfg.GetSection("customProperty") is CustomProperty section) {
                 section.IP = IPTextBox.Text;
                 section.PortRTEMS = PortRTEMS.Text;
@@ -303,8 +300,8 @@ namespace HustonRTEMS {
         private async void Open_thread() {
             while(flagRead) {
                 Thread.Sleep(1000);
-                GeneralFunctional.ClearInvokeTextBox(LogBox2);
-                GeneralFunctional.InvokeTextBox(LogBox2, "Search socet\r\n");
+                GF.ClearInvokeTextBox(LogBox2);
+                GF.InvokeTextBox(LogBox2, "Search socet\r\n");
                 IPEndPoint? ipep = null;
                 try {
                     ipep = new(IPAddress.Parse(IPTextBox.Text),
@@ -321,41 +318,41 @@ namespace HustonRTEMS {
 
                 int KISSBUFFER_SIZE = 256;
                 buffer = new byte[KISSBUFFER_SIZE];
-                int raw_buffer_size = kissHeader.Length; // Kiss header
+                int raw_buffer_size = GF.kissHeader.Length; // Kiss header
                 if(!serverListener.Connected) {
                     try {
                         serverListener.Connect(ipep);
-                        GeneralFunctional.InvokeTextBox(LogBox2, $"Socet open\r\n");
+                        GF.InvokeTextBox(LogBox2, $"Socet open\r\n");
                         await serverListener.SendAsync(hardBuf, SocketFlags.None);
                     }
                     catch(Exception ex) {
-                        GeneralFunctional.InvokeTextBox(LogBox2, ex.Message + "\r\n");
+                        GF.InvokeTextBox(LogBox2, ex.Message + "\r\n");
                     }
 
                     while(serverListener.Connected) {
                         try {
-                            GeneralFunctional.InvokeTextBox(LogBox2, $"Wait message, message_count: ");
+                            GF.InvokeTextBox(LogBox2, $"Wait message, message_count: ");
                             message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
-                            GeneralFunctional.InvokeTextBox(LogBox2, message_size.ToString() + "\r\n");
+                            GF.InvokeTextBox(LogBox2, message_size.ToString() + "\r\n");
                         }
                         catch(Exception ex) {
-                            GeneralFunctional.InvokeTextBox(LogBox2, ex.Message + "\r\n");
+                            GF.InvokeTextBox(LogBox2, ex.Message + "\r\n");
                         }
                         Thread.Sleep(1000);
 
                         if(message_size > 0) {
-                            GeneralFunctional.InvokeTextBox(LogBox2, $"Socket server response message: \r\n");
+                            GF.InvokeTextBox(LogBox2, $"Socket server response message: \r\n");
                             if(CheckBox.Checked) {
                                 while(raw_buffer_size < message_size) {
                                     if(raw_buffer_size >= 0) {
-                                        GeneralFunctional.InvokeTextBox(LogBox2, $"{buffer[raw_buffer_size]:X} ");
+                                        GF.InvokeTextBox(LogBox2, $"{buffer[raw_buffer_size]:X} ");
                                     }
-                                    GeneralFunctional.WriteChangeKissFESC(ref buffer);
+                                    GF.WriteChangeKissFESC(ref buffer);
                                     raw_buffer_size++;
                                 }
                                 raw_buffer_size = 0;
                             } else {
-                                raw_buffer_size = kissHeader.Length;
+                                raw_buffer_size = GF.kissHeader.Length;
                             }
 
                             // Example of sending a power-on response
@@ -435,7 +432,7 @@ namespace HustonRTEMS {
                             break;
                         }
                         Thread.Sleep(Convert.ToInt16(textBoxDelay.Text) * 1000);
-                        GeneralFunctional.InvokeTextBox(LogBox2, $"\r\nWait new message!\r\n");
+                        GF.InvokeTextBox(LogBox2, $"\r\nWait new message!\r\n");
                     }
                 }
 
@@ -485,7 +482,7 @@ namespace HustonRTEMS {
                             if(!CheckKISS.Checked) {
                                 byte[] mBuffer = buffer;
                                 buffer = new byte[mBuffer.Length];
-                                for(int i = kissHeader.Length; i < mBuffer.Length; i++) {
+                                for(int i = GF.kissHeader.Length; i < mBuffer.Length; i++) {
                                     buffer[i] = mBuffer[i];
                                 }
                             }
@@ -519,7 +516,7 @@ namespace HustonRTEMS {
             it.it = DT.temperatureTransmission.TShipAddres.addres;
 
             fl.fl = (float)Convert.ToDouble(LabTemp.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener, fl, it,
+            GF.SendMessageInSocket(serverListener, fl, it,
                 hardBufWrite, LogBox);
         }
 
@@ -534,7 +531,7 @@ namespace HustonRTEMS {
             arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
             arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
             arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener,
+            GF.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
@@ -553,7 +550,7 @@ namespace HustonRTEMS {
             arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
             arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
             arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener,
+            GF.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
@@ -574,7 +571,7 @@ namespace HustonRTEMS {
             arFValue[1] = (float)Convert.ToDouble(LabRotY.Text);
             arFValue[2] = (float)Convert.ToDouble(LabRotZ.Text);
             arFValue[3] = (float)Convert.ToDouble(LabRotW.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener,
+            GF.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
@@ -594,7 +591,7 @@ namespace HustonRTEMS {
             arFValue[0] = (float)Convert.ToDouble(LabPosX.Text);
             arFValue[1] = (float)Convert.ToDouble(LabPosY.Text);
             arFValue[2] = (float)Convert.ToDouble(LabPosZ.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener,
+            GF.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
@@ -614,7 +611,7 @@ namespace HustonRTEMS {
             arFValue[0] = (float)Convert.ToDouble(LabRatesX.Text);
             arFValue[1] = (float)Convert.ToDouble(LabRatesY.Text);
             arFValue[2] = (float)Convert.ToDouble(LabRatesZ.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener,
+            GF.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
@@ -634,7 +631,7 @@ namespace HustonRTEMS {
             arFValue[0] = (float)Convert.ToDouble(LabAccelX.Text);
             arFValue[1] = (float)Convert.ToDouble(LabAccelY.Text);
             arFValue[2] = (float)Convert.ToDouble(LabAccelZ.Text);
-            GeneralFunctional.SendMessageInSocket(serverListener,
+            GF.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
@@ -669,13 +666,13 @@ namespace HustonRTEMS {
                         }));
                     }
                     if(data.Length > 1)
-                        GeneralFunctional.CanToApp11(data);
+                        GF.CanToApp11(data);
                     byteWrite += copyByte;
                 } while(byteWrite < serialPort.BytesToRead);
             }
         }
         private void CANTestWrite_Click(object sender, EventArgs e) {
-            byte[] sendToCan = GeneralFunctional.AppToCan11(testInternetBuf);
+            byte[] sendToCan = GF.AppToCan11(testInternetBuf);
             LogBox.Text += "\r\n";
             int byteWrite = 0, offsetByte = 14;
             // Send from 8 bytes

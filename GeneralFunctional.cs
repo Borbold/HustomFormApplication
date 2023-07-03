@@ -32,11 +32,11 @@ namespace HustonRTEMS {
 
 namespace HustonRTEMS {
     internal class GeneralFunctional {
-        private readonly static byte KISS_FEND = 0xC0;
-        private readonly static byte[] kissHeader = {
+        private readonly byte KISS_FEND = 0xC0;
+        public readonly byte[] kissHeader = {
             0xC0, 0x00, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x00, 0xF0 };
 
-        public static void ChangingPositionAccelerometer() {
+        public void ChangingPositionAccelerometer() {
             int jon = 5;
             for(int i = 0; i < 5; i++) {
                 Thread.Sleep(100);
@@ -44,7 +44,7 @@ namespace HustonRTEMS {
             }
         }
 
-        public static async void SendMessageInSocket(Socket serverListener,
+        public async void SendMessageInSocket(Socket serverListener,
             int idShipping, int addresValue, int addresReceive,
             int iCount, int fCount, int[] arIValue, float[] arFValue,
             TextBox logBox, bool isKiss) {
@@ -102,7 +102,7 @@ namespace HustonRTEMS {
             }
         }
 
-        public static async void SendMessageInSocket(Socket serverListener, FlUn fl, ItUn it,
+        public async void SendMessageInSocket(Socket serverListener, FlUn fl, ItUn it,
                 byte[] hardBufWrite, TextBox logBox) {
             if(serverListener != null && serverListener.Connected) {
                 hardBufWrite[20] = it.byte1;
@@ -120,7 +120,7 @@ namespace HustonRTEMS {
             }
         }
 
-        public static async void SendMessageInSocket(Socket serverListener,
+        public async void SendMessageInSocket(Socket serverListener,
                 byte[] hardBufWrite, TextBox logBox) {
             if(serverListener != null && serverListener.Connected) {
                 try {
@@ -133,7 +133,7 @@ namespace HustonRTEMS {
             }
         }
 
-        public static void SendChangeKissFESC(ref byte[] chageByte) {
+        public void SendChangeKissFESC(ref byte[] chageByte) {
             byte KISS_FESC = 0xDB;
             byte KISS_TFEND = 0xDC;
             byte KISS_TFESC = 0xDD;
@@ -162,7 +162,7 @@ namespace HustonRTEMS {
             }
         }
 
-        public static void WriteChangeKissFESC(ref byte[] chageByte) {
+        public void WriteChangeKissFESC(ref byte[] chageByte) {
             byte KISS_FESC = 0xDB;
             byte KISS_TFEND = 0xDC;
             byte KISS_TFESC = 0xDD;
@@ -175,7 +175,7 @@ namespace HustonRTEMS {
             }
         }
 
-        public static void CanToApp11(byte[] charkArray) {
+        public void CanToApp11(byte[] charkArray) {
             int coutn_byte = 14;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
@@ -199,7 +199,7 @@ namespace HustonRTEMS {
 
             Debug.WriteLine("");
         }
-        public static void CanToApp29(byte[] charkArray) {
+        public void CanToApp29(byte[] charkArray) {
             int coutn_byte = 20;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
@@ -227,7 +227,7 @@ namespace HustonRTEMS {
             Debug.WriteLine("");
         }
 
-        public static byte[] AppToCan11(byte[] charkArray) {
+        public byte[] AppToCan11(byte[] charkArray) {
             int coutn_byte = 14;
             byte[] testCan = new byte[coutn_byte];
             // Пример приема с сервера. Число в строку
@@ -272,7 +272,7 @@ namespace HustonRTEMS {
             Debug.WriteLine("");
             return testCan;
         }
-        public static byte[] AppToCan29(byte[] charkArray) {
+        public byte[] AppToCan29(byte[] charkArray) {
             int coutn_byte = 20;
             byte[] testCan = new byte[coutn_byte];
             // Пример приема с сервера. Число в строку
@@ -348,7 +348,7 @@ namespace HustonRTEMS {
             return testCan;
         }
 
-        public static void ClearInvokeTextBox(TextBox textBox) {
+        public void ClearInvokeTextBox(TextBox textBox) {
             try {
                 textBox.Invoke(new Action(() => {
                     textBox.Text = "";
@@ -358,7 +358,7 @@ namespace HustonRTEMS {
                 Debug.WriteLine(ex.ToString());
             }
         }
-        public static void InvokeTextBox(TextBox textBox, string text) {
+        public void InvokeTextBox(TextBox textBox, string text) {
             try {
                 textBox.Invoke(new Action(() => {
                     textBox.Text += text;
