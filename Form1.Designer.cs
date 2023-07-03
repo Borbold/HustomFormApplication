@@ -1,5 +1,5 @@
 ﻿namespace HustonRTEMS {
-    partial class Form1 {
+    partial class MainForm {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -2457,6 +2457,7 @@
             // 
             // LogBox2
             // 
+            LogBox2.Anchor = AnchorStyles.Top;
             LogBox2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             LogBox2.Location = new Point(553, 491);
             LogBox2.Multiline = true;
@@ -2466,7 +2467,7 @@
             LogBox2.Size = new Size(360, 260);
             LogBox2.TabIndex = 14;
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -2475,10 +2476,12 @@
             Controls.Add(MainTabControll);
             Controls.Add(ListenPort);
             Controls.Add(LogBox);
-            Name = "Form1";
+            Name = "MainForm";
+            Tag = "";
             Text = "TCP API";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
+            ResizeBegin += MainForm_ResizeBegin;
             TrackBarSpeedX.ResumeLayout(false);
             TabTemperature.ResumeLayout(false);
             TabTemperature.PerformLayout();

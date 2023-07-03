@@ -47,12 +47,13 @@ namespace HustonRTEMS {
         public static async void SendMessageInSocket(Socket serverListener,
             int idShipping, int addresValue, int addresReceive,
             int iCount, int fCount, int[] arIValue, float[] arFValue,
-            TextBox logBox) {
+            TextBox logBox, bool isKiss) {
             FlUn fValue = new();
             ItUn iValue = new();
-            // Header KISS
             byte[] sendBuf = new byte[27 + (fCount * 4) + (iCount * 2)];
-            Array.Copy(kissHeader, sendBuf, 18);
+            // Header KISS
+            if(isKiss)
+                Array.Copy(kissHeader, sendBuf, 18);
             // Header UNICAN
             iValue.it = idShipping;
             sendBuf[18] = iValue.byte1;

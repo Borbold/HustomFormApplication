@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Threading;
 
 namespace HustonRTEMS {
-    public partial class Form1: Form {
+    public partial class MainForm: Form {
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
         private readonly DefaultTransmission DT = new();
@@ -60,10 +61,34 @@ namespace HustonRTEMS {
         public ItUn it = new();
 
 #pragma warning disable CS8618
-        public Form1() {
+        public MainForm() {
             InitializeComponent();
         }
 #pragma warning restore CS8618
+        private void MainForm_ResizeBegin(object sender, EventArgs e) {
+            if(LogBox.DataBindings.Count == 0) {
+                int startWF = ActiveForm.Size.Width;
+                int startHF = ActiveForm.Size.Height;
+                int startW = LogBox.Width;
+                int startH = LogBox.Height;
+                Binding newBinding = new("Size", ActiveForm, "Size");
+                newBinding.Format += (sender, e) => e.Value = new Size(
+                    startW + (ActiveForm.Size.Width - startWF) / 2,
+                    startH + (ActiveForm.Size.Height - startHF) / 2);
+                LogBox.DataBindings.Add(newBinding);
+            }
+            if(LogBox2.DataBindings.Count == 0) {
+                int startWF = ActiveForm.Size.Width;
+                int startHF = ActiveForm.Size.Height;
+                int startW = LogBox.Width;
+                int startH = LogBox.Height;
+                Binding newBinding = new("Size", ActiveForm, "Size");
+                newBinding.Format += (sender, e) => e.Value = new Size(
+                    startW + (ActiveForm.Size.Width - startWF) / 2,
+                    startH + (ActiveForm.Size.Height - startHF) / 2);
+                LogBox2.DataBindings.Add(newBinding);
+            }
+        }
         private void Form1_Load(object sender, EventArgs e) {
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
@@ -512,7 +537,7 @@ namespace HustonRTEMS {
             GeneralFunctional.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
-                LogBox);
+                LogBox, CheckKISS.Checked);
 
             if(CheckBox.Checked)
                 await client.SendAsync(buffer, SocketFlags.None);
@@ -531,7 +556,7 @@ namespace HustonRTEMS {
             GeneralFunctional.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
-                LogBox);
+                LogBox, CheckKISS.Checked);
 
             if(CheckBox.Checked)
                 await client.SendAsync(buffer, SocketFlags.None);
@@ -552,7 +577,7 @@ namespace HustonRTEMS {
             GeneralFunctional.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
-                LogBox);
+                LogBox, CheckKISS.Checked);
 
             if(CheckBox.Checked)
                 await client.SendAsync(buffer, SocketFlags.None);
@@ -572,7 +597,7 @@ namespace HustonRTEMS {
             GeneralFunctional.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
-                LogBox);
+                LogBox, CheckKISS.Checked);
 
             if(CheckBox.Checked)
                 await client.SendAsync(buffer, SocketFlags.None);
@@ -592,7 +617,7 @@ namespace HustonRTEMS {
             GeneralFunctional.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
-                LogBox);
+                LogBox, CheckKISS.Checked);
 
             if(CheckBox.Checked)
                 await client.SendAsync(buffer, SocketFlags.None);
@@ -612,7 +637,7 @@ namespace HustonRTEMS {
             GeneralFunctional.SendMessageInSocket(serverListener,
                 idShipping, addresValue, addresReceive,
                 iCount, fCount, arIValue, arFValue,
-                LogBox);
+                LogBox, CheckKISS.Checked);
 
             if(CheckBox.Checked)
                 await client.SendAsync(buffer, SocketFlags.None);
