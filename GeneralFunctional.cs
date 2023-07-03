@@ -84,7 +84,9 @@ namespace HustonRTEMS {
                 sendBuf[29 + (f * 4) - raw_buffer_size] = fValue.byte4;
             }
 
-            sendBuf[^1] = KISS_FEND;
+            if(isKiss) {
+                sendBuf[^1] = KISS_FEND;
+            }
 
             SendChangeKissFESC(ref sendBuf);
 
