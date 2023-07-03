@@ -332,7 +332,6 @@ namespace HustonRTEMS {
                             } else {
                                 raw_buffer_size = kissHeader.Length;
                             }
-                            message_size = 0;
 
                             // Example of sending a power-on response
                             ItUn id = new() {
@@ -349,7 +348,7 @@ namespace HustonRTEMS {
                                 addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresMag1.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for(int i = 0; i < buffer.Length; i++) {
+                                for(int i = 0; i < message_size; i++) {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendMagnetometer1_Click(null, null);
@@ -357,7 +356,7 @@ namespace HustonRTEMS {
                                 addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresMag2.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for(int i = 0; i < buffer.Length; i++) {
+                                for(int i = 0; i < message_size; i++) {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendMagnetometer2_Click(null, null);
@@ -365,7 +364,7 @@ namespace HustonRTEMS {
                                 addresIn.it == Convert.ToInt16(AddresReceiveAcs.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresAcs.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for(int i = 0; i < buffer.Length; i++) {
+                                for(int i = 0; i < message_size; i++) {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendAcselerometer_Click(null, null);
@@ -373,7 +372,7 @@ namespace HustonRTEMS {
                                 addresIn.it == Convert.ToInt16(AddresReceiveReg.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresReg.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for(int i = 0; i < buffer.Length; i++) {
+                                for(int i = 0; i < message_size; i++) {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendRegulation_Click(null, null);
@@ -381,7 +380,7 @@ namespace HustonRTEMS {
                                 addresIn.it == Convert.ToInt16(AddresReceiveRat.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresRat.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for(int i = 0; i < buffer.Length; i++) {
+                                for(int i = 0; i < message_size; i++) {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendRatesensor_Click(null, null);
@@ -389,7 +388,7 @@ namespace HustonRTEMS {
                                 addresIn.it == Convert.ToInt16(AddresReceiveAcc.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresAcc.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for(int i = 0; i < buffer.Length; i++) {
+                                for(int i = 0; i < message_size; i++) {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendAccelsensor_ClickAsync(null, null);
@@ -406,6 +405,7 @@ namespace HustonRTEMS {
                                         id.it, addresIn.it, addresOut.it, message_size);
                                 }));
                             }
+                            message_size = 0;
                         } else {
                             break;
                         }

@@ -196,6 +196,8 @@
             Settings = new TabPage();
             TabSettings = new TabControl();
             IzernetPage = new TabPage();
+            label76 = new Label();
+            textBoxDelay = new TextBox();
             PortHUSTONTelnet = new TextBox();
             label75 = new Label();
             CheckKISS = new CheckBox();
@@ -221,8 +223,6 @@
             label10 = new Label();
             SensorReadings = new TabPage();
             LogBox2 = new TextBox();
-            textBoxDelay = new TextBox();
-            label76 = new Label();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -267,7 +267,7 @@
             LogBox.Name = "LogBox";
             LogBox.ReadOnly = true;
             LogBox.ScrollBars = ScrollBars.Vertical;
-            LogBox.Size = new Size(360, 151);
+            LogBox.Size = new Size(360, 260);
             LogBox.TabIndex = 1;
             // 
             // ListenPort
@@ -2172,6 +2172,25 @@
             IzernetPage.Text = "Интернет";
             IzernetPage.UseVisualStyleBackColor = true;
             // 
+            // label76
+            // 
+            label76.AutoSize = true;
+            label76.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label76.Location = new Point(767, 346);
+            label76.Name = "label76";
+            label76.Size = new Size(49, 21);
+            label76.TabIndex = 22;
+            label76.Text = "Delay";
+            // 
+            // textBoxDelay
+            // 
+            textBoxDelay.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxDelay.Location = new Point(767, 370);
+            textBoxDelay.Name = "textBoxDelay";
+            textBoxDelay.Size = new Size(100, 29);
+            textBoxDelay.TabIndex = 21;
+            textBoxDelay.Text = "10";
+            // 
             // PortHUSTONTelnet
             // 
             PortHUSTONTelnet.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -2444,33 +2463,14 @@
             LogBox2.Name = "LogBox2";
             LogBox2.ReadOnly = true;
             LogBox2.ScrollBars = ScrollBars.Vertical;
-            LogBox2.Size = new Size(360, 151);
+            LogBox2.Size = new Size(360, 260);
             LogBox2.TabIndex = 14;
-            // 
-            // textBoxDelay
-            // 
-            textBoxDelay.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxDelay.Location = new Point(767, 370);
-            textBoxDelay.Name = "textBoxDelay";
-            textBoxDelay.Size = new Size(100, 29);
-            textBoxDelay.TabIndex = 21;
-            textBoxDelay.Text = "10";
-            // 
-            // label76
-            // 
-            label76.AutoSize = true;
-            label76.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label76.Location = new Point(767, 346);
-            label76.Name = "label76";
-            label76.Size = new Size(49, 21);
-            label76.TabIndex = 22;
-            label76.Text = "Delay";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(925, 654);
+            ClientSize = new Size(925, 763);
             Controls.Add(LogBox2);
             Controls.Add(MainTabControll);
             Controls.Add(ListenPort);
