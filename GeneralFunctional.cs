@@ -52,33 +52,36 @@ namespace HustonRTEMS {
             ItUn iValue = new();
             byte[] sendBuf = new byte[27 + (fCount * 4) + (iCount * 2)];
             // Header KISS
-            if(isKiss)
-                Array.Copy(kissHeader, sendBuf, 18);
+            int raw_buffer_size = 18;
+            if(isKiss) {
+                Array.Copy(kissHeader, sendBuf, raw_buffer_size);
+                raw_buffer_size = 0;
+            }
             // Header UNICAN
             iValue.it = idShipping;
-            sendBuf[18] = iValue.byte1;
-            sendBuf[19] = iValue.byte2;
+            sendBuf[18 - raw_buffer_size] = iValue.byte1;
+            sendBuf[19 - raw_buffer_size] = iValue.byte2;
             iValue.it = addresValue;
-            sendBuf[20] = iValue.byte1;
-            sendBuf[21] = iValue.byte2;
+            sendBuf[20 - raw_buffer_size] = iValue.byte1;
+            sendBuf[21 - raw_buffer_size] = iValue.byte2;
             iValue.it = addresReceive;
-            sendBuf[22] = iValue.byte1;
-            sendBuf[23] = iValue.byte2;
+            sendBuf[22 - raw_buffer_size] = iValue.byte1;
+            sendBuf[23 - raw_buffer_size] = iValue.byte2;
             iValue.it = (fCount * 4) + (iCount * 2);
-            sendBuf[24] = iValue.byte1;
-            sendBuf[25] = iValue.byte2;
+            sendBuf[24 - raw_buffer_size] = iValue.byte1;
+            sendBuf[25 - raw_buffer_size] = iValue.byte2;
 
             for(int i = 0; i < iCount; i++) {
                 iValue.it = arIValue[i];
-                sendBuf[26 + (i * 2)] = iValue.byte1;
-                sendBuf[27 + (i * 2)] = iValue.byte2;
+                sendBuf[26 + (i * 2) -raw_buffer_size] = iValue.byte1;
+                sendBuf[27 + (i * 2) -raw_buffer_size] = iValue.byte2;
             }
             for(int f = 0; f < fCount; f++) {
                 fValue.fl = arFValue[f];
-                sendBuf[26 + (f * 4)] = fValue.byte1;
-                sendBuf[27 + (f * 4)] = fValue.byte2;
-                sendBuf[28 + (f * 4)] = fValue.byte3;
-                sendBuf[29 + (f * 4)] = fValue.byte4;
+                sendBuf[26 + (f * 4) - raw_buffer_size] = fValue.byte1;
+                sendBuf[27 + (f * 4) - raw_buffer_size] = fValue.byte2;
+                sendBuf[28 + (f * 4) - raw_buffer_size] = fValue.byte3;
+                sendBuf[29 + (f * 4) - raw_buffer_size] = fValue.byte4;
             }
 
             sendBuf[^1] = KISS_FEND;
