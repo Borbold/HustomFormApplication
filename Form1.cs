@@ -330,7 +330,7 @@ namespace HustonRTEMS {
                                 }
                                 raw_buffer_size = 0;
                             } else {
-                                raw_buffer_size = 0;
+                                raw_buffer_size = kissHeader.Length;
                             }
                             message_size = 0;
 
