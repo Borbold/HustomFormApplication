@@ -36,7 +36,7 @@ namespace HustonRTEMS {
         public readonly byte[] kissHeader = {
             0xC0, 0x00, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x00, 0xF0 };
 
-        public void ChangingPositionAccelerometer() {
+        public static void ChangingPositionAccelerometer() {
             int jon = 5;
             for(int i = 0; i < 5; i++) {
                 Thread.Sleep(100);
@@ -76,8 +76,8 @@ namespace HustonRTEMS {
 
             for(int i = 0; i < iCount; i++) {
                 iValue.it = arIValue[i];
-                sendBuf[26 + (i * 2) -raw_buffer_size] = iValue.byte1;
-                sendBuf[27 + (i * 2) -raw_buffer_size] = iValue.byte2;
+                sendBuf[26 + (i * 2) - raw_buffer_size] = iValue.byte1;
+                sendBuf[27 + (i * 2) - raw_buffer_size] = iValue.byte2;
             }
             for(int f = 0; f < fCount; f++) {
                 fValue.fl = arFValue[f];
@@ -94,7 +94,7 @@ namespace HustonRTEMS {
             SendChangeKissFESC(ref sendBuf);
 
             if(serverListener != null && serverListener.Connected) {
-                await serverListener.SendAsync(sendBuf, SocketFlags.None);
+                _ = await serverListener.SendAsync(sendBuf, SocketFlags.None);
             } else {
                 logBox.Invoke(new Action(() => {
                     logBox.Text = "Socet don't open!";
@@ -124,8 +124,9 @@ namespace HustonRTEMS {
                 byte[] hardBufWrite, TextBox logBox) {
             if(serverListener != null && serverListener.Connected) {
                 try {
-                    await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
-                }catch (Exception) {}
+                    _ = await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
+                }
+                catch(Exception) { }
             } else {
                 logBox.Invoke(new Action(() => {
                     logBox.Text = "Socet don't open!";
@@ -168,10 +169,11 @@ namespace HustonRTEMS {
             byte KISS_TFESC = 0xDD;
 
             for(int i = 18; i < chageByte.Length - 1; i++) {
-                if(chageByte[i] == KISS_TFEND)
+                if(chageByte[i] == KISS_TFEND) {
                     chageByte[i] = KISS_FEND;
-                else if(chageByte[i] == KISS_TFESC)
+                } else if(chageByte[i] == KISS_TFESC) {
                     chageByte[i] = KISS_FESC;
+                }
             }
         }
 
@@ -179,21 +181,30 @@ namespace HustonRTEMS {
             int coutn_byte = 14;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
-            if(charkArray[6] - 0x30 != 0)
+            if(charkArray[6] - 0x30 != 0) {
                 testCan[0] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 7 : 0)) << 4);
-            if(charkArray[5] - 0x30 != 0)
+            }
+
+            if(charkArray[5] - 0x30 != 0) {
                 testCan[0] += (byte)((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) << 4);
+            }
             //----------------------------------------------------------
-            if(charkArray[3] - 0x30 != 0)
+            if(charkArray[3] - 0x30 != 0) {
                 testCan[2] = (byte)((charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0)) & 0xF);
-            byte smesh = (byte)(((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 5));
-            if(charkArray[2] - 0x30 != 0)
+            }
+
+            byte smesh = (byte)((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 5);
+            if(charkArray[2] - 0x30 != 0) {
                 testCan[2] += (byte)(smesh * 0x10);
+            }
             //----------------------------------------------------------
-            if(charkArray[2] - 0x30 != 0)
+            if(charkArray[2] - 0x30 != 0) {
                 testCan[4] = (byte)((((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 0xF) - smesh) / 2);
-            if(charkArray[1] - 0x30 != 0)
+            }
+
+            if(charkArray[1] - 0x30 != 0) {
                 testCan[4] += (byte)((charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0)) & 0xF);
+            }
             //----------------------------------------------------------
             testCan[coutn_byte - 1] = 0xC0;
 
@@ -203,20 +214,29 @@ namespace HustonRTEMS {
             int coutn_byte = 20;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
-            if(charkArray[11] - 0x30 != 0)
+            if(charkArray[11] - 0x30 != 0) {
                 testCan[0] = (byte)((charkArray[11] - 0x30 - (charkArray[11] > 0x40 ? 7 : 0)) << 4);
-            if(charkArray[10] - 0x30 != 0)
+            }
+
+            if(charkArray[10] - 0x30 != 0) {
                 testCan[0] += (byte)((charkArray[10] - 0x30 - (charkArray[10] > 0x40 ? 7 : 0)) << 4);
+            }
             //----------------------------------------------------------
-            if(charkArray[8] - 0x30 != 0)
+            if(charkArray[8] - 0x30 != 0) {
                 testCan[2] = (byte)((charkArray[8] - 0x30 - (charkArray[8] > 0x40 ? 7 : 0)) << 4);
-            if(charkArray[7] - 0x30 != 0)
+            }
+
+            if(charkArray[7] - 0x30 != 0) {
                 testCan[2] += (byte)((charkArray[7] - 0x30 - (charkArray[7] > 0x40 ? 7 : 0)) << 4);
+            }
             //----------------------------------------------------------
-            if(charkArray[5] - 0x30 != 0)
+            if(charkArray[5] - 0x30 != 0) {
                 testCan[4] = (byte)(((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) & 0xF) / 4);
-            if(charkArray[4] - 0x30 != 0)
+            }
+
+            if(charkArray[4] - 0x30 != 0) {
                 testCan[4] += (byte)((charkArray[4] - 0x30 - (charkArray[4] > 0x40 ? 7 : 0)) & 0xF);
+            }
             //----------------------------------------------------------
             testCan[coutn_byte - 1] = 0xC0;
 
@@ -236,21 +256,12 @@ namespace HustonRTEMS {
                 testCan[i] = 0x30;
             }
             //----------------------------------------------------------
-            if((charkArray[0] & 0xF) >= 0xA)
-                testCan[6] = (byte)((charkArray[0] & 0xF) + 0x30 + 7);
-            else
-                testCan[6] = (byte)((charkArray[0] & 0xF) + 0x30);
-            if((charkArray[0] >> 4) >= 0xA)
-                testCan[5] = (byte)((charkArray[0] >> 4) + 0x30 + 7);
-            else
-                testCan[5] = (byte)((charkArray[0] >> 4) + 0x30);
+            testCan[6] = (charkArray[0] & 0xF) >= 0xA ? (byte)((charkArray[0] & 0xF) + 0x30 + 7) : (byte)((charkArray[0] & 0xF) + 0x30);
+            testCan[5] = (charkArray[0] >> 4) >= 0xA ? (byte)((charkArray[0] >> 4) + 0x30 + 7) : (byte)((charkArray[0] >> 4) + 0x30);
             //----------------------------------------------------------
             testCan[4] = 0x32;
             //----------------------------------------------------------
-            if((charkArray[2] & 0xF) >= 0xA)
-                testCan[3] = (byte)((charkArray[2] & 0xF) + 0x30 + 7);
-            else
-                testCan[3] = (byte)((charkArray[2] & 0xF) + 0x30);
+            testCan[3] = (charkArray[2] & 0xF) >= 0xA ? (byte)((charkArray[2] & 0xF) + 0x30 + 7) : (byte)((charkArray[2] & 0xF) + 0x30);
             //----------------------------------------------------------
             int sumCharck = Convert.ToInt16(charkArray[4]) + Convert.ToInt16(charkArray[5]);
             int sumToCharck = Convert.ToInt16(charkArray[2] >> 4);
@@ -281,29 +292,14 @@ namespace HustonRTEMS {
                 testCan[i] = 0x30;
             }
             //----------------------------------------------------------
-            if((charkArray[0] & 0xF) >= 0xA)
-                testCan[11] = (byte)((charkArray[0] & 0xF) + 0x30 + 7);
-            else
-                testCan[11] = (byte)((charkArray[0] & 0xF) + 0x30);
-            if((charkArray[0] >> 4) >= 0xA)
-                testCan[10] = (byte)((charkArray[0] >> 4) + 0x30 + 7);
-            else
-                testCan[10] = (byte)((charkArray[0] >> 4) + 0x30);
+            testCan[11] = (charkArray[0] & 0xF) >= 0xA ? (byte)((charkArray[0] & 0xF) + 0x30 + 7) : (byte)((charkArray[0] & 0xF) + 0x30);
+            testCan[10] = (charkArray[0] >> 4) >= 0xA ? (byte)((charkArray[0] >> 4) + 0x30 + 7) : (byte)((charkArray[0] >> 4) + 0x30);
             //----------------------------------------------------------
             testCan[9] = 0x32;
             //----------------------------------------------------------
-            if((charkArray[2] & 0xF) >= 0xA)
-                testCan[8] = (byte)((charkArray[2] & 0xF) + 0x30 + 7);
-            else
-                testCan[8] = (byte)((charkArray[2] & 0xF) + 0x30);
-            if((charkArray[2] >> 4) >= 0xA)
-                testCan[7] = (byte)((charkArray[2] >> 4) + 0x30 + 7);
-            else
-                testCan[7] = (byte)((charkArray[2] >> 4) + 0x30);
-            if((charkArray[3] & 0xF) >= 0xA)
-                testCan[6] = (byte)((charkArray[3] & 0xF) + 0x30 + 7);
-            else
-                testCan[6] = (byte)((charkArray[3] & 0xF) + 0x30);
+            testCan[8] = (charkArray[2] & 0xF) >= 0xA ? (byte)((charkArray[2] & 0xF) + 0x30 + 7) : (byte)((charkArray[2] & 0xF) + 0x30);
+            testCan[7] = (charkArray[2] >> 4) >= 0xA ? (byte)((charkArray[2] >> 4) + 0x30 + 7) : (byte)((charkArray[2] >> 4) + 0x30);
+            testCan[6] = (charkArray[3] & 0xF) >= 0xA ? (byte)((charkArray[3] & 0xF) + 0x30 + 7) : (byte)((charkArray[3] & 0xF) + 0x30);
             //----------------------------------------------------------
             int sumCharck = Convert.ToInt16(charkArray[4]) + Convert.ToInt16(charkArray[5]);
             while(sumCharck > 0) {

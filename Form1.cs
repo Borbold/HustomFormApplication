@@ -1,11 +1,7 @@
-using MPAPI;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
-using System.Numerics;
-using System.Threading;
 
 namespace HustonRTEMS {
     public partial class MainForm: Form {
@@ -15,7 +11,7 @@ namespace HustonRTEMS {
         private readonly byte[] hardBuf = {
             //0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x01, 0x00, 0x1C, 0x00, 0x00, 0x00, /*0xC0*/ };
-        private byte[] hardBufWrite = {
+        private readonly byte[] hardBufWrite = {
             0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x09, 0x00, 0x1C, 0x00, 0x00, 0x00, 0xC0 };
         /*private readonly byte[] canHardBufWrite = { //Get 11 - temperature
@@ -70,8 +66,8 @@ namespace HustonRTEMS {
                 int startH = LogBox.Height;
                 Binding newBinding = new("Size", ActiveForm, "Size");
                 newBinding.Format += (sender, e) => e.Value = new Size(
-                    startW + (ActiveForm.Size.Width - startWF) / 2,
-                    startH + (ActiveForm.Size.Height - startHF) / 2);
+                    startW + ((ActiveForm.Size.Width - startWF) / 2),
+                    startH + ((ActiveForm.Size.Height - startHF) / 2));
                 LogBox.DataBindings.Add(newBinding);
             }
             if(LogBox2.DataBindings.Count == 0) {
@@ -81,8 +77,8 @@ namespace HustonRTEMS {
                 int startH = LogBox.Height;
                 Binding newBinding = new("Size", ActiveForm, "Size");
                 newBinding.Format += (sender, e) => e.Value = new Size(
-                    startW + (ActiveForm.Size.Width - startWF) / 2,
-                    startH + (ActiveForm.Size.Height - startHF) / 2);
+                    startW + ((ActiveForm.Size.Width - startWF) / 2),
+                    startH + ((ActiveForm.Size.Height - startHF) / 2));
                 LogBox2.DataBindings.Add(newBinding);
             }
         }
@@ -323,7 +319,7 @@ namespace HustonRTEMS {
                     try {
                         serverListener.Connect(ipep);
                         GF.InvokeTextBox(LogBox2, $"Socet open\r\n");
-                        await serverListener.SendAsync(hardBuf, SocketFlags.None);
+                        _ = await serverListener.SendAsync(hardBuf, SocketFlags.None);
                     }
                     catch(Exception ex) {
                         GF.InvokeTextBox(LogBox2, ex.Message + "\r\n");
@@ -419,8 +415,9 @@ namespace HustonRTEMS {
                                 addresOut.it == 0x01) {
                                 // Send temperature
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                if(CheckBox.Checked)
-                                    await client.SendAsync(buffer, SocketFlags.None);
+                                if(CheckBox.Checked) {
+                                    _ = await client.SendAsync(buffer, SocketFlags.None);
+                                }
                             } else {
                                 LogBox2.Invoke(new Action(() => {
                                     LogBox2.Text = string.Format("Wrong address or id.\r\nid:'{0}'\r\nadIn:'{1}'\r\nadOut:'{2}'\r\nmesCount'{3}'",
@@ -439,7 +436,9 @@ namespace HustonRTEMS {
                 serverListener.Close();
             }
         }
-        Thread nThread; bool flagRead;
+
+        private Thread nThread;
+        private bool flagRead;
         private async void OpenSocetServer_ClickAsync(object sender, EventArgs e) {
             flagRead = true;
             nThread = new(Open_thread);
@@ -486,7 +485,7 @@ namespace HustonRTEMS {
                                     buffer[i] = mBuffer[i];
                                 }
                             }
-                            await serverListener.SendAsync(buffer, SocketFlags.None);
+                            _ = await serverListener.SendAsync(buffer, SocketFlags.None);
                         } else {
                             LogBox.Text += "\r\nPort for RTEMS don't open";
                         }
@@ -536,8 +535,9 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked)
-                await client.SendAsync(buffer, SocketFlags.None);
+            if(CheckBox.Checked) {
+                _ = await client.SendAsync(buffer, SocketFlags.None);
+            }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e) {
             int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
@@ -555,8 +555,9 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked)
-                await client.SendAsync(buffer, SocketFlags.None);
+            if(CheckBox.Checked) {
+                _ = await client.SendAsync(buffer, SocketFlags.None);
+            }
         }
 
         private async void SendAcselerometer_Click(object? sender, EventArgs? e) {
@@ -576,8 +577,9 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked)
-                await client.SendAsync(buffer, SocketFlags.None);
+            if(CheckBox.Checked) {
+                _ = await client.SendAsync(buffer, SocketFlags.None);
+            }
         }
 
         private async void SendRegulation_Click(object? sender, EventArgs? e) {
@@ -596,8 +598,9 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked)
-                await client.SendAsync(buffer, SocketFlags.None);
+            if(CheckBox.Checked) {
+                _ = await client.SendAsync(buffer, SocketFlags.None);
+            }
         }
 
         private async void SendRatesensor_Click(object? sender, EventArgs? e) {
@@ -616,8 +619,9 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked)
-                await client.SendAsync(buffer, SocketFlags.None);
+            if(CheckBox.Checked) {
+                _ = await client.SendAsync(buffer, SocketFlags.None);
+            }
         }
 
         private async void SendAccelsensor_ClickAsync(object? sender, EventArgs? e) {
@@ -636,8 +640,9 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked)
-                await client.SendAsync(buffer, SocketFlags.None);
+            if(CheckBox.Checked) {
+                _ = await client.SendAsync(buffer, SocketFlags.None);
+            }
         }
         // Send data
 
@@ -659,14 +664,16 @@ namespace HustonRTEMS {
                     int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
                         serialPort.BytesToRead - byteWrite : offsetByte;
                     byte[] data = new byte[copyByte];
-                    serialPort.Read(data, 0, copyByte);
+                    _ = serialPort.Read(data, 0, copyByte);
                     for(int i = 0; i < data.Length; i++) {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text += $" {data[i]:X}";
                         }));
                     }
-                    if(data.Length > 1)
+                    if(data.Length > 1) {
                         GF.CanToApp11(data);
+                    }
+
                     byteWrite += copyByte;
                 } while(byteWrite < serialPort.BytesToRead);
             }
