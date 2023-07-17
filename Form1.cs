@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
@@ -153,6 +154,10 @@ namespace HustonRTEMS {
                 IdShippingAcc.Text = section.IdShipingAcc;
                 AddresAcc.Text = section.SensorAccAddress;
 
+                AddresReceiveTime.Text = section.ReceiveAddresTime;
+                IdReceiveTime.Text = section.IdReceiveTime;
+                IdShippingTime.Text = section.IdShipingTime;
+
                 cfg.Save();
             }
         }
@@ -190,6 +195,10 @@ namespace HustonRTEMS {
                 section.IdReceiveAcc = IdReceiveAcc.Text;
                 section.IdShipingAcc = IdShippingAcc.Text;
                 section.SensorAccAddress = AddresAcc.Text;
+
+                section.ReceiveAddresTime = AddresReceiveTime.Text;
+                section.IdReceiveTime = IdReceiveTime.Text;
+                section.IdShipingTime = IdShippingTime.Text;
 
                 cfg.Save();
             }
@@ -338,7 +347,7 @@ namespace HustonRTEMS {
 
                         if(message_size > 0) {
                             GF.InvokeTextBox(LogBox2, $"Socket server response message: \r\n");
-                            if(CheckBox.Checked) {
+                            if(CheckBoxRTEMS.Checked) {
                                 while(raw_buffer_size < message_size) {
                                     if(raw_buffer_size >= 0) {
                                         GF.InvokeTextBox(LogBox2, $"{buffer[raw_buffer_size]:X} ");
@@ -415,9 +424,37 @@ namespace HustonRTEMS {
                                 addresOut.it == 0x01) {
                                 // Send temperature
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                if(CheckBox.Checked) {
+                                if(CheckBoxRTEMS.Checked) {
                                     _ = await client.SendAsync(buffer, SocketFlags.None);
                                 }
+                            } else if(id.it == Convert.ToInt16(IdReceiveTime.Text, 16) &&
+                                addresIn.it == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
+                                addresOut.it == Convert.ToInt16(IdShippingTime.Text, 16)) {
+                                // Send time
+                                DateTimeOffset dto = new(DateTime.Now);
+                                long nowTime = dto.ToUnixTimeSeconds();
+                                int[] arIValue = new int[5];
+                                while(nowTime > byte.MaxValue) {
+                                    nowTime -= (byte.MaxValue + 1);
+                                    arIValue[1] += 0x01;
+                                    while(arIValue[1] > byte.MaxValue) {
+                                        arIValue[1] -= (byte.MaxValue + 1);
+                                        arIValue[2] += 0x01;
+                                        while(arIValue[2] > byte.MaxValue) {
+                                            arIValue[2] -= (byte.MaxValue + 1);
+                                            arIValue[3] += 0x01;
+                                            while(arIValue[3] > byte.MaxValue) {
+                                                arIValue[3] -= (byte.MaxValue + 1);
+                                                arIValue[4] += 0x01;
+                                            }
+                                        }
+                                    }
+                                }
+                                arIValue[0] += (int)nowTime;
+                                GF.SendMessageInSocketTime(client,
+                                    0x401, 0x1F, 0x01,
+                                    5, arIValue,
+                                    LogBox, true);
                             } else {
                                 LogBox2.Invoke(new Action(() => {
                                     LogBox2.Text = string.Format("Wrong address or id.\r\nid:'{0}'\r\nadIn:'{1}'\r\nadOut:'{2}'\r\nmesCount'{3}'",
@@ -444,7 +481,7 @@ namespace HustonRTEMS {
             nThread = new(Open_thread);
             nThread.Start();
 
-            if(CheckBox.Checked) {
+            if(CheckBoxRTEMS.Checked) {
                 IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
                 Convert.ToInt16(PortRTEMS.Text));
                 Socket serverListener_S = new(
@@ -498,7 +535,7 @@ namespace HustonRTEMS {
             }
         }
         private async void CloseSocketServer_Click(object sender, EventArgs e) {
-            if(nThread.IsAlive) {
+            if(nThread != null && nThread.IsAlive) {
                 flagRead = false;
             }
             if(serverListener != null && serverListener.Connected) {
@@ -535,7 +572,7 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked) {
+            if(CheckBoxRTEMS.Checked) {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
         }
@@ -555,7 +592,7 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked) {
+            if(CheckBoxRTEMS.Checked) {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
         }
@@ -577,7 +614,7 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked) {
+            if(CheckBoxRTEMS.Checked) {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
         }
@@ -598,7 +635,7 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked) {
+            if(CheckBoxRTEMS.Checked) {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
         }
@@ -619,7 +656,7 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked) {
+            if(CheckBoxRTEMS.Checked) {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
         }
@@ -640,7 +677,7 @@ namespace HustonRTEMS {
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if(CheckBox.Checked) {
+            if(CheckBoxRTEMS.Checked) {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
         }

@@ -192,6 +192,14 @@
             TrackBarAccelX = new TrackBar();
             label63 = new Label();
             label64 = new Label();
+            tabPage4 = new TabPage();
+            label77 = new Label();
+            IdShippingTime = new TextBox();
+            label78 = new Label();
+            IdReceiveTime = new TextBox();
+            label79 = new Label();
+            AddresReceiveTime = new TextBox();
+            label80 = new Label();
             MainTabControll = new TabControl();
             Settings = new TabPage();
             TabSettings = new TabControl();
@@ -204,7 +212,7 @@
             PortHUSTON = new TextBox();
             label74 = new Label();
             CloseSocketServer = new Button();
-            CheckBox = new CheckBox();
+            CheckBoxRTEMS = new CheckBox();
             OpenSocketServer = new Button();
             UseInternet = new RadioButton();
             PortRTEMS = new TextBox();
@@ -251,6 +259,7 @@
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelZ).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelY).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelX).BeginInit();
+            tabPage4.SuspendLayout();
             MainTabControll.SuspendLayout();
             Settings.SuspendLayout();
             TabSettings.SuspendLayout();
@@ -299,6 +308,7 @@
             TrackBarSpeedX.Controls.Add(tabPage1);
             TrackBarSpeedX.Controls.Add(tabPage2);
             TrackBarSpeedX.Controls.Add(tabPage3);
+            TrackBarSpeedX.Controls.Add(tabPage4);
             TrackBarSpeedX.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             TrackBarSpeedX.Location = new Point(6, 6);
             TrackBarSpeedX.Name = "TrackBarSpeedX";
@@ -2115,6 +2125,90 @@
             label64.TabIndex = 57;
             label64.Text = "X";
             // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(label77);
+            tabPage4.Controls.Add(IdShippingTime);
+            tabPage4.Controls.Add(label78);
+            tabPage4.Controls.Add(IdReceiveTime);
+            tabPage4.Controls.Add(label79);
+            tabPage4.Controls.Add(AddresReceiveTime);
+            tabPage4.Controls.Add(label80);
+            tabPage4.Location = new Point(4, 26);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(876, 406);
+            tabPage4.TabIndex = 6;
+            tabPage4.Text = "Time";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label77
+            // 
+            label77.AutoSize = true;
+            label77.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label77.Location = new Point(70, 142);
+            label77.Name = "label77";
+            label77.Size = new Size(74, 21);
+            label77.TabIndex = 88;
+            label77.Text = "Id ответа";
+            // 
+            // IdShippingTime
+            // 
+            IdShippingTime.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingTime.Location = new Point(12, 139);
+            IdShippingTime.Name = "IdShippingTime";
+            IdShippingTime.Size = new Size(52, 29);
+            IdShippingTime.TabIndex = 87;
+            IdShippingTime.Text = "?";
+            // 
+            // label78
+            // 
+            label78.AutoSize = true;
+            label78.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label78.Location = new Point(70, 106);
+            label78.Name = "label78";
+            label78.Size = new Size(84, 21);
+            label78.TabIndex = 86;
+            label78.Text = "Id запроса";
+            // 
+            // IdReceiveTime
+            // 
+            IdReceiveTime.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveTime.Location = new Point(12, 103);
+            IdReceiveTime.Name = "IdReceiveTime";
+            IdReceiveTime.Size = new Size(52, 29);
+            IdReceiveTime.TabIndex = 85;
+            IdReceiveTime.Text = "?";
+            // 
+            // label79
+            // 
+            label79.AutoSize = true;
+            label79.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label79.Location = new Point(70, 40);
+            label79.Name = "label79";
+            label79.Size = new Size(111, 21);
+            label79.TabIndex = 84;
+            label79.Text = "Адрес приема";
+            // 
+            // AddresReceiveTime
+            // 
+            AddresReceiveTime.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveTime.Location = new Point(12, 37);
+            AddresReceiveTime.Name = "AddresReceiveTime";
+            AddresReceiveTime.Size = new Size(52, 29);
+            AddresReceiveTime.TabIndex = 83;
+            AddresReceiveTime.Text = "?";
+            // 
+            // label80
+            // 
+            label80.AutoSize = true;
+            label80.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label80.Location = new Point(6, 3);
+            label80.Name = "label80";
+            label80.Size = new Size(294, 30);
+            label80.TabIndex = 82;
+            label80.Text = "Настройки запроса на время";
+            // 
             // MainTabControll
             // 
             MainTabControll.Controls.Add(Settings);
@@ -2156,7 +2250,7 @@
             IzernetPage.Controls.Add(PortHUSTON);
             IzernetPage.Controls.Add(label74);
             IzernetPage.Controls.Add(CloseSocketServer);
-            IzernetPage.Controls.Add(CheckBox);
+            IzernetPage.Controls.Add(CheckBoxRTEMS);
             IzernetPage.Controls.Add(OpenSocketServer);
             IzernetPage.Controls.Add(UseInternet);
             IzernetPage.Controls.Add(PortRTEMS);
@@ -2251,16 +2345,16 @@
             CloseSocketServer.UseVisualStyleBackColor = true;
             CloseSocketServer.Click += CloseSocketServer_Click;
             // 
-            // CheckBox
+            // CheckBoxRTEMS
             // 
-            CheckBox.AutoSize = true;
-            CheckBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CheckBox.Location = new Point(3, 323);
-            CheckBox.Name = "CheckBox";
-            CheckBox.Size = new Size(165, 25);
-            CheckBox.TabIndex = 14;
-            CheckBox.Text = "RTEMS with Huston";
-            CheckBox.UseVisualStyleBackColor = true;
+            CheckBoxRTEMS.AutoSize = true;
+            CheckBoxRTEMS.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            CheckBoxRTEMS.Location = new Point(3, 323);
+            CheckBoxRTEMS.Name = "CheckBoxRTEMS";
+            CheckBoxRTEMS.Size = new Size(165, 25);
+            CheckBoxRTEMS.TabIndex = 14;
+            CheckBoxRTEMS.Text = "RTEMS with Huston";
+            CheckBoxRTEMS.UseVisualStyleBackColor = true;
             // 
             // OpenSocketServer
             // 
@@ -2517,6 +2611,8 @@
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelZ).EndInit();
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelY).EndInit();
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelX).EndInit();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
             MainTabControll.ResumeLayout(false);
             Settings.ResumeLayout(false);
             TabSettings.ResumeLayout(false);
@@ -2582,7 +2678,7 @@
         private TrackBar TrackMagX_2;
         private Label label19;
         private Label label20;
-        private CheckBox CheckBox;
+        private CheckBox CheckBoxRTEMS;
         private ComboBox CANPort;
         private Label label14;
         private RadioButton UseCan;
@@ -2730,5 +2826,13 @@
         private Label label75;
         private Label label76;
         private TextBox textBoxDelay;
+        private TabPage tabPage4;
+        private Label label77;
+        private TextBox IdShippingTime;
+        private Label label78;
+        private TextBox IdReceiveTime;
+        private Label label79;
+        private TextBox AddresReceiveTime;
+        private Label label80;
     }
 }

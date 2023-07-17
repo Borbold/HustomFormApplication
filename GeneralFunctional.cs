@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 
@@ -41,6 +42,59 @@ namespace HustonRTEMS {
             for(int i = 0; i < 5; i++) {
                 Thread.Sleep(100);
                 jon++;
+            }
+        }
+
+        public async void SendMessageInSocketTime(Socket serverListener,
+            int idShipping, int addresValue, int addresReceive,
+            int iCount, int[] arIValue, TextBox logBox, bool isKiss) {
+            ItUn iValue = new();
+            byte[] sendBuf;
+            // Header KISS
+            int raw_buffer_size = 18;
+            if(isKiss) {
+                sendBuf = new byte[27 + iCount];
+                Array.Copy(kissHeader, sendBuf, raw_buffer_size);
+                raw_buffer_size = 0;
+            } else {
+                sendBuf = new byte[26 + iCount - raw_buffer_size];
+            }
+            // Header UNICAN
+            iValue.it = idShipping;
+            sendBuf[18 - raw_buffer_size] = iValue.byte1;
+            sendBuf[19 - raw_buffer_size] = iValue.byte2;
+            iValue.it = addresValue;
+            sendBuf[20 - raw_buffer_size] = iValue.byte1;
+            sendBuf[21 - raw_buffer_size] = iValue.byte2;
+            iValue.it = addresReceive;
+            sendBuf[22 - raw_buffer_size] = iValue.byte1;
+            sendBuf[23 - raw_buffer_size] = iValue.byte2;
+            iValue.it = iCount;
+            sendBuf[24 - raw_buffer_size] = iValue.byte1;
+            sendBuf[25 - raw_buffer_size] = iValue.byte2;
+
+            for(int i = 0; i < iCount; i++) {
+                iValue.it = arIValue[i];
+                sendBuf[26 + i - raw_buffer_size] = iValue.byte1;
+            }
+
+            if(isKiss) {
+                sendBuf[^1] = KISS_FEND;
+            }
+
+            logBox.Text += "\r\n";
+            foreach(var a in sendBuf) {
+                logBox.Text += $"{a:X} ";
+            }
+
+            SendChangeKissFESC(ref sendBuf);
+
+            if(serverListener != null && serverListener.Connected) {
+                _ = await serverListener.SendAsync(sendBuf, SocketFlags.None);
+            } else {
+                logBox.Invoke(new Action(() => {
+                    logBox.Text = "Socet don't open!";
+                }));
             }
         }
 

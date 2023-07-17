@@ -154,5 +154,21 @@ namespace HustonRTEMS {
             get { return (string)base["SensorAccAddress"]; }
             set { base["SensorAccAddress"] = value; }
         }
+        // Time
+        [ConfigurationProperty("ReceiveAddresTime", IsRequired = false)]
+        public string ReceiveAddresTime {
+            get { return (string)base["ReceiveAddresTime"]; }
+            set { base["ReceiveAddresTime"] = value; }
+        }
+        [ConfigurationProperty("IdReceiveTime", IsRequired = false)]
+        public string IdReceiveTime {
+            get { return (string)base["IdReceiveTime"]; }
+            set { base["IdReceiveTime"] = value; }
+        }
+        [ConfigurationProperty("IdShipingTime", IsRequired = false)]
+        public string IdShipingTime {
+            get { return (string)base["IdShipingTime"]; }
+            set { base["IdShipingTime"] = value; }
+        }
     }
 }
