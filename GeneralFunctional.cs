@@ -29,6 +29,36 @@ namespace HustonRTEMS {
         [FieldOffset(0)]
         public int it;
     }
+
+    [StructLayout(LayoutKind.Explicit)]
+    public struct LItUn {
+        [FieldOffset(0)]
+        public byte byte1;
+        [FieldOffset(1)]
+        public byte byte2;
+        [FieldOffset(3)]
+        public byte byte3;
+        [FieldOffset(4)]
+        public byte byte4;
+
+        [FieldOffset(0)]
+        public int it;
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    public struct UItUn {
+        [FieldOffset(0)]
+        public byte byte1;
+        [FieldOffset(1)]
+        public byte byte2;
+        [FieldOffset(3)]
+        public byte byte3;
+        [FieldOffset(4)]
+        public byte byte4;
+
+        [FieldOffset(0)]
+        public uint it;
+    }
 }
 
 namespace HustonRTEMS {
@@ -154,6 +184,10 @@ namespace HustonRTEMS {
                     logBox.Text = "Socet don't open!";
                 }));
             }
+        }
+
+        public void SendMessageTime() {
+
         }
 
         public async void SendMessageInSocket(Socket serverListener, FlUn fl, ItUn it,

@@ -230,6 +230,20 @@
             label14 = new Label();
             label10 = new Label();
             SensorReadings = new TabPage();
+            tabPage5 = new TabPage();
+            ShowDeleteString = new CheckBox();
+            label84 = new Label();
+            label83 = new Label();
+            label82 = new Label();
+            DBTimeText = new TextBox();
+            DBPlateIDText = new TextBox();
+            DBSensIDText = new TextBox();
+            label81 = new Label();
+            ReadDBFile = new Button();
+            NameDBFile = new TextBox();
+            LabelDBFile = new Label();
+            GetDBFileInfo = new Button();
+            DBValueText = new TextBox();
             LogBox2 = new TextBox();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
@@ -266,6 +280,7 @@
             IzernetPage.SuspendLayout();
             CANPage.SuspendLayout();
             SensorReadings.SuspendLayout();
+            tabPage5.SuspendLayout();
             SuspendLayout();
             // 
             // LogBox
@@ -2213,6 +2228,7 @@
             // 
             MainTabControll.Controls.Add(Settings);
             MainTabControll.Controls.Add(SensorReadings);
+            MainTabControll.Controls.Add(tabPage5);
             MainTabControll.Location = new Point(12, 12);
             MainTabControll.Name = "MainTabControll";
             MainTabControll.SelectedIndex = 0;
@@ -2549,6 +2565,161 @@
             SensorReadings.Text = "Показания датчиков";
             SensorReadings.UseVisualStyleBackColor = true;
             // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(ShowDeleteString);
+            tabPage5.Controls.Add(label84);
+            tabPage5.Controls.Add(label83);
+            tabPage5.Controls.Add(label82);
+            tabPage5.Controls.Add(DBTimeText);
+            tabPage5.Controls.Add(DBPlateIDText);
+            tabPage5.Controls.Add(DBSensIDText);
+            tabPage5.Controls.Add(label81);
+            tabPage5.Controls.Add(ReadDBFile);
+            tabPage5.Controls.Add(NameDBFile);
+            tabPage5.Controls.Add(LabelDBFile);
+            tabPage5.Controls.Add(GetDBFileInfo);
+            tabPage5.Controls.Add(DBValueText);
+            tabPage5.Location = new Point(4, 24);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(893, 445);
+            tabPage5.TabIndex = 2;
+            tabPage5.Text = "LittleD";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // ShowDeleteString
+            // 
+            ShowDeleteString.AutoSize = true;
+            ShowDeleteString.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ShowDeleteString.Location = new Point(6, 6);
+            ShowDeleteString.Name = "ShowDeleteString";
+            ShowDeleteString.Size = new Size(230, 46);
+            ShowDeleteString.TabIndex = 12;
+            ShowDeleteString.Text = "Показывать помеченные\r\nна удаление";
+            ShowDeleteString.UseVisualStyleBackColor = true;
+            // 
+            // label84
+            // 
+            label84.AutoSize = true;
+            label84.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label84.Location = new Point(344, 13);
+            label84.Name = "label84";
+            label84.Size = new Size(44, 21);
+            label84.TabIndex = 11;
+            label84.Text = "Time";
+            // 
+            // label83
+            // 
+            label83.AutoSize = true;
+            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label83.Location = new Point(483, 13);
+            label83.Name = "label83";
+            label83.Size = new Size(63, 21);
+            label83.TabIndex = 10;
+            label83.Text = "Plate ID";
+            // 
+            // label82
+            // 
+            label82.AutoSize = true;
+            label82.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label82.Location = new Point(628, 13);
+            label82.Name = "label82";
+            label82.Size = new Size(64, 21);
+            label82.TabIndex = 9;
+            label82.Text = "Send ID";
+            // 
+            // DBTimeText
+            // 
+            DBTimeText.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBTimeText.Location = new Point(297, 37);
+            DBTimeText.Multiline = true;
+            DBTimeText.Name = "DBTimeText";
+            DBTimeText.ScrollBars = ScrollBars.Vertical;
+            DBTimeText.Size = new Size(143, 402);
+            DBTimeText.TabIndex = 8;
+            // 
+            // DBPlateIDText
+            // 
+            DBPlateIDText.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBPlateIDText.Location = new Point(446, 37);
+            DBPlateIDText.Multiline = true;
+            DBPlateIDText.Name = "DBPlateIDText";
+            DBPlateIDText.ScrollBars = ScrollBars.Vertical;
+            DBPlateIDText.Size = new Size(143, 402);
+            DBPlateIDText.TabIndex = 7;
+            // 
+            // DBSensIDText
+            // 
+            DBSensIDText.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBSensIDText.Location = new Point(595, 37);
+            DBSensIDText.Multiline = true;
+            DBSensIDText.Name = "DBSensIDText";
+            DBSensIDText.ScrollBars = ScrollBars.Vertical;
+            DBSensIDText.Size = new Size(143, 402);
+            DBSensIDText.TabIndex = 6;
+            // 
+            // label81
+            // 
+            label81.AutoSize = true;
+            label81.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label81.Location = new Point(790, 13);
+            label81.Name = "label81";
+            label81.Size = new Size(48, 21);
+            label81.TabIndex = 5;
+            label81.Text = "Value";
+            // 
+            // ReadDBFile
+            // 
+            ReadDBFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ReadDBFile.Location = new Point(135, 364);
+            ReadDBFile.Name = "ReadDBFile";
+            ReadDBFile.Size = new Size(123, 75);
+            ReadDBFile.TabIndex = 4;
+            ReadDBFile.Text = "Вывести информацию из файла";
+            ReadDBFile.UseVisualStyleBackColor = true;
+            ReadDBFile.Click += ReadDBFile_Click;
+            // 
+            // NameDBFile
+            // 
+            NameDBFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            NameDBFile.Location = new Point(49, 323);
+            NameDBFile.Name = "NameDBFile";
+            NameDBFile.ReadOnly = true;
+            NameDBFile.Size = new Size(209, 29);
+            NameDBFile.TabIndex = 3;
+            // 
+            // LabelDBFile
+            // 
+            LabelDBFile.AutoSize = true;
+            LabelDBFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LabelDBFile.Location = new Point(6, 326);
+            LabelDBFile.Name = "LabelDBFile";
+            LabelDBFile.Size = new Size(37, 21);
+            LabelDBFile.TabIndex = 2;
+            LabelDBFile.Text = "File:";
+            // 
+            // GetDBFileInfo
+            // 
+            GetDBFileInfo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            GetDBFileInfo.Location = new Point(6, 364);
+            GetDBFileInfo.Name = "GetDBFileInfo";
+            GetDBFileInfo.Size = new Size(123, 75);
+            GetDBFileInfo.TabIndex = 1;
+            GetDBFileInfo.Text = "Получить информацию из файла";
+            GetDBFileInfo.UseVisualStyleBackColor = true;
+            GetDBFileInfo.Click += GetDBFileInfo_Click;
+            // 
+            // DBValueText
+            // 
+            DBValueText.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBValueText.Location = new Point(744, 37);
+            DBValueText.Multiline = true;
+            DBValueText.Name = "DBValueText";
+            DBValueText.ScrollBars = ScrollBars.Vertical;
+            DBValueText.Size = new Size(143, 402);
+            DBValueText.TabIndex = 0;
+            // 
             // LogBox2
             // 
             LogBox2.Anchor = AnchorStyles.Top;
@@ -2621,6 +2792,8 @@
             CANPage.ResumeLayout(false);
             CANPage.PerformLayout();
             SensorReadings.ResumeLayout(false);
+            tabPage5.ResumeLayout(false);
+            tabPage5.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2834,5 +3007,19 @@
         private Label label79;
         private TextBox AddresReceiveTime;
         private Label label80;
+        private TabPage tabPage5;
+        private TextBox DBValueText;
+        private Button GetDBFileInfo;
+        private Label LabelDBFile;
+        private TextBox NameDBFile;
+        private Button ReadDBFile;
+        private Label label84;
+        private Label label83;
+        private Label label82;
+        private TextBox DBTimeText;
+        private TextBox DBPlateIDText;
+        private TextBox DBSensIDText;
+        private Label label81;
+        private CheckBox ShowDeleteString;
     }
 }

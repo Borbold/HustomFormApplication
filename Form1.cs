@@ -1,8 +1,11 @@
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace HustonRTEMS {
     public partial class MainForm: Form {
@@ -452,13 +455,15 @@ namespace HustonRTEMS {
                                 }
                                 arIValue[0] += (int)nowTime;
                                 GF.SendMessageInSocketTime(client,
-                                    0x401, 0x1F, 0x01,
+                                    id.it, addresOut.it, addresIn.it,
                                     5, arIValue,
                                     LogBox, true);
                             } else {
                                 LogBox2.Invoke(new Action(() => {
-                                    LogBox2.Text = string.Format("Wrong address or id.\r\nid:'{0}'\r\nadIn:'{1}'\r\nadOut:'{2}'\r\nmesCount'{3}'",
-                                        id.it, addresIn.it, addresOut.it, message_size);
+                                    LogBox2.Text = string.Format(
+                                        "Wrong address or id.\r\nid:'{0}'\r\naddIn:'{1}'\r\naddOut:'{2}'\r\nmesCount'{3}'",
+                                        id.it, addresIn.it, addresOut.it, message_size
+                                    );
                                 }));
                             }
                             message_size = 0;
@@ -778,6 +783,74 @@ namespace HustonRTEMS {
                 }
                 catch(Exception ex) {
                     LogBox.Text = ex.Message;
+                }
+            }
+        }
+
+        private void GetDBFileInfo_Click(object sender, EventArgs e) {
+            OpenFileDialog ofd = new() {
+                Title = "Select file",
+                Filter = "All files (*.*)|*.*|Text File (*.txt)|*.txt*",
+                FilterIndex = 1,
+            };
+            if(ofd.ShowDialog() == DialogResult.OK) {
+                NameDBFile.Text = ofd.FileName;
+            }
+        }
+        private void ReadDBFile_Click(object sender, EventArgs e) {
+            FileStream fileStream = File.OpenRead(NameDBFile.Text);
+            BinaryReader binaryReader = new(fileStream);
+
+            byte[] result = binaryReader.ReadBytes((int)fileStream.Length);
+            int index = 0;
+            for(int i = 0; i < result.Length; i++) {
+                if(result[i] == '_' && result[i + 1] == '_') {
+                    index = i + 13;
+                }
+            }
+
+            uint intT = 0;
+            LItUn intV = new();
+            FlUn floatV = new();
+            for(int i = index, j = 0; i < result.Length; j = 0, i += 5) {
+                if(j == 0) {
+                    intT |= result[i];
+                    intT |= (uint)result[i + 1] << 8;
+                    intT |= (uint)result[i + 2] << 16;
+                    intT |= (uint)(result[i + 3]) << 24;
+                    DBTimeText.Text += intT;
+                    DBTimeText.Text += "\r\n";
+                    i += 4;
+                    j++;
+                }
+                if(j == 1) {
+                    intV.byte1 = result[i];
+                    intV.byte2 = result[i + 1];
+                    intV.byte3 = result[i + 2];
+                    intV.byte4 = result[i + 3];
+                    DBPlateIDText.Text += intV.it;
+                    DBPlateIDText.Text += "\r\n";
+                    i += 4;
+                    j++;
+                }
+                if(j == 2) {
+                    intV.byte1 = result[i];
+                    intV.byte2 = result[i + 1];
+                    intV.byte3 = result[i + 2];
+                    intV.byte4 = result[i + 3];
+                    DBSensIDText.Text += intV.it;
+                    DBSensIDText.Text += "\r\n";
+                    i += 4;
+                    j++;
+                }
+                if(j == 3) {
+                    floatV.byte1 = result[i];
+                    floatV.byte2 = result[i + 1];
+                    floatV.byte3 = result[i + 2];
+                    floatV.byte4 = result[i + 3];
+                    DBValueText.Text += floatV.fl;
+                    DBValueText.Text += "\r\n";
+                    i += 4;
                 }
             }
         }
