@@ -328,7 +328,7 @@
             TrackBarSpeedX.Location = new Point(6, 6);
             TrackBarSpeedX.Name = "TrackBarSpeedX";
             TrackBarSpeedX.SelectedIndex = 0;
-            TrackBarSpeedX.Size = new Size(884, 436);
+            TrackBarSpeedX.Size = new Size(1212, 436);
             TrackBarSpeedX.TabIndex = 6;
             // 
             // TabTemperature
@@ -345,7 +345,7 @@
             TabTemperature.Location = new Point(4, 26);
             TabTemperature.Name = "TabTemperature";
             TabTemperature.Padding = new Padding(3);
-            TabTemperature.Size = new Size(876, 406);
+            TabTemperature.Size = new Size(1204, 406);
             TabTemperature.TabIndex = 0;
             TabTemperature.Text = "Temperature";
             TabTemperature.UseVisualStyleBackColor = true;
@@ -446,7 +446,7 @@
             TabMagnetometer.Location = new Point(4, 26);
             TabMagnetometer.Name = "TabMagnetometer";
             TabMagnetometer.Padding = new Padding(3);
-            TabMagnetometer.Size = new Size(876, 406);
+            TabMagnetometer.Size = new Size(1204, 406);
             TabMagnetometer.TabIndex = 1;
             TabMagnetometer.Text = "Magnetometer";
             TabMagnetometer.UseVisualStyleBackColor = true;
@@ -551,7 +551,7 @@
             panel1.Controls.Add(label20);
             panel1.Location = new Point(275, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(595, 394);
+            panel1.Size = new Size(923, 394);
             panel1.TabIndex = 39;
             // 
             // label32
@@ -991,7 +991,7 @@
             TabAcselerometr.Location = new Point(4, 26);
             TabAcselerometr.Name = "TabAcselerometr";
             TabAcselerometr.Padding = new Padding(3);
-            TabAcselerometr.Size = new Size(876, 406);
+            TabAcselerometr.Size = new Size(1204, 406);
             TabAcselerometr.TabIndex = 2;
             TabAcselerometr.Text = "Acselerometer";
             TabAcselerometr.UseVisualStyleBackColor = true;
@@ -1324,7 +1324,7 @@
             tabPage1.Location = new Point(4, 26);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(876, 406);
+            tabPage1.Size = new Size(1204, 406);
             tabPage1.TabIndex = 3;
             tabPage1.Text = "Regulation";
             tabPage1.UseVisualStyleBackColor = true;
@@ -1606,7 +1606,7 @@
             tabPage2.Location = new Point(4, 26);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(876, 406);
+            tabPage2.Size = new Size(1204, 406);
             tabPage2.TabIndex = 4;
             tabPage2.Text = "Ratesensor";
             tabPage2.UseVisualStyleBackColor = true;
@@ -1888,7 +1888,7 @@
             tabPage3.Location = new Point(4, 26);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(876, 406);
+            tabPage3.Size = new Size(1204, 406);
             tabPage3.TabIndex = 5;
             tabPage3.Text = "Accelsensor";
             tabPage3.UseVisualStyleBackColor = true;
@@ -2152,7 +2152,7 @@
             tabPage4.Location = new Point(4, 26);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(876, 406);
+            tabPage4.Size = new Size(1204, 406);
             tabPage4.TabIndex = 6;
             tabPage4.Text = "Time";
             tabPage4.UseVisualStyleBackColor = true;
@@ -2253,7 +2253,7 @@
             TabSettings.Location = new Point(6, 6);
             TabSettings.Name = "TabSettings";
             TabSettings.SelectedIndex = 0;
-            TabSettings.Size = new Size(881, 433);
+            TabSettings.Size = new Size(1212, 433);
             TabSettings.TabIndex = 1;
             // 
             // IzernetPage
@@ -2277,7 +2277,7 @@
             IzernetPage.Location = new Point(4, 24);
             IzernetPage.Name = "IzernetPage";
             IzernetPage.Padding = new Padding(3);
-            IzernetPage.Size = new Size(873, 405);
+            IzernetPage.Size = new Size(1204, 405);
             IzernetPage.TabIndex = 0;
             IzernetPage.Text = "Интернет";
             IzernetPage.UseVisualStyleBackColor = true;
@@ -2286,7 +2286,7 @@
             // 
             label76.AutoSize = true;
             label76.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label76.Location = new Point(767, 346);
+            label76.Location = new Point(1101, 346);
             label76.Name = "label76";
             label76.Size = new Size(49, 21);
             label76.TabIndex = 22;
@@ -2295,7 +2295,7 @@
             // textBoxDelay
             // 
             textBoxDelay.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxDelay.Location = new Point(767, 370);
+            textBoxDelay.Location = new Point(1101, 370);
             textBoxDelay.Name = "textBoxDelay";
             textBoxDelay.Size = new Size(100, 29);
             textBoxDelay.TabIndex = 21;
@@ -2389,7 +2389,7 @@
             UseInternet.CheckAlign = ContentAlignment.MiddleRight;
             UseInternet.Checked = true;
             UseInternet.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            UseInternet.Location = new Point(750, 3);
+            UseInternet.Location = new Point(1078, 6);
             UseInternet.Name = "UseInternet";
             UseInternet.Size = new Size(120, 36);
             UseInternet.TabIndex = 8;
@@ -2451,7 +2451,7 @@
             CANPage.Location = new Point(4, 24);
             CANPage.Name = "CANPage";
             CANPage.Padding = new Padding(3);
-            CANPage.Size = new Size(873, 405);
+            CANPage.Size = new Size(1204, 405);
             CANPage.TabIndex = 1;
             CANPage.Text = "CAN";
             CANPage.UseVisualStyleBackColor = true;
@@ -2514,7 +2514,7 @@
             UseCan.AutoSize = true;
             UseCan.CheckAlign = ContentAlignment.MiddleRight;
             UseCan.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            UseCan.Location = new Point(750, 3);
+            UseCan.Location = new Point(1078, 6);
             UseCan.Name = "UseCan";
             UseCan.Size = new Size(120, 36);
             UseCan.TabIndex = 7;
