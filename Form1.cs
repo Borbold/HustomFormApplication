@@ -817,8 +817,11 @@ namespace HustonRTEMS {
                     intT |= result[i];
                     intT |= (uint)result[i + 1] << 8;
                     intT |= (uint)result[i + 2] << 16;
-                    intT |= (uint)(result[i + 3]) << 24;
-                    DBTimeText.Text += intT;
+                    intT |= (uint)result[i + 3] << 24;
+                    DateTime dt = new();
+                    dt = dt.AddSeconds(intT);
+                    dt = dt.AddYears(-31);
+                    DBTimeText.Text += dt;
                     DBTimeText.Text += "\r\n";
                     i += 4;
                     j++;
