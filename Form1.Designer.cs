@@ -291,7 +291,7 @@
             LogBox.Name = "LogBox";
             LogBox.ReadOnly = true;
             LogBox.ScrollBars = ScrollBars.Vertical;
-            LogBox.Size = new Size(360, 260);
+            LogBox.Size = new Size(520, 260);
             LogBox.TabIndex = 1;
             // 
             // ListenPort
@@ -2232,7 +2232,7 @@
             MainTabControll.Location = new Point(12, 12);
             MainTabControll.Name = "MainTabControll";
             MainTabControll.SelectedIndex = 0;
-            MainTabControll.Size = new Size(901, 473);
+            MainTabControll.Size = new Size(1232, 473);
             MainTabControll.TabIndex = 13;
             // 
             // Settings
@@ -2241,7 +2241,7 @@
             Settings.Location = new Point(4, 24);
             Settings.Name = "Settings";
             Settings.Padding = new Padding(3);
-            Settings.Size = new Size(893, 445);
+            Settings.Size = new Size(1224, 445);
             Settings.TabIndex = 1;
             Settings.Text = "Настройки";
             Settings.UseVisualStyleBackColor = true;
@@ -2560,7 +2560,7 @@
             SensorReadings.Location = new Point(4, 24);
             SensorReadings.Name = "SensorReadings";
             SensorReadings.Padding = new Padding(3);
-            SensorReadings.Size = new Size(893, 445);
+            SensorReadings.Size = new Size(1224, 445);
             SensorReadings.TabIndex = 0;
             SensorReadings.Text = "Показания датчиков";
             SensorReadings.UseVisualStyleBackColor = true;
@@ -2583,7 +2583,7 @@
             tabPage5.Location = new Point(4, 24);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
-            tabPage5.Size = new Size(893, 445);
+            tabPage5.Size = new Size(1224, 445);
             tabPage5.TabIndex = 2;
             tabPage5.Text = "LittleD";
             tabPage5.UseVisualStyleBackColor = true;
@@ -2603,7 +2603,7 @@
             // 
             label84.AutoSize = true;
             label84.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label84.Location = new Point(344, 13);
+            label84.Location = new Point(617, 13);
             label84.Name = "label84";
             label84.Size = new Size(44, 21);
             label84.TabIndex = 11;
@@ -2613,7 +2613,7 @@
             // 
             label83.AutoSize = true;
             label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label83.Location = new Point(483, 13);
+            label83.Location = new Point(814, 13);
             label83.Name = "label83";
             label83.Size = new Size(63, 21);
             label83.TabIndex = 10;
@@ -2623,7 +2623,7 @@
             // 
             label82.AutoSize = true;
             label82.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label82.Location = new Point(628, 13);
+            label82.Location = new Point(959, 13);
             label82.Name = "label82";
             label82.Size = new Size(64, 21);
             label82.TabIndex = 9;
@@ -2631,18 +2631,18 @@
             // 
             // DBTimeText
             // 
-            DBTimeText.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBTimeText.Location = new Point(297, 37);
+            DBTimeText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBTimeText.Location = new Point(520, 37);
             DBTimeText.Multiline = true;
             DBTimeText.Name = "DBTimeText";
             DBTimeText.ScrollBars = ScrollBars.Vertical;
-            DBTimeText.Size = new Size(143, 402);
+            DBTimeText.Size = new Size(251, 402);
             DBTimeText.TabIndex = 8;
             // 
             // DBPlateIDText
             // 
-            DBPlateIDText.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBPlateIDText.Location = new Point(446, 37);
+            DBPlateIDText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBPlateIDText.Location = new Point(777, 37);
             DBPlateIDText.Multiline = true;
             DBPlateIDText.Name = "DBPlateIDText";
             DBPlateIDText.ScrollBars = ScrollBars.Vertical;
@@ -2651,8 +2651,8 @@
             // 
             // DBSensIDText
             // 
-            DBSensIDText.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBSensIDText.Location = new Point(595, 37);
+            DBSensIDText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBSensIDText.Location = new Point(926, 37);
             DBSensIDText.Multiline = true;
             DBSensIDText.Name = "DBSensIDText";
             DBSensIDText.ScrollBars = ScrollBars.Vertical;
@@ -2663,7 +2663,7 @@
             // 
             label81.AutoSize = true;
             label81.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label81.Location = new Point(790, 13);
+            label81.Location = new Point(1121, 13);
             label81.Name = "label81";
             label81.Size = new Size(48, 21);
             label81.TabIndex = 5;
@@ -2712,8 +2712,8 @@
             // 
             // DBValueText
             // 
-            DBValueText.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBValueText.Location = new Point(744, 37);
+            DBValueText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBValueText.Location = new Point(1075, 37);
             DBValueText.Multiline = true;
             DBValueText.Name = "DBValueText";
             DBValueText.ScrollBars = ScrollBars.Vertical;
@@ -2724,19 +2724,19 @@
             // 
             LogBox2.Anchor = AnchorStyles.Top;
             LogBox2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            LogBox2.Location = new Point(553, 491);
+            LogBox2.Location = new Point(720, 491);
             LogBox2.Multiline = true;
             LogBox2.Name = "LogBox2";
             LogBox2.ReadOnly = true;
             LogBox2.ScrollBars = ScrollBars.Vertical;
-            LogBox2.Size = new Size(360, 260);
+            LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(925, 763);
+            ClientSize = new Size(1256, 763);
             Controls.Add(LogBox2);
             Controls.Add(MainTabControll);
             Controls.Add(ListenPort);
