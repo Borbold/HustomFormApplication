@@ -11,6 +11,7 @@ namespace HustonRTEMS {
     public partial class MainForm: Form {
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
+        private readonly GeneralSendFun GSF = new();
         private readonly DefaultTransmission DT = new();
         private readonly byte[] hardBuf = {
             //0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
@@ -707,6 +708,9 @@ namespace HustonRTEMS {
                         serialPort.BytesToRead - byteWrite : offsetByte;
                     byte[] data = new byte[copyByte];
                     _ = serialPort.Read(data, 0, copyByte);
+                    LogBox.Invoke(new Action(() => {
+                            LogBox.Text += $"\nCopybite {copyByte}\n";
+                    }));
                     for(int i = 0; i < data.Length; i++) {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text += $" {data[i]:X}";
