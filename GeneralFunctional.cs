@@ -269,9 +269,18 @@ namespace HustonRTEMS {
             int coutn_byte = charkArray.Length;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
-            testCan[0] |= (byte)(charkArray[3] & 0x1F);
-            testCan[1] |= (byte)((charkArray[2] & 0x3E0) << 5);
-            testCan[2] |= (byte)((charkArray[1] & 0x400) << 10);
+            testCan[0] |= (byte)(charkArray[5] - 0x30);
+            testCan[0] |= (byte)(charkArray[6] - 0x30);
+            testCan[0] |= (byte)(charkArray[7] - 0x30);
+            testCan[0] |= (byte)(charkArray[8] - 0x30);
+
+            testCan[1] |= (byte)(charkArray[3]);
+            testCan[1] |= (byte)((uint)charkArray[2] << 14);
+
+            testCan[2] |= (byte)(charkArray[1]);
+            testCan[2] |= (byte)((uint)charkArray[2] >> 14);
+
+            testCan[3] += (byte)(charkArray[4] - 0x30);
             //----------------------------------------------------------
             testCan[coutn_byte - 1] = 0xC0;
 
