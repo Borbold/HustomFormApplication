@@ -268,7 +268,7 @@ namespace HustonRTEMS {
         public byte[] CanToApp11(byte[] charkArray) {
             int coutn_byte = charkArray.Length;
             byte[] testCan = new byte[coutn_byte];
-            //----------------------------------------------------------
+            //Addres----------------------------------------------------------
             uint suchAd = 0;
             if(charkArray[1] - 0x30 != 0) {
                 suchAd += (uint)(charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0)) * 100;
@@ -279,12 +279,11 @@ namespace HustonRTEMS {
             if(charkArray[3] - 0x30 != 0) {
                 suchAd += (uint)(charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0));
             }
-
-            testCan[0] = 0;
-            testCan[1] = (byte)(suchAd & 0x1F);
             testCan[2] = 0;
-            testCan[3] = (byte)((suchAd & 0x3E0) >> 5);
-
+            testCan[3] = (byte)(suchAd & 0x1F);
+            testCan[4] = 0;
+            testCan[5] = (byte)((suchAd & 0x3E0) >> 5);
+            //ID----------------------------------------------------------
             testCan[0] = 0;
             if(charkArray[5] - 0x30 != 0) {
                 testCan[1] |= (byte)(charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0));
@@ -298,35 +297,10 @@ namespace HustonRTEMS {
             if(charkArray[8] - 0x30 != 0) {
                 testCan[1] |= (byte)(charkArray[8] - 0x30 - (charkArray[8] > 0x40 ? 7 : 0));
             }
-
+            //Count message----------------------------------------------------------
             testCan[6] = 0;
             if(charkArray[4] - 0x30 != 0) {
-                testCan[7] |= (byte)(charkArray[4] - 0x30 - (charkArray[4] > 0x40 ? 7 : 0));
-            }
-            //----------------------------------------------------------
-            if(charkArray[6] - 0x30 != 0) {
-                testCan[0] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 7 : 0)) << 4);
-            }
-
-            if(charkArray[5] - 0x30 != 0) {
-                testCan[0] += (byte)((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) << 4);
-            }
-            //----------------------------------------------------------
-            if(charkArray[3] - 0x30 != 0) {
-                testCan[2] = (byte)((charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0)) & 0xF);
-            }
-
-            byte smesh = (byte)((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 5);
-            if(charkArray[2] - 0x30 != 0) {
-                testCan[2] += (byte)(smesh * 0x10);
-            }
-            //----------------------------------------------------------
-            if(charkArray[2] - 0x30 != 0) {
-                testCan[4] = (byte)((((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 0xF) - smesh) / 2);
-            }
-
-            if(charkArray[1] - 0x30 != 0) {
-                testCan[4] += (byte)((charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0)) & 0xF);
+                testCan[7] |= (byte)(charkArray[4] - 0x30 - (charkArray[4] > 0x40 ? 7 : 0) - 2);
             }
             //----------------------------------------------------------
             testCan[coutn_byte - 1] = 0xC0;
