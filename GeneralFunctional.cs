@@ -266,33 +266,12 @@ namespace HustonRTEMS {
         }
 
         public byte[] CanToApp11(byte[] charkArray) {
-            int coutn_byte = 14;
+            int coutn_byte = charkArray.Length;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
-            if(charkArray[6] - 0x30 != 0) {
-                testCan[0] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 7 : 0)) << 4);
-            }
-
-            if(charkArray[5] - 0x30 != 0) {
-                testCan[0] += (byte)((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) << 4);
-            }
-            //----------------------------------------------------------
-            if(charkArray[3] - 0x30 != 0) {
-                testCan[2] = (byte)((charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0)) & 0xF);
-            }
-
-            byte smesh = (byte)((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 5);
-            if(charkArray[2] - 0x30 != 0) {
-                testCan[2] += (byte)(smesh * 0x10);
-            }
-            //----------------------------------------------------------
-            if(charkArray[2] - 0x30 != 0) {
-                testCan[4] = (byte)((((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 0xF) - smesh) / 2);
-            }
-
-            if(charkArray[1] - 0x30 != 0) {
-                testCan[4] += (byte)((charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0)) & 0xF);
-            }
+            testCan[0] |= (byte)(charkArray[3] & 0x1F);
+            testCan[1] |= (byte)((charkArray[2] & 0x3E0) << 5);
+            testCan[2] |= (byte)((charkArray[1] & 0x400) << 10);
             //----------------------------------------------------------
             testCan[coutn_byte - 1] = 0xC0;
 
