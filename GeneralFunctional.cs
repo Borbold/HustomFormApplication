@@ -265,7 +265,7 @@ namespace HustonRTEMS {
             }
         }
 
-        public void CanToApp11(byte[] charkArray) {
+        public byte[] CanToApp11(byte[] charkArray) {
             int coutn_byte = 14;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
@@ -296,7 +296,7 @@ namespace HustonRTEMS {
             //----------------------------------------------------------
             testCan[coutn_byte - 1] = 0xC0;
 
-            Debug.WriteLine("");
+            return testCan;
         }
         public void CanToApp29(byte[] charkArray) {
             int coutn_byte = 20;

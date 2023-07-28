@@ -708,16 +708,22 @@ namespace HustonRTEMS {
                         serialPort.BytesToRead - byteWrite : offsetByte;
                     byte[] data = new byte[copyByte];
                     _ = serialPort.Read(data, 0, copyByte);
-                    LogBox.Invoke(new Action(() => {
-                            LogBox.Text += $"\nCopybite {copyByte}\n";
-                    }));
                     for(int i = 0; i < data.Length; i++) {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text += $" {data[i]:X}";
                         }));
                     }
                     if(data.Length > 1) {
-                        GF.CanToApp11(data);
+                        LogBox.Invoke(new Action(() => {
+                            LogBox.Text += "\r\n";
+                            LogBox.Text += "CanToApp: ";
+                        }));
+                        byte[] locD = GF.CanToApp11(data);
+                        for(int i = 0; i < locD.Length; i++) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += $" {locD[i]:X}";
+                            }));
+                        }
                     }
 
                     byteWrite += copyByte;
