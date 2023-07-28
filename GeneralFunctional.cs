@@ -269,18 +269,65 @@ namespace HustonRTEMS {
             int coutn_byte = charkArray.Length;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
-            testCan[0] |= (byte)(charkArray[5] - 0x30);
-            testCan[0] |= (byte)(charkArray[6] - 0x30);
-            testCan[0] |= (byte)(charkArray[7] - 0x30);
-            testCan[0] |= (byte)(charkArray[8] - 0x30);
+            int suchAd = 0;
+            if(charkArray[1] - 0x30 != 0) {
+                suchAd += (byte)(charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0));
+            }
+            if(charkArray[2] - 0x30 != 0) {
+                suchAd += (byte)(charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0));
+            }
+            if(charkArray[3] - 0x30 != 0) {
+                suchAd += (byte)(charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0));
+            }
 
-            testCan[1] |= (byte)(charkArray[3]);
-            testCan[1] |= (byte)((uint)charkArray[2] << 14);
+            testCan[0] = 0;
+            testCan[1] = (byte)(suchAd & 0x1F);
+            testCan[2] = 0;
+            testCan[3] = (byte)((suchAd & 0x3E0) >> 5);
 
-            testCan[2] |= (byte)(charkArray[1]);
-            testCan[2] |= (byte)((uint)charkArray[2] >> 14);
+            testCan[4] = 0;
+            if(charkArray[5] - 0x30 != 0) {
+                testCan[5] |= (byte)(charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0));
+            }
+            if(charkArray[6] - 0x30 != 0) {
+                testCan[5] |= (byte)(charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0));
+            }
+            if(charkArray[7] - 0x30 != 0) {
+                testCan[5] |= (byte)(charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0));
+            }
+            if(charkArray[8] - 0x30 != 0) {
+                testCan[5] |= (byte)(charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0));
+            }
 
-            testCan[3] += (byte)(charkArray[4] - 0x30);
+            testCan[6] = 0;
+            if(charkArray[4] - 0x30 != 0) {
+                testCan[7] |= (byte)(charkArray[4] - 0x30 - (charkArray[4] > 0x40 ? 7 : 0));
+            }
+            //----------------------------------------------------------
+            if(charkArray[6] - 0x30 != 0) {
+                testCan[0] = (byte)((charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 7 : 0)) << 4);
+            }
+
+            if(charkArray[5] - 0x30 != 0) {
+                testCan[0] += (byte)((charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0)) << 4);
+            }
+            //----------------------------------------------------------
+            if(charkArray[3] - 0x30 != 0) {
+                testCan[2] = (byte)((charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0)) & 0xF);
+            }
+
+            byte smesh = (byte)((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 5);
+            if(charkArray[2] - 0x30 != 0) {
+                testCan[2] += (byte)(smesh * 0x10);
+            }
+            //----------------------------------------------------------
+            if(charkArray[2] - 0x30 != 0) {
+                testCan[4] = (byte)((((charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) & 0xF) - smesh) / 2);
+            }
+
+            if(charkArray[1] - 0x30 != 0) {
+                testCan[4] += (byte)((charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0)) & 0xF);
+            }
             //----------------------------------------------------------
             testCan[coutn_byte - 1] = 0xC0;
 
