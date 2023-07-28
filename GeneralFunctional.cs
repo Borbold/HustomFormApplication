@@ -269,15 +269,15 @@ namespace HustonRTEMS {
             int coutn_byte = charkArray.Length;
             byte[] testCan = new byte[coutn_byte];
             //----------------------------------------------------------
-            int suchAd = 0;
+            uint suchAd = 0;
             if(charkArray[1] - 0x30 != 0) {
-                suchAd += (byte)(charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0));
+                suchAd += (uint)(charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0)) * 100;
             }
             if(charkArray[2] - 0x30 != 0) {
-                suchAd += (byte)(charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0));
+                suchAd += (uint)(charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0)) * 10;
             }
             if(charkArray[3] - 0x30 != 0) {
-                suchAd += (byte)(charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0));
+                suchAd += (uint)(charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0));
             }
 
             testCan[0] = 0;
@@ -285,18 +285,18 @@ namespace HustonRTEMS {
             testCan[2] = 0;
             testCan[3] = (byte)((suchAd & 0x3E0) >> 5);
 
-            testCan[4] = 0;
+            testCan[0] = 0;
             if(charkArray[5] - 0x30 != 0) {
-                testCan[5] |= (byte)(charkArray[1] - 0x30 - (charkArray[1] > 0x40 ? 7 : 0));
+                testCan[1] |= (byte)(charkArray[5] - 0x30 - (charkArray[5] > 0x40 ? 7 : 0));
             }
             if(charkArray[6] - 0x30 != 0) {
-                testCan[5] |= (byte)(charkArray[2] - 0x30 - (charkArray[2] > 0x40 ? 7 : 0));
+                testCan[1] |= (byte)(charkArray[6] - 0x30 - (charkArray[6] > 0x40 ? 7 : 0));
             }
             if(charkArray[7] - 0x30 != 0) {
-                testCan[5] |= (byte)(charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0));
+                testCan[1] |= (byte)(charkArray[7] - 0x30 - (charkArray[7] > 0x40 ? 7 : 0));
             }
             if(charkArray[8] - 0x30 != 0) {
-                testCan[5] |= (byte)(charkArray[3] - 0x30 - (charkArray[3] > 0x40 ? 7 : 0));
+                testCan[1] |= (byte)(charkArray[8] - 0x30 - (charkArray[8] > 0x40 ? 7 : 0));
             }
 
             testCan[6] = 0;
