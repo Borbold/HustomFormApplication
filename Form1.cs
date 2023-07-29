@@ -88,6 +88,37 @@ namespace HustonRTEMS {
             }
         }
         private void MainForm_Load(object sender, EventArgs e) {
+            /*byte[] data = {
+                0x74, 0x33, 0x38, 0x32, 0x32, 0x31, 0x41, 0x34, 0x32, 0x0D
+            };
+            for(int i = 0; i < data.Length; i++) {
+                LogBox.Invoke(new Action(() => {
+                    LogBox.Text += $" {data[i]:X}";
+                }));
+            }
+
+            LogBox.Invoke(new Action(() => {
+                LogBox.Text += "\r\n";
+            }));
+
+            byte[] locD = GF.CanToApp11(data);
+            for(int i = 0; i < locD.Length; i++) {
+                LogBox.Invoke(new Action(() => {
+                    LogBox.Text += $" {locD[i]:X}";
+                }));
+            }
+
+            LogBox.Invoke(new Action(() => {
+                LogBox.Text += "\r\n";
+            }));
+
+            byte[] locAC = GF.AppToCan11(testInternetBuf);
+            for(int i = 0; i < locAC.Length; i++) {
+                LogBox.Invoke(new Action(() => {
+                    LogBox.Text += $" {locAC[i]:X}";
+                }));
+            }*/
+
             AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
             IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
 
@@ -563,23 +594,61 @@ namespace HustonRTEMS {
         }
 
         private async void SendMagnetometer1_Click(object? sender, EventArgs? e) {
-            int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
-            int addresValue = Convert.ToInt16(AddresMag1.Text, 16);
-            int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
-            int iCount = 0;
-            int fCount = 3;
-            int[] arIValue = Array.Empty<int>();
-            float[] arFValue = new float[fCount];
-            arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
-            arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
-            arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
-            GF.SendMessageInSocket(serverListener,
-                idShipping, addresValue, addresReceive,
-                iCount, fCount, arIValue, arFValue,
-                LogBox, CheckKISS.Checked);
+            if(UseInternet.Checked) {
+                int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
+                int addresValue = Convert.ToInt16(AddresMag1.Text, 16);
+                int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
+                int iCount = 0;
+                int fCount = 3;
+                int[] arIValue = Array.Empty<int>();
+                float[] arFValue = new float[fCount];
+                arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
+                arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
+                arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
+                GF.SendMessageInSocket(serverListener,
+                    idShipping, addresValue, addresReceive,
+                    iCount, fCount, arIValue, arFValue,
+                    LogBox, CheckKISS.Checked);
 
-            if(CheckBoxRTEMS.Checked) {
-                _ = await client.SendAsync(buffer, SocketFlags.None);
+                if(CheckBoxRTEMS.Checked) {
+                    _ = await client.SendAsync(buffer, SocketFlags.None);
+                }
+            }else if(UseCan.Checked) {
+                ItUn id = new();
+                id.it = Convert.ToInt16(IdShippingMag.Text, 16);
+                ItUn adIn = new();
+                adIn.it = Convert.ToInt16(AddresMag1.Text, 16);
+                ItUn adOut = new();
+                adOut.it = Convert.ToInt16(AddresReceiveMag.Text, 16);
+
+                ItUn val1 = new();
+                val1.it = Convert.ToInt16(AddresReceiveMag.Text, 16);
+                ItUn val2 = new();
+                val2.it = Convert.ToInt16(AddresReceiveMag.Text, 16);
+                ItUn val3 = new();
+                val3.it = Convert.ToInt16(AddresReceiveMag.Text, 16);
+                byte[] magBase = {
+                    id.byte1, id.byte2, adIn.byte1, adIn.byte2, adOut.byte1, adOut.byte2,
+                    0x06, 0x00, val1.byte1, val1.byte2, val2.byte1, val2.byte2, val3.byte1, val3.byte2,
+                    0xC0
+                };
+                byte[] sendToCan = GF.AppToCan11(magBase);
+                LogBox.Text += "\r\n";
+                int byteWrite = 0, offsetByte = 8;
+                // Send from 8 bytes
+                while(byteWrite < sendToCan.Length) {
+                    int copyByte = byteWrite + offsetByte >= sendToCan.Length ?
+                        sendToCan.Length - byteWrite : offsetByte;
+                    byte[] data = new byte[copyByte];
+                    Array.Copy(sendToCan, byteWrite, data, 0, copyByte);
+                    serialPort?.Write(data, 0, copyByte);
+                    for(int i = 0; i < data.Length; i++) {
+                        LogBox.Text += " " + $"{data[i]:X}";
+                    }
+                    byteWrite += offsetByte;
+                    LogBox.Text += "\r\n";
+                }
+                LogBox.Text += "\r\n";
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e) {
