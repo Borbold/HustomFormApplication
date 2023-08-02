@@ -1,5 +1,7 @@
-﻿namespace HustonRTEMS {
-    partial class MainForm {
+﻿namespace HustonRTEMS
+{
+    partial class MainForm
+    {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -9,8 +11,10 @@
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if(disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -22,7 +26,8 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             LogBox = new TextBox();
             ListenPort = new Button();
             TemperatureLable = new Label();
@@ -2387,13 +2392,11 @@
             // 
             UseInternet.AutoSize = true;
             UseInternet.CheckAlign = ContentAlignment.MiddleRight;
-            UseInternet.Checked = true;
             UseInternet.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             UseInternet.Location = new Point(1078, 6);
             UseInternet.Name = "UseInternet";
             UseInternet.Size = new Size(120, 36);
             UseInternet.TabIndex = 8;
-            UseInternet.TabStop = true;
             UseInternet.Text = "Use that";
             UseInternet.UseVisualStyleBackColor = true;
             UseInternet.CheckedChanged += UseInternet_CheckedChanged;
@@ -2513,6 +2516,7 @@
             // 
             UseCan.AutoSize = true;
             UseCan.CheckAlign = ContentAlignment.MiddleRight;
+            UseCan.Checked = true;
             UseCan.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             UseCan.Location = new Point(1078, 6);
             UseCan.Name = "UseCan";

@@ -5,7 +5,7 @@ using System.Net.Sockets;
 
 namespace HustonRTEMS
 {
-    public partial class MainForm : Form
+    public partial class MainForm: Form
     {
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
@@ -64,7 +64,7 @@ namespace HustonRTEMS
 #pragma warning restore CS8618
         private void MainForm_ResizeBegin(object sender, EventArgs e)
         {
-            if (LogBox.DataBindings.Count == 0)
+            if(LogBox.DataBindings.Count == 0)
             {
                 int startWF = ActiveForm.Size.Width;
                 int startHF = ActiveForm.Size.Height;
@@ -76,7 +76,7 @@ namespace HustonRTEMS
                     startH + ((ActiveForm.Size.Height - startHF) / 2));
                 LogBox.DataBindings.Add(newBinding);
             }
-            if (LogBox2.DataBindings.Count == 0)
+            if(LogBox2.DataBindings.Count == 0)
             {
                 int startWF = ActiveForm.Size.Width;
                 int startHF = ActiveForm.Size.Height;
@@ -158,7 +158,7 @@ namespace HustonRTEMS
             IdMag2Z.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.Z]:X}";
             // Mag
 
-            if (cfg.GetSection("customProperty") is CustomProperty section)
+            if(cfg.GetSection("customProperty") is CustomProperty section)
             {
                 IPTextBox.Text = section.IP;
                 PortRTEMS.Text = section.PortRTEMS;
@@ -202,7 +202,7 @@ namespace HustonRTEMS
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (cfg.GetSection("customProperty") is CustomProperty section)
+            if(cfg.GetSection("customProperty") is CustomProperty section)
             {
                 section.IP = IPTextBox.Text;
                 section.PortRTEMS = PortRTEMS.Text;
@@ -357,14 +357,14 @@ namespace HustonRTEMS
 
         private void UseInternet_CheckedChanged(object sender, EventArgs e)
         {
-            if (UseInternet.Checked)
+            if(UseInternet.Checked)
             {
                 UseCan.Checked = false;
             }
         }
         private void UseCan_CheckedChanged(object sender, EventArgs e)
         {
-            if (UseCan.Checked)
+            if(UseCan.Checked)
             {
                 UseInternet.Checked = false;
             }
@@ -373,7 +373,7 @@ namespace HustonRTEMS
         private Socket serverListener, client;
         private async void Open_thread()
         {
-            while (flagRead)
+            while(flagRead)
             {
                 Thread.Sleep(1000);
                 GF.ClearInvokeTextBox(LogBox2);
@@ -384,7 +384,7 @@ namespace HustonRTEMS
                     ipep = new(IPAddress.Parse(IPTextBox.Text),
                         Convert.ToInt16(PortHUSTON.Text));
                 }
-                catch (Exception)
+                catch(Exception)
                 {
                     break;
                 }
@@ -397,7 +397,7 @@ namespace HustonRTEMS
                 int KISSBUFFER_SIZE = 256;
                 buffer = new byte[KISSBUFFER_SIZE];
                 int raw_buffer_size = GF.kissHeader.Length; // Kiss header
-                if (!serverListener.Connected)
+                if(!serverListener.Connected)
                 {
                     try
                     {
@@ -405,12 +405,12 @@ namespace HustonRTEMS
                         GF.InvokeTextBox(LogBox2, $"Socet open\r\n");
                         _ = await serverListener.SendAsync(hardBuf, SocketFlags.None);
                     }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
                         GF.InvokeTextBox(LogBox2, ex.Message + "\r\n");
                     }
 
-                    while (serverListener.Connected)
+                    while(serverListener.Connected)
                     {
                         try
                         {
@@ -418,20 +418,20 @@ namespace HustonRTEMS
                             message_size = await serverListener.ReceiveAsync(buffer, SocketFlags.None);
                             GF.InvokeTextBox(LogBox2, message_size.ToString() + "\r\n");
                         }
-                        catch (Exception ex)
+                        catch(Exception ex)
                         {
                             GF.InvokeTextBox(LogBox2, ex.Message + "\r\n");
                         }
                         Thread.Sleep(1000);
 
-                        if (message_size > 0)
+                        if(message_size > 0)
                         {
                             GF.InvokeTextBox(LogBox2, $"Socket server response message: \r\n");
-                            if (CheckBoxRTEMS.Checked)
+                            if(CheckBoxRTEMS.Checked)
                             {
-                                while (raw_buffer_size < message_size)
+                                while(raw_buffer_size < message_size)
                                 {
-                                    if (raw_buffer_size >= 0)
+                                    if(raw_buffer_size >= 0)
                                     {
                                         GF.InvokeTextBox(LogBox2, $"{buffer[raw_buffer_size]:X} ");
                                     }
@@ -439,8 +439,7 @@ namespace HustonRTEMS
                                     raw_buffer_size++;
                                 }
                                 raw_buffer_size = 0;
-                            }
-                            else
+                            } else
                             {
                                 raw_buffer_size = GF.kissHeader.Length;
                             }
@@ -459,104 +458,97 @@ namespace HustonRTEMS
                                 byte1 = buffer[22 - raw_buffer_size],
                                 byte2 = buffer[23 - raw_buffer_size]
                             };
-                            if (id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
+                            if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
                                 addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
                                 addresOut.it == Convert.ToInt16(AddresMag1.Text, 16))
                             {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for (int i = 0; i < message_size; i++)
+                                for(int i = 0; i < message_size; i++)
                                 {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendMagnetometer1_Click(null, null);
-                            }
-                            else if (id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
-                                addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
-                                addresOut.it == Convert.ToInt16(AddresMag2.Text, 16))
+                            } else if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
+                                  addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
+                                  addresOut.it == Convert.ToInt16(AddresMag2.Text, 16))
                             {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for (int i = 0; i < message_size; i++)
+                                for(int i = 0; i < message_size; i++)
                                 {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendMagnetometer2_Click(null, null);
-                            }
-                            else if (id.it == Convert.ToInt16(IdReceiveAcs.Text, 16) &&
-                                addresIn.it == Convert.ToInt16(AddresReceiveAcs.Text, 16) &&
-                                addresOut.it == Convert.ToInt16(AddresAcs.Text, 16))
+                            } else if(id.it == Convert.ToInt16(IdReceiveAcs.Text, 16) &&
+                                  addresIn.it == Convert.ToInt16(AddresReceiveAcs.Text, 16) &&
+                                  addresOut.it == Convert.ToInt16(AddresAcs.Text, 16))
                             {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for (int i = 0; i < message_size; i++)
+                                for(int i = 0; i < message_size; i++)
                                 {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendAcselerometer_Click(null, null);
-                            }
-                            else if (id.it == Convert.ToInt16(IdReceiveReg.Text, 16) &&
-                                addresIn.it == Convert.ToInt16(AddresReceiveReg.Text, 16) &&
-                                addresOut.it == Convert.ToInt16(AddresReg.Text, 16))
+                            } else if(id.it == Convert.ToInt16(IdReceiveReg.Text, 16) &&
+                                  addresIn.it == Convert.ToInt16(AddresReceiveReg.Text, 16) &&
+                                  addresOut.it == Convert.ToInt16(AddresReg.Text, 16))
                             {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for (int i = 0; i < message_size; i++)
+                                for(int i = 0; i < message_size; i++)
                                 {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendRegulation_Click(null, null);
-                            }
-                            else if (id.it == Convert.ToInt16(IdReceiveRat.Text, 16) &&
-                                addresIn.it == Convert.ToInt16(AddresReceiveRat.Text, 16) &&
-                                addresOut.it == Convert.ToInt16(AddresRat.Text, 16))
+                            } else if(id.it == Convert.ToInt16(IdReceiveRat.Text, 16) &&
+                                  addresIn.it == Convert.ToInt16(AddresReceiveRat.Text, 16) &&
+                                  addresOut.it == Convert.ToInt16(AddresRat.Text, 16))
                             {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for (int i = 0; i < message_size; i++)
+                                for(int i = 0; i < message_size; i++)
                                 {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendRatesensor_Click(null, null);
-                            }
-                            else if (id.it == Convert.ToInt16(IdReceiveAcc.Text, 16) &&
-                                addresIn.it == Convert.ToInt16(AddresReceiveAcc.Text, 16) &&
-                                addresOut.it == Convert.ToInt16(AddresAcc.Text, 16))
+                            } else if(id.it == Convert.ToInt16(IdReceiveAcc.Text, 16) &&
+                                  addresIn.it == Convert.ToInt16(AddresReceiveAcc.Text, 16) &&
+                                  addresOut.it == Convert.ToInt16(AddresAcc.Text, 16))
                             {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for (int i = 0; i < message_size; i++)
+                                for(int i = 0; i < message_size; i++)
                                 {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
                                 }
                                 SendAccelsensor_ClickAsync(null, null);
-                            }
-                            else if (id.it == 0x1B0 &&
-                                addresIn.it == 0x1C &&
-                                addresOut.it == 0x01)
+                            } else if(id.it == 0x1B0 &&
+                                  addresIn.it == 0x1C &&
+                                  addresOut.it == 0x01)
                             {
                                 // Send temperature
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                if (CheckBoxRTEMS.Checked)
+                                if(CheckBoxRTEMS.Checked)
                                 {
                                     _ = await client.SendAsync(buffer, SocketFlags.None);
                                 }
-                            }
-                            else if (id.it == Convert.ToInt16(IdReceiveTime.Text, 16) &&
-                                addresIn.it == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
-                                addresOut.it == Convert.ToInt16(IdShippingTime.Text, 16))
+                            } else if(id.it == Convert.ToInt16(IdReceiveTime.Text, 16) &&
+                                  addresIn.it == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
+                                  addresOut.it == Convert.ToInt16(IdShippingTime.Text, 16))
                             {
                                 // Send time
                                 DateTimeOffset dto = new(DateTime.Now);
                                 long nowTime = dto.ToUnixTimeSeconds();
                                 int[] arIValue = new int[5];
-                                while (nowTime > byte.MaxValue)
+                                while(nowTime > byte.MaxValue)
                                 {
                                     nowTime -= (byte.MaxValue + 1);
                                     arIValue[1] += 0x01;
-                                    while (arIValue[1] > byte.MaxValue)
+                                    while(arIValue[1] > byte.MaxValue)
                                     {
                                         arIValue[1] -= (byte.MaxValue + 1);
                                         arIValue[2] += 0x01;
-                                        while (arIValue[2] > byte.MaxValue)
+                                        while(arIValue[2] > byte.MaxValue)
                                         {
                                             arIValue[2] -= (byte.MaxValue + 1);
                                             arIValue[3] += 0x01;
-                                            while (arIValue[3] > byte.MaxValue)
+                                            while(arIValue[3] > byte.MaxValue)
                                             {
                                                 arIValue[3] -= (byte.MaxValue + 1);
                                                 arIValue[4] += 0x01;
@@ -569,8 +561,7 @@ namespace HustonRTEMS
                                     id.it, addresOut.it, addresIn.it,
                                     5, arIValue,
                                     LogBox, true);
-                            }
-                            else
+                            } else
                             {
                                 LogBox2.Invoke(new Action(() =>
                                 {
@@ -581,8 +572,7 @@ namespace HustonRTEMS
                                 }));
                             }
                             message_size = 0;
-                        }
-                        else
+                        } else
                         {
                             break;
                         }
@@ -603,7 +593,7 @@ namespace HustonRTEMS
             nThread = new(Open_thread);
             nThread.Start();
 
-            if (CheckBoxRTEMS.Checked)
+            if(CheckBoxRTEMS.Checked)
             {
                 IPEndPoint ipep = new(IPAddress.Parse(IPTextBox.Text),
                 Convert.ToInt16(PortRTEMS.Text));
@@ -623,43 +613,41 @@ namespace HustonRTEMS
                 client = await serverListener_S.AcceptAsync();
                 LogBox.Text = "Listen open";
                 // Receive message.
-                while (true)
+                while(true)
                 {
                     message_size = await client.ReceiveAsync(buffer, SocketFlags.None);
 
-                    if (message_size > 0)
+                    if(message_size > 0)
                     {
                         LogBox.Text =
                             $"HUSTON message: ";
-                        while (raw_buffer_size < message_size)
+                        while(raw_buffer_size < message_size)
                         {
-                            if (raw_buffer_size >= 0)
+                            if(raw_buffer_size >= 0)
                             {
                                 LogBox.Text += $"{buffer[raw_buffer_size]:X} ";
                             }
                             raw_buffer_size++;
                         }
                         raw_buffer_size = 0;
-                        if (serverListener != null && serverListener.Connected)
+                        if(serverListener != null && serverListener.Connected)
                         {
                             LogBox.Text += "\r\nSend to RTEMS";
-                            if (!CheckKISS.Checked)
+                            if(!CheckKISS.Checked)
                             {
                                 byte[] mBuffer = buffer;
                                 buffer = new byte[mBuffer.Length];
-                                for (int i = GF.kissHeader.Length; i < mBuffer.Length; i++)
+                                for(int i = GF.kissHeader.Length; i < mBuffer.Length; i++)
                                 {
                                     buffer[i] = mBuffer[i];
                                 }
                             }
                             _ = await serverListener.SendAsync(buffer, SocketFlags.None);
-                        }
-                        else
+                        } else
                         {
                             LogBox.Text += "\r\nPort for RTEMS don't open";
                         }
-                    }
-                    else
+                    } else
                     {
                         break;
                     }
@@ -670,17 +658,17 @@ namespace HustonRTEMS
         }
         private async void CloseSocketServer_Click(object sender, EventArgs e)
         {
-            if (nThread != null && nThread.IsAlive)
+            if(nThread != null && nThread.IsAlive)
             {
                 flagRead = false;
             }
-            if (serverListener != null && serverListener.Connected)
+            if(serverListener != null && serverListener.Connected)
             {
                 try
                 {
                     await serverListener.DisconnectAsync(true);
                 }
-                catch (Exception)
+                catch(Exception)
                 {
                 }
             }
@@ -698,7 +686,7 @@ namespace HustonRTEMS
 
         private async void SendMagnetometer1_Click(object? sender, EventArgs? e)
         {
-            if (UseInternet.Checked)
+            if(UseInternet.Checked)
             {
                 int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
                 int addresValue = Convert.ToInt16(AddresMag1.Text, 16);
@@ -715,12 +703,11 @@ namespace HustonRTEMS
                     iCount, fCount, arIValue, arFValue,
                     LogBox, CheckKISS.Checked);
 
-                if (CheckBoxRTEMS.Checked)
+                if(CheckBoxRTEMS.Checked)
                 {
                     _ = await client.SendAsync(buffer, SocketFlags.None);
                 }
-            }
-            else if (UseCan.Checked)
+            } else if(UseCan.Checked)
             {
                 ItUn id = new();
                 id.it = Convert.ToInt16(IdShippingMag.Text, 16);
@@ -740,18 +727,37 @@ namespace HustonRTEMS
                     0x06, 0x00, val1.byte1, val1.byte2, val2.byte1, val2.byte2, val3.byte1, val3.byte2,
                     0xC0
                 };
+                // For test
+                LogBox.Text += "Magnitude information";
+                LogBox.Text += "\r\n";
+                for(int i = 0; i < magBase.Length; i++)
+                {
+                    LogBox.Text += " " + $"{magBase[i]:X}";
+                }
+                LogBox.Text += "\r\n";
+                // For test
                 byte[] sendToCan = GF.AppToCan11(magBase);
                 LogBox.Text += "\r\n";
                 int byteWrite = 0, offsetByte = 8;
+                // For test
+                LogBox.Text += "Send information";
+                LogBox.Text += "\r\n";
+                for(int i = 0; i < sendToCan.Length; i++)
+                {
+                    LogBox.Text += " " + $"{sendToCan[i]:X}";
+                }
+                LogBox.Text += "\r\n";
+                // For test
                 // Send from 8 bytes
-                while (byteWrite < sendToCan.Length)
+                LogBox.Text += "Data information\r\n";
+                while(byteWrite < sendToCan.Length)
                 {
                     int copyByte = byteWrite + offsetByte >= sendToCan.Length ?
                         sendToCan.Length - byteWrite : offsetByte;
                     byte[] data = new byte[copyByte];
                     Array.Copy(sendToCan, byteWrite, data, 0, copyByte);
                     serialPort?.Write(data, 0, copyByte);
-                    for (int i = 0; i < data.Length; i++)
+                    for(int i = 0; i < data.Length; i++)
                     {
                         LogBox.Text += " " + $"{data[i]:X}";
                     }
@@ -759,6 +765,10 @@ namespace HustonRTEMS
                     LogBox.Text += "\r\n";
                 }
                 LogBox.Text += "\r\n";
+                // For test
+                LogBox.Text += "Serial port equals 'null'? - ";
+                LogBox.Text += serialPort == null;
+                // For test
                 // Read send text with RTEMS
                 Thread.Sleep(1000);
                 Read();
@@ -782,7 +792,7 @@ namespace HustonRTEMS
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if (CheckBoxRTEMS.Checked)
+            if(CheckBoxRTEMS.Checked)
             {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
@@ -806,7 +816,7 @@ namespace HustonRTEMS
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if (CheckBoxRTEMS.Checked)
+            if(CheckBoxRTEMS.Checked)
             {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
@@ -829,7 +839,7 @@ namespace HustonRTEMS
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if (CheckBoxRTEMS.Checked)
+            if(CheckBoxRTEMS.Checked)
             {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
@@ -852,7 +862,7 @@ namespace HustonRTEMS
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if (CheckBoxRTEMS.Checked)
+            if(CheckBoxRTEMS.Checked)
             {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
@@ -875,7 +885,7 @@ namespace HustonRTEMS
                 iCount, fCount, arIValue, arFValue,
                 LogBox, CheckKISS.Checked);
 
-            if (CheckBoxRTEMS.Checked)
+            if(CheckBoxRTEMS.Checked)
             {
                 _ = await client.SendAsync(buffer, SocketFlags.None);
             }
@@ -894,7 +904,7 @@ namespace HustonRTEMS
         }
         private void Read()
         {
-            if (flagRead)
+            if(flagRead)
             {
                 LogBox.Invoke(new Action(() =>
                 {
@@ -907,14 +917,14 @@ namespace HustonRTEMS
                         serialPort.BytesToRead - byteWrite : offsetByte;
                     byte[] data = new byte[copyByte];
                     _ = serialPort.Read(data, 0, copyByte);
-                    for (int i = 0; i < data.Length; i++)
+                    for(int i = 0; i < data.Length; i++)
                     {
                         LogBox.Invoke(new Action(() =>
                         {
                             LogBox.Text += $" {data[i]:X}";
                         }));
                     }
-                    if (data.Length > 1)
+                    if(data.Length > 1)
                     {
                         LogBox.Invoke(new Action(() =>
                         {
@@ -922,7 +932,7 @@ namespace HustonRTEMS
                             LogBox.Text += "CanToApp: ";
                         }));
                         byte[] locD = GF.CanToApp11(data);
-                        for (int i = 0; i < locD.Length; i++)
+                        for(int i = 0; i < locD.Length; i++)
                         {
                             LogBox.Invoke(new Action(() =>
                             {
@@ -932,7 +942,7 @@ namespace HustonRTEMS
                     }
 
                     byteWrite += copyByte;
-                } while (byteWrite < serialPort.BytesToRead);
+                } while(byteWrite < serialPort.BytesToRead);
             }
         }
         private void CANTestWrite_Click(object sender, EventArgs e)
@@ -941,14 +951,14 @@ namespace HustonRTEMS
             LogBox.Text += "\r\n";
             int byteWrite = 0, offsetByte = 14;
             // Send from 8 bytes
-            while (byteWrite < sendToCan.Length)
+            while(byteWrite < sendToCan.Length)
             {
                 int copyByte = byteWrite + offsetByte >= sendToCan.Length ?
                     sendToCan.Length - byteWrite : offsetByte;
                 byte[] data = new byte[copyByte];
                 Array.Copy(sendToCan, byteWrite, data, 0, copyByte);
                 serialPort?.Write(data, 0, copyByte);
-                for (int i = 0; i < data.Length; i++)
+                for(int i = 0; i < data.Length; i++)
                 {
                     LogBox.Text += " " + $"{data[i]:X}";
                 }
@@ -968,7 +978,7 @@ namespace HustonRTEMS
             flagRead = true;
             serialPort = new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
 
-            if (!serialPort.IsOpen)
+            if(!serialPort.IsOpen)
             {
                 serialPort.DataReceived += new SerialDataReceivedEventHandler(ComPort_DataReceived);
                 try
@@ -985,12 +995,11 @@ namespace HustonRTEMS
 
                     LogBox.Text += "\r\nPort open";
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     LogBox.Text = ex.Message;
                 }
-            }
-            else
+            } else
             {
                 LogBox.Text = "serialPort is open";
             }
@@ -998,7 +1007,7 @@ namespace HustonRTEMS
         private void CloseRKSCAN_Click(object sender, EventArgs e)
         {
             flagRead = false;
-            if (serialPort.IsOpen)
+            if(serialPort.IsOpen)
             {
                 try
                 {
@@ -1009,7 +1018,7 @@ namespace HustonRTEMS
 
                     LogBox.Text = "Port close";
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     LogBox.Text = ex.Message;
                 }
@@ -1024,7 +1033,7 @@ namespace HustonRTEMS
                 Filter = "All files (*.*)|*.*|Text File (*.txt)|*.txt*",
                 FilterIndex = 1,
             };
-            if (ofd.ShowDialog() == DialogResult.OK)
+            if(ofd.ShowDialog() == DialogResult.OK)
             {
                 NameDBFile.Text = ofd.FileName;
             }
@@ -1036,9 +1045,9 @@ namespace HustonRTEMS
 
             byte[] result = binaryReader.ReadBytes((int)fileStream.Length);
             int index = 0;
-            for (int i = 0; i < result.Length; i++)
+            for(int i = 0; i < result.Length; i++)
             {
-                if (result[i] == '_' && result[i + 1] == '_')
+                if(result[i] == '_' && result[i + 1] == '_')
                 {
                     index = i + 13;
                 }
@@ -1047,9 +1056,9 @@ namespace HustonRTEMS
             uint intT = 0;
             LItUn intV = new();
             FlUn floatV = new();
-            for (int i = index, j = 0; i < result.Length; j = 0, i += 5)
+            for(int i = index, j = 0; i < result.Length; j = 0, i += 5)
             {
-                if (j == 0)
+                if(j == 0)
                 {
                     intT |= result[i];
                     intT |= (uint)result[i + 1] << 8;
@@ -1063,7 +1072,7 @@ namespace HustonRTEMS
                     i += 4;
                     j++;
                 }
-                if (j == 1)
+                if(j == 1)
                 {
                     intV.byte1 = result[i];
                     intV.byte2 = result[i + 1];
@@ -1074,7 +1083,7 @@ namespace HustonRTEMS
                     i += 4;
                     j++;
                 }
-                if (j == 2)
+                if(j == 2)
                 {
                     intV.byte1 = result[i];
                     intV.byte2 = result[i + 1];
@@ -1085,7 +1094,7 @@ namespace HustonRTEMS
                     i += 4;
                     j++;
                 }
-                if (j == 3)
+                if(j == 3)
                 {
                     floatV.byte1 = result[i];
                     floatV.byte2 = result[i + 1];
