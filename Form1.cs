@@ -711,7 +711,7 @@ namespace HustonRTEMS
                 }
             } else if(UseCan.Checked)
             {
-                Unican_message test = new();
+                /*Unican_message test = new();
                 test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
                 test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
                 test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
@@ -719,12 +719,14 @@ namespace HustonRTEMS
                 test.data = new sbyte[8];
                 Can_message outByte = CTU.SendWithCAN(test);
                 string testOut = "t" + outByte.can_identifier + outByte.can_dlc;
-                for(int i = 0; i < outByte.data.Length; i++) {
+                for(int i = 0; i < outByte.data.Length; i++)
+                {
                     testOut += $"{outByte.data[i]}";
                 }
-                testOut += "\r";
+                testOut += "\r";*/
                 //serialPort?.Write("t13C2FD03\r");
-                serialPort?.Write("t280411223344\r");
+                serialPort?.Write($"t{TestOutText}\r");
+                LogBox.Text = TestOutText.Text;
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e)
@@ -851,7 +853,7 @@ namespace HustonRTEMS
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             Thread.Sleep(1000);
-            Read();
+            //Read();
             Thread.Sleep(1000);
         }
         private void Read()

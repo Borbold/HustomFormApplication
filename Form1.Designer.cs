@@ -250,6 +250,7 @@
             GetDBFileInfo = new Button();
             DBValueText = new TextBox();
             LogBox2 = new TextBox();
+            TestOutText = new TextBox();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -440,6 +441,7 @@
             // 
             // TabMagnetometer
             // 
+            TabMagnetometer.Controls.Add(TestOutText);
             TabMagnetometer.Controls.Add(label49);
             TabMagnetometer.Controls.Add(IdShippingMag);
             TabMagnetometer.Controls.Add(label44);
@@ -2736,6 +2738,15 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
+            // TestOutText
+            // 
+            TestOutText.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            TestOutText.Location = new Point(6, 338);
+            TestOutText.Name = "TestOutText";
+            TestOutText.Size = new Size(206, 35);
+            TestOutText.TabIndex = 54;
+            TestOutText.Text = "280411223344";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -3025,5 +3036,6 @@
         private TextBox DBSensIDText;
         private Label label81;
         private CheckBox ShowDeleteString;
+        private TextBox TestOutText;
     }
 }
