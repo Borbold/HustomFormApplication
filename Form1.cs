@@ -718,23 +718,12 @@ namespace HustonRTEMS
                 test.unican_length = 0;
                 test.data = new sbyte[8];
                 Can_message outByte = CTU.SendWithCAN(test);
-                byte[] buffer = new byte[10];
-                buffer[0] = 0x74;
-                buffer[1] = 0x31;
-                buffer[2] = 0x33;
-                buffer[3] = 0x43;
-                buffer[4] = 0x32;
-                buffer[5] = 0x46;
-                buffer[6] = 0x44;
-                buffer[7] = 0x30;
-                buffer[8] = 0x32;
-                buffer[9] = 0x64;
-                LogBox.Text = "Отправка\r\n";
-                for(int i = 0; i < buffer.Length; i++)
-                {
-                    LogBox.Text += $"{buffer[i]:X} ";
+                string testOut = "t" + outByte.can_identifier + outByte.can_dlc;
+                for(int i = 0; i < outByte.data.Length; i++) {
+                    testOut += $"{outByte.data[i]}";
                 }
-                serialPort.Write("t280411223344\r");
+                testOut += "\r";
+                serialPort.Write(testOut);
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e)
