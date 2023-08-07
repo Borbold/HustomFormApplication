@@ -864,6 +864,7 @@ namespace HustonRTEMS
                     LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
                 }));
                 int byteWrite = 0, offsetByte = serialPort.BytesToRead;
+                LogBox.Text += "\r\nStart read\r\n";
                 do
                 {
                     int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
@@ -896,6 +897,7 @@ namespace HustonRTEMS
 
                     byteWrite += copyByte;
                 } while(byteWrite < serialPort.BytesToRead);
+                LogBox.Text += "Finish read\r\n";
             }
         }
         private void CANTestWrite_Click(object sender, EventArgs e)
