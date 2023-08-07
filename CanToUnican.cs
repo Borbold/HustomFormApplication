@@ -67,13 +67,13 @@
             public UInt16 unican_length; //length of data
             public sbyte[] data; //pointer to data field
         };
-        struct Can_message
+        public struct Can_message
         {
             public UInt32 can_identifier; // 11 or 29bit CAN identifier
             public sbyte can_rtr;// Remote transmission request bit
             public sbyte can_extbit;// Identifier extension bit. 0x00 indicate 11 bit message ID
             public sbyte can_dlc;// Data length code. Number of bytes of data (0–8 bytes)
-            public volatile sbyte[] data;// Data field
+            public byte[] data;// Data field
         };
 
         /*
@@ -138,57 +138,37 @@
         };
         Can_tx_buffer_s? can_tx_buffer = null;
 
-        private void Add_can_msg_to_buffer(Can_message cmsg)
+        public Can_message SendWithCAN(Unican_message umsg)
         {
-            Can_tx_buffer_s tx_queue = new();
-            tx_queue.cmsg = cmsg;
-            tx_queue.next = null;
-            if(can_tx_buffer == null)
-                can_tx_buffer = tx_queue;
-            else
+            Can_message cmsg = new()
             {
-                Can_tx_buffer_s can_buf = can_tx_buffer;
-                while(can_buf.next != null)
-                    can_buf = can_buf.next;
-                can_buf.next = tx_queue;
-            }
-        }
+                data = new byte[8]
+            };
 
-        private void Send_can_msg(Can_message cmsg)
-        {
-            Add_can_msg_to_buffer(cmsg);
-        }
-
-        public sbyte Send_with_CAN(ref Unican_message umsg)
-        {
-            sbyte sc = 1;
             if(can_tx_buffer == null)
             {
-                sc = 0;
-                Can_message cmsg = new();
                 uint i;
                 cmsg.can_rtr = 0;
                 if(umsg.unican_length < 7)
                 {
                     can_set_identifier(ref umsg, ref cmsg, 0);
                     cmsg.can_dlc = (sbyte)(umsg.unican_length + CAN_MIN_DLC);
-                    cmsg.data[0] = ((sbyte)(umsg.unican_msg_id & 0x00FF));
-                    cmsg.data[1] = ((sbyte)((umsg.unican_msg_id >> 8) & 0x00FF));
+                    cmsg.data[0] = (byte)(umsg.unican_msg_id & 0x00FF);
+                    cmsg.data[1] = (byte)((umsg.unican_msg_id >> 8) & 0x00FF);
                     for(i = 0; i < umsg.unican_length; i++)
-                        cmsg.data[i + 2] = umsg.data[i];
-                    Send_can_msg(cmsg);
+                        cmsg.data[i + 2] = (byte)umsg.data[i];
                 } else
                 {
                     UInt16 crc;
                     can_set_identifier(ref umsg, ref cmsg, 0);
                     crc = Crc16.ComputeChecksum(umsg.data);
                     cmsg.can_dlc = 6;
-                    cmsg.data[0] = (sbyte)UINT16RIGHT(UNICAN_START_LONG_MESSAGE);
-                    cmsg.data[1] = (sbyte)UINT16LEFT(UNICAN_START_LONG_MESSAGE);
-                    cmsg.data[2] = (sbyte)UINT16RIGHT(umsg.unican_msg_id);
-                    cmsg.data[3] = (sbyte)UINT16LEFT(umsg.unican_msg_id);
-                    cmsg.data[4] = (sbyte)UINT16RIGHT(umsg.unican_length + CRC_LENGTH);
-                    cmsg.data[5] = (sbyte)UINT16LEFT(umsg.unican_length + CRC_LENGTH);
+                    cmsg.data[0] = (byte)UINT16RIGHT(UNICAN_START_LONG_MESSAGE);
+                    cmsg.data[1] = (byte)UINT16LEFT(UNICAN_START_LONG_MESSAGE);
+                    cmsg.data[2] = (byte)UINT16RIGHT(umsg.unican_msg_id);
+                    cmsg.data[3] = (byte)UINT16LEFT(umsg.unican_msg_id);
+                    cmsg.data[4] = (byte)UINT16RIGHT(umsg.unican_length + CRC_LENGTH);
+                    cmsg.data[5] = (byte)UINT16LEFT(umsg.unican_length + CRC_LENGTH);
 
 
                     Can_message cbmsg = new();
@@ -196,11 +176,11 @@
                     can_set_identifier(ref umsg, ref cbmsg, 1);  //could be optimized
                     for(i = 0; i < umsg.unican_length; i++)
                     {
-                        cbmsg.data[i % 8] = umsg.data[i];
+                        cbmsg.data[i % 8] = (byte)umsg.data[i];
                         if((i % 8) == 7)
                         {
                             cbmsg.can_dlc = 8;
-                            Add_can_msg_to_buffer(cbmsg);
+                            //Add_can_msg_to_buffer(cbmsg);
                             cbmsg = new();
                             can_set_identifier(ref umsg, ref cbmsg, 1);
                             cbmsg.can_rtr = 0;
@@ -211,33 +191,32 @@
                         cbmsg.can_dlc = (sbyte)(i % 8);
                         if((i % 8) < 7)
                         {
-                            cbmsg.data[i % 8] = (sbyte)UINT16RIGHT(crc);
-                            cbmsg.data[i % 8 + 1] = (sbyte)UINT16LEFT(crc);
+                            cbmsg.data[i % 8] = (byte)UINT16RIGHT(crc);
+                            cbmsg.data[i % 8 + 1] = (byte)UINT16LEFT(crc);
                             cbmsg.can_dlc += 2;
-                            Add_can_msg_to_buffer(cbmsg);
+                            //Add_can_msg_to_buffer(cbmsg);
                         } else
                         {
-                            cbmsg.data[7] = (sbyte)UINT16RIGHT(crc);
+                            cbmsg.data[7] = (byte)UINT16RIGHT(crc);
                             cbmsg.can_dlc = 8;
-                            Add_can_msg_to_buffer(cbmsg);
+                            //Add_can_msg_to_buffer(cbmsg);
                             cbmsg = new();
                             can_set_identifier(ref umsg, ref cbmsg, 1);
                             cbmsg.can_rtr = 0;
-                            cbmsg.data[0] = (sbyte)UINT16LEFT(crc);
+                            cbmsg.data[0] = (byte)UINT16LEFT(crc);
                             cbmsg.can_dlc = 1;
-                            Add_can_msg_to_buffer(cbmsg);
+                            //Add_can_msg_to_buffer(cbmsg);
                         }
                     } else
                     {
-                        cbmsg.data[0] = (sbyte)UINT16RIGHT(crc);
-                        cbmsg.data[1] = (sbyte)UINT16LEFT(crc);
+                        cbmsg.data[0] = (byte)UINT16RIGHT(crc);
+                        cbmsg.data[1] = (byte)UINT16LEFT(crc);
                         cbmsg.can_dlc = 2;
-                        Add_can_msg_to_buffer(cbmsg);
+                        //Add_can_msg_to_buffer(cbmsg);
                     }
-                    Send_can_msg(cmsg);
                 }
             }
-            return sc;
+            return cmsg;
         }
     }
 }

@@ -2,11 +2,13 @@ using System.Configuration;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using static HustonRTEMS.CanToUnican;
 
 namespace HustonRTEMS
 {
     public partial class MainForm: Form
     {
+        private readonly CanToUnican CTU = new();
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
         private readonly GeneralSendFun GSF = new();
@@ -709,70 +711,25 @@ namespace HustonRTEMS
                 }
             } else if(UseCan.Checked)
             {
-                ItUn id = new();
-                id.it = Convert.ToInt16(IdShippingMag.Text, 16);
-                ItUn adIn = new();
-                adIn.it = Convert.ToInt16(AddresMag1.Text, 16);
-                ItUn adOut = new();
-                adOut.it = Convert.ToInt16(AddresReceiveMag.Text, 16);
-
-                ItUn val1 = new();
-                val1.it = Convert.ToInt16(AddresReceiveMag.Text, 16);
-                ItUn val2 = new();
-                val2.it = Convert.ToInt16(AddresReceiveMag.Text, 16);
-                ItUn val3 = new();
-                val3.it = Convert.ToInt16(AddresReceiveMag.Text, 16);
-                byte[] magBase = {
-                    id.byte1, id.byte2, adIn.byte1, adIn.byte2, adOut.byte1, adOut.byte2,
-                    0x06, 0x00, val1.byte1, val1.byte2, val2.byte1, val2.byte2, val3.byte1, val3.byte2,
-                    0xC0
-                };
-                // For test
-                LogBox.Text += "Magnitude information";
-                LogBox.Text += "\r\n";
-                for(int i = 0; i < magBase.Length; i++)
-                {
-                    LogBox.Text += " " + $"{magBase[i]:X}";
-                }
-                LogBox.Text += "\r\n";
-                // For test
-                byte[] sendToCan = GF.AppToCan11(magBase);
-                LogBox.Text += "\r\n";
-                int byteWrite = 0, offsetByte = 8;
-                // For test
-                LogBox.Text += "Send information";
-                LogBox.Text += "\r\n";
-                for(int i = 0; i < sendToCan.Length; i++)
-                {
-                    LogBox.Text += " " + $"{sendToCan[i]:X}";
-                }
-                LogBox.Text += "\r\n";
-                // For test
-                // Send from 8 bytes
-                LogBox.Text += "Data information\r\n";
-                while(byteWrite < sendToCan.Length)
-                {
-                    int copyByte = byteWrite + offsetByte >= sendToCan.Length ?
-                        sendToCan.Length - byteWrite : offsetByte;
-                    byte[] data = new byte[copyByte];
-                    Array.Copy(sendToCan, byteWrite, data, 0, copyByte);
-                    serialPort?.Write(data, 0, copyByte);
-                    for(int i = 0; i < data.Length; i++)
-                    {
-                        LogBox.Text += " " + $"{data[i]:X}";
-                    }
-                    byteWrite += offsetByte;
-                    LogBox.Text += "\r\n";
-                }
-                LogBox.Text += "\r\n";
-                // For test
-                LogBox.Text += "Serial port equals 'null'? - ";
-                LogBox.Text += serialPort == null;
-                // For test
-                // Read send text with RTEMS
-                Thread.Sleep(1000);
-                Read();
-                Thread.Sleep(1000);
+                Unican_message test = new();
+                test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
+                test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
+                test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
+                test.unican_length = 0;
+                test.data = new sbyte[8];
+                Can_message outByte = CTU.SendWithCAN(test);
+                byte[] buffer = new byte[10];
+                buffer[0] = 0x74;
+                buffer[1] = 0x31;
+                buffer[2] = 0x33;
+                buffer[3] = 0x43;
+                buffer[4] = 0x32;
+                buffer[5] = 0x46;
+                buffer[6] = 0x44;
+                buffer[7] = 0x30;
+                buffer[8] = 0x33;
+                buffer[9] = 0x64;
+                serialPort?.Write(buffer, 0, buffer.Length);
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e)

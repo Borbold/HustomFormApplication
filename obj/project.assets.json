@@ -366,24 +366,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ivar\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Ivar\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VS_project\\HustomFormApplication\\HustonRTEMS.csproj",
+      "projectUniqueName": "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj",
       "projectName": "HustonRTEMS",
-      "projectPath": "D:\\VS_project\\HustomFormApplication\\HustonRTEMS.csproj",
+      "projectPath": "D:\\VS_Code\\HustonRTEMS\\HustonRTEMS.csproj",
       "packagesPath": "C:\\Users\\Ivar\\.nuget\\packages\\",
-      "outputPath": "D:\\VS_project\\HustomFormApplication\\obj\\",
+      "outputPath": "D:\\VS_Code\\HustonRTEMS\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
         "C:\\Users\\Ivar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -445,7 +440,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   },
