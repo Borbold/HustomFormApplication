@@ -734,7 +734,7 @@ namespace HustonRTEMS
                 {
                     LogBox.Text += $"{buffer[i]:X} ";
                 }
-                serialPort.Write(buffer, 0, buffer.Length);
+                serialPort.Write("t280411223344\r");
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e)
