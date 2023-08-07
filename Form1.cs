@@ -723,7 +723,9 @@ namespace HustonRTEMS
                     testOut += $"{outByte.data[i]}";
                 }
                 testOut += "\r";
-                serialPort.Write("t13C2FD03\r");
+                LogBox.Text += "\r\nHello!\r\n";
+                serialPort?.Write("t13C2FD03\r");
+                LogBox.Text += "Neggo!\r\n";
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e)
