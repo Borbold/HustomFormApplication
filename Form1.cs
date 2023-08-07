@@ -727,9 +727,14 @@ namespace HustonRTEMS
                 buffer[5] = 0x46;
                 buffer[6] = 0x44;
                 buffer[7] = 0x30;
-                buffer[8] = 0x33;
+                buffer[8] = 0x32;
                 buffer[9] = 0x64;
-                serialPort?.Write(buffer, 0, buffer.Length);
+                LogBox.Text = "Отправка\r\n";
+                for(int i = 0; i < buffer.Length; i++)
+                {
+                    LogBox.Text += $"{buffer[i]:X} ";
+                }
+                serialPort.Write(buffer, 0, buffer.Length);
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e)
