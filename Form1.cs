@@ -726,7 +726,7 @@ namespace HustonRTEMS
                 testOut += "\r";*/
                 //serialPort?.Write("t13C2FD03\r");
                 serialPort?.Write($"t{TestOutText}\r");
-                LogBox.Text = TestOutText.Text;
+                LogBox.Text = "Отправлено\r\n" + "t" + TestOutText.Text;
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e)
@@ -852,9 +852,16 @@ namespace HustonRTEMS
 
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            Thread.Sleep(1000);
-            //Read();
-            Thread.Sleep(1000);
+            try
+            {
+                Thread.Sleep(1000);
+                Read();
+                Thread.Sleep(1000);
+            }
+            catch (Exception ex)
+            {
+                LogBox2.Text = ex.Message;
+            }
         }
         private void Read()
         {
