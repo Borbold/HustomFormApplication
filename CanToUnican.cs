@@ -5,7 +5,7 @@
         const ushort polynomial = 0xA001;
         static readonly ushort[] table = new ushort[256];
 
-        public static ushort ComputeChecksum(sbyte[] bytes)
+        public static ushort ComputeChecksum(byte[] bytes)
         {
             ushort crc = 0;
             for(int i = 0; i < bytes.Length; ++i)
@@ -65,7 +65,7 @@
             public UInt16 unican_address_from; // address of sender in sattelite network
             public UInt16 unican_address_to; // address of receiver in sattelite network
             public UInt16 unican_length; //length of data
-            public sbyte[] data; //pointer to data field
+            public byte[] data; //pointer to data field
         };
         public struct Can_message
         {
@@ -142,7 +142,7 @@
         {
             Can_message cmsg = new()
             {
-                data = new byte[8]
+                data = new byte[umsg.unican_length + CAN_MIN_DLC]
             };
 
             if(can_tx_buffer == null)

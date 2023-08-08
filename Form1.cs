@@ -722,8 +722,15 @@ namespace HustonRTEMS
                     test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
                     test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
                     test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
-                    test.unican_length = 0;
-                    test.data = new sbyte[8];
+                    test.unican_length = 4;
+                    FlUn fu = new()
+                    {
+                        fl = (float)Convert.ToDecimal(LabMagX.Text)
+                    };
+                    test.data = new byte[4]
+                    {
+                        fu.byte1, fu.byte2, fu.byte3, fu.byte4
+                    };
                     Can_message outByte = CTU.SendWithCAN(test);
                     string dataStr = "";
                     for(int i = 0; i < outByte.can_dlc; i++)
