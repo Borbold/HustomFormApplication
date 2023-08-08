@@ -727,7 +727,12 @@ namespace HustonRTEMS
                     Can_message outByte = CTU.SendWithCAN(test);
                     string dataStr = "";
                     for(int i = 0; i < outByte.can_dlc; i++)
-                        dataStr += $"{outByte.data[i]:X}";
+                    {
+                        string byteS = $"{outByte.data[i]:X}";
+                        if(byteS.Length < 2)
+                            byteS = $"0{outByte.data[i]:X}";
+                        dataStr += byteS;
+                    }
 
                     string outText = string.Format("t{0:X}{1}{2}\r", outByte.can_identifier, outByte.can_dlc, dataStr);
                     serialPort?.Write(outText);
