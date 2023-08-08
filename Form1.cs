@@ -711,23 +711,28 @@ namespace HustonRTEMS
                 }
             } else if(UseCan.Checked)
             {
-                /*Unican_message test = new();
-                test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
-                test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
-                test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
-                test.unican_length = 0;
-                test.data = new sbyte[8];
-                Can_message outByte = CTU.SendWithCAN(test);
-                string testOut = "t" + outByte.can_identifier + outByte.can_dlc;
-                for(int i = 0; i < outByte.data.Length; i++)
+                if(TestTextCheckBox.Checked)
                 {
-                    testOut += $"{outByte.data[i]}";
+                    string outText = string.Format("t{0}\r", TestOutText.Text);
+                    serialPort?.Write(outText);
+                    LogBox.Text = "Отправлено\r\n" + outText;
+                } else
+                {
+                    Unican_message test = new();
+                    test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
+                    test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
+                    test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
+                    test.unican_length = 0;
+                    test.data = new sbyte[8];
+                    Can_message outByte = CTU.SendWithCAN(test);
+                    string dataStr = "";
+                    for(int i = 0; i < outByte.data.Length; i++)
+                        dataStr += $"{outByte.data[i]}";
+
+                    string outText = string.Format("t{0}{1}{2}\r", outByte.can_identifier, outByte.can_dlc, dataStr);
+                    serialPort?.Write(outText);
+                    LogBox.Text = "Отправлено\r\n" + outText;
                 }
-                testOut += "\r";*/
-                //serialPort?.Write("t13C2FD03\r");
-                string outText = string.Format("t{0}\r", TestOutText.Text);
-                serialPort?.Write(outText);
-                LogBox.Text = "Отправлено\r\n" + outText;
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e)
@@ -859,7 +864,7 @@ namespace HustonRTEMS
                 Read();
                 Thread.Sleep(1000);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 LogBox2.Text = ex.Message;
             }

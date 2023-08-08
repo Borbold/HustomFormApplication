@@ -42,6 +42,7 @@
             TrackBarTemp = new TrackBar();
             label3 = new Label();
             TabMagnetometer = new TabPage();
+            TestOutText = new TextBox();
             label49 = new Label();
             IdShippingMag = new TextBox();
             label44 = new Label();
@@ -250,7 +251,7 @@
             GetDBFileInfo = new Button();
             DBValueText = new TextBox();
             LogBox2 = new TextBox();
-            TestOutText = new TextBox();
+            TestTextCheckBox = new CheckBox();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -441,6 +442,7 @@
             // 
             // TabMagnetometer
             // 
+            TabMagnetometer.Controls.Add(TestTextCheckBox);
             TabMagnetometer.Controls.Add(TestOutText);
             TabMagnetometer.Controls.Add(label49);
             TabMagnetometer.Controls.Add(IdShippingMag);
@@ -457,6 +459,15 @@
             TabMagnetometer.TabIndex = 1;
             TabMagnetometer.Text = "Magnetometer";
             TabMagnetometer.UseVisualStyleBackColor = true;
+            // 
+            // TestOutText
+            // 
+            TestOutText.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            TestOutText.Location = new Point(6, 338);
+            TestOutText.Name = "TestOutText";
+            TestOutText.Size = new Size(206, 35);
+            TestOutText.TabIndex = 54;
+            TestOutText.Text = "280411223344";
             // 
             // label49
             // 
@@ -2738,14 +2749,15 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
-            // TestOutText
+            // TestTextCheckBox
             // 
-            TestOutText.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            TestOutText.Location = new Point(6, 338);
-            TestOutText.Name = "TestOutText";
-            TestOutText.Size = new Size(206, 35);
-            TestOutText.TabIndex = 54;
-            TestOutText.Text = "280411223344";
+            TestTextCheckBox.AutoSize = true;
+            TestTextCheckBox.Location = new Point(6, 311);
+            TestTextCheckBox.Name = "TestTextCheckBox";
+            TestTextCheckBox.Size = new Size(59, 21);
+            TestTextCheckBox.TabIndex = 54;
+            TestTextCheckBox.Text = "Galca";
+            TestTextCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -3037,5 +3049,6 @@
         private Label label81;
         private CheckBox ShowDeleteString;
         private TextBox TestOutText;
+        private CheckBox TestTextCheckBox;
     }
 }
