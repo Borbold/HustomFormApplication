@@ -726,7 +726,7 @@ namespace HustonRTEMS
                     test.data = new sbyte[8];
                     Can_message outByte = CTU.SendWithCAN(test);
                     string dataStr = "";
-                    for(int i = 0; i < outByte.data.Length; i++)
+                    for(int i = 0; i < outByte.can_dlc; i++)
                         dataStr += $"{outByte.data[i]:X}";
 
                     string outText = string.Format("t{0:X}{1}{2}\r", outByte.can_identifier, outByte.can_dlc, dataStr);
