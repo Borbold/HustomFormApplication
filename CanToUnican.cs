@@ -1,50 +1,54 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO.Ports;
 using static HustonRTEMS.CanToUnican;
 
 namespace HustonRTEMS
 {
-    public static class Crc16
+    public class Crc16
     {
-        private const ushort polynomial = 0xA001;
-        private static readonly ushort[] table = new ushort[256];
+        private static ushort[] CrcTable = { 0x0000, 0x1021, 0x2042, 0x3063, 0x4084,
+        0x50a5, 0x60c6, 0x70e7, 0x8108, 0x9129, 0xa14a, 0xb16b, 0xc18c, 0xd1ad,
+        0xe1ce, 0xf1ef, 0x1231, 0x0210, 0x3273, 0x2252, 0x52b5, 0x4294, 0x72f7,
+        0x62d6, 0x9339, 0x8318, 0xb37b, 0xa35a, 0xd3bd, 0xc39c, 0xf3ff, 0xe3de,
+        0x2462, 0x3443, 0x0420, 0x1401, 0x64e6, 0x74c7, 0x44a4, 0x5485, 0xa56a,
+        0xb54b, 0x8528, 0x9509, 0xe5ee, 0xf5cf, 0xc5ac, 0xd58d, 0x3653, 0x2672,
+        0x1611, 0x0630, 0x76d7, 0x66f6, 0x5695, 0x46b4, 0xb75b, 0xa77a, 0x9719,
+        0x8738, 0xf7df, 0xe7fe, 0xd79d, 0xc7bc, 0x48c4, 0x58e5, 0x6886, 0x78a7,
+        0x0840, 0x1861, 0x2802, 0x3823, 0xc9cc, 0xd9ed, 0xe98e, 0xf9af, 0x8948,
+        0x9969, 0xa90a, 0xb92b, 0x5af5, 0x4ad4, 0x7ab7, 0x6a96, 0x1a71, 0x0a50,
+        0x3a33, 0x2a12, 0xdbfd, 0xcbdc, 0xfbbf, 0xeb9e, 0x9b79, 0x8b58, 0xbb3b,
+        0xab1a, 0x6ca6, 0x7c87, 0x4ce4, 0x5cc5, 0x2c22, 0x3c03, 0x0c60, 0x1c41,
+        0xedae, 0xfd8f, 0xcdec, 0xddcd, 0xad2a, 0xbd0b, 0x8d68, 0x9d49, 0x7e97,
+        0x6eb6, 0x5ed5, 0x4ef4, 0x3e13, 0x2e32, 0x1e51, 0x0e70, 0xff9f, 0xefbe,
+        0xdfdd, 0xcffc, 0xbf1b, 0xaf3a, 0x9f59, 0x8f78, 0x9188, 0x81a9, 0xb1ca,
+        0xa1eb, 0xd10c, 0xc12d, 0xf14e, 0xe16f, 0x1080, 0x00a1, 0x30c2, 0x20e3,
+        0x5004, 0x4025, 0x7046, 0x6067, 0x83b9, 0x9398, 0xa3fb, 0xb3da, 0xc33d,
+        0xd31c, 0xe37f, 0xf35e, 0x02b1, 0x1290, 0x22f3, 0x32d2, 0x4235, 0x5214,
+        0x6277, 0x7256, 0xb5ea, 0xa5cb, 0x95a8, 0x8589, 0xf56e, 0xe54f, 0xd52c,
+        0xc50d, 0x34e2, 0x24c3, 0x14a0, 0x0481, 0x7466, 0x6447, 0x5424, 0x4405,
+        0xa7db, 0xb7fa, 0x8799, 0x97b8, 0xe75f, 0xf77e, 0xc71d, 0xd73c, 0x26d3,
+        0x36f2, 0x0691, 0x16b0, 0x6657, 0x7676, 0x4615, 0x5634, 0xd94c, 0xc96d,
+        0xf90e, 0xe92f, 0x99c8, 0x89e9, 0xb98a, 0xa9ab, 0x5844, 0x4865, 0x7806,
+        0x6827, 0x18c0, 0x08e1, 0x3882, 0x28a3, 0xcb7d, 0xdb5c, 0xeb3f, 0xfb1e,
+        0x8bf9, 0x9bd8, 0xabbb, 0xbb9a, 0x4a75, 0x5a54, 0x6a37, 0x7a16, 0x0af1,
+        0x1ad0, 0x2ab3, 0x3a92, 0xfd2e, 0xed0f, 0xdd6c, 0xcd4d, 0xbdaa, 0xad8b,
+        0x9de8, 0x8dc9, 0x7c26, 0x6c07, 0x5c64, 0x4c45, 0x3ca2, 0x2c83, 0x1ce0,
+        0x0cc1, 0xef1f, 0xff3e, 0xcf5d, 0xdf7c, 0xaf9b, 0xbfba, 0x8fd9, 0x9ff8,
+        0x6e17, 0x7e36, 0x4e55, 0x5e74, 0x2e93, 0x3eb2, 0x0ed1, 0x1ef0, };
 
-        public static ushort ComputeChecksum(byte[] bytes)
+        public static ushort ComputeCrc(byte[] data)
         {
-            ushort crc = 0;
-            for(int i = 0; i < bytes.Length; ++i)
-            {
-                byte index = (byte)(crc ^ bytes[i]);
-                crc = (ushort)((crc >> 8) ^ table[index]);
-            }
+            ushort crc = 0xFFFF;
+
+            foreach(byte datum in data)
+                crc = (ushort)((crc >> 8) ^ CrcTable[(crc ^ datum) & 0xFF]);
+
             return crc;
-        }
-
-        static Crc16()
-        {
-            ushort value;
-            ushort temp;
-            for(ushort i = 0; i < table.Length; ++i)
-            {
-                value = 0;
-                temp = i;
-                for(byte j = 0; j < 8; ++j)
-                {
-                    if(((value ^ temp) & 0x0001) != 0)
-                    {
-                        value = (ushort)((value >> 1) ^ polynomial);
-                    } else
-                    {
-                        value >>= 1;
-                    }
-                    temp >>= 1;
-                }
-                table[i] = value;
-            }
         }
     }
 
-    public struct Unican_message
+    public struct UnicanMessage
     {
         public ushort unican_msg_id; //MSG_ID of unican message
         public ushort unican_address_from; // address of sender in sattelite network
@@ -52,7 +56,7 @@ namespace HustonRTEMS
         public ushort unican_length; //length of data
         public byte[] data; //pointer to data field
     };
-    public struct Can_message
+    public struct CanMessage
     {
         public uint can_identifier; // 11 or 29bit CAN identifier
         public sbyte can_rtr;// Remote transmission request bit
@@ -63,8 +67,14 @@ namespace HustonRTEMS
 
     public class CanTXBufferS
     {
-        public Can_message cmsg;
+        public CanMessage cmsg;
         public CanTXBufferS? next;
+    };
+    public class UmesBufferS
+    {
+        public UInt16 pos;
+        public UnicanMessage umsg;
+        public UmesBufferS next;
     };
 
     internal class CanToUnican
@@ -85,9 +95,29 @@ namespace HustonRTEMS
         private const sbyte CAN_STANDART_HEADER = 0;
         private const sbyte CAN_EXTENDED_HEADER = 1;
 
+        const int UNICANMES_MAX_COUNT = 10;
+        struct unican_buffer_s
+        {
+            public byte proc_task_id;
+            public byte message_ready_event;
+            public byte message_sended_event;
+            public int umes_pos;
+            public uint umes_buf_head;
+            public uint umes_buf_tail;
+            public UnicanMessage[] umes;
+            public int session_socket;
+        };
+        private const int CAN_BUF_SIZE = 16;
+        struct CanBufferS
+        {
+            public CanMessage[] cmgs;
+            public sbyte cmsg_head;
+            public sbyte cmsg_tail;
+            public UmesBufferS umsg_buffer;
+        };
         private CanTXBufferS? can_tx_buffer = null;
 
-        private void AddCanMSGBuffer(ref Can_message cmsg)
+        private void AddCanMSGBuffer(ref CanMessage cmsg)
         {
             CanTXBufferS tx_queue = new();
             tx_queue.cmsg = cmsg;
@@ -108,7 +138,100 @@ namespace HustonRTEMS
             }
         }
 
-        private void CanSetIdentifier(ref Unican_message msg, ref Can_message can_buff,
+        UmesBufferS FindUmsgBuffer(uint unican_address_from)
+        {
+            UmesBufferS res = can_rx_buf.umsg_buffer;
+            while(res != null)
+            {
+                if(res.umsg.unican_address_from == unican_address_from)
+                    break;
+                res = res.next;
+            }
+            return res;
+        }
+        void RemoveFromUmsgBuffer(UmesBufferS rem_umsg_buf)
+        {
+            if(rem_umsg_buf == can_rx_buf.umsg_buffer)
+                can_rx_buf.umsg_buffer = can_rx_buf.umsg_buffer.next;
+            else
+            {
+                UmesBufferS umsg_buf = can_rx_buf.umsg_buffer;
+                while(umsg_buf.next != null)
+                {
+                    if(umsg_buf.next == rem_umsg_buf)
+                    {
+                        umsg_buf.next = umsg_buf.next.next;
+                        break;
+                    }
+                    umsg_buf = umsg_buf.next;
+                }
+            }
+        }
+
+        private CanBufferS can_rx_buf;
+        //private UnicanBufferS unican_buffer;
+        private void ConvertCan()
+        {
+            while(can_rx_buf.cmsg_head != can_rx_buf.cmsg_tail)
+            {
+                uint address_to;
+                uint address_from;
+                byte data_bit = 0;
+
+                if(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_extbit == 0)
+                {
+                    address_to = (can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x1F);
+                    address_from = (can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x3E0) >> 5;
+                    data_bit = (byte)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x400) >> 10);
+                } else
+                {
+                    address_to = (can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x3FFF);
+                    address_from = (can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0xFFFC000) >> 14;
+                    data_bit = (byte)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x10000000) >> 28);
+                }
+
+                if(data_bit != 0)
+                {
+                    UmesBufferS umsg_buf = FindUmsgBuffer(address_from);
+                    if(umsg_buf != null)
+                    {
+                        for(ushort i = 0; i < can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_dlc; i++)
+                        {
+                            if(umsg_buf.pos < umsg_buf.umsg.unican_length + CRC_LENGTH)
+                            {
+                                umsg_buf.umsg.data[umsg_buf.pos] = can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[i];
+                                umsg_buf.pos++;
+                            } else
+                            {
+                                logBox.Text = "\r\nUEXPECTED unican data received\r\n";
+                            }
+                        }
+                        if(umsg_buf.pos == umsg_buf.umsg.unican_length + CRC_LENGTH)
+                        {
+                            UnicanMessage umsg = umsg_buf.umsg;
+                            RemoveFromUmsgBuffer(umsg_buf);
+                            ushort crc, calc_crc;
+                            crc = (ushort)(umsg.data[umsg.unican_length]
+                                    + umsg.data[umsg.unican_length + 1] * 256);
+                            calc_crc = Crc16.ComputeCrc(umsg.data);
+                            if(crc == calc_crc)
+                            {
+                                /*unican_buffer.umes[unican_buffer.umes_buf_tail] = umsg;
+                                unican_buffer.umes_buf_tail =
+                                        (unican_buffer.umes_buf_tail + 1)
+                                                % UNICANMES_MAX_COUNT;
+                                res++;*/
+                            } else
+                            {
+                                logBox.Text = "\r\nnInvalid unican message CRC!!\r\n";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CanSetIdentifier(ref UnicanMessage msg, ref CanMessage can_buff,
                     sbyte data_bit)
         {
             if((msg.unican_address_from > 31) || (msg.unican_address_to > 31))
@@ -134,7 +257,7 @@ namespace HustonRTEMS
             }
         }
 
-        private void SendCanMessage(Can_message outByte)
+        private void SendCanMessage(CanMessage outByte)
         {
             string dataStr = "";
             for(int i = 0; i < outByte.can_dlc; i++)
@@ -152,11 +275,11 @@ namespace HustonRTEMS
 
         private SerialPort? writePort;
         private TextBox? logBox;
-        public void SendWithCAN(Unican_message umsg, SerialPort writePort, TextBox logBox)
+        public void SendWithCAN(UnicanMessage umsg, SerialPort writePort, TextBox logBox)
         {
             this.writePort = writePort;
             this.logBox = logBox;
-            Can_message cmsg = new()
+            CanMessage cmsg = new()
             {
                 data = new byte[umsg.unican_length + CAN_MIN_DLC]
             };
@@ -178,7 +301,7 @@ namespace HustonRTEMS
                 {
                     ushort crc;
                     CanSetIdentifier(ref umsg, ref cmsg, 0);
-                    crc = Crc16.ComputeChecksum(umsg.data);
+                    crc = Crc16.ComputeCrc(umsg.data);
                     cmsg.can_dlc = 6;
                     cmsg.data[0] = (byte)UINT16RIGHT(UNICAN_START_LONG_MESSAGE);
                     cmsg.data[1] = (byte)UINT16LEFT(UNICAN_START_LONG_MESSAGE);
@@ -188,7 +311,7 @@ namespace HustonRTEMS
                     cmsg.data[5] = (byte)UINT16LEFT(umsg.unican_length + CRC_LENGTH);
 
 
-                    Can_message cbmsg = new()
+                    CanMessage cbmsg = new()
                     {
                         can_rtr = 0,
                         data = new byte[8]

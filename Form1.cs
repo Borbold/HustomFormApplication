@@ -718,7 +718,7 @@ namespace HustonRTEMS
                     LogBox.Text = "Отправлено\r\n" + outText;
                 } else
                 {
-                    Unican_message test = new();
+                    UnicanMessage test = new();
                     test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
                     test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
                     test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
