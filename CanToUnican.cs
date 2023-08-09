@@ -1,4 +1,6 @@
-﻿using static HustonRTEMS.CanToUnican;
+﻿using System.Diagnostics;
+using System.IO.Ports;
+using static HustonRTEMS.CanToUnican;
 
 namespace HustonRTEMS
 {
@@ -83,21 +85,25 @@ namespace HustonRTEMS
         private const sbyte CAN_STANDART_HEADER = 0;
         private const sbyte CAN_EXTENDED_HEADER = 1;
 
-        private CanTXBufferS? can_tx_buffer_s = null;
+        private CanTXBufferS? can_tx_buffer = null;
 
         private void AddCanMSGBuffer(ref Can_message cmsg)
         {
             CanTXBufferS tx_queue = new();
             tx_queue.cmsg = cmsg;
             tx_queue.next = null;
-            if(can_tx_buffer_s == null)
-                can_tx_buffer_s = tx_queue;
+            if(can_tx_buffer == null)
+                can_tx_buffer = tx_queue;
             else
             {
-                CanTXBufferS can_buf = can_tx_buffer_s;
-		        while (can_buf.next != null)
-			        can_buf = can_buf.next;
+                CanTXBufferS can_buf = can_tx_buffer;
+                while(can_buf.next != null)
+                {
+                    can_buf = can_buf.next;
+                    SendCanMessage(can_buf.cmsg);
+                }
 		        can_buf.next = tx_queue;
+                SendCanMessage(can_buf.cmsg);
             }
         }
 
@@ -127,15 +133,26 @@ namespace HustonRTEMS
             }
         }
 
-        private class Can_tx_buffer_s
+        private void SendCanMessage(Can_message outByte)
         {
-            public Can_message cmsg;
-            public Can_tx_buffer_s? next;
-        };
-        private readonly Can_tx_buffer_s? can_tx_buffer = null;
+            string dataStr = "";
+            for(int i = 0; i < outByte.can_dlc; i++)
+            {
+                string byteS = $"{outByte.data[i]:X}";
+                if(byteS.Length < 2)
+                    byteS = $"0{outByte.data[i]:X}";
+                dataStr += byteS;
+            }
 
-        public Can_message SendWithCAN(Unican_message umsg)
+            string outText = string.Format("t{0:X}{1}{2}\r", outByte.can_identifier, outByte.can_dlc, dataStr);
+            writePort?.Write(outText);
+            Debug.WriteLine("Отправлено\r\n" + outText);
+        }
+
+        private SerialPort? writePort;
+        public void SendWithCAN(Unican_message umsg, SerialPort writePort)
         {
+            this.writePort = writePort;
             Can_message cmsg = new()
             {
                 data = new byte[umsg.unican_length + CAN_MIN_DLC]
@@ -152,9 +169,8 @@ namespace HustonRTEMS
                     cmsg.data[0] = (byte)(umsg.unican_msg_id & 0x00FF);
                     cmsg.data[1] = (byte)((umsg.unican_msg_id >> 8) & 0x00FF);
                     for(i = 0; i < umsg.unican_length; i++)
-                    {
                         cmsg.data[i + 2] = umsg.data[i];
-                    }
+                    SendCanMessage(cmsg);
                 } else
                 {
                     ushort crc;
@@ -218,9 +234,9 @@ namespace HustonRTEMS
                         cbmsg.can_dlc = 2;
                         AddCanMSGBuffer(ref cbmsg);
                     }
+                    SendCanMessage(cmsg);
                 }
             }
-            return cmsg;
         }
     }
 }

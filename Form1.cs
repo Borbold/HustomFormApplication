@@ -741,19 +741,7 @@ namespace HustonRTEMS
                         fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
                         fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
                     };
-                    Can_message outByte = CTU.SendWithCAN(test);
-                    string dataStr = "";
-                    for(int i = 0; i < outByte.can_dlc; i++)
-                    {
-                        string byteS = $"{outByte.data[i]:X}";
-                        if(byteS.Length < 2)
-                            byteS = $"0{outByte.data[i]:X}";
-                        dataStr += byteS;
-                    }
-
-                    string outText = string.Format("t{0:X}{1}{2}\r", outByte.can_identifier, outByte.can_dlc, dataStr);
-                    serialPort?.Write(outText);
-                    LogBox.Text = "Отправлено\r\n" + outText;
+                    CTU.SendWithCAN(test, serialPort);
                 }
             }
         }
