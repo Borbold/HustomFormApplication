@@ -1,13 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO.Ports;
-using static HustonRTEMS.CanToUnican;
+﻿using System.IO.Ports;
 
 namespace HustonRTEMS
 {
     public class Crc16
     {
-        private static ushort[] CrcTable = { 0x0000, 0x1021, 0x2042, 0x3063, 0x4084,
+        private static readonly ushort[] CrcTable = { 0x0000, 0x1021, 0x2042, 0x3063, 0x4084,
         0x50a5, 0x60c6, 0x70e7, 0x8108, 0x9129, 0xa14a, 0xb16b, 0xc18c, 0xd1ad,
         0xe1ce, 0xf1ef, 0x1231, 0x0210, 0x3273, 0x2252, 0x52b5, 0x4294, 0x72f7,
         0x62d6, 0x9339, 0x8318, 0xb37b, 0xa35a, 0xd3bd, 0xc39c, 0xf3ff, 0xe3de,
@@ -42,7 +39,9 @@ namespace HustonRTEMS
             ushort crc = 0;
 
             foreach(byte datum in data)
+            {
                 crc = (ushort)((crc << 8) ^ CrcTable[((crc >> 8) ^ datum) & 0x00FF]);
+            }
 
             return crc;
         }
@@ -72,9 +71,9 @@ namespace HustonRTEMS
     };
     public class UmesBufferS
     {
-        public UInt16 pos;
+        public ushort pos;
         public UnicanMessage umsg;
-        public UmesBufferS next;
+        public UmesBufferS? next;
     };
 
     internal class CanToUnican
@@ -94,9 +93,9 @@ namespace HustonRTEMS
         private const int UNICAN_START_LONG_MESSAGE = 0xFFFE;
         private const sbyte CAN_STANDART_HEADER = 0;
         private const sbyte CAN_EXTENDED_HEADER = 1;
+        private const int UNICANMES_MAX_COUNT = 10;
 
-        const int UNICANMES_MAX_COUNT = 10;
-        struct UnicanBufferS
+        private struct UnicanBufferS
         {
             public byte proc_task_id;
             public byte message_ready_event;
@@ -108,7 +107,8 @@ namespace HustonRTEMS
             public int session_socket;
         };
         private const int CAN_BUF_SIZE = 16;
-        struct CanBufferS
+
+        private struct CanBufferS
         {
             public CanMessage[] cmgs;
             public sbyte cmsg_head;
@@ -119,12 +119,15 @@ namespace HustonRTEMS
 
         private void AddCanMSGBuffer(ref CanMessage cmsg)
         {
-            CanTXBufferS tx_queue = new();
-            tx_queue.cmsg = cmsg;
-            tx_queue.next = null;
+            CanTXBufferS tx_queue = new()
+            {
+                cmsg = cmsg,
+                next = null
+            };
             if(can_tx_buffer == null)
+            {
                 can_tx_buffer = tx_queue;
-            else
+            } else
             {
                 CanTXBufferS can_buf = can_tx_buffer;
                 while(can_buf.next != null)
@@ -132,28 +135,33 @@ namespace HustonRTEMS
                     can_buf = can_buf.next;
                     SendCanMessage(can_buf.cmsg);
                 }
-		        can_buf.next = tx_queue;
+                can_buf.next = tx_queue;
                 SendCanMessage(can_buf.cmsg);
                 SendCanMessage(can_buf.next.cmsg);
             }
         }
 
-        UmesBufferS FindUmsgBuffer(uint unican_address_from)
+        private UmesBufferS FindUmsgBuffer(uint unican_address_from)
         {
             UmesBufferS res = can_rx_buf.umsg_buffer;
             while(res != null)
             {
                 if(res.umsg.unican_address_from == unican_address_from)
+                {
                     break;
+                }
+
                 res = res.next;
             }
             return res;
         }
-        void RemoveFromUmsgBuffer(UmesBufferS rem_umsg_buf)
+
+        private void RemoveFromUmsgBuffer(UmesBufferS rem_umsg_buf)
         {
             if(rem_umsg_buf == can_rx_buf.umsg_buffer)
+            {
                 can_rx_buf.umsg_buffer = can_rx_buf.umsg_buffer.next;
-            else
+            } else
             {
                 UmesBufferS umsg_buf = can_rx_buf.umsg_buffer;
                 while(umsg_buf.next != null)
@@ -170,23 +178,22 @@ namespace HustonRTEMS
 
         private CanBufferS can_rx_buf;
         private UnicanBufferS unican_buffer;
-        private void ConvertCan()
+        public void ConvertCan()
         {
             while(can_rx_buf.cmsg_head != can_rx_buf.cmsg_tail)
             {
-                uint address_to;
-                uint address_from;
-                byte data_bit = 0;
-
+                ushort address_to;
+                ushort address_from;
+                byte data_bit;
                 if(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_extbit == 0)
                 {
-                    address_to = (can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x1F);
-                    address_from = (can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x3E0) >> 5;
+                    address_to = (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x1F);
+                    address_from = (ushort)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x3E0) >> 5);
                     data_bit = (byte)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x400) >> 10);
                 } else
                 {
-                    address_to = (can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x3FFF);
-                    address_from = (can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0xFFFC000) >> 14;
+                    address_to = (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x3FFF);
+                    address_from = (ushort)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0xFFFC000) >> 14);
                     data_bit = (byte)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x10000000) >> 28);
                 }
 
@@ -212,7 +219,7 @@ namespace HustonRTEMS
                             RemoveFromUmsgBuffer(umsg_buf);
                             ushort crc, calc_crc;
                             crc = (ushort)(umsg.data[umsg.unican_length]
-                                    + umsg.data[umsg.unican_length + 1] * 256);
+                                    + (umsg.data[umsg.unican_length + 1] * 256));
                             calc_crc = Crc16.ComputeCrc(umsg.data);
                             if(crc == calc_crc)
                             {
@@ -226,7 +233,53 @@ namespace HustonRTEMS
                             }
                         }
                     }
+                } else
+                {
+                    UnicanMessage umsg;
+                    umsg.unican_address_from = address_from;
+                    umsg.unican_address_to = address_to;
+                    umsg.unican_msg_id =
+                            (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[0]
+                                    + (can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[1]
+                                            * 256));
+                    if(umsg.unican_msg_id == 0xFFFE)
+                    {
+                        umsg.unican_msg_id =
+                                (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[2]
+                                        + (can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[3]
+                                                * 256));
+                        umsg.unican_length =
+                                (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[4]
+                                        + (can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[5]
+                                                * 256) - CRC_LENGTH);
+                        umsg.data = new byte[umsg.unican_length + CRC_LENGTH];
+
+                        UmesBufferS new_buff = new()
+                        {
+                            umsg = umsg,
+                            pos = 0,
+                            next = can_rx_buf.umsg_buffer
+                        };
+                        can_rx_buf.umsg_buffer = new_buff;
+                    } else
+                    {
+                        umsg.unican_length =
+                                (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_dlc
+                                        - CAN_MIN_DLC);
+                        umsg.data = umsg.unican_length > 0 ? new byte[umsg.unican_length] : Array.Empty<byte>();
+                        for(ushort i = 0; i < umsg.unican_length; i++)
+                        {
+                            umsg.data[i] =
+                            can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[i
+                                    + CAN_MIN_DLC];
+                        }
+
+                        unican_buffer.umes[unican_buffer.umes_buf_tail] = umsg;
+                        unican_buffer.umes_buf_tail = (unican_buffer.umes_buf_tail + 1)
+                                % UNICANMES_MAX_COUNT;
+                    }
                 }
+                can_rx_buf.cmsg_head = (sbyte)((can_rx_buf.cmsg_head + 1) % CAN_BUF_SIZE);
             }
         }
 
@@ -263,7 +316,10 @@ namespace HustonRTEMS
             {
                 string byteS = $"{outByte.data[i]:X}";
                 if(byteS.Length < 2)
+                {
                     byteS = $"0{outByte.data[i]:X}";
+                }
+
                 dataStr += byteS;
             }
 
@@ -294,7 +350,10 @@ namespace HustonRTEMS
                     cmsg.data[0] = (byte)(umsg.unican_msg_id & 0x00FF);
                     cmsg.data[1] = (byte)((umsg.unican_msg_id >> 8) & 0x00FF);
                     for(i = 0; i < umsg.unican_length; i++)
+                    {
                         cmsg.data[i + 2] = umsg.data[i];
+                    }
+
                     SendCanMessage(cmsg);
                 } else
                 {
