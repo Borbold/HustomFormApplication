@@ -362,6 +362,7 @@ namespace HustonRTEMS
                     SendCanMessage(cmsg);
                 }
             }
+            can_tx_buffer = null;
         }
     }
 }
