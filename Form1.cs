@@ -718,30 +718,38 @@ namespace HustonRTEMS
                     LogBox.Text = "Отправлено\r\n" + outText;
                 } else
                 {
-                    UnicanMessage test = new();
-                    test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
-                    test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
-                    test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
-                    test.unican_length = 12;
-                    FlUn fuX = new()
+                    try
                     {
-                        fl = (float)Convert.ToDecimal(LabMagX.Text)
-                    };
-                    FlUn fuY = new()
-                    {
-                        fl = (float)Convert.ToDecimal(LabMagY.Text)
-                    };
-                    FlUn fuZ = new()
-                    {
-                        fl = (float)Convert.ToDecimal(LabMagZ.Text)
-                    };
-                    test.data = new byte[12]
-                    {
+                        UnicanMessage test = new();
+                        test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
+                        test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
+                        test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
+                        test.unican_length = 12;
+                        FlUn fuX = new()
+                        {
+                            fl = (float)Convert.ToDecimal(LabMagX.Text)
+                        };
+                        FlUn fuY = new()
+                        {
+                            fl = (float)Convert.ToDecimal(LabMagY.Text)
+                        };
+                        FlUn fuZ = new()
+                        {
+                            fl = (float)Convert.ToDecimal(LabMagZ.Text)
+                        };
+                        test.data = new byte[12]
+                        {
                         fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4,
                         fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
                         fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
-                    };
-                    CTU.SendWithCAN(test, serialPort, LogBox);
+                        };
+                        CTU.SendWithCAN(test, serialPort, LogBox);
+                    }
+                    catch(Exception ex)
+                    {
+                        LogBox2.Text += ex.Message;
+                        LogBox2.Text += "\r\n";
+                    }
                 }
             }
         }
@@ -924,25 +932,7 @@ namespace HustonRTEMS
         }
         private void CANTestWrite_Click(object sender, EventArgs e)
         {
-            byte[] sendToCan = GF.AppToCan11(testInternetBuf);
-            LogBox.Text += "\r\n";
-            int byteWrite = 0, offsetByte = 14;
-            // Send from 8 bytes
-            while(byteWrite < sendToCan.Length)
-            {
-                int copyByte = byteWrite + offsetByte >= sendToCan.Length ?
-                    sendToCan.Length - byteWrite : offsetByte;
-                byte[] data = new byte[copyByte];
-                Array.Copy(sendToCan, byteWrite, data, 0, copyByte);
-                serialPort?.Write(data, 0, copyByte);
-                for(int i = 0; i < data.Length; i++)
-                {
-                    LogBox.Text += " " + $"{data[i]:X}";
-                }
-                byteWrite += offsetByte;
-                LogBox.Text += "\r\n";
-            }
-            LogBox.Text += "\r\n";
+            LogBox.Text += "\r\nZero code\r\n";
         }
         private void CANTestRead_Click(object sender, EventArgs e)
         {
