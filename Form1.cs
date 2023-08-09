@@ -741,7 +741,7 @@ namespace HustonRTEMS
                         fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
                         fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
                     };
-                    CTU.SendWithCAN(test, serialPort);
+                    CTU.SendWithCAN(test, serialPort, LogBox);
                 }
             }
         }
@@ -901,7 +901,7 @@ namespace HustonRTEMS
                             LogBox.Text += $" {data[i]:X}";
                         }));
                     }
-                    if(data.Length > 1)
+                    /*if(data.Length > 1)
                     {
                         LogBox.Invoke(new Action(() =>
                         {
@@ -916,7 +916,7 @@ namespace HustonRTEMS
                                 LogBox.Text += $" {locD[i]:X}";
                             }));
                         }
-                    }
+                    }*/
 
                     byteWrite += copyByte;
                 } while(byteWrite < serialPort.BytesToRead);

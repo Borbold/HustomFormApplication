@@ -104,6 +104,7 @@ namespace HustonRTEMS
                 }
 		        can_buf.next = tx_queue;
                 SendCanMessage(can_buf.cmsg);
+                SendCanMessage(can_buf.next.cmsg);
             }
         }
 
@@ -146,13 +147,15 @@ namespace HustonRTEMS
 
             string outText = string.Format("t{0:X}{1}{2}\r", outByte.can_identifier, outByte.can_dlc, dataStr);
             writePort?.Write(outText);
-            Debug.WriteLine("Отправлено\r\n" + outText);
+            logBox.Text += "Отправлено\r\n" + outText + "\r\n";
         }
 
         private SerialPort? writePort;
-        public void SendWithCAN(Unican_message umsg, SerialPort writePort)
+        private TextBox? logBox;
+        public void SendWithCAN(Unican_message umsg, SerialPort writePort, TextBox logBox)
         {
             this.writePort = writePort;
+            this.logBox = logBox;
             Can_message cmsg = new()
             {
                 data = new byte[umsg.unican_length + CAN_MIN_DLC]
