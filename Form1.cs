@@ -914,7 +914,7 @@ namespace HustonRTEMS
                     if(data[0] == 't')
                     {
                         string CI = string.Format("{0}{1}{2}", data[1], data[2], data[3]);
-                        string byteS = string.Format("{0}{1}{2}{3}{4}", data[4], data[5], data[6], data[7], data[8]);
+                        string byteS = string.Format("{0}{1}{2}{3}{4}{5}", '0', data[4], data[5], data[6], data[7], data[8]);
                         CanMessage canBuf = new()
                         {
                             can_extbit = 0,
