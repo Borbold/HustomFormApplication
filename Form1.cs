@@ -2,6 +2,7 @@ using System.Configuration;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using static HustonRTEMS.CanToUnican;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -912,18 +913,15 @@ namespace HustonRTEMS
                     //--------------------------------
                     if(data[0] == 't')
                     {
-                        string CI = string.Format("{0}{1}{2}", data[1].ToString(), data[2].ToString(), data[3].ToString());
-                        string byte1 = string.Format("{0}{1}", data[5].ToString(), data[6].ToString());
-                        string byte2 = string.Format("{0}{1}", data[7].ToString(), data[8].ToString());
+                        string CI = string.Format("{0}{1}{2}", data[1], data[2], data[3]);
+                        string byteS = string.Format("{0}{1}{2}{3}{4}", data[4], data[5], data[6], data[7], data[8]);
                         CanMessage canBuf = new()
                         {
                             can_extbit = 0,
                             can_identifier = Convert.ToUInt32(CI),
                             can_dlc = Convert.ToSByte(data[4]),
+                            data = Convert.FromHexString(byteS)
                         };
-                        canBuf.data = new byte[canBuf.can_dlc];
-                        canBuf.data[0] = Convert.ToByte(byte1);
-                        canBuf.data[1] = Convert.ToByte(byte2);
                         //---------------------------
                         UnicanMessage test = new();
                         CTU.ConvertCan(ref test, canBuf);
