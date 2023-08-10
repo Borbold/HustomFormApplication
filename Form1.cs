@@ -877,16 +877,9 @@ namespace HustonRTEMS
 
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            try
-            {
-                Thread.Sleep(1000);
-                Read();
-                Thread.Sleep(1000);
-            }
-            catch(Exception ex)
-            {
-                LogBox2.Text = ex.Message;
-            }
+            Thread.Sleep(1000);
+            Read();
+            Thread.Sleep(1000);
         }
         private void Read()
         {
@@ -916,23 +909,30 @@ namespace HustonRTEMS
                 } while(byteWrite < serialPort.BytesToRead);
                 if(data[0] == 't')
                 {
-                    string CI = string.Format("{0}{1}{2}", data[1], data[2], data[3]);
-                    string byte1 = string.Format("{0}{1}", data[5], data[6]);
-                    string byte2 = string.Format("{0}{1}", data[7], data[8]);
-                    CanMessage canBuf = new()
+                    try
                     {
-                        can_extbit = 0,
-                        can_identifier = Convert.ToUInt32(CI),
-                        can_dlc = Convert.ToSByte(data[4]),
-                    };
-                    canBuf.data = new byte[canBuf.can_dlc];
-                    canBuf.data[0] = Convert.ToByte(byte1);
-                    canBuf.data[1] = Convert.ToByte(byte2);
-                    //---------------------------
-                    UnicanMessage test = new();
-                    CTU.ConvertCan(ref test, canBuf);
-                    LogBox.Text += "\r\nПринято\r\n";
-                    LogBox.Text += $"To - {test.unican_address_to:X}; From - {test.unican_address_from:X}; Id - {test.unican_msg_id:X};";
+                        string CI = string.Format("{0}{1}{2}", data[1].ToString(), data[2].ToString(), data[3].ToString());
+                        string byte1 = string.Format("{0}{1}", data[5].ToString(), data[6].ToString());
+                        string byte2 = string.Format("{0}{1}", data[7].ToString(), data[8].ToString());
+                        CanMessage canBuf = new()
+                        {
+                            can_extbit = 0,
+                            can_identifier = Convert.ToUInt32(CI),
+                            can_dlc = Convert.ToSByte(data[4]),
+                        };
+                        canBuf.data = new byte[canBuf.can_dlc];
+                        canBuf.data[0] = Convert.ToByte(byte1);
+                        canBuf.data[1] = Convert.ToByte(byte2);
+                        //---------------------------
+                        UnicanMessage test = new();
+                        CTU.ConvertCan(ref test, canBuf);
+                        LogBox.Text += "\r\nПринято\r\n";
+                        LogBox.Text += $"To - {test.unican_address_to:X}; From - {test.unican_address_from:X}; Id - {test.unican_msg_id:X};";
+                    }
+                    catch (Exception ex)
+                    {
+                        LogBox2.Text = ex.Message;
+                    }
                 }
             }
         }
