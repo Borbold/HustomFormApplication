@@ -141,146 +141,18 @@ namespace HustonRTEMS
             }
         }
 
-        private UmesBufferS FindUmsgBuffer(uint unican_address_from)
+        public void ConvertCan(ref UnicanMessage umsg, CanMessage canBuf)
         {
-            UmesBufferS res = can_rx_buf.umsg_buffer;
-            while(res != null)
+            if(canBuf.can_extbit == 0)
             {
-                if(res.umsg.unican_address_from == unican_address_from)
-                {
-                    break;
-                }
-
-                res = res.next;
-            }
-            return res;
-        }
-
-        private void RemoveFromUmsgBuffer(UmesBufferS rem_umsg_buf)
-        {
-            if(rem_umsg_buf == can_rx_buf.umsg_buffer)
-            {
-                can_rx_buf.umsg_buffer = can_rx_buf.umsg_buffer.next;
+                umsg.unican_address_to = (ushort)(canBuf.can_identifier & 0x1F);
+                umsg.unican_address_from = (ushort)((canBuf.can_identifier & 0x3E0) >> 5);
             } else
             {
-                UmesBufferS umsg_buf = can_rx_buf.umsg_buffer;
-                while(umsg_buf.next != null)
-                {
-                    if(umsg_buf.next == rem_umsg_buf)
-                    {
-                        umsg_buf.next = umsg_buf.next.next;
-                        break;
-                    }
-                    umsg_buf = umsg_buf.next;
-                }
+                umsg.unican_address_to = (ushort)(canBuf.can_identifier & 0x3FFF);
+                umsg.unican_address_from = (ushort)((canBuf.can_identifier & 0xFFFC000) >> 14);
             }
-        }
-
-        private CanBufferS can_rx_buf;
-        private UnicanBufferS unican_buffer;
-        public void ConvertCan()
-        {
-            while(can_rx_buf.cmsg_head != can_rx_buf.cmsg_tail)
-            {
-                ushort address_to;
-                ushort address_from;
-                byte data_bit;
-                if(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_extbit == 0)
-                {
-                    address_to = (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x1F);
-                    address_from = (ushort)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x3E0) >> 5);
-                    data_bit = (byte)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x400) >> 10);
-                } else
-                {
-                    address_to = (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x3FFF);
-                    address_from = (ushort)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0xFFFC000) >> 14);
-                    data_bit = (byte)((can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_identifier & 0x10000000) >> 28);
-                }
-
-                if(data_bit != 0)
-                {
-                    UmesBufferS umsg_buf = FindUmsgBuffer(address_from);
-                    if(umsg_buf != null)
-                    {
-                        for(ushort i = 0; i < can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_dlc; i++)
-                        {
-                            if(umsg_buf.pos < umsg_buf.umsg.unican_length + CRC_LENGTH)
-                            {
-                                umsg_buf.umsg.data[umsg_buf.pos] = can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[i];
-                                umsg_buf.pos++;
-                            } else
-                            {
-                                logBox.Text = "\r\nUEXPECTED unican data received\r\n";
-                            }
-                        }
-                        if(umsg_buf.pos == umsg_buf.umsg.unican_length + CRC_LENGTH)
-                        {
-                            UnicanMessage umsg = umsg_buf.umsg;
-                            RemoveFromUmsgBuffer(umsg_buf);
-                            ushort crc, calc_crc;
-                            crc = (ushort)(umsg.data[umsg.unican_length]
-                                    + (umsg.data[umsg.unican_length + 1] * 256));
-                            calc_crc = Crc16.ComputeCrc(umsg.data);
-                            if(crc == calc_crc)
-                            {
-                                unican_buffer.umes[unican_buffer.umes_buf_tail] = umsg;
-                                unican_buffer.umes_buf_tail =
-                                        (unican_buffer.umes_buf_tail + 1)
-                                                % UNICANMES_MAX_COUNT;
-                            } else
-                            {
-                                logBox.Text = "\r\nnInvalid unican message CRC!!\r\n";
-                            }
-                        }
-                    }
-                } else
-                {
-                    UnicanMessage umsg;
-                    umsg.unican_address_from = address_from;
-                    umsg.unican_address_to = address_to;
-                    umsg.unican_msg_id =
-                            (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[0]
-                                    + (can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[1]
-                                            * 256));
-                    if(umsg.unican_msg_id == 0xFFFE)
-                    {
-                        umsg.unican_msg_id =
-                                (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[2]
-                                        + (can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[3]
-                                                * 256));
-                        umsg.unican_length =
-                                (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[4]
-                                        + (can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[5]
-                                                * 256) - CRC_LENGTH);
-                        umsg.data = new byte[umsg.unican_length + CRC_LENGTH];
-
-                        UmesBufferS new_buff = new()
-                        {
-                            umsg = umsg,
-                            pos = 0,
-                            next = can_rx_buf.umsg_buffer
-                        };
-                        can_rx_buf.umsg_buffer = new_buff;
-                    } else
-                    {
-                        umsg.unican_length =
-                                (ushort)(can_rx_buf.cmgs[can_rx_buf.cmsg_head].can_dlc
-                                        - CAN_MIN_DLC);
-                        umsg.data = umsg.unican_length > 0 ? new byte[umsg.unican_length] : Array.Empty<byte>();
-                        for(ushort i = 0; i < umsg.unican_length; i++)
-                        {
-                            umsg.data[i] =
-                            can_rx_buf.cmgs[can_rx_buf.cmsg_head].data[i
-                                    + CAN_MIN_DLC];
-                        }
-
-                        unican_buffer.umes[unican_buffer.umes_buf_tail] = umsg;
-                        unican_buffer.umes_buf_tail = (unican_buffer.umes_buf_tail + 1)
-                                % UNICANMES_MAX_COUNT;
-                    }
-                }
-                can_rx_buf.cmsg_head = (sbyte)((can_rx_buf.cmsg_head + 1) % CAN_BUF_SIZE);
-            }
+            umsg.unican_msg_id = (ushort)(canBuf.data[0] + canBuf.data[1] * 256);
         }
 
         private void CanSetIdentifier(ref UnicanMessage msg, ref CanMessage can_buff,
@@ -339,88 +211,84 @@ namespace HustonRTEMS
                 data = new byte[umsg.unican_length + CAN_MIN_DLC]
             };
 
-            if(can_tx_buffer == null)
+            uint i;
+            cmsg.can_rtr = 0;
+            if(umsg.unican_length < 7)
             {
-                uint i;
-                cmsg.can_rtr = 0;
-                if(umsg.unican_length < 7)
+                CanSetIdentifier(ref umsg, ref cmsg, 0);
+                cmsg.can_dlc = (sbyte)(umsg.unican_length + CAN_MIN_DLC);
+                cmsg.data[0] = (byte)(umsg.unican_msg_id & 0x00FF);
+                cmsg.data[1] = (byte)((umsg.unican_msg_id >> 8) & 0x00FF);
+                for(i = 0; i < umsg.unican_length; i++)
                 {
-                    CanSetIdentifier(ref umsg, ref cmsg, 0);
-                    cmsg.can_dlc = (sbyte)(umsg.unican_length + CAN_MIN_DLC);
-                    cmsg.data[0] = (byte)(umsg.unican_msg_id & 0x00FF);
-                    cmsg.data[1] = (byte)((umsg.unican_msg_id >> 8) & 0x00FF);
-                    for(i = 0; i < umsg.unican_length; i++)
-                    {
-                        cmsg.data[i + 2] = umsg.data[i];
-                    }
+                    cmsg.data[i + 2] = umsg.data[i];
+                }
 
-                    SendCanMessage(cmsg);
-                } else
+                SendCanMessage(cmsg);
+            } else
+            {
+                ushort crc;
+                CanSetIdentifier(ref umsg, ref cmsg, 0);
+                crc = Crc16.ComputeCrc(umsg.data);
+                cmsg.can_dlc = 6;
+                cmsg.data[0] = (byte)UINT16RIGHT(UNICAN_START_LONG_MESSAGE);
+                cmsg.data[1] = (byte)UINT16LEFT(UNICAN_START_LONG_MESSAGE);
+                cmsg.data[2] = (byte)UINT16RIGHT(umsg.unican_msg_id);
+                cmsg.data[3] = (byte)UINT16LEFT(umsg.unican_msg_id);
+                cmsg.data[4] = (byte)UINT16RIGHT(umsg.unican_length + CRC_LENGTH);
+                cmsg.data[5] = (byte)UINT16LEFT(umsg.unican_length + CRC_LENGTH);
+                SendCanMessage(cmsg);
+
+                CanMessage cbmsg = new()
                 {
-                    ushort crc;
-                    CanSetIdentifier(ref umsg, ref cmsg, 0);
-                    crc = Crc16.ComputeCrc(umsg.data);
-                    cmsg.can_dlc = 6;
-                    cmsg.data[0] = (byte)UINT16RIGHT(UNICAN_START_LONG_MESSAGE);
-                    cmsg.data[1] = (byte)UINT16LEFT(UNICAN_START_LONG_MESSAGE);
-                    cmsg.data[2] = (byte)UINT16RIGHT(umsg.unican_msg_id);
-                    cmsg.data[3] = (byte)UINT16LEFT(umsg.unican_msg_id);
-                    cmsg.data[4] = (byte)UINT16RIGHT(umsg.unican_length + CRC_LENGTH);
-                    cmsg.data[5] = (byte)UINT16LEFT(umsg.unican_length + CRC_LENGTH);
-                    SendCanMessage(cmsg);
-
-                    CanMessage cbmsg = new()
+                    can_rtr = 0,
+                    data = new byte[8]
+                };
+                CanSetIdentifier(ref umsg, ref cbmsg, 1);  //could be optimized
+                for(i = 0; i < umsg.unican_length; i++)
+                {
+                    cbmsg.data[i % 8] = umsg.data[i];
+                    if((i % 8) == 7)
                     {
-                        can_rtr = 0,
-                        data = new byte[8]
-                    };
-                    CanSetIdentifier(ref umsg, ref cbmsg, 1);  //could be optimized
-                    for(i = 0; i < umsg.unican_length; i++)
-                    {
-                        cbmsg.data[i % 8] = umsg.data[i];
-                        if((i % 8) == 7)
-                        {
-                            cbmsg.can_dlc = 8;
-                            AddCanMSGBuffer(ref cbmsg);
-                            cbmsg = new()
-                            {
-                                data = new byte[8]
-                            };
-                            CanSetIdentifier(ref umsg, ref cbmsg, 1);
-                            cbmsg.can_rtr = 0;
-                        }
-                    }
-                    if((i % 8) > 0)  //something left
-                    {
-                        cbmsg.can_dlc = (sbyte)(i % 8);
-                        if((i % 8) < 7)
-                        {
-                            cbmsg.data[i % 8] = (byte)UINT16RIGHT(crc);
-                            cbmsg.data[(i % 8) + 1] = (byte)UINT16LEFT(crc);
-                            cbmsg.can_dlc += 2;
-                            AddCanMSGBuffer(ref cbmsg);
-                        } else
-                        {
-                            cbmsg.data[7] = (byte)UINT16RIGHT(crc);
-                            cbmsg.can_dlc = 8;
-                            AddCanMSGBuffer(ref cbmsg);
-                            cbmsg = new();
-                            CanSetIdentifier(ref umsg, ref cbmsg, 1);
-                            cbmsg.can_rtr = 0;
-                            cbmsg.data[0] = (byte)UINT16LEFT(crc);
-                            cbmsg.can_dlc = 1;
-                            AddCanMSGBuffer(ref cbmsg);
-                        }
-                    } else
-                    {
-                        cbmsg.data[0] = (byte)UINT16RIGHT(crc);
-                        cbmsg.data[1] = (byte)UINT16LEFT(crc);
-                        cbmsg.can_dlc = 2;
+                        cbmsg.can_dlc = 8;
                         AddCanMSGBuffer(ref cbmsg);
+                        cbmsg = new()
+                        {
+                            data = new byte[8]
+                        };
+                        CanSetIdentifier(ref umsg, ref cbmsg, 1);
+                        cbmsg.can_rtr = 0;
                     }
                 }
+                if((i % 8) > 0)  //something left
+                {
+                    cbmsg.can_dlc = (sbyte)(i % 8);
+                    if((i % 8) < 7)
+                    {
+                        cbmsg.data[i % 8] = (byte)UINT16RIGHT(crc);
+                        cbmsg.data[(i % 8) + 1] = (byte)UINT16LEFT(crc);
+                        cbmsg.can_dlc += 2;
+                        AddCanMSGBuffer(ref cbmsg);
+                    } else
+                    {
+                        cbmsg.data[7] = (byte)UINT16RIGHT(crc);
+                        cbmsg.can_dlc = 8;
+                        AddCanMSGBuffer(ref cbmsg);
+                        cbmsg = new();
+                        CanSetIdentifier(ref umsg, ref cbmsg, 1);
+                        cbmsg.can_rtr = 0;
+                        cbmsg.data[0] = (byte)UINT16LEFT(crc);
+                        cbmsg.can_dlc = 1;
+                        AddCanMSGBuffer(ref cbmsg);
+                    }
+                } else
+                {
+                    cbmsg.data[0] = (byte)UINT16RIGHT(crc);
+                    cbmsg.data[1] = (byte)UINT16LEFT(crc);
+                    cbmsg.can_dlc = 2;
+                    AddCanMSGBuffer(ref cbmsg);
+                }
             }
-            can_tx_buffer = null;
         }
     }
 }

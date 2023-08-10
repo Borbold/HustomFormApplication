@@ -3,6 +3,7 @@ using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
 using static HustonRTEMS.CanToUnican;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HustonRTEMS
 {
@@ -891,6 +892,7 @@ namespace HustonRTEMS
         {
             if(flagRead)
             {
+                char[] data;
                 LogBox.Invoke(new Action(() =>
                 {
                     LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
@@ -900,7 +902,7 @@ namespace HustonRTEMS
                 {
                     int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
                         serialPort.BytesToRead - byteWrite : offsetByte;
-                    byte[] data = new byte[copyByte];
+                    data = new char[copyByte];
                     _ = serialPort.Read(data, 0, copyByte);
                     for(int i = 0; i < data.Length; i++)
                     {
@@ -909,25 +911,29 @@ namespace HustonRTEMS
                             LogBox.Text += $" {data[i]:X}";
                         }));
                     }
-                    /*if(data.Length > 1)
-                    {
-                        LogBox.Invoke(new Action(() =>
-                        {
-                            LogBox.Text += "\r\n";
-                            LogBox.Text += "CanToApp: ";
-                        }));
-                        byte[] locD = GF.CanToApp11(data);
-                        for(int i = 0; i < locD.Length; i++)
-                        {
-                            LogBox.Invoke(new Action(() =>
-                            {
-                                LogBox.Text += $" {locD[i]:X}";
-                            }));
-                        }
-                    }*/
 
                     byteWrite += copyByte;
                 } while(byteWrite < serialPort.BytesToRead);
+                if(data[0] == 't')
+                {
+                    string CI = string.Format("{0}{1}{2}", data[1], data[2], data[3]);
+                    string byte1 = string.Format("{0}{1}", data[5], data[6]);
+                    string byte2 = string.Format("{0}{1}", data[7], data[8]);
+                    CanMessage canBuf = new()
+                    {
+                        can_extbit = 0,
+                        can_identifier = Convert.ToUInt32(CI),
+                        can_dlc = Convert.ToSByte(data[4]),
+                    };
+                    canBuf.data = new byte[canBuf.can_dlc];
+                    canBuf.data[0] = Convert.ToByte(byte1);
+                    canBuf.data[1] = Convert.ToByte(byte2);
+                    //---------------------------
+                    UnicanMessage test = new();
+                    CTU.ConvertCan(ref test, canBuf);
+                    LogBox.Text += "\r\nПринято\r\n";
+                    LogBox.Text += $"To - {test.unican_address_to:X}; From - {test.unican_address_from:X}; Id - {test.unican_msg_id:X};";
+                }
             }
         }
         private void CANTestWrite_Click(object sender, EventArgs e)
