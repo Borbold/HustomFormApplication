@@ -722,11 +722,13 @@ namespace HustonRTEMS
                 {
                     try
                     {
-                        UnicanMessage test = new();
-                        test.unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16);
-                        test.unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16);
-                        test.unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16);
-                        test.unican_length = 12;
+                        UnicanMessage test = new()
+                        {
+                            unican_msg_id = Convert.ToUInt16(IdShippingMag.Text, 16),
+                            unican_address_to = Convert.ToUInt16(AddresReceiveMag.Text, 16),
+                            unican_address_from = Convert.ToUInt16(AddresMag1.Text, 16),
+                            unican_length = 12
+                        };
                         FlUn fuX = new()
                         {
                             fl = (float)Convert.ToDecimal(LabMagX.Text)
@@ -741,9 +743,9 @@ namespace HustonRTEMS
                         };
                         test.data = new byte[12]
                         {
-                        fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4,
-                        fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
-                        fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
+                            fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4,
+                            fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
+                            fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
                         };
                         CTU.SendWithCAN(test, serialPort, LogBox);
                     }

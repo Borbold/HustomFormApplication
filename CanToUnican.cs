@@ -223,7 +223,6 @@ namespace HustonRTEMS
                 {
                     cmsg.data[i + 2] = umsg.data[i];
                 }
-
                 SendCanMessage(cmsg);
             } else
             {
