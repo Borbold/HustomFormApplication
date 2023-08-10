@@ -928,6 +928,14 @@ namespace HustonRTEMS
                         CTU.ConvertCan(ref test, canBuf);
                         LogBox.Text += "\r\nПринято\r\n";
                         LogBox.Text += $"To - {test.unican_address_to:X}; From - {test.unican_address_from:X}; Id - {test.unican_msg_id:X};";
+
+                        if(test.unican_address_to == Convert.ToInt16(AddresMag1.Text, 16) &&
+                            test.unican_address_from == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
+                             test.unican_msg_id == Convert.ToInt16(IdReceiveMag.Text, 16))
+                        {
+                            LogBox.Text += "\r\nSendMagnetometer1\r\n";
+                            SendMagnetometer1_Click(null, null);
+                        }
                     }
                 }
             }
