@@ -883,33 +883,34 @@ namespace HustonRTEMS
         }
         private void Read()
         {
-            if(flagRead)
+            try
             {
-                char[] data;
-                LogBox.Invoke(new Action(() =>
+                if(flagRead)
                 {
-                    LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
-                }));
-                int byteWrite = 0, offsetByte = serialPort.BytesToRead;
-                do
-                {
-                    int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
-                        serialPort.BytesToRead - byteWrite : offsetByte;
-                    data = new char[copyByte];
-                    _ = serialPort.Read(data, 0, copyByte);
-                    for(int i = 0; i < data.Length; i++)
+                    char[] data;
+                    LogBox.Invoke(new Action(() =>
                     {
-                        LogBox.Invoke(new Action(() =>
+                        LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
+                    }));
+                    int byteWrite = 0, offsetByte = serialPort.BytesToRead;
+                    do
+                    {
+                        int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
+                            serialPort.BytesToRead - byteWrite : offsetByte;
+                        data = new char[copyByte];
+                        _ = serialPort.Read(data, 0, copyByte);
+                        for(int i = 0; i < data.Length; i++)
                         {
-                            LogBox.Text += $" {data[i]:X}";
-                        }));
-                    }
+                            LogBox.Invoke(new Action(() =>
+                            {
+                                LogBox.Text += $"{data[i]}";
+                            }));
+                        }
 
-                    byteWrite += copyByte;
-                } while(byteWrite < serialPort.BytesToRead);
-                if(data[0] == 't')
-                {
-                    try
+                        byteWrite += copyByte;
+                    } while(byteWrite < serialPort.BytesToRead);
+                    //--------------------------------
+                    if(data[0] == 't')
                     {
                         string CI = string.Format("{0}{1}{2}", data[1].ToString(), data[2].ToString(), data[3].ToString());
                         string byte1 = string.Format("{0}{1}", data[5].ToString(), data[6].ToString());
@@ -929,11 +930,13 @@ namespace HustonRTEMS
                         LogBox.Text += "\r\nПринято\r\n";
                         LogBox.Text += $"To - {test.unican_address_to:X}; From - {test.unican_address_from:X}; Id - {test.unican_msg_id:X};";
                     }
-                    catch (Exception ex)
-                    {
-                        LogBox2.Text = ex.Message;
-                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                LogBox2.Text = ex.Message;
+                LogBox2.Text += "\r\n";
+                LogBox2.Text += ex.Source;
             }
         }
         private void CANTestWrite_Click(object sender, EventArgs e)
