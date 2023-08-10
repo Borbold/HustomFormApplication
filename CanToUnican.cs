@@ -288,6 +288,7 @@ namespace HustonRTEMS
                     AddCanMSGBuffer(ref cbmsg);
                 }
             }
+            can_tx_buffer = null;
         }
     }
 }
