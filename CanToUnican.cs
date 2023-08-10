@@ -367,7 +367,7 @@ namespace HustonRTEMS
                     cmsg.data[3] = (byte)UINT16LEFT(umsg.unican_msg_id);
                     cmsg.data[4] = (byte)UINT16RIGHT(umsg.unican_length + CRC_LENGTH);
                     cmsg.data[5] = (byte)UINT16LEFT(umsg.unican_length + CRC_LENGTH);
-
+                    SendCanMessage(cmsg);
 
                     CanMessage cbmsg = new()
                     {
@@ -418,7 +418,6 @@ namespace HustonRTEMS
                         cbmsg.can_dlc = 2;
                         AddCanMSGBuffer(ref cbmsg);
                     }
-                    SendCanMessage(cmsg);
                 }
             }
             can_tx_buffer = null;
