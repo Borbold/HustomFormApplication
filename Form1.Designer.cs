@@ -1,7 +1,5 @@
-﻿namespace HustonRTEMS
-{
-    partial class MainForm
-    {
+﻿namespace HustonRTEMS {
+    partial class MainForm {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if(disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if(disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,7 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             LogBox = new TextBox();
             ListenPort = new Button();
             TemperatureLable = new Label();
@@ -42,7 +37,6 @@
             TrackBarTemp = new TrackBar();
             label3 = new Label();
             TabMagnetometer = new TabPage();
-            TestOutText = new TextBox();
             label49 = new Label();
             IdShippingMag = new TextBox();
             label44 = new Label();
@@ -237,21 +231,15 @@
             label10 = new Label();
             SensorReadings = new TabPage();
             tabPage5 = new TabPage();
-            ShowDeleteString = new CheckBox();
-            label84 = new Label();
-            label83 = new Label();
-            label82 = new Label();
-            DBTimeText = new TextBox();
-            DBPlateIDText = new TextBox();
-            DBSensIDText = new TextBox();
             label81 = new Label();
+            FilterComboBox = new ComboBox();
+            DBAllText = new RichTextBox();
+            ShowDeleteString = new CheckBox();
             ReadDBFile = new Button();
             NameDBFile = new TextBox();
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
-            DBValueText = new TextBox();
             LogBox2 = new TextBox();
-            TestTextCheckBox = new CheckBox();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -442,8 +430,6 @@
             // 
             // TabMagnetometer
             // 
-            TabMagnetometer.Controls.Add(TestTextCheckBox);
-            TabMagnetometer.Controls.Add(TestOutText);
             TabMagnetometer.Controls.Add(label49);
             TabMagnetometer.Controls.Add(IdShippingMag);
             TabMagnetometer.Controls.Add(label44);
@@ -459,15 +445,6 @@
             TabMagnetometer.TabIndex = 1;
             TabMagnetometer.Text = "Magnetometer";
             TabMagnetometer.UseVisualStyleBackColor = true;
-            // 
-            // TestOutText
-            // 
-            TestOutText.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            TestOutText.Location = new Point(6, 338);
-            TestOutText.Name = "TestOutText";
-            TestOutText.Size = new Size(206, 35);
-            TestOutText.TabIndex = 54;
-            TestOutText.Text = "280411223344";
             // 
             // label49
             // 
@@ -2584,19 +2561,14 @@
             // 
             // tabPage5
             // 
-            tabPage5.Controls.Add(ShowDeleteString);
-            tabPage5.Controls.Add(label84);
-            tabPage5.Controls.Add(label83);
-            tabPage5.Controls.Add(label82);
-            tabPage5.Controls.Add(DBTimeText);
-            tabPage5.Controls.Add(DBPlateIDText);
-            tabPage5.Controls.Add(DBSensIDText);
             tabPage5.Controls.Add(label81);
+            tabPage5.Controls.Add(FilterComboBox);
+            tabPage5.Controls.Add(DBAllText);
+            tabPage5.Controls.Add(ShowDeleteString);
             tabPage5.Controls.Add(ReadDBFile);
             tabPage5.Controls.Add(NameDBFile);
             tabPage5.Controls.Add(LabelDBFile);
             tabPage5.Controls.Add(GetDBFileInfo);
-            tabPage5.Controls.Add(DBValueText);
             tabPage5.Location = new Point(4, 24);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
@@ -2604,6 +2576,38 @@
             tabPage5.TabIndex = 2;
             tabPage5.Text = "LittleD";
             tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label81
+            // 
+            label81.AutoSize = true;
+            label81.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label81.Location = new Point(6, 96);
+            label81.Name = "label81";
+            label81.Size = new Size(63, 21);
+            label81.TabIndex = 15;
+            label81.Text = "Фильтр";
+            // 
+            // FilterComboBox
+            // 
+            FilterComboBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FilterComboBox.FormattingEnabled = true;
+            FilterComboBox.Items.AddRange(new object[] { "Time", "Plate", "Sense", "Value" });
+            FilterComboBox.Location = new Point(6, 120);
+            FilterComboBox.Name = "FilterComboBox";
+            FilterComboBox.Size = new Size(250, 29);
+            FilterComboBox.TabIndex = 14;
+            FilterComboBox.SelectedIndexChanged += FilterComboBox_SelectedIndexChanged;
+            // 
+            // DBAllText
+            // 
+            DBAllText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            DBAllText.Location = new Point(372, 6);
+            DBAllText.Name = "DBAllText";
+            DBAllText.ReadOnly = true;
+            DBAllText.ScrollBars = RichTextBoxScrollBars.Vertical;
+            DBAllText.Size = new Size(846, 433);
+            DBAllText.TabIndex = 13;
+            DBAllText.Text = "";
             // 
             // ShowDeleteString
             // 
@@ -2615,76 +2619,6 @@
             ShowDeleteString.TabIndex = 12;
             ShowDeleteString.Text = "Показывать помеченные\r\nна удаление";
             ShowDeleteString.UseVisualStyleBackColor = true;
-            // 
-            // label84
-            // 
-            label84.AutoSize = true;
-            label84.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label84.Location = new Point(617, 13);
-            label84.Name = "label84";
-            label84.Size = new Size(44, 21);
-            label84.TabIndex = 11;
-            label84.Text = "Time";
-            // 
-            // label83
-            // 
-            label83.AutoSize = true;
-            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label83.Location = new Point(814, 13);
-            label83.Name = "label83";
-            label83.Size = new Size(63, 21);
-            label83.TabIndex = 10;
-            label83.Text = "Plate ID";
-            // 
-            // label82
-            // 
-            label82.AutoSize = true;
-            label82.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label82.Location = new Point(959, 13);
-            label82.Name = "label82";
-            label82.Size = new Size(64, 21);
-            label82.TabIndex = 9;
-            label82.Text = "Send ID";
-            // 
-            // DBTimeText
-            // 
-            DBTimeText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBTimeText.Location = new Point(520, 37);
-            DBTimeText.Multiline = true;
-            DBTimeText.Name = "DBTimeText";
-            DBTimeText.ScrollBars = ScrollBars.Vertical;
-            DBTimeText.Size = new Size(251, 402);
-            DBTimeText.TabIndex = 8;
-            // 
-            // DBPlateIDText
-            // 
-            DBPlateIDText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBPlateIDText.Location = new Point(777, 37);
-            DBPlateIDText.Multiline = true;
-            DBPlateIDText.Name = "DBPlateIDText";
-            DBPlateIDText.ScrollBars = ScrollBars.Vertical;
-            DBPlateIDText.Size = new Size(143, 402);
-            DBPlateIDText.TabIndex = 7;
-            // 
-            // DBSensIDText
-            // 
-            DBSensIDText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBSensIDText.Location = new Point(926, 37);
-            DBSensIDText.Multiline = true;
-            DBSensIDText.Name = "DBSensIDText";
-            DBSensIDText.ScrollBars = ScrollBars.Vertical;
-            DBSensIDText.Size = new Size(143, 402);
-            DBSensIDText.TabIndex = 6;
-            // 
-            // label81
-            // 
-            label81.AutoSize = true;
-            label81.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label81.Location = new Point(1121, 13);
-            label81.Name = "label81";
-            label81.Size = new Size(48, 21);
-            label81.TabIndex = 5;
-            label81.Text = "Value";
             // 
             // ReadDBFile
             // 
@@ -2727,16 +2661,6 @@
             GetDBFileInfo.UseVisualStyleBackColor = true;
             GetDBFileInfo.Click += GetDBFileInfo_Click;
             // 
-            // DBValueText
-            // 
-            DBValueText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBValueText.Location = new Point(1075, 37);
-            DBValueText.Multiline = true;
-            DBValueText.Name = "DBValueText";
-            DBValueText.ScrollBars = ScrollBars.Vertical;
-            DBValueText.Size = new Size(143, 402);
-            DBValueText.TabIndex = 0;
-            // 
             // LogBox2
             // 
             LogBox2.Anchor = AnchorStyles.Top;
@@ -2748,16 +2672,6 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
-            // 
-            // TestTextCheckBox
-            // 
-            TestTextCheckBox.AutoSize = true;
-            TestTextCheckBox.Location = new Point(6, 311);
-            TestTextCheckBox.Name = "TestTextCheckBox";
-            TestTextCheckBox.Size = new Size(59, 21);
-            TestTextCheckBox.TabIndex = 54;
-            TestTextCheckBox.Text = "Galca";
-            TestTextCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -3043,12 +2957,11 @@
         private Label label84;
         private Label label83;
         private Label label82;
-        private TextBox DBTimeText;
         private TextBox DBPlateIDText;
         private TextBox DBSensIDText;
         private Label label81;
         private CheckBox ShowDeleteString;
-        private TextBox TestOutText;
-        private CheckBox TestTextCheckBox;
+        private RichTextBox DBAllText;
+        private ComboBox FilterComboBox;
     }
 }
