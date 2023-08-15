@@ -195,7 +195,12 @@ namespace HustonRTEMS
                 dataStr += byteS;
             }
 
-            string outText = string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
+            string outText;
+            if(outByte.canIdentifier.ToString().Length < 3) {
+                outText = string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
+            } else {
+                outText = string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
+            }
             writePort?.Write(outText);
             logBox.Text += "Отправлено\r\n" + outText + "\r\n";
         }

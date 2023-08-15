@@ -586,6 +586,22 @@ namespace HustonRTEMS {
                 if(CheckBoxRTEMS.Checked) {
                     _ = await client.SendAsync(buffer, SocketFlags.None);
                 }
+            } else if(UseCan.Checked) {
+                const int unicanLenght = 1 * sizeof(float);
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingTem.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveTem.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresTemperature.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn fuX = new() {
+                    fl = (float)Convert.ToDouble(LabTemp.Text)
+                };
+                test.data = new byte[unicanLenght]
+                {
+                    fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
             }
         }
 
