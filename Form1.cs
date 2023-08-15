@@ -136,6 +136,11 @@ namespace HustonRTEMS {
                 CANSpeed.Text = section.CANSpeed;
                 CANPort.Text = section.CANPort;
 
+                AddresReceiveTem.Text = section.ReceiveTemAddres;
+                IdReceiveTem.Text = section.IdReceiveTem;
+                IdShippingTem.Text = section.IdShipingTem;
+                AddresTemperature.Text = section.SensorTemAddress;
+
                 AddresReceiveMag.Text = section.ReceiveMagAddres;
                 IdReceiveMag.Text = section.IdReceiveMag;
                 IdShippingMag.Text = section.IdShipingMag;
@@ -177,6 +182,11 @@ namespace HustonRTEMS {
                 section.PortHUSTONTelnet = PortHUSTONTelnet.Text;
                 section.CANSpeed = CANSpeed.Text;
                 section.CANPort = CANPort.Text;
+
+                section.ReceiveTemAddres = AddresReceiveTem.Text;
+                section.IdReceiveTem = IdReceiveTem.Text;
+                section.IdShipingTem = IdShippingTem.Text;
+                section.SensorTemAddress = AddresTemperature.Text;
 
                 section.ReceiveMagAddres = AddresReceiveMag.Text;
                 section.IdReceiveMag = IdReceiveMag.Text;
@@ -558,12 +568,25 @@ namespace HustonRTEMS {
         }
 
         // Send data
-        private void SendTemperature_Click(object sender, EventArgs e) {
-            it.it = DT.temperatureTransmission.TShipAddres.addres;
+        private async void SendTemperature_ClickAsync(object sender, EventArgs e) {
+            if(UseInternet.Checked) {
+                int idShipping = Convert.ToInt16(IdShippingTem.Text, 16);
+                int addresValue = Convert.ToInt16(AddresTemperature.Text, 16);
+                int addresReceive = Convert.ToInt16(AddresReceiveTem.Text, 16);
+                int iCount = 0;
+                int fCount = 1;
+                int[] arIValue = Array.Empty<int>();
+                float[] arFValue = new float[fCount];
+                arFValue[0] = (float)Convert.ToDouble(LabTemp.Text);
+                GF.SendMessageInSocket(serverListener,
+                    idShipping, addresValue, addresReceive,
+                    iCount, fCount, arIValue, arFValue,
+                    LogBox, CheckKISS.Checked);
 
-            fl.fl = (float)Convert.ToDouble(LabTemp.Text);
-            GF.SendMessageInSocket(serverListener, fl, it,
-                hardBufWrite, LogBox);
+                if(CheckBoxRTEMS.Checked) {
+                    _ = await client.SendAsync(buffer, SocketFlags.None);
+                }
+            }
         }
 
         private async void SendMagnetometer1_Click(object? sender, EventArgs? e) {
@@ -613,108 +636,118 @@ namespace HustonRTEMS {
             }
         }
         private async void SendMagnetometer2_Click(object? sender, EventArgs? e) {
-            int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
-            int addresValue = Convert.ToInt16(AddresMag2.Text, 16);
-            int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
-            int iCount = 0;
-            int fCount = 3;
-            int[] arIValue = Array.Empty<int>();
-            float[] arFValue = new float[fCount];
-            arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
-            arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
-            arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
-            GF.SendMessageInSocket(serverListener,
-                idShipping, addresValue, addresReceive,
-                iCount, fCount, arIValue, arFValue,
-                LogBox, CheckKISS.Checked);
+            if(UseInternet.Checked) {
+                int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
+                int addresValue = Convert.ToInt16(AddresMag2.Text, 16);
+                int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
+                int iCount = 0;
+                int fCount = 3;
+                int[] arIValue = Array.Empty<int>();
+                float[] arFValue = new float[fCount];
+                arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
+                arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
+                arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
+                GF.SendMessageInSocket(serverListener,
+                    idShipping, addresValue, addresReceive,
+                    iCount, fCount, arIValue, arFValue,
+                    LogBox, CheckKISS.Checked);
 
-            if(CheckBoxRTEMS.Checked) {
-                _ = await client.SendAsync(buffer, SocketFlags.None);
+                if(CheckBoxRTEMS.Checked) {
+                    _ = await client.SendAsync(buffer, SocketFlags.None);
+                }
             }
         }
 
         private async void SendAcselerometer_Click(object? sender, EventArgs? e) {
-            int idShipping = Convert.ToInt16(IdShippingAcs.Text, 16);
-            int addresValue = Convert.ToInt16(AddresAcs.Text, 16);
-            int addresReceive = Convert.ToInt16(AddresReceiveAcs.Text, 16);
-            int iCount = 0;
-            int fCount = 4;
-            int[] arIValue = Array.Empty<int>();
-            float[] arFValue = new float[fCount];
-            arFValue[0] = (float)Convert.ToDouble(LabRotX.Text);
-            arFValue[1] = (float)Convert.ToDouble(LabRotY.Text);
-            arFValue[2] = (float)Convert.ToDouble(LabRotZ.Text);
-            arFValue[3] = (float)Convert.ToDouble(LabRotW.Text);
-            GF.SendMessageInSocket(serverListener,
-                idShipping, addresValue, addresReceive,
-                iCount, fCount, arIValue, arFValue,
-                LogBox, CheckKISS.Checked);
+            if(UseInternet.Checked) {
+                int idShipping = Convert.ToInt16(IdShippingAcs.Text, 16);
+                int addresValue = Convert.ToInt16(AddresAcs.Text, 16);
+                int addresReceive = Convert.ToInt16(AddresReceiveAcs.Text, 16);
+                int iCount = 0;
+                int fCount = 4;
+                int[] arIValue = Array.Empty<int>();
+                float[] arFValue = new float[fCount];
+                arFValue[0] = (float)Convert.ToDouble(LabRotX.Text);
+                arFValue[1] = (float)Convert.ToDouble(LabRotY.Text);
+                arFValue[2] = (float)Convert.ToDouble(LabRotZ.Text);
+                arFValue[3] = (float)Convert.ToDouble(LabRotW.Text);
+                GF.SendMessageInSocket(serverListener,
+                    idShipping, addresValue, addresReceive,
+                    iCount, fCount, arIValue, arFValue,
+                    LogBox, CheckKISS.Checked);
 
-            if(CheckBoxRTEMS.Checked) {
-                _ = await client.SendAsync(buffer, SocketFlags.None);
+                if(CheckBoxRTEMS.Checked) {
+                    _ = await client.SendAsync(buffer, SocketFlags.None);
+                }
             }
         }
 
         private async void SendRegulation_Click(object? sender, EventArgs? e) {
-            int idShipping = Convert.ToInt16(IdShippingReg.Text, 16);
-            int addresValue = Convert.ToInt16(AddresReg.Text, 16);
-            int addresReceive = Convert.ToInt16(AddresReceiveReg.Text, 16);
-            int iCount = 0;
-            int fCount = 3;
-            int[] arIValue = Array.Empty<int>();
-            float[] arFValue = new float[fCount];
-            arFValue[0] = (float)Convert.ToDouble(LabPosX.Text);
-            arFValue[1] = (float)Convert.ToDouble(LabPosY.Text);
-            arFValue[2] = (float)Convert.ToDouble(LabPosZ.Text);
-            GF.SendMessageInSocket(serverListener,
-                idShipping, addresValue, addresReceive,
-                iCount, fCount, arIValue, arFValue,
-                LogBox, CheckKISS.Checked);
+            if(UseInternet.Checked) {
+                int idShipping = Convert.ToInt16(IdShippingReg.Text, 16);
+                int addresValue = Convert.ToInt16(AddresReg.Text, 16);
+                int addresReceive = Convert.ToInt16(AddresReceiveReg.Text, 16);
+                int iCount = 0;
+                int fCount = 3;
+                int[] arIValue = Array.Empty<int>();
+                float[] arFValue = new float[fCount];
+                arFValue[0] = (float)Convert.ToDouble(LabPosX.Text);
+                arFValue[1] = (float)Convert.ToDouble(LabPosY.Text);
+                arFValue[2] = (float)Convert.ToDouble(LabPosZ.Text);
+                GF.SendMessageInSocket(serverListener,
+                    idShipping, addresValue, addresReceive,
+                    iCount, fCount, arIValue, arFValue,
+                    LogBox, CheckKISS.Checked);
 
-            if(CheckBoxRTEMS.Checked) {
-                _ = await client.SendAsync(buffer, SocketFlags.None);
+                if(CheckBoxRTEMS.Checked) {
+                    _ = await client.SendAsync(buffer, SocketFlags.None);
+                }
             }
         }
 
         private async void SendRatesensor_Click(object? sender, EventArgs? e) {
-            int idShipping = Convert.ToInt16(IdShippingRat.Text, 16);
-            int addresValue = Convert.ToInt16(AddresRat.Text, 16);
-            int addresReceive = Convert.ToInt16(AddresReceiveRat.Text, 16);
-            int iCount = 0;
-            int fCount = 3;
-            int[] arIValue = Array.Empty<int>();
-            float[] arFValue = new float[fCount];
-            arFValue[0] = (float)Convert.ToDouble(LabRatesX.Text);
-            arFValue[1] = (float)Convert.ToDouble(LabRatesY.Text);
-            arFValue[2] = (float)Convert.ToDouble(LabRatesZ.Text);
-            GF.SendMessageInSocket(serverListener,
-                idShipping, addresValue, addresReceive,
-                iCount, fCount, arIValue, arFValue,
-                LogBox, CheckKISS.Checked);
+            if(UseInternet.Checked) {
+                int idShipping = Convert.ToInt16(IdShippingRat.Text, 16);
+                int addresValue = Convert.ToInt16(AddresRat.Text, 16);
+                int addresReceive = Convert.ToInt16(AddresReceiveRat.Text, 16);
+                int iCount = 0;
+                int fCount = 3;
+                int[] arIValue = Array.Empty<int>();
+                float[] arFValue = new float[fCount];
+                arFValue[0] = (float)Convert.ToDouble(LabRatesX.Text);
+                arFValue[1] = (float)Convert.ToDouble(LabRatesY.Text);
+                arFValue[2] = (float)Convert.ToDouble(LabRatesZ.Text);
+                GF.SendMessageInSocket(serverListener,
+                    idShipping, addresValue, addresReceive,
+                    iCount, fCount, arIValue, arFValue,
+                    LogBox, CheckKISS.Checked);
 
-            if(CheckBoxRTEMS.Checked) {
-                _ = await client.SendAsync(buffer, SocketFlags.None);
+                if(CheckBoxRTEMS.Checked) {
+                    _ = await client.SendAsync(buffer, SocketFlags.None);
+                }
             }
         }
 
         private async void SendAccelsensor_ClickAsync(object? sender, EventArgs? e) {
-            int idShipping = Convert.ToInt16(IdShippingAcc.Text, 16);
-            int addresValue = Convert.ToInt16(AddresAcc.Text, 16);
-            int addresReceive = Convert.ToInt16(AddresReceiveAcc.Text, 16);
-            int iCount = 0;
-            int fCount = 3;
-            int[] arIValue = Array.Empty<int>();
-            float[] arFValue = new float[fCount];
-            arFValue[0] = (float)Convert.ToDouble(LabAccelX.Text);
-            arFValue[1] = (float)Convert.ToDouble(LabAccelY.Text);
-            arFValue[2] = (float)Convert.ToDouble(LabAccelZ.Text);
-            GF.SendMessageInSocket(serverListener,
-                idShipping, addresValue, addresReceive,
-                iCount, fCount, arIValue, arFValue,
-                LogBox, CheckKISS.Checked);
+            if(UseInternet.Checked) {
+                int idShipping = Convert.ToInt16(IdShippingAcc.Text, 16);
+                int addresValue = Convert.ToInt16(AddresAcc.Text, 16);
+                int addresReceive = Convert.ToInt16(AddresReceiveAcc.Text, 16);
+                int iCount = 0;
+                int fCount = 3;
+                int[] arIValue = Array.Empty<int>();
+                float[] arFValue = new float[fCount];
+                arFValue[0] = (float)Convert.ToDouble(LabAccelX.Text);
+                arFValue[1] = (float)Convert.ToDouble(LabAccelY.Text);
+                arFValue[2] = (float)Convert.ToDouble(LabAccelZ.Text);
+                GF.SendMessageInSocket(serverListener,
+                    idShipping, addresValue, addresReceive,
+                    iCount, fCount, arIValue, arFValue,
+                    LogBox, CheckKISS.Checked);
 
-            if(CheckBoxRTEMS.Checked) {
-                _ = await client.SendAsync(buffer, SocketFlags.None);
+                if(CheckBoxRTEMS.Checked) {
+                    _ = await client.SendAsync(buffer, SocketFlags.None);
+                }
             }
         }
         // Send data
@@ -875,6 +908,7 @@ namespace HustonRTEMS {
                         DateTime dt = new();
                         dt = dt.AddSeconds(intT);
                         dt = dt.AddYears(-31);
+                        dt = dt.AddYears(2000);
                         DBAllText.Text += $"{variableNameLD[0]}: ";
                         DBAllText.Text += dt;
                         DBAllText.Text += ";\t";

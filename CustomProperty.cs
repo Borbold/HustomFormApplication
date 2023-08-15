@@ -44,6 +44,31 @@ namespace HustonRTEMS {
             get { return (string)base["CANPort"]; }
             set { base["CANPort"] = value; }
         }
+        // Temperature
+        [ConfigurationProperty("ReceiveTemAddres", IsRequired = false)]
+        public string ReceiveTemAddres
+        {
+            get { return (string)base["ReceiveTemAddres"]; }
+            set { base["ReceiveTemAddres"] = value; }
+        }
+        [ConfigurationProperty("IdReceiveTem", IsRequired = false)]
+        public string IdReceiveTem
+        {
+            get { return (string)base["IdReceiveTem"]; }
+            set { base["IdReceiveTem"] = value; }
+        }
+        [ConfigurationProperty("IdShipingTem", IsRequired = false)]
+        public string IdShipingTem
+        {
+            get { return (string)base["IdShipingTem"]; }
+            set { base["IdShipingTem"] = value; }
+        }
+        [ConfigurationProperty("SensorTemAddress", IsRequired = false)]
+        public string SensorTemAddress
+        {
+            get { return (string)base["SensorTemAddress"]; }
+            set { base["SensorTemAddress"] = value; }
+        }
         // Magnetometer
         [ConfigurationProperty("ReceiveMagAddres", IsRequired = false)]
         public string ReceiveMagAddres {

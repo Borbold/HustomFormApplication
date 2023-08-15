@@ -28,6 +28,10 @@
             TemperatureLable = new Label();
             TrackBarSpeedX = new TabControl();
             TabTemperature = new TabPage();
+            label85 = new Label();
+            IdReceiveTem = new TextBox();
+            label86 = new Label();
+            AddresReceiveTem = new TextBox();
             label16 = new Label();
             IdTemperature = new TextBox();
             label15 = new Label();
@@ -200,6 +204,7 @@
             label79 = new Label();
             AddresReceiveTime = new TextBox();
             label80 = new Label();
+            tabPage6 = new TabPage();
             MainTabControll = new TabControl();
             Settings = new TabPage();
             TabSettings = new TabControl();
@@ -240,6 +245,8 @@
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
             LogBox2 = new TextBox();
+            label87 = new Label();
+            IdShippingTem = new TextBox();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -319,6 +326,7 @@
             TrackBarSpeedX.Controls.Add(tabPage2);
             TrackBarSpeedX.Controls.Add(tabPage3);
             TrackBarSpeedX.Controls.Add(tabPage4);
+            TrackBarSpeedX.Controls.Add(tabPage6);
             TrackBarSpeedX.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             TrackBarSpeedX.Location = new Point(6, 6);
             TrackBarSpeedX.Name = "TrackBarSpeedX";
@@ -328,6 +336,12 @@
             // 
             // TabTemperature
             // 
+            TabTemperature.Controls.Add(label87);
+            TabTemperature.Controls.Add(IdShippingTem);
+            TabTemperature.Controls.Add(label85);
+            TabTemperature.Controls.Add(IdReceiveTem);
+            TabTemperature.Controls.Add(label86);
+            TabTemperature.Controls.Add(AddresReceiveTem);
             TabTemperature.Controls.Add(label16);
             TabTemperature.Controls.Add(IdTemperature);
             TabTemperature.Controls.Add(label15);
@@ -344,6 +358,44 @@
             TabTemperature.TabIndex = 0;
             TabTemperature.Text = "Temperature";
             TabTemperature.UseVisualStyleBackColor = true;
+            // 
+            // label85
+            // 
+            label85.AutoSize = true;
+            label85.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label85.Location = new Point(64, 168);
+            label85.Name = "label85";
+            label85.Size = new Size(84, 21);
+            label85.TabIndex = 49;
+            label85.Text = "Id запроса";
+            // 
+            // IdReceiveTem
+            // 
+            IdReceiveTem.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveTem.Location = new Point(6, 165);
+            IdReceiveTem.Name = "IdReceiveTem";
+            IdReceiveTem.Size = new Size(52, 29);
+            IdReceiveTem.TabIndex = 48;
+            IdReceiveTem.Text = "?";
+            // 
+            // label86
+            // 
+            label86.AutoSize = true;
+            label86.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label86.Location = new Point(64, 102);
+            label86.Name = "label86";
+            label86.Size = new Size(111, 21);
+            label86.TabIndex = 47;
+            label86.Text = "Адрес приема";
+            // 
+            // AddresReceiveTem
+            // 
+            AddresReceiveTem.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveTem.Location = new Point(6, 99);
+            AddresReceiveTem.Name = "AddresReceiveTem";
+            AddresReceiveTem.Size = new Size(52, 29);
+            AddresReceiveTem.TabIndex = 46;
+            AddresReceiveTem.Text = "?";
             // 
             // label16
             // 
@@ -369,7 +421,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label15.Location = new Point(147, 72);
+            label15.Location = new Point(369, 66);
             label15.Name = "label15";
             label15.Size = new Size(115, 21);
             label15.TabIndex = 12;
@@ -378,7 +430,7 @@
             // AddresTemperature
             // 
             AddresTemperature.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresTemperature.Location = new Point(109, 69);
+            AddresTemperature.Location = new Point(331, 63);
             AddresTemperature.Name = "AddresTemperature";
             AddresTemperature.Size = new Size(32, 29);
             AddresTemperature.TabIndex = 11;
@@ -393,7 +445,7 @@
             SendTemperature.TabIndex = 10;
             SendTemperature.Text = "Отправить данные температуры";
             SendTemperature.UseVisualStyleBackColor = true;
-            SendTemperature.Click += SendTemperature_Click;
+            SendTemperature.Click += SendTemperature_ClickAsync;
             // 
             // LabTemp
             // 
@@ -2219,6 +2271,16 @@
             label80.TabIndex = 82;
             label80.Text = "Настройки запроса на время";
             // 
+            // tabPage6
+            // 
+            tabPage6.Location = new Point(4, 26);
+            tabPage6.Name = "tabPage6";
+            tabPage6.Padding = new Padding(3);
+            tabPage6.Size = new Size(1204, 406);
+            tabPage6.TabIndex = 7;
+            tabPage6.Text = "Beacon";
+            tabPage6.UseVisualStyleBackColor = true;
+            // 
             // MainTabControll
             // 
             MainTabControll.Controls.Add(Settings);
@@ -2601,11 +2663,11 @@
             // DBAllText
             // 
             DBAllText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBAllText.Location = new Point(372, 6);
+            DBAllText.Location = new Point(486, 6);
             DBAllText.Name = "DBAllText";
             DBAllText.ReadOnly = true;
             DBAllText.ScrollBars = RichTextBoxScrollBars.Vertical;
-            DBAllText.Size = new Size(846, 433);
+            DBAllText.Size = new Size(730, 433);
             DBAllText.TabIndex = 13;
             DBAllText.Text = "";
             // 
@@ -2672,6 +2734,25 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
+            // 
+            // label87
+            // 
+            label87.AutoSize = true;
+            label87.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label87.Location = new Point(64, 201);
+            label87.Name = "label87";
+            label87.Size = new Size(74, 21);
+            label87.TabIndex = 51;
+            label87.Text = "Id ответа";
+            // 
+            // IdShippingTem
+            // 
+            IdShippingTem.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingTem.Location = new Point(6, 198);
+            IdShippingTem.Name = "IdShippingTem";
+            IdShippingTem.Size = new Size(52, 29);
+            IdShippingTem.TabIndex = 50;
+            IdShippingTem.Text = "?";
             // 
             // MainForm
             // 
@@ -2805,8 +2886,6 @@
         private Button CloseSocketServer;
         private Label label16;
         private TextBox IdTemperature;
-        private Label label15;
-        private TextBox AddresTemperature;
         private Button SendMagnetometer2;
         private Label label27;
         private TextBox AddresMag2;
@@ -2963,5 +3042,14 @@
         private CheckBox ShowDeleteString;
         private RichTextBox DBAllText;
         private ComboBox FilterComboBox;
+        private TabPage tabPage6;
+        private Label label85;
+        private TextBox IdReceiveTem;
+        private Label label86;
+        private TextBox AddresReceiveTem;
+        private Label label15;
+        private TextBox AddresTemperature;
+        private Label label87;
+        private TextBox IdShippingTem;
     }
 }
