@@ -245,5 +245,30 @@ namespace HustonRTEMS {
             get => (string)base["SensorBeaconAddress"];
             set => base["SensorBeaconAddress"] = value;
         }
+        // Extended Beacon
+        [ConfigurationProperty("ReceiveAddresExBeacon", IsRequired = false)]
+        public string ReceiveAddresExBeacon
+        {
+            get => (string)base["ReceiveAddresExBeacon"];
+            set => base["ReceiveAddresExBeacon"] = value;
+        }
+        [ConfigurationProperty("IdReceiveExBeacon", IsRequired = false)]
+        public string IdReceiveExBeacon
+        {
+            get => (string)base["IdReceiveExBeacon"];
+            set => base["IdReceiveExBeacon"] = value;
+        }
+        [ConfigurationProperty("IdShipingExBeacon", IsRequired = false)]
+        public string IdShipingExBeacon
+        {
+            get => (string)base["IdShipingExBeacon"];
+            set => base["IdShipingExBeacon"] = value;
+        }
+        [ConfigurationProperty("SensorExBeaconAddress", IsRequired = false)]
+        public string SensorExBeaconAddress
+        {
+            get => (string)base["SensorExBeaconAddress"];
+            set => base["SensorExBeaconAddress"] = value;
+        }
     }
 }

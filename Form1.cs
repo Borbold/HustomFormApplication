@@ -176,6 +176,11 @@ namespace HustonRTEMS {
                 IdShippingBeacon.Text = section.IdShipingBeacon;
                 AddresBeacon.Text = section.SensorBeaconAddress;
 
+                AddresReceiveExBeacon.Text = section.ReceiveAddresExBeacon;
+                IdReceiveExBeacon.Text = section.IdReceiveExBeacon;
+                IdShippingExBeacon.Text = section.IdShipingExBeacon;
+                AddresExBeacon.Text = section.SensorExBeaconAddress;
+
                 cfg.Save();
             }
         }
@@ -227,6 +232,11 @@ namespace HustonRTEMS {
                 section.IdReceiveBeacon = IdReceiveBeacon.Text;
                 section.IdShipingBeacon = IdShippingBeacon.Text;
                 section.SensorBeaconAddress = AddresBeacon.Text;
+
+                section.ReceiveAddresExBeacon = AddresReceiveExBeacon.Text;
+                section.IdReceiveExBeacon = IdReceiveExBeacon.Text;
+                section.IdShipingExBeacon = IdShippingExBeacon.Text;
+                section.SensorExBeaconAddress = AddresExBeacon.Text;
 
                 cfg.Save();
             }
@@ -855,12 +865,67 @@ namespace HustonRTEMS {
                 for(int i = 0; i < unicanLenght; i++) {
                     if(i < psVar) {
                         test.data[i] = PS[i].byte1;
-                        i++;
-                        test.data[i] = PS[i].byte2;
+                        test.data[++i] = PS[i].byte2;
                     } else if(i < psVar + checkVar) {
                         test.data[i] = (byte)255;
                     } else {
                         test.data[i] = 2;
+                    }
+                }
+                CTU.SendWithCAN(test, serialPort, LogBox);
+            }
+        }
+        private void SendExBeacon_Click(object? sender, EventArgs? e) {
+            if(UseInternet.Checked) {
+                //Need?
+            } else if(UseCan.Checked) {
+                const int temVar = 1 * sizeof(short);
+                const int rotVar = 3 * sizeof(float);
+                const int accVar = 3 * sizeof(float);
+                const int unicanLenght = temVar + rotVar + accVar;
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingExBeacon.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveExBeacon.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresExBeacon.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                ItUn[] temV = new ItUn[temVar];
+                FlUn[] rootVar = new FlUn[rotVar];
+                FlUn[] acVar = new FlUn[accVar];
+                test.data = new byte[unicanLenght];
+                for(int i = 0; i < unicanLenght; i++) {
+                    if(i < temVar) {
+                        temV[i].it = Convert.ToInt16(LabTemp.Text);
+                    }else if(i < temVar + rotVar) {
+                        int j = i - temVar;
+                        rootVar[j].fl = (float)Convert.ToDecimal(LabRatesX.Text);
+                        rootVar[j + 1].fl = (float)Convert.ToDecimal(LabRatesY.Text);
+                        rootVar[j + 2].fl = (float)Convert.ToDecimal(LabRatesZ.Text);
+                        i += 2;
+                    } else {
+                        int j = i - (temVar + rotVar);
+                        acVar[j].fl = (float)Convert.ToDecimal(LabAccelX.Text);
+                        acVar[j + 1].fl = (float)Convert.ToDecimal(LabAccelY.Text);
+                        acVar[j + 2].fl = (float)Convert.ToDecimal(LabAccelZ.Text);
+                        i += 2;
+                    }
+                }
+                for(int i = 0; i < unicanLenght; i++) {
+                    if(i < temVar) {
+                        test.data[i] = temV[i].byte1;
+                        test.data[++i] = temV[i].byte2;
+                    }else if(i < temVar + rotVar) {
+                        int j = i - temVar;
+                        test.data[i] = rootVar[j].byte1;
+                        test.data[++i] = rootVar[j + 1].byte2;
+                        test.data[++i] = rootVar[j + 2].byte3;
+                        test.data[++i] = rootVar[j + 3].byte4;
+                    } else {
+                        int j = i - (temVar + rotVar);
+                        test.data[i] = acVar[j].byte1;
+                        test.data[++i] = acVar[j + 1].byte2;
+                        test.data[++i] = acVar[j + 2].byte3;
+                        test.data[++i] = acVar[j + 3].byte4;
                     }
                 }
                 CTU.SendWithCAN(test, serialPort, LogBox);
@@ -926,13 +991,20 @@ namespace HustonRTEMS {
                                 LogBox.Text += "\r\nSendMagnetometer1\r\n";
                             }));
                             SendMagnetometer1_Click(null, null);
-                        }else if(test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
+                        } else if(test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
                             test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
                              test.unicanMSGId == Convert.ToInt16(IdReceiveBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
-                                LogBox.Text += "\r\nSendMagnetometer1\r\n";
+                                LogBox.Text += "\r\nSendBeacon\r\n";
                             }));
                             SendBeacon_Click(null, null);
+                        } else if(test.unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
+                            test.unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
+                             test.unicanMSGId == Convert.ToInt16(IdReceiveExBeacon.Text, 16)) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nSendExBeacon\r\n";
+                            }));
+                            SendExBeacon_Click(null, null);
                         }
                     }
                 }
