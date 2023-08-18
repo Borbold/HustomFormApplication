@@ -917,15 +917,15 @@ namespace HustonRTEMS {
                     }else if(i < temVar + rotVar) {
                         int j = i - temVar;
                         test.data[i] = rootVar[j].byte1;
-                        test.data[++i] = rootVar[j + 1].byte2;
-                        test.data[++i] = rootVar[j + 2].byte3;
-                        test.data[++i] = rootVar[j + 3].byte4;
+                        test.data[++i] = rootVar[j].byte2;
+                        test.data[++i] = rootVar[j].byte3;
+                        test.data[++i] = rootVar[j].byte4;
                     } else {
                         int j = i - (temVar + rotVar);
                         test.data[i] = acVar[j].byte1;
-                        test.data[++i] = acVar[j + 1].byte2;
-                        test.data[++i] = acVar[j + 2].byte3;
-                        test.data[++i] = acVar[j + 3].byte4;
+                        test.data[++i] = acVar[j].byte2;
+                        test.data[++i] = acVar[j].byte3;
+                        test.data[++i] = acVar[j].byte4;
                     }
                 }
                 CTU.SendWithCAN(test, serialPort, LogBox);
