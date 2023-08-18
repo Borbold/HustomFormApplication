@@ -1,9 +1,7 @@
 ﻿using System.IO.Ports;
 
-namespace HustonRTEMS
-{
-    public class Crc16
-    {
+namespace HustonRTEMS {
+    public class Crc16 {
         private static readonly ushort[] CrcTable = { 0x0000, 0x1021, 0x2042, 0x3063, 0x4084,
         0x50a5, 0x60c6, 0x70e7, 0x8108, 0x9129, 0xa14a, 0xb16b, 0xc18c, 0xd1ad,
         0xe1ce, 0xf1ef, 0x1231, 0x0210, 0x3273, 0x2252, 0x52b5, 0x4294, 0x72f7,
@@ -34,12 +32,10 @@ namespace HustonRTEMS
         0x0cc1, 0xef1f, 0xff3e, 0xcf5d, 0xdf7c, 0xaf9b, 0xbfba, 0x8fd9, 0x9ff8,
         0x6e17, 0x7e36, 0x4e55, 0x5e74, 0x2e93, 0x3eb2, 0x0ed1, 0x1ef0 };
 
-        public static ushort ComputeCrc(byte[] data)
-        {
+        public static ushort ComputeCrc(byte[] data) {
             ushort crc = 0;
 
-            foreach(byte datum in data)
-            {
+            foreach(byte datum in data) {
                 crc = (ushort)((crc << 8) ^ CrcTable[((crc >> 8) ^ datum) & 0x00FF]);
             }
 
@@ -47,16 +43,14 @@ namespace HustonRTEMS
         }
     }
 
-    public struct UnicanMessage
-    {
+    public struct UnicanMessage {
         public ushort unicanMSGId; //MSG_ID of unican message
         public ushort unicanAddressFrom; // address of sender in sattelite network
         public ushort unicanAddressTo; // address of receiver in sattelite network
         public ushort unicanLength; //length of data
         public byte[] data; //pointer to data field
     };
-    public struct CanMessage
-    {
+    public struct CanMessage {
         public uint canIdentifier; // 11 or 29bit CAN identifier
         public sbyte canRTR;// Remote transmission request bit
         public sbyte canExtbit;// Identifier extension bit. 0x00 indicate 11 bit message ID
@@ -64,26 +58,21 @@ namespace HustonRTEMS
         public byte[] data;// Data field
     };
 
-    public class CanTXBufferS
-    {
+    public class CanTXBufferS {
         public CanMessage cmsg;
         public CanTXBufferS? next;
     };
-    public class UmesBufferS
-    {
+    public class UmesBufferS {
         public ushort pos;
         public UnicanMessage umsg;
         public UmesBufferS? next;
     };
 
-    internal class CanToUnican
-    {
-        private static int UINT16LEFT(int val)
-        {
+    internal class CanToUnican {
+        private static int UINT16LEFT(int val) {
             return ((val) >> 8) & 0x00FF;
         }
-        private static int UINT16RIGHT(int val)
-        {
+        private static int UINT16RIGHT(int val) {
             return (val) & 0x00FF;
         }
 
@@ -95,8 +84,7 @@ namespace HustonRTEMS
         private const sbyte CAN_EXTENDED_HEADER = 1;
         private const int UNICANMES_MAX_COUNT = 10;
 
-        private struct UnicanBufferS
-        {
+        private struct UnicanBufferS {
             public byte proc_task_id;
             public byte message_ready_event;
             public byte message_sended_event;
@@ -108,8 +96,7 @@ namespace HustonRTEMS
         };
         private const int CAN_BUF_SIZE = 16;
 
-        private struct CanBufferS
-        {
+        private struct CanBufferS {
             public CanMessage[] cmgs;
             public sbyte cmsg_head;
             public sbyte cmsg_tail;
@@ -117,120 +104,93 @@ namespace HustonRTEMS
         };
         private CanTXBufferS? can_tx_buffer = null;
 
-        private void AddCanMSGBuffer(ref CanMessage cmsg)
-        {
-            CanTXBufferS tx_queue = new()
-            {
+        private void AddCanMSGBuffer(ref CanMessage cmsg) {
+            CanTXBufferS tx_queue = new() {
                 cmsg = cmsg,
                 next = null
             };
-            if(can_tx_buffer == null)
-            {
+            if(can_tx_buffer == null) {
                 can_tx_buffer = tx_queue;
-            } else
-            {
+            } else {
                 CanTXBufferS can_buf = can_tx_buffer;
-                while(can_buf.next != null)
-                {
+                while(can_buf.next != null) {
                     can_buf = can_buf.next;
-                    SendCanMessage(can_buf.cmsg);
                 }
                 can_buf.next = tx_queue;
-                SendCanMessage(can_buf.cmsg);
-                SendCanMessage(can_buf.next.cmsg);
             }
         }
 
-        public void ConvertCan(ref UnicanMessage umsg, CanMessage canBuf)
-        {
-            if(canBuf.canExtbit == 0)
-            {
+        public void ConvertCan(ref UnicanMessage umsg, CanMessage canBuf) {
+            if(canBuf.canExtbit == 0) {
                 umsg.unicanAddressTo = (ushort)(canBuf.canIdentifier & 0x1F);
                 umsg.unicanAddressFrom = (ushort)((canBuf.canIdentifier & 0x3E0) >> 5);
-            } else
-            {
+            } else {
                 umsg.unicanAddressTo = (ushort)(canBuf.canIdentifier & 0x3FFF);
                 umsg.unicanAddressFrom = (ushort)((canBuf.canIdentifier & 0xFFFC000) >> 14);
             }
-            umsg.unicanMSGId = (ushort)(canBuf.data[0] + canBuf.data[1] * 256);
+            umsg.unicanMSGId = (ushort)(canBuf.data[0] + (canBuf.data[1] * 256));
         }
 
         private void CanSetIdentifier(ref UnicanMessage msg, ref CanMessage can_buff,
-                    sbyte data_bit)
-        {
-            if((msg.unicanAddressFrom > 31) || (msg.unicanAddressTo > 31))
-            {
+                    sbyte data_bit) {
+            if((msg.unicanAddressFrom > 31) || (msg.unicanAddressTo > 31)) {
                 can_buff.canExtbit = CAN_EXTENDED_HEADER;
                 can_buff.canIdentifier = 0x00;
                 can_buff.canIdentifier |= msg.unicanAddressTo;
                 can_buff.canIdentifier |= (uint)msg.unicanAddressFrom << 14;
-                if(data_bit != 0)
-                {
+                if(data_bit != 0) {
                     can_buff.canIdentifier |= 1 << 28;
                 }
-            } else
-            {
+            } else {
                 can_buff.canExtbit = CAN_STANDART_HEADER;
                 can_buff.canIdentifier = 0x00;
                 can_buff.canIdentifier |= msg.unicanAddressTo;
                 can_buff.canIdentifier |= (uint)msg.unicanAddressFrom << 5;
-                if(data_bit != 0)
-                {
+                if(data_bit != 0) {
                     can_buff.canIdentifier |= 1 << 10;
                 }
             }
         }
 
-        private void SendCanMessage(CanMessage outByte)
-        {
+        private void SendCanMessage(CanMessage outByte) {
             string dataStr = "";
-            for(int i = 0; i < outByte.canDLC; i++)
-            {
+            for(int i = 0; i < outByte.canDLC; i++) {
                 string byteS = $"{outByte.data[i]:X}";
-                if(byteS.Length < 2)
-                {
+                if(byteS.Length < 2) {
                     byteS = $"0{outByte.data[i]:X}";
                 }
 
                 dataStr += byteS;
             }
 
-            string outText;
-            if(outByte.canIdentifier.ToString().Length < 3) {
-                outText = string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
-            } else {
-                outText = string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
-            }
+            string outText = outByte.canIdentifier.ToString().Length < 3
+                ? string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr)
+                : string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
             writePort?.Write(outText);
             logBox.Text += "Отправлено\r\n" + outText + "\r\n";
         }
 
         private SerialPort? writePort;
         private TextBox? logBox;
-        public void SendWithCAN(UnicanMessage umsg, SerialPort writePort, TextBox logBox)
-        {
+        public void SendWithCAN(UnicanMessage umsg, SerialPort writePort, TextBox logBox) {
             this.writePort = writePort;
             this.logBox = logBox;
-            CanMessage cmsg = new()
-            {
+            CanMessage cmsg = new() {
                 data = new byte[umsg.unicanLength + CAN_MIN_DLC]
             };
 
             uint i;
             cmsg.canRTR = 0;
-            if(umsg.unicanLength < 7)
-            {
+            if(umsg.unicanLength < 7) {
                 CanSetIdentifier(ref umsg, ref cmsg, 0);
                 cmsg.canDLC = (sbyte)(umsg.unicanLength + CAN_MIN_DLC);
                 cmsg.data[0] = (byte)(umsg.unicanMSGId & 0x00FF);
                 cmsg.data[1] = (byte)((umsg.unicanMSGId >> 8) & 0x00FF);
-                for(i = 0; i < umsg.unicanLength; i++)
-                {
+                for(i = 0; i < umsg.unicanLength; i++) {
                     cmsg.data[i + 2] = umsg.data[i];
                 }
                 SendCanMessage(cmsg);
-            } else
-            {
+            } else {
                 ushort crc;
                 CanSetIdentifier(ref umsg, ref cmsg, 0);
                 crc = Crc16.ComputeCrc(umsg.data);
@@ -243,21 +203,17 @@ namespace HustonRTEMS
                 cmsg.data[5] = (byte)UINT16LEFT(umsg.unicanLength + CRC_LENGTH);
                 SendCanMessage(cmsg);
 
-                CanMessage cbmsg = new()
-                {
+                CanMessage cbmsg = new() {
                     canRTR = 0,
                     data = new byte[8]
                 };
                 CanSetIdentifier(ref umsg, ref cbmsg, 1);  //could be optimized
-                for(i = 0; i < umsg.unicanLength; i++)
-                {
+                for(i = 0; i < umsg.unicanLength; i++) {
                     cbmsg.data[i % 8] = umsg.data[i];
-                    if((i % 8) == 7)
-                    {
+                    if((i % 8) == 7) {
                         cbmsg.canDLC = 8;
                         AddCanMSGBuffer(ref cbmsg);
-                        cbmsg = new()
-                        {
+                        cbmsg = new() {
                             data = new byte[8]
                         };
                         CanSetIdentifier(ref umsg, ref cbmsg, 1);
@@ -267,14 +223,12 @@ namespace HustonRTEMS
                 if((i % 8) > 0)  //something left
                 {
                     cbmsg.canDLC = (sbyte)(i % 8);
-                    if((i % 8) < 7)
-                    {
+                    if((i % 8) < 7) {
                         cbmsg.data[i % 8] = (byte)UINT16RIGHT(crc);
                         cbmsg.data[(i % 8) + 1] = (byte)UINT16LEFT(crc);
                         cbmsg.canDLC += 2;
                         AddCanMSGBuffer(ref cbmsg);
-                    } else
-                    {
+                    } else {
                         cbmsg.data[7] = (byte)UINT16RIGHT(crc);
                         cbmsg.canDLC = 8;
                         AddCanMSGBuffer(ref cbmsg);
@@ -285,13 +239,16 @@ namespace HustonRTEMS
                         cbmsg.canDLC = 1;
                         AddCanMSGBuffer(ref cbmsg);
                     }
-                } else
-                {
+                } else {
                     cbmsg.data[0] = (byte)UINT16RIGHT(crc);
                     cbmsg.data[1] = (byte)UINT16LEFT(crc);
                     cbmsg.canDLC = 2;
                     AddCanMSGBuffer(ref cbmsg);
                 }
+            }
+            while(can_tx_buffer != null) {
+                SendCanMessage(can_tx_buffer.cmsg);
+                can_tx_buffer = can_tx_buffer.next;
             }
             can_tx_buffer = null;
         }

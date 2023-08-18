@@ -28,6 +28,8 @@
             TemperatureLable = new Label();
             TrackBarSpeedX = new TabControl();
             TabTemperature = new TabPage();
+            label87 = new Label();
+            IdShippingTem = new TextBox();
             label85 = new Label();
             IdReceiveTem = new TextBox();
             label86 = new Label();
@@ -205,6 +207,8 @@
             AddresReceiveTime = new TextBox();
             label80 = new Label();
             tabPage6 = new TabPage();
+            SendBeacon = new Button();
+            label88 = new Label();
             MainTabControll = new TabControl();
             Settings = new TabPage();
             TabSettings = new TabControl();
@@ -245,8 +249,14 @@
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
             LogBox2 = new TextBox();
-            label87 = new Label();
-            IdShippingTem = new TextBox();
+            label89 = new Label();
+            IdShippingBeacon = new TextBox();
+            label90 = new Label();
+            IdReceiveBeacon = new TextBox();
+            label91 = new Label();
+            AddresReceiveBeacon = new TextBox();
+            label82 = new Label();
+            AddresBeacon = new TextBox();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -276,6 +286,7 @@
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelY).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelX).BeginInit();
             tabPage4.SuspendLayout();
+            tabPage6.SuspendLayout();
             MainTabControll.SuspendLayout();
             Settings.SuspendLayout();
             TabSettings.SuspendLayout();
@@ -358,6 +369,25 @@
             TabTemperature.TabIndex = 0;
             TabTemperature.Text = "Temperature";
             TabTemperature.UseVisualStyleBackColor = true;
+            // 
+            // label87
+            // 
+            label87.AutoSize = true;
+            label87.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label87.Location = new Point(64, 201);
+            label87.Name = "label87";
+            label87.Size = new Size(74, 21);
+            label87.TabIndex = 51;
+            label87.Text = "Id ответа";
+            // 
+            // IdShippingTem
+            // 
+            IdShippingTem.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingTem.Location = new Point(6, 198);
+            IdShippingTem.Name = "IdShippingTem";
+            IdShippingTem.Size = new Size(52, 29);
+            IdShippingTem.TabIndex = 50;
+            IdShippingTem.Text = "?";
             // 
             // label85
             // 
@@ -2273,6 +2303,16 @@
             // 
             // tabPage6
             // 
+            tabPage6.Controls.Add(label82);
+            tabPage6.Controls.Add(AddresBeacon);
+            tabPage6.Controls.Add(label89);
+            tabPage6.Controls.Add(IdShippingBeacon);
+            tabPage6.Controls.Add(label90);
+            tabPage6.Controls.Add(IdReceiveBeacon);
+            tabPage6.Controls.Add(label91);
+            tabPage6.Controls.Add(AddresReceiveBeacon);
+            tabPage6.Controls.Add(SendBeacon);
+            tabPage6.Controls.Add(label88);
             tabPage6.Location = new Point(4, 26);
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new Padding(3);
@@ -2280,6 +2320,27 @@
             tabPage6.TabIndex = 7;
             tabPage6.Text = "Beacon";
             tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // SendBeacon
+            // 
+            SendBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendBeacon.Location = new Point(6, 343);
+            SendBeacon.Name = "SendBeacon";
+            SendBeacon.Size = new Size(156, 57);
+            SendBeacon.TabIndex = 76;
+            SendBeacon.Text = "Отправить данные маяка";
+            SendBeacon.UseVisualStyleBackColor = true;
+            SendBeacon.Click += SendBeacon_Click;
+            // 
+            // label88
+            // 
+            label88.AutoSize = true;
+            label88.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label88.Location = new Point(6, 3);
+            label88.Name = "label88";
+            label88.Size = new Size(88, 37);
+            label88.TabIndex = 0;
+            label88.Text = "Маяк";
             // 
             // MainTabControll
             // 
@@ -2735,24 +2796,81 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
-            // label87
+            // label89
             // 
-            label87.AutoSize = true;
-            label87.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label87.Location = new Point(64, 201);
-            label87.Name = "label87";
-            label87.Size = new Size(74, 21);
-            label87.TabIndex = 51;
-            label87.Text = "Id ответа";
+            label89.AutoSize = true;
+            label89.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label89.Location = new Point(64, 148);
+            label89.Name = "label89";
+            label89.Size = new Size(74, 21);
+            label89.TabIndex = 87;
+            label89.Text = "Id ответа";
             // 
-            // IdShippingTem
+            // IdShippingBeacon
             // 
-            IdShippingTem.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdShippingTem.Location = new Point(6, 198);
-            IdShippingTem.Name = "IdShippingTem";
-            IdShippingTem.Size = new Size(52, 29);
-            IdShippingTem.TabIndex = 50;
-            IdShippingTem.Text = "?";
+            IdShippingBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingBeacon.Location = new Point(6, 145);
+            IdShippingBeacon.Name = "IdShippingBeacon";
+            IdShippingBeacon.Size = new Size(52, 29);
+            IdShippingBeacon.TabIndex = 86;
+            IdShippingBeacon.Text = "?";
+            // 
+            // label90
+            // 
+            label90.AutoSize = true;
+            label90.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label90.Location = new Point(64, 112);
+            label90.Name = "label90";
+            label90.Size = new Size(84, 21);
+            label90.TabIndex = 85;
+            label90.Text = "Id запроса";
+            // 
+            // IdReceiveBeacon
+            // 
+            IdReceiveBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveBeacon.Location = new Point(6, 109);
+            IdReceiveBeacon.Name = "IdReceiveBeacon";
+            IdReceiveBeacon.Size = new Size(52, 29);
+            IdReceiveBeacon.TabIndex = 84;
+            IdReceiveBeacon.Text = "?";
+            // 
+            // label91
+            // 
+            label91.AutoSize = true;
+            label91.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label91.Location = new Point(64, 46);
+            label91.Name = "label91";
+            label91.Size = new Size(111, 21);
+            label91.TabIndex = 83;
+            label91.Text = "Адрес приема";
+            // 
+            // AddresReceiveBeacon
+            // 
+            AddresReceiveBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveBeacon.Location = new Point(6, 43);
+            AddresReceiveBeacon.Name = "AddresReceiveBeacon";
+            AddresReceiveBeacon.Size = new Size(52, 29);
+            AddresReceiveBeacon.TabIndex = 82;
+            AddresReceiveBeacon.Text = "?";
+            // 
+            // label82
+            // 
+            label82.AutoSize = true;
+            label82.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label82.Location = new Point(234, 238);
+            label82.Name = "label82";
+            label82.Size = new Size(115, 21);
+            label82.TabIndex = 89;
+            label82.Text = "Адрес датчика";
+            // 
+            // AddresBeacon
+            // 
+            AddresBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresBeacon.Location = new Point(196, 235);
+            AddresBeacon.Name = "AddresBeacon";
+            AddresBeacon.Size = new Size(32, 29);
+            AddresBeacon.TabIndex = 88;
+            AddresBeacon.Text = "?";
             // 
             // MainForm
             // 
@@ -2806,6 +2924,8 @@
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelX).EndInit();
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
+            tabPage6.ResumeLayout(false);
+            tabPage6.PerformLayout();
             MainTabControll.ResumeLayout(false);
             Settings.ResumeLayout(false);
             TabSettings.ResumeLayout(false);
@@ -3051,5 +3171,14 @@
         private TextBox AddresTemperature;
         private Label label87;
         private TextBox IdShippingTem;
+        private Label label88;
+        private Button SendBeacon;
+        private Label label89;
+        private TextBox IdShippingBeacon;
+        private Label label90;
+        private TextBox IdReceiveBeacon;
+        private Label label91;
+        private TextBox AddresReceiveBeacon;
+        private TextBox AddresBeacon;
     }
 }

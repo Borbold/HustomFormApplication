@@ -171,6 +171,11 @@ namespace HustonRTEMS {
                 IdReceiveTime.Text = section.IdReceiveTime;
                 IdShippingTime.Text = section.IdShipingTime;
 
+                AddresReceiveBeacon.Text = section.ReceiveAddresBeacon;
+                IdReceiveBeacon.Text = section.IdReceiveBeacon;
+                IdShippingBeacon.Text = section.IdShipingBeacon;
+                AddresBeacon.Text = section.SensorBeaconAddress;
+
                 cfg.Save();
             }
         }
@@ -217,6 +222,11 @@ namespace HustonRTEMS {
                 section.ReceiveAddresTime = AddresReceiveTime.Text;
                 section.IdReceiveTime = IdReceiveTime.Text;
                 section.IdShipingTime = IdShippingTime.Text;
+
+                section.ReceiveAddresBeacon = AddresReceiveBeacon.Text;
+                section.IdReceiveBeacon = IdReceiveBeacon.Text;
+                section.IdShipingBeacon = IdShippingBeacon.Text;
+                section.SensorBeaconAddress = AddresBeacon.Text;
 
                 cfg.Save();
             }
@@ -671,6 +681,30 @@ namespace HustonRTEMS {
                 if(CheckBoxRTEMS.Checked) {
                     _ = await client.SendAsync(buffer, SocketFlags.None);
                 }
+            } else if(UseCan.Checked) {
+                const int unicanLenght = 3 * sizeof(float);
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingMag.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveMag.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresMag2.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn fuX = new() {
+                    fl = (float)Convert.ToDouble(LabMagX_2.Text)
+                };
+                FlUn fuY = new() {
+                    fl = (float)Convert.ToDouble(LabMagY_2.Text)
+                };
+                FlUn fuZ = new() {
+                    fl = (float)Convert.ToDouble(LabMagZ_2.Text)
+                };
+                test.data = new byte[unicanLenght]
+                {
+                    fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4,
+                    fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
+                    fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
             }
         }
 
@@ -695,6 +729,34 @@ namespace HustonRTEMS {
                 if(CheckBoxRTEMS.Checked) {
                     _ = await client.SendAsync(buffer, SocketFlags.None);
                 }
+            } else if(UseCan.Checked) {
+                const int unicanLenght = 4 * sizeof(float);
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingAcc.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveAcc.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresAcc.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn fuX = new() {
+                    fl = (float)Convert.ToDouble(LabRotX.Text)
+                };
+                FlUn fuY = new() {
+                    fl = (float)Convert.ToDouble(LabRotY.Text)
+                };
+                FlUn fuZ = new() {
+                    fl = (float)Convert.ToDouble(LabRotZ.Text)
+                };
+                FlUn fuW = new() {
+                    fl = (float)Convert.ToDouble(LabRotW.Text)
+                };
+                test.data = new byte[unicanLenght]
+                {
+                    fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4,
+                    fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
+                    fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
+                    fuW.byte1, fuW.byte2, fuW.byte3, fuW.byte4,
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
             }
         }
 
@@ -718,6 +780,7 @@ namespace HustonRTEMS {
                 if(CheckBoxRTEMS.Checked) {
                     _ = await client.SendAsync(buffer, SocketFlags.None);
                 }
+            } else if(UseCan.Checked) {
             }
         }
 
@@ -741,6 +804,7 @@ namespace HustonRTEMS {
                 if(CheckBoxRTEMS.Checked) {
                     _ = await client.SendAsync(buffer, SocketFlags.None);
                 }
+            } else if(UseCan.Checked) {
             }
         }
 
@@ -764,6 +828,42 @@ namespace HustonRTEMS {
                 if(CheckBoxRTEMS.Checked) {
                     _ = await client.SendAsync(buffer, SocketFlags.None);
                 }
+            } else if(UseCan.Checked) {
+            }
+        }
+        private void SendBeacon_Click(object? sender, EventArgs? e) {
+            if(UseInternet.Checked) {
+                //Need?
+            } else if(UseCan.Checked) {
+                const int psVar = 15 * sizeof(ushort);
+                const int checkVar = 2 * sizeof(byte);
+                const int reserveVar = 1 * sizeof(ushort);
+                const int otherVar = 17 * sizeof(ushort);
+                const int unicanLenght = psVar + checkVar + reserveVar + otherVar;
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingBeacon.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveBeacon.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresBeacon.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                ItUn[] PS = new ItUn[unicanLenght];
+                test.data = new byte[unicanLenght];
+                for(int i = 0; i < unicanLenght; i++) {
+                    if(i <= psVar)
+                        PS[i].it = 2;
+                }
+                for(int i = 0; i < unicanLenght; i++) {
+                    if(i < psVar) {
+                        test.data[i] = PS[i].byte1;
+                        i++;
+                        test.data[i] = PS[i].byte2;
+                    } else if(i < psVar + checkVar) {
+                        test.data[i] = (byte)255;
+                    } else {
+                        test.data[i] = 2;
+                    }
+                }
+                CTU.SendWithCAN(test, serialPort, LogBox);
             }
         }
         // Send data
@@ -826,6 +926,13 @@ namespace HustonRTEMS {
                                 LogBox.Text += "\r\nSendMagnetometer1\r\n";
                             }));
                             SendMagnetometer1_Click(null, null);
+                        }else if(test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
+                            test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
+                             test.unicanMSGId == Convert.ToInt16(IdReceiveBeacon.Text, 16)) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nSendMagnetometer1\r\n";
+                            }));
+                            SendBeacon_Click(null, null);
                         }
                     }
                 }
