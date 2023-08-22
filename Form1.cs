@@ -1153,11 +1153,12 @@ namespace HustonRTEMS {
             }
         }
 
+        string allText;
         private void FilterComboBox_SelectedIndexChanged(object sender, EventArgs e) {
             if(DBAllText.Text.Length > 0) {
                 int k;
 
-                string allText = DBAllText.Text;
+                allText ??= DBAllText.Text;
                 string[] splitAllText = allText.Split(new char[] { '\n', '\t' });
                 string[] lineBreak = allText.Split('\n');
                 switch(FilterComboBox.SelectedIndex) {
@@ -1171,8 +1172,8 @@ namespace HustonRTEMS {
                                 time.AddRange(splitTimeText[1].Split(new char[] { ' ', '.' }));
                                 time.Add(splitTimeText[2]);
                                 time.AddRange(splitTimeText[3].Split(';'));
-                                DateTime dt = new(Convert.ToInt32(time[1]),
-                                    Convert.ToInt32(time[2]), Convert.ToInt32(time[3]),
+                                DateTime dt = new(Convert.ToInt32(time[3]),
+                                    Convert.ToInt32(time[2]), Convert.ToInt32(time[1]),
                                     Convert.ToInt32(time[4]), Convert.ToInt32(time[5]),
                                     Convert.ToInt32(time[6]));
                                 allDT.Add(k, dt);
@@ -1227,8 +1228,25 @@ namespace HustonRTEMS {
                                 k++;
                             }
                         }
-                        DBAllText.Text = "";
+
                         Dictionary<int, float> sortDV = allDV.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+                        switch(HowFilter.SelectedIndex) {
+                            case 0:
+                                for(int i = 0; i < sortDV.Count; i++) {
+                                    if(sortDV[i] < (float)Convert.ToDecimal(FilterTextBox.Text)) {
+                                        sortDV.Remove(i);
+                                    }
+                                }
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                        }
+
+                        DBAllText.Text = "";
                         foreach(var sort in sortDV) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }

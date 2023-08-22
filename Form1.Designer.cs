@@ -208,6 +208,9 @@
             label80 = new Label();
             tabPage6 = new TabPage();
             panel2 = new Panel();
+            label84 = new Label();
+            LabBTemp = new Label();
+            BTemp = new TrackBar();
             SendExBeacon = new Button();
             label92 = new Label();
             AddresExBeacon = new TextBox();
@@ -259,6 +262,8 @@
             label10 = new Label();
             SensorReadings = new TabPage();
             tabPage5 = new TabPage();
+            HowFilter = new ComboBox();
+            FilterTextBox = new TextBox();
             label81 = new Label();
             FilterComboBox = new ComboBox();
             DBAllText = new RichTextBox();
@@ -268,9 +273,6 @@
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
             LogBox2 = new TextBox();
-            LabBTemp = new Label();
-            BTemp = new TrackBar();
-            label84 = new Label();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -302,6 +304,7 @@
             tabPage4.SuspendLayout();
             tabPage6.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BTemp).BeginInit();
             MainTabControll.SuspendLayout();
             Settings.SuspendLayout();
             TabSettings.SuspendLayout();
@@ -309,7 +312,6 @@
             CANPage.SuspendLayout();
             SensorReadings.SuspendLayout();
             tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)BTemp).BeginInit();
             SuspendLayout();
             // 
             // LogBox
@@ -2359,6 +2361,38 @@
             panel2.Size = new Size(722, 394);
             panel2.TabIndex = 100;
             // 
+            // label84
+            // 
+            label84.AutoSize = true;
+            label84.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label84.Location = new Point(3, 3);
+            label84.Name = "label84";
+            label84.Size = new Size(25, 30);
+            label84.TabIndex = 12;
+            label84.Text = "T";
+            // 
+            // LabBTemp
+            // 
+            LabBTemp.AutoSize = true;
+            LabBTemp.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LabBTemp.Location = new Point(340, 3);
+            LabBTemp.Name = "LabBTemp";
+            LabBTemp.Size = new Size(35, 30);
+            LabBTemp.TabIndex = 11;
+            LabBTemp.Text = "20";
+            // 
+            // BTemp
+            // 
+            BTemp.LargeChange = 1;
+            BTemp.Location = new Point(34, 3);
+            BTemp.Maximum = 500;
+            BTemp.Minimum = 100;
+            BTemp.Name = "BTemp";
+            BTemp.Size = new Size(300, 45);
+            BTemp.TabIndex = 10;
+            BTemp.Value = 100;
+            BTemp.Scroll += BTemp_Scroll;
+            // 
             // SendExBeacon
             // 
             SendExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -2895,6 +2929,8 @@
             // 
             // tabPage5
             // 
+            tabPage5.Controls.Add(HowFilter);
+            tabPage5.Controls.Add(FilterTextBox);
             tabPage5.Controls.Add(label81);
             tabPage5.Controls.Add(FilterComboBox);
             tabPage5.Controls.Add(DBAllText);
@@ -2910,6 +2946,26 @@
             tabPage5.TabIndex = 2;
             tabPage5.Text = "LittleD";
             tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // HowFilter
+            // 
+            HowFilter.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            HowFilter.FormattingEnabled = true;
+            HowFilter.Items.AddRange(new object[] { ">=", "<=", "==", "!=" });
+            HowFilter.Location = new Point(6, 155);
+            HowFilter.Name = "HowFilter";
+            HowFilter.Size = new Size(58, 29);
+            HowFilter.TabIndex = 93;
+            HowFilter.Text = ">=";
+            // 
+            // FilterTextBox
+            // 
+            FilterTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FilterTextBox.Location = new Point(70, 155);
+            FilterTextBox.Name = "FilterTextBox";
+            FilterTextBox.Size = new Size(186, 29);
+            FilterTextBox.TabIndex = 92;
+            FilterTextBox.Text = "0";
             // 
             // label81
             // 
@@ -2930,6 +2986,7 @@
             FilterComboBox.Name = "FilterComboBox";
             FilterComboBox.Size = new Size(250, 29);
             FilterComboBox.TabIndex = 14;
+            FilterComboBox.Text = "Time";
             FilterComboBox.SelectedIndexChanged += FilterComboBox_SelectedIndexChanged;
             // 
             // DBAllText
@@ -3007,38 +3064,6 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
-            // LabBTemp
-            // 
-            LabBTemp.AutoSize = true;
-            LabBTemp.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabBTemp.Location = new Point(340, 3);
-            LabBTemp.Name = "LabBTemp";
-            LabBTemp.Size = new Size(35, 30);
-            LabBTemp.TabIndex = 11;
-            LabBTemp.Text = "20";
-            // 
-            // BTemp
-            // 
-            BTemp.LargeChange = 1;
-            BTemp.Location = new Point(34, 3);
-            BTemp.Maximum = 500;
-            BTemp.Minimum = 100;
-            BTemp.Name = "BTemp";
-            BTemp.Size = new Size(300, 45);
-            BTemp.TabIndex = 10;
-            BTemp.Value = 100;
-            BTemp.Scroll += BTemp_Scroll;
-            // 
-            // label84
-            // 
-            label84.AutoSize = true;
-            label84.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label84.Location = new Point(3, 3);
-            label84.Name = "label84";
-            label84.Size = new Size(25, 30);
-            label84.TabIndex = 12;
-            label84.Text = "T";
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -3095,6 +3120,7 @@
             tabPage6.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)BTemp).EndInit();
             MainTabControll.ResumeLayout(false);
             Settings.ResumeLayout(false);
             TabSettings.ResumeLayout(false);
@@ -3105,7 +3131,6 @@
             SensorReadings.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)BTemp).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3362,5 +3387,7 @@
         private Button SendExBeacon;
         private Panel panel2;
         private TrackBar BTemp;
+        private TextBox FilterTextBox;
+        private ComboBox HowFilter;
     }
 }
