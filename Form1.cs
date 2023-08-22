@@ -320,6 +320,9 @@ namespace HustonRTEMS {
         private void TrackBarAccelZ_Scroll(object sender, EventArgs e) {
             Change_Val_Track(TrackBarAccelZ.Value / 100.0f, LabAccelZ);
         }
+        private void BTemp_Scroll(object sender, EventArgs e) {
+            Change_Val_Track(BTemp.Value / 5.0f, LabBTemp);
+        }
         // Track bar
 
         // Settings
@@ -895,8 +898,8 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght];
                 for(int i = 0; i < unicanLenght; i++) {
                     if(i < temVar) {
-                        temV[i].it = Convert.ToInt16(LabTemp.Text);
-                    }else if(i < temVar + rotVar) {
+                        temV[i].it = Convert.ToInt16(LabBTemp.Text);
+                    } else if(i < temVar + rotVar) {
                         int j = i - temVar;
                         rootVar[j].fl = (float)Convert.ToDecimal(LabRatesX.Text);
                         rootVar[j + 1].fl = (float)Convert.ToDecimal(LabRatesY.Text);
@@ -914,7 +917,7 @@ namespace HustonRTEMS {
                     if(i < temVar) {
                         test.data[i] = temV[i].byte1;
                         test.data[++i] = temV[i].byte2;
-                    }else if(i < temVar + rotVar) {
+                    } else if(i < temVar + rotVar) {
                         int j = i - temVar;
                         test.data[i] = rootVar[j].byte1;
                         test.data[++i] = rootVar[j].byte2;

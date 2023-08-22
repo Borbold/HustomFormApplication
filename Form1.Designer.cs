@@ -207,6 +207,7 @@
             AddresReceiveTime = new TextBox();
             label80 = new Label();
             tabPage6 = new TabPage();
+            panel2 = new Panel();
             SendExBeacon = new Button();
             label92 = new Label();
             AddresExBeacon = new TextBox();
@@ -267,6 +268,9 @@
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
             LogBox2 = new TextBox();
+            LabBTemp = new Label();
+            BTemp = new TrackBar();
+            label84 = new Label();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -297,6 +301,7 @@
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelX).BeginInit();
             tabPage4.SuspendLayout();
             tabPage6.SuspendLayout();
+            panel2.SuspendLayout();
             MainTabControll.SuspendLayout();
             Settings.SuspendLayout();
             TabSettings.SuspendLayout();
@@ -304,6 +309,7 @@
             CANPage.SuspendLayout();
             SensorReadings.SuspendLayout();
             tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BTemp).BeginInit();
             SuspendLayout();
             // 
             // LogBox
@@ -2304,15 +2310,16 @@
             // label80
             // 
             label80.AutoSize = true;
-            label80.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label80.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             label80.Location = new Point(6, 3);
             label80.Name = "label80";
-            label80.Size = new Size(294, 30);
+            label80.Size = new Size(311, 30);
             label80.TabIndex = 82;
             label80.Text = "Настройки запроса на время";
             // 
             // tabPage6
             // 
+            tabPage6.Controls.Add(panel2);
             tabPage6.Controls.Add(SendExBeacon);
             tabPage6.Controls.Add(label92);
             tabPage6.Controls.Add(AddresExBeacon);
@@ -2341,10 +2348,21 @@
             tabPage6.Text = "Beacon";
             tabPage6.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            panel2.AutoScroll = true;
+            panel2.Controls.Add(label84);
+            panel2.Controls.Add(LabBTemp);
+            panel2.Controls.Add(BTemp);
+            panel2.Location = new Point(476, 6);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(722, 394);
+            panel2.TabIndex = 100;
+            // 
             // SendExBeacon
             // 
             SendExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            SendExBeacon.Location = new Point(714, 328);
+            SendExBeacon.Location = new Point(186, 328);
             SendExBeacon.Name = "SendExBeacon";
             SendExBeacon.Size = new Size(156, 72);
             SendExBeacon.TabIndex = 99;
@@ -2356,7 +2374,7 @@
             // 
             label92.AutoSize = true;
             label92.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label92.Location = new Point(755, 247);
+            label92.Location = new Point(227, 247);
             label92.Name = "label92";
             label92.Size = new Size(115, 21);
             label92.TabIndex = 98;
@@ -2365,7 +2383,7 @@
             // AddresExBeacon
             // 
             AddresExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresExBeacon.Location = new Point(717, 244);
+            AddresExBeacon.Location = new Point(189, 244);
             AddresExBeacon.Name = "AddresExBeacon";
             AddresExBeacon.Size = new Size(32, 29);
             AddresExBeacon.TabIndex = 97;
@@ -2375,7 +2393,7 @@
             // 
             label93.AutoSize = true;
             label93.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label93.Location = new Point(777, 153);
+            label93.Location = new Point(249, 153);
             label93.Name = "label93";
             label93.Size = new Size(74, 21);
             label93.TabIndex = 96;
@@ -2384,7 +2402,7 @@
             // IdShippingExBeacon
             // 
             IdShippingExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdShippingExBeacon.Location = new Point(719, 150);
+            IdShippingExBeacon.Location = new Point(191, 150);
             IdShippingExBeacon.Name = "IdShippingExBeacon";
             IdShippingExBeacon.Size = new Size(52, 29);
             IdShippingExBeacon.TabIndex = 95;
@@ -2394,7 +2412,7 @@
             // 
             label94.AutoSize = true;
             label94.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label94.Location = new Point(777, 117);
+            label94.Location = new Point(249, 117);
             label94.Name = "label94";
             label94.Size = new Size(84, 21);
             label94.TabIndex = 94;
@@ -2403,7 +2421,7 @@
             // IdReceiveExBeacon
             // 
             IdReceiveExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdReceiveExBeacon.Location = new Point(719, 114);
+            IdReceiveExBeacon.Location = new Point(191, 114);
             IdReceiveExBeacon.Name = "IdReceiveExBeacon";
             IdReceiveExBeacon.Size = new Size(52, 29);
             IdReceiveExBeacon.TabIndex = 93;
@@ -2413,7 +2431,7 @@
             // 
             label95.AutoSize = true;
             label95.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label95.Location = new Point(777, 51);
+            label95.Location = new Point(249, 51);
             label95.Name = "label95";
             label95.Size = new Size(111, 21);
             label95.TabIndex = 92;
@@ -2422,7 +2440,7 @@
             // AddresReceiveExBeacon
             // 
             AddresReceiveExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresReceiveExBeacon.Location = new Point(719, 48);
+            AddresReceiveExBeacon.Location = new Point(191, 48);
             AddresReceiveExBeacon.Name = "AddresReceiveExBeacon";
             AddresReceiveExBeacon.Size = new Size(52, 29);
             AddresReceiveExBeacon.TabIndex = 91;
@@ -2432,7 +2450,7 @@
             // 
             label96.AutoSize = true;
             label96.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label96.Location = new Point(719, 3);
+            label96.Location = new Point(191, 0);
             label96.Name = "label96";
             label96.Size = new Size(279, 37);
             label96.TabIndex = 90;
@@ -2529,7 +2547,7 @@
             // 
             label88.AutoSize = true;
             label88.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label88.Location = new Point(6, 3);
+            label88.Location = new Point(6, 0);
             label88.Name = "label88";
             label88.Size = new Size(88, 37);
             label88.TabIndex = 0;
@@ -2989,6 +3007,38 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
+            // LabBTemp
+            // 
+            LabBTemp.AutoSize = true;
+            LabBTemp.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LabBTemp.Location = new Point(340, 3);
+            LabBTemp.Name = "LabBTemp";
+            LabBTemp.Size = new Size(35, 30);
+            LabBTemp.TabIndex = 11;
+            LabBTemp.Text = "20";
+            // 
+            // BTemp
+            // 
+            BTemp.LargeChange = 1;
+            BTemp.Location = new Point(34, 3);
+            BTemp.Maximum = 500;
+            BTemp.Minimum = 100;
+            BTemp.Name = "BTemp";
+            BTemp.Size = new Size(300, 45);
+            BTemp.TabIndex = 10;
+            BTemp.Value = 100;
+            BTemp.Scroll += BTemp_Scroll;
+            // 
+            // label84
+            // 
+            label84.AutoSize = true;
+            label84.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label84.Location = new Point(3, 3);
+            label84.Name = "label84";
+            label84.Size = new Size(25, 30);
+            label84.TabIndex = 12;
+            label84.Text = "T";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -3043,6 +3093,8 @@
             tabPage4.PerformLayout();
             tabPage6.ResumeLayout(false);
             tabPage6.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             MainTabControll.ResumeLayout(false);
             Settings.ResumeLayout(false);
             TabSettings.ResumeLayout(false);
@@ -3053,6 +3105,7 @@
             SensorReadings.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)BTemp).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3271,7 +3324,7 @@
         private TextBox NameDBFile;
         private Button ReadDBFile;
         private Label label84;
-        private Label label83;
+        private Label LabBTemp;
         private Label label82;
         private TextBox DBPlateIDText;
         private TextBox DBSensIDText;
@@ -3307,5 +3360,7 @@
         private TextBox AddresReceiveExBeacon;
         private Label label96;
         private Button SendExBeacon;
+        private Panel panel2;
+        private TrackBar BTemp;
     }
 }
