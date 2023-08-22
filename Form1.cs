@@ -1151,8 +1151,10 @@ namespace HustonRTEMS {
         }
 
         private string allText;
-        private void FilterComboBox_SelectedIndexChanged(object sender, EventArgs e) {
-            if(DBAllText.Text.Length > 0) {
+        private void FilterComboBox_SelectedIndexChanged(object? sender, EventArgs? e) {
+            if(DBAllText.Text.Length > 0 || allText.Length > 0) {
+                Dictionary<int, TabAlignment> allDB;
+                Dictionary<int, TabAlignment> sortDB;
                 int k;
 
                 allText ??= DBAllText.Text;
@@ -1161,7 +1163,7 @@ namespace HustonRTEMS {
                 switch(FilterComboBox.SelectedIndex) {
                     case 0:
                         k = 0;
-                        Dictionary<int, DateTime> allDT = new();
+                        allDB = new();
                         foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
                             if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Time]) == 0) {
@@ -1173,103 +1175,101 @@ namespace HustonRTEMS {
                                     Convert.ToInt32(time[2]), Convert.ToInt32(time[1]),
                                     Convert.ToInt32(time[4]), Convert.ToInt32(time[5]),
                                     Convert.ToInt32(time[6]));
-                                allDT.Add(k, dt);
-                                k++;
-                            }
-                        }
-                        DBAllText.Text = "";
-                        Dictionary<int, DateTime> sortDT = allDT.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        foreach(KeyValuePair<int, DateTime> sort in sortDT) {
-                            DBAllText.Text += lineBreak[sort.Key] + '\n';
-                        }
-                        break;
-                    case 1:
-                        k = 0;
-                        Dictionary<int, int> allDP = new();
-                        foreach(string s in splitAllText) {
-                            string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Plate_id]) == 0) {
-                                allDP.Add(k, Convert.ToInt32(splitTimeText[1].Split(';')[0]));
-                                k++;
-                            }
-                        }
-                        DBAllText.Text = "";
-                        Dictionary<int, int> sortDP = allDP.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        foreach(KeyValuePair<int, int> sort in sortDP) {
-                            DBAllText.Text += lineBreak[sort.Key] + '\n';
-                        }
-                        break;
-                    case 2:
-                        k = 0;
-                        Dictionary<int, int> allDS = new();
-                        foreach(string s in splitAllText) {
-                            string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Sense_id]) == 0) {
-                                allDS.Add(k, Convert.ToInt32(splitTimeText[1].Split(';')[0]));
-                                k++;
-                            }
-                        }
-                        DBAllText.Text = "";
-                        Dictionary<int, int> sortDS = allDS.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        foreach(KeyValuePair<int, int> sort in sortDS) {
-                            DBAllText.Text += lineBreak[sort.Key] + '\n';
-                        }
-                        break;
-                    case 3:
-                        k = 0;
-                        Dictionary<int, float> allDV = new();
-                        foreach(string s in splitAllText) {
-                            string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Value]) == 0) {
-                                allDV.Add(k, Convert.ToInt32(splitTimeText[1].Split(';')[0]));
+                                allDB.Add(k, (TabAlignment)dt.Ticks);
                                 k++;
                             }
                         }
 
-                        Dictionary<int, float> sortDV = allDV.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+                        sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
                         try {
-                            switch(HowFilter.SelectedIndex) {
-                                case 0:
-                                    for(int i = 0; i < allDV.Count; i++) {
-                                        if(sortDV[i] < (float)Convert.ToDecimal(FilterTextBox.Text)) {
-                                            sortDV.Remove(i);
-                                        }
-                                    }
-                                    break;
-                                case 1:
-                                    for(int i = 0; i < allDV.Count; i++) {
-                                        if(sortDV[i] > (float)Convert.ToDecimal(FilterTextBox.Text)) {
-                                            sortDV.Remove(i);
-                                        }
-                                    }
-                                    break;
-                                case 2:
-                                    for(int i = 0; i < allDV.Count; i++) {
-                                        if(sortDV[i] != (float)Convert.ToDecimal(FilterTextBox.Text)) {
-                                            sortDV.Remove(i);
-                                        }
-                                    }
-                                    break;
-                                case 3:
-                                    for(int i = 0; i < allDV.Count; i++) {
-                                        if(sortDV[i] == (float)Convert.ToDecimal(FilterTextBox.Text)) {
-                                            sortDV.Remove(i);
-                                        }
-                                    }
-                                    break;
-                            }
+                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter, (TabAlignment)Convert.ToDecimal(FilterTextBox.Text));
                         }
                         catch(Exception ex) {
                             LogBox2.Text = ex.Message;
                         }
 
                         DBAllText.Text = "";
-                        foreach(KeyValuePair<int, float> sort in sortDV) {
+                        foreach(var sort in sortDB) {
+                            DBAllText.Text += lineBreak[sort.Key] + '\n';
+                        }
+                        break;
+                    case 1:
+                        k = 0;
+                        allDB = new();
+                        foreach(string s in splitAllText) {
+                            string[] splitTimeText = s.Split(':');
+                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Plate_id]) == 0) {
+                                allDB.Add(k, (TabAlignment)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
+                                k++;
+                            }
+                        }
+
+                        sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+                        try {
+                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter, (TabAlignment)Convert.ToDecimal(FilterTextBox.Text));
+                        }
+                        catch(Exception ex) {
+                            LogBox2.Text = ex.Message;
+                        }
+
+                        DBAllText.Text = "";
+                        foreach(var sort in sortDB) {
+                            DBAllText.Text += lineBreak[sort.Key] + '\n';
+                        }
+                        break;
+                    case 2:
+                        k = 0;
+                        allDB = new();
+                        foreach(string s in splitAllText) {
+                            string[] splitTimeText = s.Split(':');
+                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Sense_id]) == 0) {
+                                allDB.Add(k, (TabAlignment)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
+                                k++;
+                            }
+                        }
+
+                        sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+                        try {
+                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter, (TabAlignment)Convert.ToDecimal(FilterTextBox.Text));
+                        }
+                        catch(Exception ex) {
+                            LogBox2.Text = ex.Message;
+                        }
+
+                        DBAllText.Text = "";
+                        foreach(var sort in sortDB) {
+                            DBAllText.Text += lineBreak[sort.Key] + '\n';
+                        }
+                        break;
+                    case 3:
+                        k = 0;
+                        allDB = new();
+                        foreach(string s in splitAllText) {
+                            string[] splitTimeText = s.Split(':');
+                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Value]) == 0) {
+                                allDB.Add(k, (TabAlignment)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
+                                k++;
+                            }
+                        }
+
+                        sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+                        try {
+                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter, (TabAlignment)Convert.ToDecimal(FilterTextBox.Text));
+                        }
+                        catch(Exception ex) {
+                            LogBox2.Text = ex.Message;
+                        }
+
+                        DBAllText.Text = "";
+                        foreach(var sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
                 }
             }
+        }
+        private void FilterTextBox_TextChanged(object sender, EventArgs e) {
+            FilterComboBox_SelectedIndexChanged(null, null);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace HustonRTEMS {
@@ -283,6 +284,40 @@ namespace HustonRTEMS {
             }
             catch(Exception ex) {
                 Debug.WriteLine(ex.ToString());
+            }
+        }
+
+        public void CreateFilterDB(ref Dictionary<int, TabAlignment> sortDV, int countDB, ComboBox howFilter,
+                TabAlignment filterVal) {
+            switch(howFilter.SelectedIndex) {
+                case 0:
+                    for(int i = 0; i < countDB; i++) {
+                        if(sortDV[i] < filterVal) {
+                            sortDV.Remove(i);
+                        }
+                    }
+                    break;
+                case 1:
+                    for(int i = 0; i < countDB; i++) {
+                        if(sortDV[i] > filterVal) {
+                            sortDV.Remove(i);
+                        }
+                    }
+                    break;
+                case 2:
+                    for(int i = 0; i < countDB; i++) {
+                        if(sortDV[i] != filterVal) {
+                            sortDV.Remove(i);
+                        }
+                    }
+                    break;
+                case 3:
+                    for(int i = 0; i < countDB; i++) {
+                        if(sortDV[i] == filterVal) {
+                            sortDV.Remove(i);
+                        }
+                    }
+                    break;
             }
         }
     }

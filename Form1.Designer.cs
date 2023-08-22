@@ -2965,6 +2965,7 @@
             FilterTextBox.Name = "FilterTextBox";
             FilterTextBox.Size = new Size(186, 29);
             FilterTextBox.TabIndex = 92;
+            FilterTextBox.TextChanged += FilterTextBox_TextChanged;
             // 
             // label81
             // 
