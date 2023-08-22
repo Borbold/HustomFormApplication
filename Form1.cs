@@ -2,11 +2,10 @@ using System.Configuration;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace HustonRTEMS {
     public partial class MainForm: Form {
-        enum VAR_NAME {
+        private enum VAR_NAME {
             Time, Plate_id, Sense_id, Value
         }
         private readonly string[] variableNameLD = {
@@ -869,10 +868,8 @@ namespace HustonRTEMS {
                     if(i < psVar) {
                         test.data[i] = PS[i].byte1;
                         test.data[++i] = PS[i].byte2;
-                    } else if(i < psVar + checkVar) {
-                        test.data[i] = (byte)255;
                     } else {
-                        test.data[i] = 2;
+                        test.data[i] = i < psVar + checkVar ? (byte)255 : (byte)2;
                     }
                 }
                 CTU.SendWithCAN(test, serialPort, LogBox);
@@ -1153,7 +1150,7 @@ namespace HustonRTEMS {
             }
         }
 
-        string allText;
+        private string allText;
         private void FilterComboBox_SelectedIndexChanged(object sender, EventArgs e) {
             if(DBAllText.Text.Length > 0) {
                 int k;
@@ -1165,7 +1162,7 @@ namespace HustonRTEMS {
                     case 0:
                         k = 0;
                         Dictionary<int, DateTime> allDT = new();
-                        foreach(var s in splitAllText) {
+                        foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
                             if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Time]) == 0) {
                                 List<string> time = new();
@@ -1182,14 +1179,14 @@ namespace HustonRTEMS {
                         }
                         DBAllText.Text = "";
                         Dictionary<int, DateTime> sortDT = allDT.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        foreach(var sort in sortDT) {
+                        foreach(KeyValuePair<int, DateTime> sort in sortDT) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
                     case 1:
                         k = 0;
                         Dictionary<int, int> allDP = new();
-                        foreach(var s in splitAllText) {
+                        foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
                             if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Plate_id]) == 0) {
                                 allDP.Add(k, Convert.ToInt32(splitTimeText[1].Split(';')[0]));
@@ -1198,14 +1195,14 @@ namespace HustonRTEMS {
                         }
                         DBAllText.Text = "";
                         Dictionary<int, int> sortDP = allDP.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        foreach(var sort in sortDP) {
+                        foreach(KeyValuePair<int, int> sort in sortDP) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
                     case 2:
                         k = 0;
                         Dictionary<int, int> allDS = new();
-                        foreach(var s in splitAllText) {
+                        foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
                             if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Sense_id]) == 0) {
                                 allDS.Add(k, Convert.ToInt32(splitTimeText[1].Split(';')[0]));
@@ -1214,14 +1211,14 @@ namespace HustonRTEMS {
                         }
                         DBAllText.Text = "";
                         Dictionary<int, int> sortDS = allDS.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        foreach(var sort in sortDS) {
+                        foreach(KeyValuePair<int, int> sort in sortDS) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
                     case 3:
                         k = 0;
                         Dictionary<int, float> allDV = new();
-                        foreach(var s in splitAllText) {
+                        foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
                             if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Value]) == 0) {
                                 allDV.Add(k, Convert.ToInt32(splitTimeText[1].Split(';')[0]));
@@ -1230,24 +1227,44 @@ namespace HustonRTEMS {
                         }
 
                         Dictionary<int, float> sortDV = allDV.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        switch(HowFilter.SelectedIndex) {
-                            case 0:
-                                for(int i = 0; i < sortDV.Count; i++) {
-                                    if(sortDV[i] < (float)Convert.ToDecimal(FilterTextBox.Text)) {
-                                        sortDV.Remove(i);
+                        try {
+                            switch(HowFilter.SelectedIndex) {
+                                case 0:
+                                    for(int i = 0; i < allDV.Count; i++) {
+                                        if(sortDV[i] < (float)Convert.ToDecimal(FilterTextBox.Text)) {
+                                            sortDV.Remove(i);
+                                        }
                                     }
-                                }
-                                break;
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
+                                    break;
+                                case 1:
+                                    for(int i = 0; i < allDV.Count; i++) {
+                                        if(sortDV[i] > (float)Convert.ToDecimal(FilterTextBox.Text)) {
+                                            sortDV.Remove(i);
+                                        }
+                                    }
+                                    break;
+                                case 2:
+                                    for(int i = 0; i < allDV.Count; i++) {
+                                        if(sortDV[i] != (float)Convert.ToDecimal(FilterTextBox.Text)) {
+                                            sortDV.Remove(i);
+                                        }
+                                    }
+                                    break;
+                                case 3:
+                                    for(int i = 0; i < allDV.Count; i++) {
+                                        if(sortDV[i] == (float)Convert.ToDecimal(FilterTextBox.Text)) {
+                                            sortDV.Remove(i);
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+                        catch(Exception ex) {
+                            LogBox2.Text = ex.Message;
                         }
 
                         DBAllText.Text = "";
-                        foreach(var sort in sortDV) {
+                        foreach(KeyValuePair<int, float> sort in sortDV) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
