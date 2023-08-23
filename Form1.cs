@@ -1152,7 +1152,7 @@ namespace HustonRTEMS {
 
         private string allText;
         private void FilterComboBox_SelectedIndexChanged(object? sender, EventArgs? e) {
-            if(DBAllText.Text.Length > 0 || allText.Length > 0) {
+            if(DBAllText.Text.Length > 0 || (allText != null && allText.Length > 0)) {
                 Dictionary<int, TabAlignment> allDB;
                 Dictionary<int, TabAlignment> sortDB;
                 int k;
@@ -1266,6 +1266,8 @@ namespace HustonRTEMS {
                         }
                         break;
                 }
+            } else {
+                LogBox2.Text = "Text box clean. Fill it in with the data.";
             }
         }
         private void FilterTextBox_TextChanged(object sender, EventArgs e) {
