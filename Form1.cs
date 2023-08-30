@@ -9,7 +9,7 @@ namespace HustonRTEMS {
             Time, Plate_id, Sense_id, Value
         }
         private readonly string[] variableNameLD = {
-            "Time", "Plate id", "Sense id", "Value"
+            "Time", "Plate id", "Sense id", "Value", "Second"
         };
 
         private readonly CanToUnican CTU = new();
@@ -1102,8 +1102,7 @@ namespace HustonRTEMS {
                         intT |= (uint)result[i + 3] << 24;
                         DateTime dt = new();
                         dt = dt.AddSeconds(intT);
-                        dt = dt.AddYears(-31);
-                        dt = dt.AddYears(2000);
+                        dt = dt.AddYears(1969);
                         DBAllText.Text += $"{variableNameLD[0]}: ";
                         DBAllText.Text += dt;
                         DBAllText.Text += ";\t";
@@ -1139,8 +1138,14 @@ namespace HustonRTEMS {
                         floatV.byte4 = result[i + 3];
                         DBAllText.Text += $"{variableNameLD[3]}: ";
                         DBAllText.Text += floatV.fl;
-                        DBAllText.Text += ";\n";
+                        DBAllText.Text += ";\t";
                         i += 4;
+                        j++;
+                    }
+                    if(j == 4) {
+                        DBAllText.Text += $"{variableNameLD[4]}: ";
+                        DBAllText.Text += intT;
+                        DBAllText.Text += ";\n";
                     }
                 }
             }

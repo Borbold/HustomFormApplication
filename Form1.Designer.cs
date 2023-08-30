@@ -2992,11 +2992,11 @@
             // DBAllText
             // 
             DBAllText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            DBAllText.Location = new Point(486, 6);
+            DBAllText.Location = new Point(289, 6);
             DBAllText.Name = "DBAllText";
             DBAllText.ReadOnly = true;
             DBAllText.ScrollBars = RichTextBoxScrollBars.Vertical;
-            DBAllText.Size = new Size(730, 433);
+            DBAllText.Size = new Size(927, 433);
             DBAllText.TabIndex = 13;
             DBAllText.Text = "";
             // 
