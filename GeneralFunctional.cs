@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace HustonRTEMS {
@@ -114,14 +112,17 @@ namespace HustonRTEMS {
             }
 
             logBox.Text += "\r\n";
-            foreach(var a in sendBuf) {
+            foreach(byte a in sendBuf) {
                 logBox.Text += $"{a:X} ";
             }
 
             SendChangeKissFESC(ref sendBuf);
 
             if(serverListener != null && serverListener.Connected) {
-                _ = await serverListener.SendAsync(sendBuf, SocketFlags.None);
+                try {
+                    _ = await serverListener.SendAsync(sendBuf, SocketFlags.None);
+                }
+                catch(Exception) { }
             } else {
                 logBox.Invoke(new Action(() => {
                     logBox.Text = "Socet don't open!";
@@ -179,7 +180,10 @@ namespace HustonRTEMS {
             SendChangeKissFESC(ref sendBuf);
 
             if(serverListener != null && serverListener.Connected) {
-                _ = await serverListener.SendAsync(sendBuf, SocketFlags.None);
+                try {
+                    _ = await serverListener.SendAsync(sendBuf, SocketFlags.None);
+                }
+                catch(Exception) { }
             } else {
                 logBox.Invoke(new Action(() => {
                     logBox.Text = "Socet don't open!";
@@ -201,7 +205,10 @@ namespace HustonRTEMS {
                 hardBufWrite[27] = fl.byte2;
                 hardBufWrite[28] = fl.byte3;
                 hardBufWrite[29] = fl.byte4;
-                _ = await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
+                try {
+                    _ = await serverListener.SendAsync(hardBufWrite, SocketFlags.None);
+                }
+                catch(Exception) { }
             } else {
                 logBox.Invoke(new Action(() => {
                     logBox.Text = "Socet don't open!";
@@ -293,28 +300,28 @@ namespace HustonRTEMS {
                 case 0:
                     for(int i = 0; i < countDB; i++) {
                         if(sortDV[i] < filterVal) {
-                            sortDV.Remove(i);
+                            _ = sortDV.Remove(i);
                         }
                     }
                     break;
                 case 1:
                     for(int i = 0; i < countDB; i++) {
                         if(sortDV[i] > filterVal) {
-                            sortDV.Remove(i);
+                            _ = sortDV.Remove(i);
                         }
                     }
                     break;
                 case 2:
                     for(int i = 0; i < countDB; i++) {
                         if(sortDV[i] != filterVal) {
-                            sortDV.Remove(i);
+                            _ = sortDV.Remove(i);
                         }
                     }
                     break;
                 case 3:
                     for(int i = 0; i < countDB; i++) {
                         if(sortDV[i] == filterVal) {
-                            sortDV.Remove(i);
+                            _ = sortDV.Remove(i);
                         }
                     }
                     break;

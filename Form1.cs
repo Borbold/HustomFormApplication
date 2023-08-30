@@ -1189,7 +1189,7 @@ namespace HustonRTEMS {
                         }
 
                         DBAllText.Text = "";
-                        foreach(var sort in sortDB) {
+                        foreach(KeyValuePair<int, TabAlignment> sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
@@ -1213,7 +1213,7 @@ namespace HustonRTEMS {
                         }
 
                         DBAllText.Text = "";
-                        foreach(var sort in sortDB) {
+                        foreach(KeyValuePair<int, TabAlignment> sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
@@ -1237,7 +1237,7 @@ namespace HustonRTEMS {
                         }
 
                         DBAllText.Text = "";
-                        foreach(var sort in sortDB) {
+                        foreach(KeyValuePair<int, TabAlignment> sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
@@ -1261,7 +1261,7 @@ namespace HustonRTEMS {
                         }
 
                         DBAllText.Text = "";
-                        foreach(var sort in sortDB) {
+                        foreach(KeyValuePair<int, TabAlignment> sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
