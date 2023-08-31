@@ -2957,6 +2957,7 @@
             HowFilter.Size = new Size(58, 29);
             HowFilter.TabIndex = 93;
             HowFilter.Text = ">=";
+            HowFilter.SelectedIndexChanged += HowFilter_SelectedIndexChanged;
             // 
             // FilterTextBox
             // 

@@ -1278,5 +1278,8 @@ namespace HustonRTEMS {
         private void FilterTextBox_TextChanged(object sender, EventArgs e) {
             FilterComboBox_SelectedIndexChanged(null, null);
         }
+        private void HowFilter_SelectedIndexChanged(object sender, EventArgs e) {
+            FilterComboBox_SelectedIndexChanged(null, null);
+        }
     }
 }
