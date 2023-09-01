@@ -167,7 +167,9 @@ namespace HustonRTEMS {
                 ? string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr)
                 : string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
             writePort?.Write(outText);
-            logBox.Text += "Отправлено\r\n" + outText + "\r\n";
+            logBox.Invoke(new Action(() => {
+                logBox.Text += "Отправлено\r\n" + outText + "\r\n";
+            }));
         }
 
         private SerialPort? writePort;

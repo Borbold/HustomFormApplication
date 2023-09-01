@@ -985,21 +985,21 @@ namespace HustonRTEMS {
                         }));
 
                         if(test.unicanAddressTo == Convert.ToInt16(AddresMag1.Text, 16) &&
-                            test.unicanAddressFrom == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
+                             test.unicanAddressFrom == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
                              test.unicanMSGId == Convert.ToInt16(IdReceiveMag.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendMagnetometer1\r\n";
                             }));
                             SendMagnetometer1_Click(null, null);
-                        } else if(test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
-                            test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
+                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresBeacon.Text, 16) &&
+                             test.unicanAddressTo == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
                              test.unicanMSGId == Convert.ToInt16(IdReceiveBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendBeacon\r\n";
                             }));
                             SendBeacon_Click(null, null);
-                        } else if(test.unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
-                            test.unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
+                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresExBeacon.Text, 16) &&
+                             test.unicanAddressTo == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
                              test.unicanMSGId == Convert.ToInt16(IdReceiveExBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendExBeacon\r\n";
