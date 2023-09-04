@@ -1057,7 +1057,6 @@ namespace HustonRTEMS {
                 }
 
                 uint intT = 0;
-                LItUn intV = new();
                 FlUn floatV = new();
                 for(int i = index, j = 0; i < result.Length; j = 0, i += 5) {
                     if(j == 0) {
@@ -1075,24 +1074,12 @@ namespace HustonRTEMS {
                         j++;
                     }
                     if(j == 1) {
-                        intV.byte1 = result[i];
-                        intV.byte2 = result[i + 1];
-                        intV.byte3 = result[i + 2];
-                        intV.byte4 = result[i + 3];
-                        DBAllText.Text += $"{variableNameLD[1]}: ";
-                        DBAllText.Text += intV.it;
-                        DBAllText.Text += ";\t";
+                        GF.WriteDBInformation(result, i, DBAllText, variableNameLD, 1);
                         i += 4;
                         j++;
                     }
                     if(j == 2) {
-                        intV.byte1 = result[i];
-                        intV.byte2 = result[i + 1];
-                        intV.byte3 = result[i + 2];
-                        intV.byte4 = result[i + 3];
-                        DBAllText.Text += $"{variableNameLD[2]}: ";
-                        DBAllText.Text += intV.it;
-                        DBAllText.Text += ";\t";
+                        GF.WriteDBInformation(result, i, DBAllText, variableNameLD, 2);
                         i += 4;
                         j++;
                     }
@@ -1123,8 +1110,8 @@ namespace HustonRTEMS {
         private string allText;
         private void FilterComboBox_SelectedIndexChanged(object? sender, EventArgs? e) {
             if(DBAllText.Text.Length > 0 || (allText != null && allText.Length > 0)) {
-                Dictionary<int, TabAlignment> allDB;
-                Dictionary<int, TabAlignment> sortDB;
+                Dictionary<int, EnVal> allDB;
+                Dictionary<int, EnVal> sortDB;
                 int k;
 
                 allText ??= DBAllText.Text;
@@ -1145,21 +1132,22 @@ namespace HustonRTEMS {
                                     Convert.ToInt32(time[2]), Convert.ToInt32(time[1]),
                                     Convert.ToInt32(time[4]), Convert.ToInt32(time[5]),
                                     Convert.ToInt32(time[6]));
-                                allDB.Add(k, (TabAlignment)dt.Ticks);
+                                allDB.Add(k, (EnVal)dt.Ticks);
                                 k++;
                             }
                         }
 
                         sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
                         try {
-                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter, (TabAlignment)Convert.ToDecimal(FilterTextBox.Text));
+                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter,
+                                (EnVal)Convert.ToDecimal(FilterTextBox.Text));
                         }
                         catch(Exception ex) {
                             LogBox2.Text = ex.Message;
                         }
 
                         DBAllText.Text = "";
-                        foreach(KeyValuePair<int, TabAlignment> sort in sortDB) {
+                        foreach(KeyValuePair<int, EnVal> sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
@@ -1169,21 +1157,22 @@ namespace HustonRTEMS {
                         foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
                             if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Plate_id]) == 0) {
-                                allDB.Add(k, (TabAlignment)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
+                                allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
                                 k++;
                             }
                         }
 
                         sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
                         try {
-                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter, (TabAlignment)Convert.ToDecimal(FilterTextBox.Text));
+                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter,
+                                (EnVal)Convert.ToDecimal(FilterTextBox.Text));
                         }
                         catch(Exception ex) {
                             LogBox2.Text = ex.Message;
                         }
 
                         DBAllText.Text = "";
-                        foreach(KeyValuePair<int, TabAlignment> sort in sortDB) {
+                        foreach(KeyValuePair<int, EnVal> sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
@@ -1193,21 +1182,22 @@ namespace HustonRTEMS {
                         foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
                             if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Sense_id]) == 0) {
-                                allDB.Add(k, (TabAlignment)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
+                                allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
                                 k++;
                             }
                         }
 
                         sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
                         try {
-                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter, (TabAlignment)Convert.ToDecimal(FilterTextBox.Text));
+                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter,
+                                (EnVal)Convert.ToDecimal(FilterTextBox.Text));
                         }
                         catch(Exception ex) {
                             LogBox2.Text = ex.Message;
                         }
 
                         DBAllText.Text = "";
-                        foreach(KeyValuePair<int, TabAlignment> sort in sortDB) {
+                        foreach(KeyValuePair<int, EnVal> sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;
@@ -1217,21 +1207,22 @@ namespace HustonRTEMS {
                         foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
                             if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Value]) == 0) {
-                                allDB.Add(k, (TabAlignment)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
+                                allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
                                 k++;
                             }
                         }
 
                         sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
                         try {
-                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter, (TabAlignment)Convert.ToDecimal(FilterTextBox.Text));
+                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter,
+                                (EnVal)Convert.ToDecimal(FilterTextBox.Text));
                         }
                         catch(Exception ex) {
                             LogBox2.Text = ex.Message;
                         }
 
                         DBAllText.Text = "";
-                        foreach(KeyValuePair<int, TabAlignment> sort in sortDB) {
+                        foreach(KeyValuePair<int, EnVal> sort in sortDB) {
                             DBAllText.Text += lineBreak[sort.Key] + '\n';
                         }
                         break;

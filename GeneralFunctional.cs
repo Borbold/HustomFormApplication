@@ -3,6 +3,9 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 
 namespace HustonRTEMS {
+    public enum EnVal {
+    }
+
     [StructLayout(LayoutKind.Explicit)]
     public struct FlUn {
         [FieldOffset(0)]
@@ -294,8 +297,8 @@ namespace HustonRTEMS {
             }
         }
 
-        public void CreateFilterDB(ref Dictionary<int, TabAlignment> sortDV, int countDB, ComboBox howFilter,
-                TabAlignment filterVal) {
+        public void CreateFilterDB(ref Dictionary<int, EnVal> sortDV, int countDB, ComboBox howFilter,
+                EnVal filterVal) {
             switch(howFilter.SelectedIndex) {
                 case 0:
                     for(int i = 0; i < countDB; i++) {
@@ -326,6 +329,19 @@ namespace HustonRTEMS {
                     }
                     break;
             }
+        }
+
+        public void WriteDBInformation(byte[] result, int i,
+                RichTextBox DBAllText, string[] variableNameLD, int valI) {
+            LItUn intV = new() {
+                byte1 = result[i],
+                byte2 = result[i + 1],
+                byte3 = result[i + 2],
+                byte4 = result[i + 3]
+            };
+            DBAllText.Text += $"{variableNameLD[valI]}: ";
+            DBAllText.Text += intV.it;
+            DBAllText.Text += ";\t";
         }
     }
 }
