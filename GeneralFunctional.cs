@@ -69,14 +69,6 @@ namespace HustonRTEMS {
         public readonly byte[] kissHeader = {
             0xC0, 0x00, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x00, 0xF0 };
 
-        public static void ChangingPositionAccelerometer() {
-            int jon = 5;
-            for(int i = 0; i < 5; i++) {
-                Thread.Sleep(100);
-                jon++;
-            }
-        }
-
         public async void SendMessageInSocketTime(Socket serverListener,
             int idShipping, int addresValue, int addresReceive,
             int iCount, int[] arIValue, TextBox logBox, bool isKiss) {
@@ -192,10 +184,6 @@ namespace HustonRTEMS {
                     logBox.Text = "Socet don't open!";
                 }));
             }
-        }
-
-        public void SendMessageTime() {
-
         }
 
         public async void SendMessageInSocket(Socket serverListener, FlUn fl, ItUn it,
