@@ -76,13 +76,11 @@ namespace HustonRTEMS {
             return (val) & 0x00FF;
         }
 
-        private const sbyte CAN_MAX_DLC = 8; //maximum value of data length code
         private const sbyte CAN_MIN_DLC = 2; //minimum value of data length code
         private const sbyte CRC_LENGTH = 2; //length of CRC field in bytes
         private const int UNICAN_START_LONG_MESSAGE = 0xFFFE;
         private const sbyte CAN_STANDART_HEADER = 0;
         private const sbyte CAN_EXTENDED_HEADER = 1;
-        private const int UNICANMES_MAX_COUNT = 10;
 
         private struct UnicanBufferS {
             public byte proc_task_id;

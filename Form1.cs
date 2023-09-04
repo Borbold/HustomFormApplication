@@ -15,7 +15,6 @@ namespace HustonRTEMS {
         private readonly CanToUnican CTU = new();
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
-        private readonly DefaultTransmission DT = new();
         private readonly byte[] hardBuf = {
             //0xC0, 0x0, 0xA4, 0x64, 82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x0, 0xF0,
             0xB0, 0x00, 0x01, 0x00, 0x1C, 0x00, 0x00, 0x00, /*0xC0*/ };
@@ -56,42 +55,6 @@ namespace HustonRTEMS {
             }
         }
         private void MainForm_Load(object sender, EventArgs e) {
-            AddresTemperature.Text = $"{DT.temperatureTransmission.TShipAddres.addres:X}";
-            IdTemperature.Text = $"{DT.temperatureTransmission.TId.getValue[0]:X}";
-
-            AddresAcs.Text = $"{DT.acselerometerTransmission.TShipAddres.addres:X}";
-            IdAscelX.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.X]:X}";
-            IdAscelY.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Y]:X}";
-            IdAscelZ.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.Z]:X}";
-            IdAscelW.Text = $"{DT.acselerometerTransmission.TId.getValue[(int)VarEnum.W]:X}";
-
-            AddresReg.Text = $"{DT.regulationTransmission.TShipAddres.addres:X}";
-            IdRegulX.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.X]:X}";
-            IdRegulY.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.Y]:X}";
-            IdRegulZ.Text = $"{DT.regulationTransmission.TId.getValue[(int)VarEnum.Z]:X}";
-
-            AddresRat.Text = $"{DT.ratesensorTransmission.TShipAddres.addres:X}";
-            IdRatesX.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.X]:X}";
-            IdRatesY.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.Y]:X}";
-            IdRatesZ.Text = $"{DT.ratesensorTransmission.TId.getValue[(int)VarEnum.Z]:X}";
-
-            AddresAcc.Text = $"{DT.accelsensorTransmission.TShipAddres.addres:X}";
-            IdAccelX.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.X]:X}";
-            IdAccelY.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.Y]:X}";
-            IdAccelZ.Text = $"{DT.accelsensorTransmission.TId.getValue[(int)VarEnum.Z]:X}";
-
-            // Mag
-            AddresMag1.Text = $"{DT.magnitudeTransmission1.TShipAddres.addres:X}";
-            IdMag1X.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.X]:X}";
-            IdMag1Y.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.Y]:X}";
-            IdMag1Z.Text = $"{DT.magnitudeTransmission1.TId.getValue[(int)VarEnum.Z]:X}";
-
-            AddresMag2.Text = $"{DT.magnitudeTransmission2.TShipAddres.addres:X}";
-            IdMag2X.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.X]:X}";
-            IdMag2Y.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.Y]:X}";
-            IdMag2Z.Text = $"{DT.magnitudeTransmission2.TId.getValue[(int)VarEnum.Z]:X}";
-            // Mag
-
             if(cfg.GetSection("customProperty") is CustomProperty section) {
                 IPTextBox.Text = section.IP;
                 PortRTEMS.Text = section.PortRTEMS;
