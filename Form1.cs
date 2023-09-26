@@ -859,6 +859,49 @@ namespace HustonRTEMS {
                 CTU.SendWithCAN(test, serialPort, LogBox);
             }
         }
+        private void SendTime(object? sender, EventArgs? e) {
+            if(UseInternet.Checked) {
+                //Need?
+            } else if(UseCan.Checked) {
+                const int timeVar = 1 * sizeof(int);
+                const int unicanLenght = timeVar;
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdReceiveTime.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresTime.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresReceiveTime.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                ItUn timeV = new();
+                test.data = new byte[unicanLenght];
+                // Time
+                DateTimeOffset dto = new(DateTime.Now);
+                long nowTime = dto.ToUnixTimeSeconds();
+                int[] arIValue = new int[5];
+                while(nowTime > byte.MaxValue) {
+                    nowTime -= byte.MaxValue + 1;
+                    arIValue[1] += 0x01;
+                    while(arIValue[1] > byte.MaxValue) {
+                        arIValue[1] -= byte.MaxValue + 1;
+                        arIValue[2] += 0x01;
+                        while(arIValue[2] > byte.MaxValue) {
+                            arIValue[2] -= byte.MaxValue + 1;
+                            arIValue[3] += 0x01;
+                            while(arIValue[3] > byte.MaxValue) {
+                                arIValue[3] -= byte.MaxValue + 1;
+                                arIValue[4] += 0x01;
+                            }
+                        }
+                    }
+                }
+                arIValue[0] += (int)nowTime;
+                // Time
+                for(int i = 0; i < timeVar; i++) {
+                    timeV.it = arIValue[i];
+                    test.data[i] = timeV.byte1;
+                }
+                CTU.SendWithCAN(test, serialPort, LogBox);
+            }
+        }
         // Send data
 
         private void IPTextBox_TextChanged(object sender, EventArgs e) {
@@ -946,7 +989,7 @@ namespace HustonRTEMS {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendTime\r\n";
                             }));
-                            SendExBeacon_Click(null, null);
+                            SendTime(null, null);
                         }
                     }
                 }
