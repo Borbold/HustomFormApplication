@@ -220,6 +220,12 @@ namespace HustonRTEMS {
             get => (string)base["IdShipingTime"];
             set => base["IdShipingTime"] = value;
         }
+        [ConfigurationProperty("AddresTime", IsRequired = false)]
+        public string AddresTime
+        {
+            get => (string)base["AddresTime"];
+            set => base["AddresTime"] = value;
+        }
         // Beacon
         [ConfigurationProperty("ReceiveAddresBeacon", IsRequired = false)]
         public string ReceiveAddresBeacon

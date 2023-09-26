@@ -273,6 +273,8 @@
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
             LogBox2 = new TextBox();
+            label83 = new Label();
+            AddresTime = new TextBox();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -2237,6 +2239,8 @@
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(label83);
+            tabPage4.Controls.Add(AddresTime);
             tabPage4.Controls.Add(label77);
             tabPage4.Controls.Add(IdShippingTime);
             tabPage4.Controls.Add(label78);
@@ -3065,6 +3069,25 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
+            // label83
+            // 
+            label83.AutoSize = true;
+            label83.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label83.Location = new Point(51, 210);
+            label83.Name = "label83";
+            label83.Size = new Size(115, 21);
+            label83.TabIndex = 90;
+            label83.Text = "Адрес датчика";
+            // 
+            // AddresTime
+            // 
+            AddresTime.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresTime.Location = new Point(13, 207);
+            AddresTime.Name = "AddresTime";
+            AddresTime.Size = new Size(32, 29);
+            AddresTime.TabIndex = 89;
+            AddresTime.Text = "?";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -3390,5 +3413,7 @@
         private TrackBar BTemp;
         private TextBox FilterTextBox;
         private ComboBox HowFilter;
+        private Label label83;
+        private TextBox AddresTime;
     }
 }

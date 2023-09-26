@@ -97,6 +97,7 @@ namespace HustonRTEMS {
                 AddresReceiveTime.Text = section.ReceiveAddresTime;
                 IdReceiveTime.Text = section.IdReceiveTime;
                 IdShippingTime.Text = section.IdShipingTime;
+                AddresTime.Text = section.AddresTime;
 
                 AddresReceiveBeacon.Text = section.ReceiveAddresBeacon;
                 IdReceiveBeacon.Text = section.IdReceiveBeacon;
@@ -107,8 +108,6 @@ namespace HustonRTEMS {
                 IdReceiveExBeacon.Text = section.IdReceiveExBeacon;
                 IdShippingExBeacon.Text = section.IdShipingExBeacon;
                 AddresExBeacon.Text = section.SensorExBeaconAddress;
-
-                cfg.Save();
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -154,6 +153,7 @@ namespace HustonRTEMS {
                 section.ReceiveAddresTime = AddresReceiveTime.Text;
                 section.IdReceiveTime = IdReceiveTime.Text;
                 section.IdShipingTime = IdShippingTime.Text;
+                section.AddresTime = AddresTime.Text;
 
                 section.ReceiveAddresBeacon = AddresReceiveBeacon.Text;
                 section.IdReceiveBeacon = IdReceiveBeacon.Text;
@@ -340,8 +340,8 @@ namespace HustonRTEMS {
                                 byte2 = buffer[23 - raw_buffer_size]
                             };
                             if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
-                                addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
-                                addresOut.it == Convert.ToInt16(AddresMag1.Text, 16)) {
+                                    addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
+                                    addresOut.it == Convert.ToInt16(AddresMag1.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
                                 for(int i = 0; i < message_size; i++) {
                                     LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
@@ -931,6 +931,13 @@ namespace HustonRTEMS {
                              test.unicanMSGId == Convert.ToInt16(IdReceiveExBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendExBeacon\r\n";
+                            }));
+                            SendExBeacon_Click(null, null);
+                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresTime.Text, 16) &&
+                             test.unicanAddressTo == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
+                             test.unicanMSGId == Convert.ToInt16(IdReceiveTime.Text, 16)) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nSendTime\r\n";
                             }));
                             SendExBeacon_Click(null, null);
                         }

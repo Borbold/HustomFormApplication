@@ -70,8 +70,8 @@ namespace HustonRTEMS {
             0xC0, 0x00, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x62, 0xA4, 0x64, 0x82, 0x9C, 0x8C, 0x40, 0x61, 0x00, 0xF0 };
 
         public async void SendMessageInSocketTime(Socket serverListener,
-            int idShipping, int addresValue, int addresReceive,
-            int iCount, int[] arIValue, TextBox logBox, bool isKiss) {
+                int idShipping, int addresValue, int addresReceive,
+                int iCount, int[] arIValue, TextBox logBox, bool isKiss) {
             ItUn iValue = new();
             byte[] sendBuf;
             // Header KISS
@@ -126,9 +126,9 @@ namespace HustonRTEMS {
         }
 
         public async void SendMessageInSocket(Socket serverListener,
-            int idShipping, int addresValue, int addresReceive,
-            int iCount, int fCount, int[] arIValue, float[] arFValue,
-            TextBox logBox, bool isKiss) {
+                int idShipping, int addresValue, int addresReceive,
+                int iCount, int fCount, int[] arIValue, float[] arFValue,
+                TextBox logBox, bool isKiss) {
             FlUn fValue = new();
             ItUn iValue = new();
             byte[] sendBuf;
@@ -285,8 +285,8 @@ namespace HustonRTEMS {
             }
         }
 
-        public void CreateFilterDB(ref Dictionary<int, EnVal> sortDV, int countDB, ComboBox howFilter,
-                EnVal filterVal) {
+        public void CreateFilterDB(ref Dictionary<int, EnVal> sortDV,
+                int countDB, ComboBox howFilter, EnVal filterVal) {
             switch(howFilter.SelectedIndex) {
                 case 0:
                     for(int i = 0; i < countDB; i++) {
