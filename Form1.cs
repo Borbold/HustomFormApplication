@@ -912,10 +912,12 @@ namespace HustonRTEMS {
                             LogBox.Text += $"To - {test.unicanAddressTo:X}; From - {test.unicanAddressFrom:X}; Id - {test.unicanMSGId:X};";
                         }));
 
-                        LogBox2.Text += "\r\n";
-                        LogBox2.Text += $"add from send:{test.unicanAddressFrom:X}; add to send:{test.unicanAddressTo:X}; add id send:{test.unicanMSGId:X}\r\n";
-                        LogBox2.Text += $"add from out:{AddresTime.Text}; add to out:{AddresReceiveTime.Text}; add id out:{IdReceiveTime.Text}\r\n";
-                        LogBox2.Text += "\r\n";
+                        LogBox2.Invoke(new Action(() => {
+                            LogBox2.Text += "\r\n";
+                            LogBox2.Text += $"add from send:{test.unicanAddressFrom:X}; add to send:{test.unicanAddressTo:X}; add id send:{test.unicanMSGId:X}\r\n";
+                            LogBox2.Text += $"add from out:{AddresTime.Text}; add to out:{AddresReceiveTime.Text}; add id out:{IdReceiveTime.Text}\r\n";
+                            LogBox2.Text += "\r\n";
+                        }));
 
                         if(test.unicanAddressTo == Convert.ToInt16(AddresMag1.Text, 16) &&
                              test.unicanAddressFrom == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
