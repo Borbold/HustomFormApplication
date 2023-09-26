@@ -940,8 +940,8 @@ namespace HustonRTEMS {
                                 LogBox.Text += "\r\nSendExBeacon\r\n";
                             }));
                             SendExBeacon_Click(null, null);
-                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresTime.Text, 16) &&
-                             test.unicanAddressTo == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
+                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
+                             test.unicanAddressTo == Convert.ToInt16(AddresTime.Text, 16) &&
                              test.unicanMSGId == Convert.ToInt16(IdReceiveTime.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendTime\r\n";
