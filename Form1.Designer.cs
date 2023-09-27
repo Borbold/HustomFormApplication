@@ -2580,7 +2580,7 @@
             PSIab.Location = new Point(238, 253);
             PSIab.Name = "PSIab";
             PSIab.Size = new Size(100, 35);
-            PSIab.TabIndex = 29;
+            PSIab.TabIndex = 13;
             PSIab.Text = "0";
             // 
             // label222
@@ -2599,7 +2599,7 @@
             PSt4_pw.Location = new Point(685, 128);
             PSt4_pw.Name = "PSt4_pw";
             PSt4_pw.Size = new Size(100, 35);
-            PSt4_pw.TabIndex = 27;
+            PSt4_pw.TabIndex = 29;
             PSt4_pw.Text = "0";
             // 
             // label107
@@ -2618,7 +2618,7 @@
             PSt3_pw.Location = new Point(685, 87);
             PSt3_pw.Name = "PSt3_pw";
             PSt3_pw.Size = new Size(100, 35);
-            PSt3_pw.TabIndex = 25;
+            PSt3_pw.TabIndex = 27;
             PSt3_pw.Text = "0";
             // 
             // label108
@@ -2637,7 +2637,7 @@
             PSt2_pw.Location = new Point(685, 46);
             PSt2_pw.Name = "PSt2_pw";
             PSt2_pw.Size = new Size(100, 35);
-            PSt2_pw.TabIndex = 23;
+            PSt2_pw.TabIndex = 25;
             PSt2_pw.Text = "0";
             // 
             // label109
@@ -2656,7 +2656,7 @@
             PSt1_pw.Location = new Point(685, 5);
             PSt1_pw.Name = "PSt1_pw";
             PSt1_pw.Size = new Size(100, 35);
-            PSt1_pw.TabIndex = 21;
+            PSt1_pw.TabIndex = 23;
             PSt1_pw.Text = "0";
             // 
             // label110
@@ -2675,7 +2675,7 @@
             PSIch4.Location = new Point(238, 417);
             PSIch4.Name = "PSIch4";
             PSIch4.Size = new Size(100, 35);
-            PSIch4.TabIndex = 19;
+            PSIch4.TabIndex = 21;
             PSIch4.Text = "0";
             // 
             // label111
@@ -2694,7 +2694,7 @@
             PSIch3.Location = new Point(238, 376);
             PSIch3.Name = "PSIch3";
             PSIch3.Size = new Size(100, 35);
-            PSIch3.TabIndex = 17;
+            PSIch3.TabIndex = 19;
             PSIch3.Text = "0";
             // 
             // label112
@@ -2713,7 +2713,7 @@
             PSIch2.Location = new Point(238, 335);
             PSIch2.Name = "PSIch2";
             PSIch2.Size = new Size(100, 35);
-            PSIch2.TabIndex = 15;
+            PSIch2.TabIndex = 17;
             PSIch2.Text = "0";
             // 
             // label101
@@ -2732,7 +2732,7 @@
             PSIch1.Location = new Point(238, 294);
             PSIch1.Name = "PSIch1";
             PSIch1.Size = new Size(100, 35);
-            PSIch1.TabIndex = 13;
+            PSIch1.TabIndex = 15;
             PSIch1.Text = "0";
             // 
             // label102
