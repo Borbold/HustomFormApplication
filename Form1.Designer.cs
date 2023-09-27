@@ -210,8 +210,6 @@
             label80 = new Label();
             tabPage6 = new TabPage();
             panel3 = new Panel();
-            textBox8 = new TextBox();
-            label105 = new Label();
             PSIab = new TextBox();
             label222 = new Label();
             PSt4_pw = new TextBox();
@@ -309,6 +307,18 @@
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
             LogBox2 = new TextBox();
+            UHFuhf_reset_counter = new TextBox();
+            label115 = new Label();
+            UHFt_uhf = new TextBox();
+            label116 = new Label();
+            UHFt_amp = new TextBox();
+            label117 = new Label();
+            PSps_reset_counter = new TextBox();
+            label118 = new Label();
+            PStime = new TextBox();
+            label119 = new Label();
+            PSUab = new TextBox();
+            label120 = new Label();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -2403,8 +2413,18 @@
             // panel3
             // 
             panel3.AutoScroll = true;
-            panel3.Controls.Add(textBox8);
-            panel3.Controls.Add(label105);
+            panel3.Controls.Add(UHFuhf_reset_counter);
+            panel3.Controls.Add(label115);
+            panel3.Controls.Add(UHFt_uhf);
+            panel3.Controls.Add(label116);
+            panel3.Controls.Add(UHFt_amp);
+            panel3.Controls.Add(label117);
+            panel3.Controls.Add(PSps_reset_counter);
+            panel3.Controls.Add(label118);
+            panel3.Controls.Add(PStime);
+            panel3.Controls.Add(label119);
+            panel3.Controls.Add(PSUab);
+            panel3.Controls.Add(label120);
             panel3.Controls.Add(PSIab);
             panel3.Controls.Add(label222);
             panel3.Controls.Add(PSt4_pw);
@@ -2440,29 +2460,10 @@
             panel3.Size = new Size(1020, 394);
             panel3.TabIndex = 112;
             // 
-            // textBox8
-            // 
-            textBox8.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox8.Location = new Point(238, 622);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(100, 35);
-            textBox8.TabIndex = 31;
-            textBox8.Text = "0";
-            // 
-            // label105
-            // 
-            label105.AutoSize = true;
-            label105.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label105.Location = new Point(3, 627);
-            label105.Name = "label105";
-            label105.Size = new Size(49, 30);
-            label105.TabIndex = 30;
-            label105.Text = "Test";
-            // 
             // PSIab
             // 
             PSIab.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIab.Location = new Point(238, 581);
+            PSIab.Location = new Point(686, 412);
             PSIab.Name = "PSIab";
             PSIab.Size = new Size(100, 35);
             PSIab.TabIndex = 29;
@@ -2472,7 +2473,7 @@
             // 
             label222.AutoSize = true;
             label222.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label222.Location = new Point(3, 584);
+            label222.Location = new Point(350, 415);
             label222.Name = "label222";
             label222.Size = new Size(137, 30);
             label222.TabIndex = 28;
@@ -2481,7 +2482,7 @@
             // PSt4_pw
             // 
             PSt4_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt4_pw.Location = new Point(238, 540);
+            PSt4_pw.Location = new Point(686, 371);
             PSt4_pw.Name = "PSt4_pw";
             PSt4_pw.Size = new Size(100, 35);
             PSt4_pw.TabIndex = 27;
@@ -2491,7 +2492,7 @@
             // 
             label107.AutoSize = true;
             label107.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label107.Location = new Point(3, 543);
+            label107.Location = new Point(350, 374);
             label107.Name = "label107";
             label107.Size = new Size(199, 30);
             label107.TabIndex = 26;
@@ -2500,7 +2501,7 @@
             // PSt3_pw
             // 
             PSt3_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt3_pw.Location = new Point(238, 499);
+            PSt3_pw.Location = new Point(686, 330);
             PSt3_pw.Name = "PSt3_pw";
             PSt3_pw.Size = new Size(100, 35);
             PSt3_pw.TabIndex = 25;
@@ -2510,7 +2511,7 @@
             // 
             label108.AutoSize = true;
             label108.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label108.Location = new Point(3, 502);
+            label108.Location = new Point(350, 333);
             label108.Name = "label108";
             label108.Size = new Size(199, 30);
             label108.TabIndex = 24;
@@ -2519,7 +2520,7 @@
             // PSt2_pw
             // 
             PSt2_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt2_pw.Location = new Point(238, 458);
+            PSt2_pw.Location = new Point(686, 289);
             PSt2_pw.Name = "PSt2_pw";
             PSt2_pw.Size = new Size(100, 35);
             PSt2_pw.TabIndex = 23;
@@ -2529,7 +2530,7 @@
             // 
             label109.AutoSize = true;
             label109.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label109.Location = new Point(3, 463);
+            label109.Location = new Point(350, 294);
             label109.Name = "label109";
             label109.Size = new Size(199, 30);
             label109.TabIndex = 22;
@@ -2538,7 +2539,7 @@
             // PSt1_pw
             // 
             PSt1_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt1_pw.Location = new Point(238, 417);
+            PSt1_pw.Location = new Point(686, 248);
             PSt1_pw.Name = "PSt1_pw";
             PSt1_pw.Size = new Size(100, 35);
             PSt1_pw.TabIndex = 21;
@@ -2548,7 +2549,7 @@
             // 
             label110.AutoSize = true;
             label110.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label110.Location = new Point(3, 420);
+            label110.Location = new Point(350, 251);
             label110.Name = "label110";
             label110.Size = new Size(199, 30);
             label110.TabIndex = 20;
@@ -3478,6 +3479,120 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
+            // UHFuhf_reset_counter
+            // 
+            UHFuhf_reset_counter.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            UHFuhf_reset_counter.Location = new Point(686, 210);
+            UHFuhf_reset_counter.Name = "UHFuhf_reset_counter";
+            UHFuhf_reset_counter.Size = new Size(100, 35);
+            UHFuhf_reset_counter.TabIndex = 43;
+            UHFuhf_reset_counter.Text = "0";
+            // 
+            // label115
+            // 
+            label115.AutoSize = true;
+            label115.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label115.Location = new Point(350, 215);
+            label115.Name = "label115";
+            label115.Size = new Size(300, 30);
+            label115.TabIndex = 42;
+            label115.Text = "Количество перезагрузок УКВ";
+            // 
+            // UHFt_uhf
+            // 
+            UHFt_uhf.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            UHFt_uhf.Location = new Point(686, 169);
+            UHFt_uhf.Name = "UHFt_uhf";
+            UHFt_uhf.Size = new Size(100, 35);
+            UHFt_uhf.TabIndex = 41;
+            UHFt_uhf.Text = "0";
+            // 
+            // label116
+            // 
+            label116.AutoSize = true;
+            label116.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label116.Location = new Point(350, 174);
+            label116.Name = "label116";
+            label116.Size = new Size(180, 30);
+            label116.TabIndex = 40;
+            label116.Text = "Температура УКВ";
+            // 
+            // UHFt_amp
+            // 
+            UHFt_amp.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            UHFt_amp.Location = new Point(686, 128);
+            UHFt_amp.Name = "UHFt_amp";
+            UHFt_amp.Size = new Size(100, 35);
+            UHFt_amp.TabIndex = 39;
+            UHFt_amp.Text = "0";
+            // 
+            // label117
+            // 
+            label117.AutoSize = true;
+            label117.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label117.Location = new Point(350, 135);
+            label117.Name = "label117";
+            label117.Size = new Size(283, 30);
+            label117.TabIndex = 38;
+            label117.Text = "Температура усилителя УКВ";
+            // 
+            // PSps_reset_counter
+            // 
+            PSps_reset_counter.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSps_reset_counter.Location = new Point(686, 87);
+            PSps_reset_counter.Name = "PSps_reset_counter";
+            PSps_reset_counter.Size = new Size(100, 35);
+            PSps_reset_counter.TabIndex = 37;
+            PSps_reset_counter.Text = "0";
+            // 
+            // label118
+            // 
+            label118.AutoSize = true;
+            label118.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label118.Location = new Point(350, 92);
+            label118.Name = "label118";
+            label118.Size = new Size(287, 30);
+            label118.TabIndex = 36;
+            label118.Text = "Количество перезагрузок PS";
+            // 
+            // PStime
+            // 
+            PStime.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PStime.Location = new Point(686, 48);
+            PStime.Name = "PStime";
+            PStime.Size = new Size(100, 35);
+            PStime.TabIndex = 35;
+            PStime.Text = "0";
+            // 
+            // label119
+            // 
+            label119.AutoSize = true;
+            label119.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label119.Location = new Point(350, 51);
+            label119.Name = "label119";
+            label119.Size = new Size(330, 30);
+            label119.TabIndex = 34;
+            label119.Text = "Время последней телеметрии PS";
+            // 
+            // PSUab
+            // 
+            PSUab.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSUab.Location = new Point(686, 10);
+            PSUab.Name = "PSUab";
+            PSUab.Size = new Size(100, 35);
+            PSUab.TabIndex = 33;
+            PSUab.Text = "0";
+            // 
+            // label120
+            // 
+            label120.AutoSize = true;
+            label120.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label120.Location = new Point(350, 10);
+            label120.Name = "label120";
+            label120.Size = new Size(225, 30);
+            label120.TabIndex = 32;
+            label120.Text = "Напряжение АКБ (мВ)";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -3819,8 +3934,6 @@
         private Label label99;
         private TextBox PSUSB2;
         private Label label98;
-        private TextBox textBox8;
-        private Label label105;
         private TextBox PSIab;
         private Label label222;
         private TextBox PSt4_pw;
@@ -3843,5 +3956,17 @@
         private Label label103;
         private TextBox PSIsb2;
         private Label label104;
+        private TextBox UHFuhf_reset_counter;
+        private Label label115;
+        private TextBox UHFt_uhf;
+        private Label label116;
+        private TextBox UHFt_amp;
+        private Label label117;
+        private TextBox PSps_reset_counter;
+        private Label label118;
+        private TextBox PStime;
+        private Label label119;
+        private TextBox PSUab;
+        private Label label120;
     }
 }

@@ -778,7 +778,7 @@ namespace HustonRTEMS {
                 const int psVar = 15 * sizeof(ushort);
                 const int checkVar = 2 * sizeof(byte);
                 const int reserveVar = 1 * sizeof(ushort);
-                const int UAB = 1 * sizeof(ushort);
+                const int PSUAB = 1 * sizeof(ushort);
                 const int regTelId = 1 * sizeof(int);
                 const int PS_time = 1 * sizeof(int);
                 const int psResetCounter = 1 * sizeof(byte);
@@ -795,7 +795,7 @@ namespace HustonRTEMS {
                 const int upTime = 1 * sizeof(int);
                 const int current = 1 * sizeof(ushort);
                 const int Uuhf = 1 * sizeof(ushort);
-                const int unicanLenght = psVar + checkVar + reserveVar + UAB + regTelId
+                const int unicanLenght = psVar + checkVar + reserveVar + PSUAB + regTelId
                     + PS_time + psResetCounter + PS_FL + tAMP + tUHF + PSSIrx + PSSIdle + Pf + Pb
                     + uhfResetCounter + UHF_FL + UHF_time + upTime + current + Uuhf;
                 UnicanMessage test = new() {
@@ -805,6 +805,8 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 ItUn[] PS = new ItUn[unicanLenght];
+                ItUn occupiedValueI = new();
+                FlUn occupiedValueF = new();
                 test.data = new byte[unicanLenght];
                 //----
                 PS[0].it = Convert.ToInt16(PSUSB1.Text);
@@ -828,8 +830,28 @@ namespace HustonRTEMS {
                     if(i < psVar) {
                         test.data[i] = PS[j].byte1;
                         test.data[++i] = PS[j].byte2;
+                    } else if(i == (psVar + checkVar + reserveVar)) {
+                        occupiedValueI.it = Convert.ToInt16(PSUab.Text);
+                        test.data[i] = occupiedValueI.byte1;
+                        test.data[++i] = occupiedValueI.byte2;
+                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId)) {
+                        occupiedValueF.fl = Convert.ToInt16(PStime.Text);
+                        test.data[i] = occupiedValueF.byte1;
+                        test.data[++i] = occupiedValueF.byte2;
+                        test.data[++i] = occupiedValueF.byte3;
+                        test.data[++i] = occupiedValueF.byte4;
+                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time)) {
+                        test.data[i] = Convert.ToByte(PSps_reset_counter.Text);
+                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
+                            + PS_FL)) {
+                        test.data[i] = Convert.ToByte(UHFt_amp.Text);
+                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
+                            + PS_FL + tAMP)) {
+                        test.data[i] = Convert.ToByte(UHFt_uhf.Text);
+                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
+                            + PS_FL + tAMP + tUHF + PSSIrx + PSSIdle + Pf + Pb)) {
+                        test.data[i] = Convert.ToByte(UHFuhf_reset_counter.Text);
                     } else {
-                        //test.data[i] = i < psVar + checkVar ? (byte)255 : (byte)2;
                         test.data[i] = 0;
                     }
                 }
