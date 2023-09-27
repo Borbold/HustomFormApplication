@@ -2463,7 +2463,7 @@
             // UHFuhf_reset_counter
             // 
             UHFuhf_reset_counter.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            UHFuhf_reset_counter.Location = new Point(686, 210);
+            UHFuhf_reset_counter.Location = new Point(685, 369);
             UHFuhf_reset_counter.Name = "UHFuhf_reset_counter";
             UHFuhf_reset_counter.Size = new Size(100, 35);
             UHFuhf_reset_counter.TabIndex = 43;
@@ -2473,7 +2473,7 @@
             // 
             label115.AutoSize = true;
             label115.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label115.Location = new Point(350, 215);
+            label115.Location = new Point(349, 374);
             label115.Name = "label115";
             label115.Size = new Size(300, 30);
             label115.TabIndex = 42;
@@ -2482,7 +2482,7 @@
             // UHFt_uhf
             // 
             UHFt_uhf.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            UHFt_uhf.Location = new Point(686, 169);
+            UHFt_uhf.Location = new Point(685, 328);
             UHFt_uhf.Name = "UHFt_uhf";
             UHFt_uhf.Size = new Size(100, 35);
             UHFt_uhf.TabIndex = 41;
@@ -2492,7 +2492,7 @@
             // 
             label116.AutoSize = true;
             label116.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label116.Location = new Point(350, 174);
+            label116.Location = new Point(349, 331);
             label116.Name = "label116";
             label116.Size = new Size(180, 30);
             label116.TabIndex = 40;
@@ -2501,7 +2501,7 @@
             // UHFt_amp
             // 
             UHFt_amp.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            UHFt_amp.Location = new Point(686, 128);
+            UHFt_amp.Location = new Point(685, 287);
             UHFt_amp.Name = "UHFt_amp";
             UHFt_amp.Size = new Size(100, 35);
             UHFt_amp.TabIndex = 39;
@@ -2511,7 +2511,7 @@
             // 
             label117.AutoSize = true;
             label117.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label117.Location = new Point(350, 135);
+            label117.Location = new Point(349, 294);
             label117.Name = "label117";
             label117.Size = new Size(283, 30);
             label117.TabIndex = 38;
@@ -2520,7 +2520,7 @@
             // PSps_reset_counter
             // 
             PSps_reset_counter.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSps_reset_counter.Location = new Point(686, 87);
+            PSps_reset_counter.Location = new Point(685, 246);
             PSps_reset_counter.Name = "PSps_reset_counter";
             PSps_reset_counter.Size = new Size(100, 35);
             PSps_reset_counter.TabIndex = 37;
@@ -2530,7 +2530,7 @@
             // 
             label118.AutoSize = true;
             label118.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label118.Location = new Point(350, 92);
+            label118.Location = new Point(349, 251);
             label118.Name = "label118";
             label118.Size = new Size(287, 30);
             label118.TabIndex = 36;
@@ -2539,7 +2539,7 @@
             // PStime
             // 
             PStime.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PStime.Location = new Point(686, 48);
+            PStime.Location = new Point(685, 207);
             PStime.Name = "PStime";
             PStime.Size = new Size(100, 35);
             PStime.TabIndex = 35;
@@ -2549,7 +2549,7 @@
             // 
             label119.AutoSize = true;
             label119.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label119.Location = new Point(350, 51);
+            label119.Location = new Point(349, 210);
             label119.Name = "label119";
             label119.Size = new Size(330, 30);
             label119.TabIndex = 34;
@@ -2558,7 +2558,7 @@
             // PSUab
             // 
             PSUab.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSUab.Location = new Point(686, 10);
+            PSUab.Location = new Point(685, 169);
             PSUab.Name = "PSUab";
             PSUab.Size = new Size(100, 35);
             PSUab.TabIndex = 33;
@@ -2568,7 +2568,7 @@
             // 
             label120.AutoSize = true;
             label120.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label120.Location = new Point(350, 10);
+            label120.Location = new Point(349, 172);
             label120.Name = "label120";
             label120.Size = new Size(225, 30);
             label120.TabIndex = 32;
@@ -2596,7 +2596,7 @@
             // PSt4_pw
             // 
             PSt4_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt4_pw.Location = new Point(686, 371);
+            PSt4_pw.Location = new Point(685, 128);
             PSt4_pw.Name = "PSt4_pw";
             PSt4_pw.Size = new Size(100, 35);
             PSt4_pw.TabIndex = 27;
@@ -2606,7 +2606,7 @@
             // 
             label107.AutoSize = true;
             label107.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label107.Location = new Point(350, 374);
+            label107.Location = new Point(349, 131);
             label107.Name = "label107";
             label107.Size = new Size(199, 30);
             label107.TabIndex = 26;
@@ -2615,7 +2615,7 @@
             // PSt3_pw
             // 
             PSt3_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt3_pw.Location = new Point(686, 330);
+            PSt3_pw.Location = new Point(685, 87);
             PSt3_pw.Name = "PSt3_pw";
             PSt3_pw.Size = new Size(100, 35);
             PSt3_pw.TabIndex = 25;
@@ -2625,7 +2625,7 @@
             // 
             label108.AutoSize = true;
             label108.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label108.Location = new Point(350, 333);
+            label108.Location = new Point(349, 90);
             label108.Name = "label108";
             label108.Size = new Size(199, 30);
             label108.TabIndex = 24;
@@ -2634,7 +2634,7 @@
             // PSt2_pw
             // 
             PSt2_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt2_pw.Location = new Point(686, 289);
+            PSt2_pw.Location = new Point(685, 46);
             PSt2_pw.Name = "PSt2_pw";
             PSt2_pw.Size = new Size(100, 35);
             PSt2_pw.TabIndex = 23;
@@ -2644,7 +2644,7 @@
             // 
             label109.AutoSize = true;
             label109.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label109.Location = new Point(350, 294);
+            label109.Location = new Point(349, 51);
             label109.Name = "label109";
             label109.Size = new Size(199, 30);
             label109.TabIndex = 22;
@@ -2653,7 +2653,7 @@
             // PSt1_pw
             // 
             PSt1_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt1_pw.Location = new Point(686, 248);
+            PSt1_pw.Location = new Point(685, 5);
             PSt1_pw.Name = "PSt1_pw";
             PSt1_pw.Size = new Size(100, 35);
             PSt1_pw.TabIndex = 21;
@@ -2663,7 +2663,7 @@
             // 
             label110.AutoSize = true;
             label110.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label110.Location = new Point(350, 251);
+            label110.Location = new Point(349, 8);
             label110.Name = "label110";
             label110.Size = new Size(199, 30);
             label110.TabIndex = 20;
