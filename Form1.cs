@@ -795,8 +795,7 @@ namespace HustonRTEMS {
                 const int upTime = 1 * sizeof(int);
                 const int current = 1 * sizeof(ushort);
                 const int Uuhf = 1 * sizeof(ushort);
-                const int otherVar = 17 * sizeof(ushort);
-                const int unicanLenght = psVar + checkVar + reserveVar + otherVar + UAB + regTelId
+                const int unicanLenght = psVar + checkVar + reserveVar + UAB + regTelId
                     + PS_time + psResetCounter + PS_FL + tAMP + tUHF + PSSIrx + PSSIdle + Pf + Pb
                     + uhfResetCounter + UHF_FL + UHF_time + upTime + current + Uuhf;
                 UnicanMessage test = new() {
