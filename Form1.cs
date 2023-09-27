@@ -806,10 +806,11 @@ namespace HustonRTEMS {
                 };
                 ItUn[] PS = new ItUn[unicanLenght];
                 test.data = new byte[unicanLenght];
-                for(int i = 0; i < unicanLenght; i++) {
-                    if(i <= psVar)
-                        PS[i].it = 2;
-                }
+                //----
+                PS[0].it = Convert.ToInt16(PSUSB1.Text);
+                PS[1].it = Convert.ToInt16(PSUSB2.Text);
+                PS[2].it = Convert.ToInt16(PSUSB3.Text);
+                //----
                 for(int i = 0; i < unicanLenght; i++) {
                     if(i < psVar) {
                         test.data[i] = PS[i].byte1;
