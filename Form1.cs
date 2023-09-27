@@ -943,10 +943,6 @@ namespace HustonRTEMS {
                             serialPort.BytesToRead - byteWrite : offsetByte;
                         data = new char[copyByte];
                         _ = serialPort.Read(data, 0, copyByte);
-                        LogBox2.Invoke(new Action(() => {
-                            LogBox2.Text += "Count read byte = " + copyByte;
-                            LogBox2.Text += "\r\n";
-                        }));
                         for(int i = 0; i < data.Length; i++) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += $"{data[i]}";
@@ -971,13 +967,6 @@ namespace HustonRTEMS {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text += "\r\nПринято\r\n";
                             LogBox.Text += $"To - {test.unicanAddressTo:X}; From - {test.unicanAddressFrom:X}; Id - {test.unicanMSGId:X};";
-                        }));
-
-                        LogBox2.Invoke(new Action(() => {
-                            LogBox2.Text += "\r\n";
-                            LogBox2.Text += $"add from send:{test.unicanAddressFrom:X}; add to send:{test.unicanAddressTo:X}; add id send:{test.unicanMSGId:X}\r\n";
-                            LogBox2.Text += $"add from out:{AddresTime.Text}; add to out:{AddresReceiveTime.Text}; add id out:{IdReceiveTime.Text}\r\n";
-                            LogBox2.Text += "\r\n";
                         }));
 
                         if(test.unicanAddressTo == Convert.ToInt16(AddresMag1.Text, 16) &&
