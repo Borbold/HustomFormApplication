@@ -835,9 +835,10 @@ namespace HustonRTEMS {
                         test.data[++i] = occupiedValueI.byte2;
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId)) {
                         int psTime = Convert.ToInt32(PStime.Text);
-                        test.data[i] = (byte)(psTime << 8);
-                        test.data[++i] = (byte)(psTime << 16);
-                        test.data[++i] = (byte)(psTime << 32);
+                        test.data[i] = (byte)(psTime >> 24);
+                        test.data[++i] = (byte)(psTime >> 16);
+                        test.data[++i] = (byte)(psTime >> 8);
+                        test.data[++i] = (byte)(psTime);
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time)) {
                         test.data[i] = Convert.ToByte(PSps_reset_counter.Text);
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
