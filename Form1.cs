@@ -810,11 +810,24 @@ namespace HustonRTEMS {
                 PS[0].it = Convert.ToInt16(PSUSB1.Text);
                 PS[1].it = Convert.ToInt16(PSUSB2.Text);
                 PS[2].it = Convert.ToInt16(PSUSB3.Text);
+                PS[3].it = Convert.ToInt16(PSIsb1.Text);
+                PS[4].it = Convert.ToInt16(PSIsb2.Text);
+                PS[5].it = Convert.ToInt16(PSIsb3.Text);
+                PS[6].it = Convert.ToInt16(PSIch1.Text);
+                PS[7].it = Convert.ToInt16(PSIch2.Text);
+                PS[8].it = Convert.ToInt16(PSIch3.Text);
+                PS[9].it = Convert.ToInt16(PSIch4.Text);
+                PS[10].it = Convert.ToInt16(PSt1_pw.Text);
+                PS[11].it = Convert.ToInt16(PSt2_pw.Text);
+                PS[12].it = Convert.ToInt16(PSt3_pw.Text);
+                PS[13].it = Convert.ToInt16(PSt4_pw.Text);
+                PS[14].it = Convert.ToInt16(PSt4_pw.Text);
+                PS[15].it = Convert.ToInt16(PSIab.Text);
                 //----
-                for(int i = 0; i < unicanLenght; i++) {
+                for(int i = 0, j = 0; i < unicanLenght; i++, j++) {
                     if(i < psVar) {
-                        test.data[i] = PS[i].byte1;
-                        test.data[++i] = PS[i].byte2;
+                        test.data[i] = PS[j].byte1;
+                        test.data[++i] = PS[j].byte2;
                     } else {
                         //test.data[i] = i < psVar + checkVar ? (byte)255 : (byte)2;
                         test.data[i] = 0;

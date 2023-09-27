@@ -209,6 +209,39 @@
             AddresReceiveTime = new TextBox();
             label80 = new Label();
             tabPage6 = new TabPage();
+            panel3 = new Panel();
+            textBox8 = new TextBox();
+            label105 = new Label();
+            PSIab = new TextBox();
+            label222 = new Label();
+            PSt4_pw = new TextBox();
+            label107 = new Label();
+            PSt3_pw = new TextBox();
+            label108 = new Label();
+            PSt2_pw = new TextBox();
+            label109 = new Label();
+            PSt1_pw = new TextBox();
+            label110 = new Label();
+            PSIch4 = new TextBox();
+            label111 = new Label();
+            PSIch3 = new TextBox();
+            label112 = new Label();
+            PSIch2 = new TextBox();
+            label101 = new Label();
+            PSIch1 = new TextBox();
+            label102 = new Label();
+            PSIsb3 = new TextBox();
+            label103 = new Label();
+            PSIsb2 = new TextBox();
+            label104 = new Label();
+            PSIsb1 = new TextBox();
+            label100 = new Label();
+            PSUSB3 = new TextBox();
+            label99 = new Label();
+            PSUSB2 = new TextBox();
+            label98 = new Label();
+            PSUSB1 = new TextBox();
+            label97 = new Label();
             label82 = new Label();
             AddresBeacon = new TextBox();
             label89 = new Label();
@@ -219,6 +252,21 @@
             AddresReceiveBeacon = new TextBox();
             SendBeacon = new Button();
             label88 = new Label();
+            tabPage7 = new TabPage();
+            panel2 = new Panel();
+            label84 = new Label();
+            LabBTemp = new Label();
+            BTemp = new TrackBar();
+            SendExBeacon = new Button();
+            label92 = new Label();
+            AddresExBeacon = new TextBox();
+            label93 = new Label();
+            IdShippingExBeacon = new TextBox();
+            label94 = new Label();
+            IdReceiveExBeacon = new TextBox();
+            label95 = new Label();
+            AddresReceiveExBeacon = new TextBox();
+            label96 = new Label();
             MainTabControll = new TabControl();
             Settings = new TabPage();
             TabSettings = new TabControl();
@@ -261,54 +309,6 @@
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
             LogBox2 = new TextBox();
-            tabPage7 = new TabPage();
-            panel2 = new Panel();
-            label84 = new Label();
-            LabBTemp = new Label();
-            BTemp = new TrackBar();
-            SendExBeacon = new Button();
-            label92 = new Label();
-            AddresExBeacon = new TextBox();
-            label93 = new Label();
-            IdShippingExBeacon = new TextBox();
-            label94 = new Label();
-            IdReceiveExBeacon = new TextBox();
-            label95 = new Label();
-            AddresReceiveExBeacon = new TextBox();
-            label96 = new Label();
-            panel3 = new Panel();
-            label97 = new Label();
-            PSUSB1 = new TextBox();
-            PSUSB2 = new TextBox();
-            label98 = new Label();
-            PSUSB3 = new TextBox();
-            label99 = new Label();
-            PSIsb1 = new TextBox();
-            label100 = new Label();
-            PSIch2 = new TextBox();
-            label101 = new Label();
-            PSIch1 = new TextBox();
-            label102 = new Label();
-            PSIsb3 = new TextBox();
-            label103 = new Label();
-            PSIsb2 = new TextBox();
-            label104 = new Label();
-            textBox8 = new TextBox();
-            label105 = new Label();
-            textBox9 = new TextBox();
-            PSIab = new Label();
-            PSt4_pw = new TextBox();
-            label107 = new Label();
-            PSt3_pw = new TextBox();
-            label108 = new Label();
-            PSt2_pw = new TextBox();
-            label109 = new Label();
-            PSt1_pw = new TextBox();
-            label110 = new Label();
-            PSIch4 = new TextBox();
-            label111 = new Label();
-            PSIch3 = new TextBox();
-            label112 = new Label();
             TrackBarSpeedX.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -339,6 +339,10 @@
             ((System.ComponentModel.ISupportInitialize)TrackBarAccelX).BeginInit();
             tabPage4.SuspendLayout();
             tabPage6.SuspendLayout();
+            panel3.SuspendLayout();
+            tabPage7.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BTemp).BeginInit();
             MainTabControll.SuspendLayout();
             Settings.SuspendLayout();
             TabSettings.SuspendLayout();
@@ -346,10 +350,6 @@
             CANPage.SuspendLayout();
             SensorReadings.SuspendLayout();
             tabPage5.SuspendLayout();
-            tabPage7.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)BTemp).BeginInit();
-            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // LogBox
@@ -2400,6 +2400,350 @@
             tabPage6.Text = "Beacon";
             tabPage6.UseVisualStyleBackColor = true;
             // 
+            // panel3
+            // 
+            panel3.AutoScroll = true;
+            panel3.Controls.Add(textBox8);
+            panel3.Controls.Add(label105);
+            panel3.Controls.Add(PSIab);
+            panel3.Controls.Add(label222);
+            panel3.Controls.Add(PSt4_pw);
+            panel3.Controls.Add(label107);
+            panel3.Controls.Add(PSt3_pw);
+            panel3.Controls.Add(label108);
+            panel3.Controls.Add(PSt2_pw);
+            panel3.Controls.Add(label109);
+            panel3.Controls.Add(PSt1_pw);
+            panel3.Controls.Add(label110);
+            panel3.Controls.Add(PSIch4);
+            panel3.Controls.Add(label111);
+            panel3.Controls.Add(PSIch3);
+            panel3.Controls.Add(label112);
+            panel3.Controls.Add(PSIch2);
+            panel3.Controls.Add(label101);
+            panel3.Controls.Add(PSIch1);
+            panel3.Controls.Add(label102);
+            panel3.Controls.Add(PSIsb3);
+            panel3.Controls.Add(label103);
+            panel3.Controls.Add(PSIsb2);
+            panel3.Controls.Add(label104);
+            panel3.Controls.Add(PSIsb1);
+            panel3.Controls.Add(label100);
+            panel3.Controls.Add(PSUSB3);
+            panel3.Controls.Add(label99);
+            panel3.Controls.Add(PSUSB2);
+            panel3.Controls.Add(label98);
+            panel3.Controls.Add(PSUSB1);
+            panel3.Controls.Add(label97);
+            panel3.Location = new Point(181, 6);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1020, 394);
+            panel3.TabIndex = 112;
+            // 
+            // textBox8
+            // 
+            textBox8.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox8.Location = new Point(238, 622);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(100, 35);
+            textBox8.TabIndex = 31;
+            textBox8.Text = "0";
+            // 
+            // label105
+            // 
+            label105.AutoSize = true;
+            label105.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label105.Location = new Point(3, 627);
+            label105.Name = "label105";
+            label105.Size = new Size(49, 30);
+            label105.TabIndex = 30;
+            label105.Text = "Test";
+            // 
+            // PSIab
+            // 
+            PSIab.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSIab.Location = new Point(238, 581);
+            PSIab.Name = "PSIab";
+            PSIab.Size = new Size(100, 35);
+            PSIab.TabIndex = 29;
+            PSIab.Text = "0";
+            // 
+            // label222
+            // 
+            label222.AutoSize = true;
+            label222.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label222.Location = new Point(3, 584);
+            label222.Name = "label222";
+            label222.Size = new Size(137, 30);
+            label222.TabIndex = 28;
+            label222.Text = "Ток АКБ (мА)";
+            // 
+            // PSt4_pw
+            // 
+            PSt4_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSt4_pw.Location = new Point(238, 540);
+            PSt4_pw.Name = "PSt4_pw";
+            PSt4_pw.Size = new Size(100, 35);
+            PSt4_pw.TabIndex = 27;
+            PSt4_pw.Text = "0";
+            // 
+            // label107
+            // 
+            label107.AutoSize = true;
+            label107.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label107.Location = new Point(3, 543);
+            label107.Name = "label107";
+            label107.Size = new Size(199, 30);
+            label107.TabIndex = 26;
+            label107.Text = "Температура АКБ 4";
+            // 
+            // PSt3_pw
+            // 
+            PSt3_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSt3_pw.Location = new Point(238, 499);
+            PSt3_pw.Name = "PSt3_pw";
+            PSt3_pw.Size = new Size(100, 35);
+            PSt3_pw.TabIndex = 25;
+            PSt3_pw.Text = "0";
+            // 
+            // label108
+            // 
+            label108.AutoSize = true;
+            label108.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label108.Location = new Point(3, 502);
+            label108.Name = "label108";
+            label108.Size = new Size(199, 30);
+            label108.TabIndex = 24;
+            label108.Text = "Температура АКБ 3";
+            // 
+            // PSt2_pw
+            // 
+            PSt2_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSt2_pw.Location = new Point(238, 458);
+            PSt2_pw.Name = "PSt2_pw";
+            PSt2_pw.Size = new Size(100, 35);
+            PSt2_pw.TabIndex = 23;
+            PSt2_pw.Text = "0";
+            // 
+            // label109
+            // 
+            label109.AutoSize = true;
+            label109.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label109.Location = new Point(3, 463);
+            label109.Name = "label109";
+            label109.Size = new Size(199, 30);
+            label109.TabIndex = 22;
+            label109.Text = "Температура АКБ 2";
+            // 
+            // PSt1_pw
+            // 
+            PSt1_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSt1_pw.Location = new Point(238, 417);
+            PSt1_pw.Name = "PSt1_pw";
+            PSt1_pw.Size = new Size(100, 35);
+            PSt1_pw.TabIndex = 21;
+            PSt1_pw.Text = "0";
+            // 
+            // label110
+            // 
+            label110.AutoSize = true;
+            label110.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label110.Location = new Point(3, 420);
+            label110.Name = "label110";
+            label110.Size = new Size(199, 30);
+            label110.TabIndex = 20;
+            label110.Text = "Температура АКБ 1";
+            // 
+            // PSIch4
+            // 
+            PSIch4.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSIch4.Location = new Point(238, 376);
+            PSIch4.Name = "PSIch4";
+            PSIch4.Size = new Size(100, 35);
+            PSIch4.TabIndex = 19;
+            PSIch4.Text = "0";
+            // 
+            // label111
+            // 
+            label111.AutoSize = true;
+            label111.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label111.Location = new Point(3, 379);
+            label111.Name = "label111";
+            label111.Size = new Size(182, 30);
+            label111.TabIndex = 18;
+            label111.Text = "Ток канала 4 (мА)";
+            // 
+            // PSIch3
+            // 
+            PSIch3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSIch3.Location = new Point(238, 335);
+            PSIch3.Name = "PSIch3";
+            PSIch3.Size = new Size(100, 35);
+            PSIch3.TabIndex = 17;
+            PSIch3.Text = "0";
+            // 
+            // label112
+            // 
+            label112.AutoSize = true;
+            label112.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label112.Location = new Point(3, 338);
+            label112.Name = "label112";
+            label112.Size = new Size(182, 30);
+            label112.TabIndex = 16;
+            label112.Text = "Ток канала 3 (мА)";
+            // 
+            // PSIch2
+            // 
+            PSIch2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSIch2.Location = new Point(238, 294);
+            PSIch2.Name = "PSIch2";
+            PSIch2.Size = new Size(100, 35);
+            PSIch2.TabIndex = 15;
+            PSIch2.Text = "0";
+            // 
+            // label101
+            // 
+            label101.AutoSize = true;
+            label101.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label101.Location = new Point(3, 299);
+            label101.Name = "label101";
+            label101.Size = new Size(182, 30);
+            label101.TabIndex = 14;
+            label101.Text = "Ток канала 2 (мА)";
+            // 
+            // PSIch1
+            // 
+            PSIch1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSIch1.Location = new Point(238, 253);
+            PSIch1.Name = "PSIch1";
+            PSIch1.Size = new Size(100, 35);
+            PSIch1.TabIndex = 13;
+            PSIch1.Text = "0";
+            // 
+            // label102
+            // 
+            label102.AutoSize = true;
+            label102.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label102.Location = new Point(3, 256);
+            label102.Name = "label102";
+            label102.Size = new Size(182, 30);
+            label102.TabIndex = 12;
+            label102.Text = "Ток канала 1 (мА)";
+            // 
+            // PSIsb3
+            // 
+            PSIsb3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSIsb3.Location = new Point(238, 212);
+            PSIsb3.Name = "PSIsb3";
+            PSIsb3.Size = new Size(100, 35);
+            PSIsb3.TabIndex = 11;
+            PSIsb3.Text = "0";
+            // 
+            // label103
+            // 
+            label103.AutoSize = true;
+            label103.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label103.Location = new Point(3, 215);
+            label103.Name = "label103";
+            label103.Size = new Size(141, 30);
+            label103.TabIndex = 10;
+            label103.Text = "Ток СБ 3 (мА)";
+            // 
+            // PSIsb2
+            // 
+            PSIsb2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSIsb2.Location = new Point(238, 171);
+            PSIsb2.Name = "PSIsb2";
+            PSIsb2.Size = new Size(100, 35);
+            PSIsb2.TabIndex = 9;
+            PSIsb2.Text = "0";
+            // 
+            // label104
+            // 
+            label104.AutoSize = true;
+            label104.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label104.Location = new Point(3, 174);
+            label104.Name = "label104";
+            label104.Size = new Size(141, 30);
+            label104.TabIndex = 8;
+            label104.Text = "Ток СБ 2 (мА)";
+            // 
+            // PSIsb1
+            // 
+            PSIsb1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSIsb1.Location = new Point(238, 130);
+            PSIsb1.Name = "PSIsb1";
+            PSIsb1.Size = new Size(100, 35);
+            PSIsb1.TabIndex = 7;
+            PSIsb1.Text = "0";
+            // 
+            // label100
+            // 
+            label100.AutoSize = true;
+            label100.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label100.Location = new Point(3, 135);
+            label100.Name = "label100";
+            label100.Size = new Size(141, 30);
+            label100.TabIndex = 6;
+            label100.Text = "Ток СБ 1 (мА)";
+            // 
+            // PSUSB3
+            // 
+            PSUSB3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSUSB3.Location = new Point(238, 89);
+            PSUSB3.Name = "PSUSB3";
+            PSUSB3.Size = new Size(100, 35);
+            PSUSB3.TabIndex = 5;
+            PSUSB3.Text = "0";
+            // 
+            // label99
+            // 
+            label99.AutoSize = true;
+            label99.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label99.Location = new Point(3, 92);
+            label99.Name = "label99";
+            label99.Size = new Size(229, 30);
+            label99.TabIndex = 4;
+            label99.Text = "Напряжение СБ 3 (мВ)";
+            // 
+            // PSUSB2
+            // 
+            PSUSB2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSUSB2.Location = new Point(238, 48);
+            PSUSB2.Name = "PSUSB2";
+            PSUSB2.Size = new Size(100, 35);
+            PSUSB2.TabIndex = 3;
+            PSUSB2.Text = "0";
+            // 
+            // label98
+            // 
+            label98.AutoSize = true;
+            label98.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label98.Location = new Point(3, 51);
+            label98.Name = "label98";
+            label98.Size = new Size(229, 30);
+            label98.TabIndex = 2;
+            label98.Text = "Напряжение СБ 2 (мВ)";
+            // 
+            // PSUSB1
+            // 
+            PSUSB1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            PSUSB1.Location = new Point(238, 7);
+            PSUSB1.Name = "PSUSB1";
+            PSUSB1.Size = new Size(100, 35);
+            PSUSB1.TabIndex = 1;
+            PSUSB1.Text = "0";
+            // 
+            // label97
+            // 
+            label97.AutoSize = true;
+            label97.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label97.Location = new Point(3, 10);
+            label97.Name = "label97";
+            label97.Size = new Size(229, 30);
+            label97.TabIndex = 0;
+            label97.Text = "Напряжение СБ 1 (мВ)";
+            // 
             // label82
             // 
             label82.AutoSize = true;
@@ -2496,6 +2840,165 @@
             label88.Size = new Size(88, 37);
             label88.TabIndex = 0;
             label88.Text = "Маяк";
+            // 
+            // tabPage7
+            // 
+            tabPage7.Controls.Add(panel2);
+            tabPage7.Controls.Add(SendExBeacon);
+            tabPage7.Controls.Add(label92);
+            tabPage7.Controls.Add(AddresExBeacon);
+            tabPage7.Controls.Add(label93);
+            tabPage7.Controls.Add(IdShippingExBeacon);
+            tabPage7.Controls.Add(label94);
+            tabPage7.Controls.Add(IdReceiveExBeacon);
+            tabPage7.Controls.Add(label95);
+            tabPage7.Controls.Add(AddresReceiveExBeacon);
+            tabPage7.Controls.Add(label96);
+            tabPage7.Location = new Point(4, 26);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Padding = new Padding(3);
+            tabPage7.Size = new Size(1204, 406);
+            tabPage7.TabIndex = 8;
+            tabPage7.Text = "ExBeacon";
+            tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            panel2.AutoScroll = true;
+            panel2.Controls.Add(label84);
+            panel2.Controls.Add(LabBTemp);
+            panel2.Controls.Add(BTemp);
+            panel2.Location = new Point(287, 12);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(722, 394);
+            panel2.TabIndex = 111;
+            // 
+            // label84
+            // 
+            label84.AutoSize = true;
+            label84.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label84.Location = new Point(3, 3);
+            label84.Name = "label84";
+            label84.Size = new Size(25, 30);
+            label84.TabIndex = 12;
+            label84.Text = "T";
+            // 
+            // LabBTemp
+            // 
+            LabBTemp.AutoSize = true;
+            LabBTemp.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LabBTemp.Location = new Point(340, 3);
+            LabBTemp.Name = "LabBTemp";
+            LabBTemp.Size = new Size(35, 30);
+            LabBTemp.TabIndex = 11;
+            LabBTemp.Text = "20";
+            // 
+            // BTemp
+            // 
+            BTemp.LargeChange = 1;
+            BTemp.Location = new Point(34, 3);
+            BTemp.Maximum = 500;
+            BTemp.Minimum = 100;
+            BTemp.Name = "BTemp";
+            BTemp.Size = new Size(300, 45);
+            BTemp.TabIndex = 10;
+            BTemp.Value = 100;
+            // 
+            // SendExBeacon
+            // 
+            SendExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendExBeacon.Location = new Point(-3, 334);
+            SendExBeacon.Name = "SendExBeacon";
+            SendExBeacon.Size = new Size(156, 72);
+            SendExBeacon.TabIndex = 110;
+            SendExBeacon.Text = "Отправить данные расширенного маяка";
+            SendExBeacon.UseVisualStyleBackColor = true;
+            // 
+            // label92
+            // 
+            label92.AutoSize = true;
+            label92.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label92.Location = new Point(38, 253);
+            label92.Name = "label92";
+            label92.Size = new Size(115, 21);
+            label92.TabIndex = 109;
+            label92.Text = "Адрес датчика";
+            // 
+            // AddresExBeacon
+            // 
+            AddresExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresExBeacon.Location = new Point(0, 250);
+            AddresExBeacon.Name = "AddresExBeacon";
+            AddresExBeacon.Size = new Size(32, 29);
+            AddresExBeacon.TabIndex = 108;
+            AddresExBeacon.Text = "?";
+            // 
+            // label93
+            // 
+            label93.AutoSize = true;
+            label93.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label93.Location = new Point(60, 159);
+            label93.Name = "label93";
+            label93.Size = new Size(74, 21);
+            label93.TabIndex = 107;
+            label93.Text = "Id ответа";
+            // 
+            // IdShippingExBeacon
+            // 
+            IdShippingExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingExBeacon.Location = new Point(2, 156);
+            IdShippingExBeacon.Name = "IdShippingExBeacon";
+            IdShippingExBeacon.Size = new Size(52, 29);
+            IdShippingExBeacon.TabIndex = 106;
+            IdShippingExBeacon.Text = "?";
+            // 
+            // label94
+            // 
+            label94.AutoSize = true;
+            label94.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label94.Location = new Point(60, 123);
+            label94.Name = "label94";
+            label94.Size = new Size(84, 21);
+            label94.TabIndex = 105;
+            label94.Text = "Id запроса";
+            // 
+            // IdReceiveExBeacon
+            // 
+            IdReceiveExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveExBeacon.Location = new Point(2, 120);
+            IdReceiveExBeacon.Name = "IdReceiveExBeacon";
+            IdReceiveExBeacon.Size = new Size(52, 29);
+            IdReceiveExBeacon.TabIndex = 104;
+            IdReceiveExBeacon.Text = "?";
+            // 
+            // label95
+            // 
+            label95.AutoSize = true;
+            label95.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label95.Location = new Point(60, 57);
+            label95.Name = "label95";
+            label95.Size = new Size(111, 21);
+            label95.TabIndex = 103;
+            label95.Text = "Адрес приема";
+            // 
+            // AddresReceiveExBeacon
+            // 
+            AddresReceiveExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveExBeacon.Location = new Point(2, 54);
+            AddresReceiveExBeacon.Name = "AddresReceiveExBeacon";
+            AddresReceiveExBeacon.Size = new Size(52, 29);
+            AddresReceiveExBeacon.TabIndex = 102;
+            AddresReceiveExBeacon.Text = "?";
+            // 
+            // label96
+            // 
+            label96.AutoSize = true;
+            label96.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label96.Location = new Point(2, 6);
+            label96.Name = "label96";
+            label96.Size = new Size(279, 37);
+            label96.TabIndex = 101;
+            label96.Text = "Расширенный маяк";
             // 
             // MainTabControll
             // 
@@ -2975,509 +3478,6 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
-            // tabPage7
-            // 
-            tabPage7.Controls.Add(panel2);
-            tabPage7.Controls.Add(SendExBeacon);
-            tabPage7.Controls.Add(label92);
-            tabPage7.Controls.Add(AddresExBeacon);
-            tabPage7.Controls.Add(label93);
-            tabPage7.Controls.Add(IdShippingExBeacon);
-            tabPage7.Controls.Add(label94);
-            tabPage7.Controls.Add(IdReceiveExBeacon);
-            tabPage7.Controls.Add(label95);
-            tabPage7.Controls.Add(AddresReceiveExBeacon);
-            tabPage7.Controls.Add(label96);
-            tabPage7.Location = new Point(4, 26);
-            tabPage7.Name = "tabPage7";
-            tabPage7.Padding = new Padding(3);
-            tabPage7.Size = new Size(1204, 406);
-            tabPage7.TabIndex = 8;
-            tabPage7.Text = "ExBeacon";
-            tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            panel2.AutoScroll = true;
-            panel2.Controls.Add(label84);
-            panel2.Controls.Add(LabBTemp);
-            panel2.Controls.Add(BTemp);
-            panel2.Location = new Point(287, 12);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(722, 394);
-            panel2.TabIndex = 111;
-            // 
-            // label84
-            // 
-            label84.AutoSize = true;
-            label84.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label84.Location = new Point(3, 3);
-            label84.Name = "label84";
-            label84.Size = new Size(25, 30);
-            label84.TabIndex = 12;
-            label84.Text = "T";
-            // 
-            // LabBTemp
-            // 
-            LabBTemp.AutoSize = true;
-            LabBTemp.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabBTemp.Location = new Point(340, 3);
-            LabBTemp.Name = "LabBTemp";
-            LabBTemp.Size = new Size(35, 30);
-            LabBTemp.TabIndex = 11;
-            LabBTemp.Text = "20";
-            // 
-            // BTemp
-            // 
-            BTemp.LargeChange = 1;
-            BTemp.Location = new Point(34, 3);
-            BTemp.Maximum = 500;
-            BTemp.Minimum = 100;
-            BTemp.Name = "BTemp";
-            BTemp.Size = new Size(300, 45);
-            BTemp.TabIndex = 10;
-            BTemp.Value = 100;
-            // 
-            // SendExBeacon
-            // 
-            SendExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            SendExBeacon.Location = new Point(-3, 334);
-            SendExBeacon.Name = "SendExBeacon";
-            SendExBeacon.Size = new Size(156, 72);
-            SendExBeacon.TabIndex = 110;
-            SendExBeacon.Text = "Отправить данные расширенного маяка";
-            SendExBeacon.UseVisualStyleBackColor = true;
-            // 
-            // label92
-            // 
-            label92.AutoSize = true;
-            label92.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label92.Location = new Point(38, 253);
-            label92.Name = "label92";
-            label92.Size = new Size(115, 21);
-            label92.TabIndex = 109;
-            label92.Text = "Адрес датчика";
-            // 
-            // AddresExBeacon
-            // 
-            AddresExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresExBeacon.Location = new Point(0, 250);
-            AddresExBeacon.Name = "AddresExBeacon";
-            AddresExBeacon.Size = new Size(32, 29);
-            AddresExBeacon.TabIndex = 108;
-            AddresExBeacon.Text = "?";
-            // 
-            // label93
-            // 
-            label93.AutoSize = true;
-            label93.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label93.Location = new Point(60, 159);
-            label93.Name = "label93";
-            label93.Size = new Size(74, 21);
-            label93.TabIndex = 107;
-            label93.Text = "Id ответа";
-            // 
-            // IdShippingExBeacon
-            // 
-            IdShippingExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdShippingExBeacon.Location = new Point(2, 156);
-            IdShippingExBeacon.Name = "IdShippingExBeacon";
-            IdShippingExBeacon.Size = new Size(52, 29);
-            IdShippingExBeacon.TabIndex = 106;
-            IdShippingExBeacon.Text = "?";
-            // 
-            // label94
-            // 
-            label94.AutoSize = true;
-            label94.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label94.Location = new Point(60, 123);
-            label94.Name = "label94";
-            label94.Size = new Size(84, 21);
-            label94.TabIndex = 105;
-            label94.Text = "Id запроса";
-            // 
-            // IdReceiveExBeacon
-            // 
-            IdReceiveExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdReceiveExBeacon.Location = new Point(2, 120);
-            IdReceiveExBeacon.Name = "IdReceiveExBeacon";
-            IdReceiveExBeacon.Size = new Size(52, 29);
-            IdReceiveExBeacon.TabIndex = 104;
-            IdReceiveExBeacon.Text = "?";
-            // 
-            // label95
-            // 
-            label95.AutoSize = true;
-            label95.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label95.Location = new Point(60, 57);
-            label95.Name = "label95";
-            label95.Size = new Size(111, 21);
-            label95.TabIndex = 103;
-            label95.Text = "Адрес приема";
-            // 
-            // AddresReceiveExBeacon
-            // 
-            AddresReceiveExBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            AddresReceiveExBeacon.Location = new Point(2, 54);
-            AddresReceiveExBeacon.Name = "AddresReceiveExBeacon";
-            AddresReceiveExBeacon.Size = new Size(52, 29);
-            AddresReceiveExBeacon.TabIndex = 102;
-            AddresReceiveExBeacon.Text = "?";
-            // 
-            // label96
-            // 
-            label96.AutoSize = true;
-            label96.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label96.Location = new Point(2, 6);
-            label96.Name = "label96";
-            label96.Size = new Size(279, 37);
-            label96.TabIndex = 101;
-            label96.Text = "Расширенный маяк";
-            // 
-            // panel3
-            // 
-            panel3.AutoScroll = true;
-            panel3.Controls.Add(textBox8);
-            panel3.Controls.Add(label105);
-            panel3.Controls.Add(textBox9);
-            panel3.Controls.Add(PSIab);
-            panel3.Controls.Add(PSt4_pw);
-            panel3.Controls.Add(label107);
-            panel3.Controls.Add(PSt3_pw);
-            panel3.Controls.Add(label108);
-            panel3.Controls.Add(PSt2_pw);
-            panel3.Controls.Add(label109);
-            panel3.Controls.Add(PSt1_pw);
-            panel3.Controls.Add(label110);
-            panel3.Controls.Add(PSIch4);
-            panel3.Controls.Add(label111);
-            panel3.Controls.Add(PSIch3);
-            panel3.Controls.Add(label112);
-            panel3.Controls.Add(PSIch2);
-            panel3.Controls.Add(label101);
-            panel3.Controls.Add(PSIch1);
-            panel3.Controls.Add(label102);
-            panel3.Controls.Add(PSIsb3);
-            panel3.Controls.Add(label103);
-            panel3.Controls.Add(PSIsb2);
-            panel3.Controls.Add(label104);
-            panel3.Controls.Add(PSIsb1);
-            panel3.Controls.Add(label100);
-            panel3.Controls.Add(PSUSB3);
-            panel3.Controls.Add(label99);
-            panel3.Controls.Add(PSUSB2);
-            panel3.Controls.Add(label98);
-            panel3.Controls.Add(PSUSB1);
-            panel3.Controls.Add(label97);
-            panel3.Location = new Point(181, 6);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1020, 394);
-            panel3.TabIndex = 112;
-            // 
-            // label97
-            // 
-            label97.AutoSize = true;
-            label97.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label97.Location = new Point(3, 10);
-            label97.Name = "label97";
-            label97.Size = new Size(229, 30);
-            label97.TabIndex = 0;
-            label97.Text = "Напряжение СБ 1 (мВ)";
-            // 
-            // PSUSB1
-            // 
-            PSUSB1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSUSB1.Location = new Point(238, 7);
-            PSUSB1.Name = "PSUSB1";
-            PSUSB1.Size = new Size(100, 35);
-            PSUSB1.TabIndex = 1;
-            PSUSB1.Text = "0";
-            // 
-            // PSUSB2
-            // 
-            PSUSB2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSUSB2.Location = new Point(238, 48);
-            PSUSB2.Name = "PSUSB2";
-            PSUSB2.Size = new Size(100, 35);
-            PSUSB2.TabIndex = 3;
-            PSUSB2.Text = "0";
-            // 
-            // label98
-            // 
-            label98.AutoSize = true;
-            label98.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label98.Location = new Point(3, 51);
-            label98.Name = "label98";
-            label98.Size = new Size(229, 30);
-            label98.TabIndex = 2;
-            label98.Text = "Напряжение СБ 2 (мВ)";
-            // 
-            // PSUSB3
-            // 
-            PSUSB3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSUSB3.Location = new Point(238, 89);
-            PSUSB3.Name = "PSUSB3";
-            PSUSB3.Size = new Size(100, 35);
-            PSUSB3.TabIndex = 5;
-            PSUSB3.Text = "0";
-            // 
-            // label99
-            // 
-            label99.AutoSize = true;
-            label99.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label99.Location = new Point(3, 92);
-            label99.Name = "label99";
-            label99.Size = new Size(229, 30);
-            label99.TabIndex = 4;
-            label99.Text = "Напряжение СБ 3 (мВ)";
-            // 
-            // PSIsb1
-            // 
-            PSIsb1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIsb1.Location = new Point(238, 130);
-            PSIsb1.Name = "PSIsb1";
-            PSIsb1.Size = new Size(100, 35);
-            PSIsb1.TabIndex = 7;
-            PSIsb1.Text = "0";
-            // 
-            // label100
-            // 
-            label100.AutoSize = true;
-            label100.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label100.Location = new Point(3, 135);
-            label100.Name = "label100";
-            label100.Size = new Size(141, 30);
-            label100.TabIndex = 6;
-            label100.Text = "Ток СБ 1 (мА)";
-            // 
-            // PSIch2
-            // 
-            PSIch2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIch2.Location = new Point(238, 294);
-            PSIch2.Name = "PSIch2";
-            PSIch2.Size = new Size(100, 35);
-            PSIch2.TabIndex = 15;
-            PSIch2.Text = "0";
-            // 
-            // label101
-            // 
-            label101.AutoSize = true;
-            label101.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label101.Location = new Point(3, 299);
-            label101.Name = "label101";
-            label101.Size = new Size(182, 30);
-            label101.TabIndex = 14;
-            label101.Text = "Ток канала 2 (мА)";
-            // 
-            // PSIch1
-            // 
-            PSIch1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIch1.Location = new Point(238, 253);
-            PSIch1.Name = "PSIch1";
-            PSIch1.Size = new Size(100, 35);
-            PSIch1.TabIndex = 13;
-            PSIch1.Text = "0";
-            // 
-            // label102
-            // 
-            label102.AutoSize = true;
-            label102.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label102.Location = new Point(3, 256);
-            label102.Name = "label102";
-            label102.Size = new Size(182, 30);
-            label102.TabIndex = 12;
-            label102.Text = "Ток канала 1 (мА)";
-            // 
-            // PSIsb3
-            // 
-            PSIsb3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIsb3.Location = new Point(238, 212);
-            PSIsb3.Name = "PSIsb3";
-            PSIsb3.Size = new Size(100, 35);
-            PSIsb3.TabIndex = 11;
-            PSIsb3.Text = "0";
-            // 
-            // label103
-            // 
-            label103.AutoSize = true;
-            label103.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label103.Location = new Point(3, 215);
-            label103.Name = "label103";
-            label103.Size = new Size(141, 30);
-            label103.TabIndex = 10;
-            label103.Text = "Ток СБ 3 (мА)";
-            // 
-            // PSIsb2
-            // 
-            PSIsb2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIsb2.Location = new Point(238, 171);
-            PSIsb2.Name = "PSIsb2";
-            PSIsb2.Size = new Size(100, 35);
-            PSIsb2.TabIndex = 9;
-            PSIsb2.Text = "0";
-            // 
-            // label104
-            // 
-            label104.AutoSize = true;
-            label104.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label104.Location = new Point(3, 174);
-            label104.Name = "label104";
-            label104.Size = new Size(141, 30);
-            label104.TabIndex = 8;
-            label104.Text = "Ток СБ 2 (мА)";
-            // 
-            // textBox8
-            // 
-            textBox8.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox8.Location = new Point(238, 622);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(100, 35);
-            textBox8.TabIndex = 31;
-            textBox8.Text = "0";
-            // 
-            // label105
-            // 
-            label105.AutoSize = true;
-            label105.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label105.Location = new Point(3, 627);
-            label105.Name = "label105";
-            label105.Size = new Size(49, 30);
-            label105.TabIndex = 30;
-            label105.Text = "Test";
-            // 
-            // textBox9
-            // 
-            textBox9.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox9.Location = new Point(238, 581);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(100, 35);
-            textBox9.TabIndex = 29;
-            textBox9.Text = "0";
-            // 
-            // PSIab
-            // 
-            PSIab.AutoSize = true;
-            PSIab.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIab.Location = new Point(3, 584);
-            PSIab.Name = "PSIab";
-            PSIab.Size = new Size(137, 30);
-            PSIab.TabIndex = 28;
-            PSIab.Text = "Ток АКБ (мА)";
-            // 
-            // PSt4_pw
-            // 
-            PSt4_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt4_pw.Location = new Point(238, 540);
-            PSt4_pw.Name = "PSt4_pw";
-            PSt4_pw.Size = new Size(100, 35);
-            PSt4_pw.TabIndex = 27;
-            PSt4_pw.Text = "0";
-            // 
-            // label107
-            // 
-            label107.AutoSize = true;
-            label107.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label107.Location = new Point(3, 543);
-            label107.Name = "label107";
-            label107.Size = new Size(199, 30);
-            label107.TabIndex = 26;
-            label107.Text = "Температура АКБ 4";
-            // 
-            // PSt3_pw
-            // 
-            PSt3_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt3_pw.Location = new Point(238, 499);
-            PSt3_pw.Name = "PSt3_pw";
-            PSt3_pw.Size = new Size(100, 35);
-            PSt3_pw.TabIndex = 25;
-            PSt3_pw.Text = "0";
-            // 
-            // label108
-            // 
-            label108.AutoSize = true;
-            label108.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label108.Location = new Point(3, 502);
-            label108.Name = "label108";
-            label108.Size = new Size(199, 30);
-            label108.TabIndex = 24;
-            label108.Text = "Температура АКБ 3";
-            // 
-            // PSt2_pw
-            // 
-            PSt2_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt2_pw.Location = new Point(238, 458);
-            PSt2_pw.Name = "PSt2_pw";
-            PSt2_pw.Size = new Size(100, 35);
-            PSt2_pw.TabIndex = 23;
-            PSt2_pw.Text = "0";
-            // 
-            // label109
-            // 
-            label109.AutoSize = true;
-            label109.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label109.Location = new Point(3, 463);
-            label109.Name = "label109";
-            label109.Size = new Size(199, 30);
-            label109.TabIndex = 22;
-            label109.Text = "Температура АКБ 2";
-            // 
-            // PSt1_pw
-            // 
-            PSt1_pw.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSt1_pw.Location = new Point(238, 417);
-            PSt1_pw.Name = "PSt1_pw";
-            PSt1_pw.Size = new Size(100, 35);
-            PSt1_pw.TabIndex = 21;
-            PSt1_pw.Text = "0";
-            // 
-            // label110
-            // 
-            label110.AutoSize = true;
-            label110.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label110.Location = new Point(3, 420);
-            label110.Name = "label110";
-            label110.Size = new Size(199, 30);
-            label110.TabIndex = 20;
-            label110.Text = "Температура АКБ 1";
-            // 
-            // PSIch4
-            // 
-            PSIch4.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIch4.Location = new Point(238, 376);
-            PSIch4.Name = "PSIch4";
-            PSIch4.Size = new Size(100, 35);
-            PSIch4.TabIndex = 19;
-            PSIch4.Text = "0";
-            // 
-            // label111
-            // 
-            label111.AutoSize = true;
-            label111.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label111.Location = new Point(3, 379);
-            label111.Name = "label111";
-            label111.Size = new Size(182, 30);
-            label111.TabIndex = 18;
-            label111.Text = "Ток канала 4 (мА)";
-            // 
-            // PSIch3
-            // 
-            PSIch3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            PSIch3.Location = new Point(238, 335);
-            PSIch3.Name = "PSIch3";
-            PSIch3.Size = new Size(100, 35);
-            PSIch3.TabIndex = 17;
-            PSIch3.Text = "0";
-            // 
-            // label112
-            // 
-            label112.AutoSize = true;
-            label112.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label112.Location = new Point(3, 338);
-            label112.Name = "label112";
-            label112.Size = new Size(182, 30);
-            label112.TabIndex = 16;
-            label112.Text = "Ток канала 3 (мА)";
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -3532,6 +3532,13 @@
             tabPage4.PerformLayout();
             tabPage6.ResumeLayout(false);
             tabPage6.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            tabPage7.ResumeLayout(false);
+            tabPage7.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)BTemp).EndInit();
             MainTabControll.ResumeLayout(false);
             Settings.ResumeLayout(false);
             TabSettings.ResumeLayout(false);
@@ -3542,13 +3549,6 @@
             SensorReadings.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
-            tabPage7.ResumeLayout(false);
-            tabPage7.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)BTemp).EndInit();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -3821,8 +3821,8 @@
         private Label label98;
         private TextBox textBox8;
         private Label label105;
-        private TextBox textBox9;
-        private Label PSIab;
+        private TextBox PSIab;
+        private Label label222;
         private TextBox PSt4_pw;
         private Label label107;
         private TextBox PSt3_pw;
