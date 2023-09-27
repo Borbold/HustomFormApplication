@@ -778,8 +778,27 @@ namespace HustonRTEMS {
                 const int psVar = 15 * sizeof(ushort);
                 const int checkVar = 2 * sizeof(byte);
                 const int reserveVar = 1 * sizeof(ushort);
+                const int UAB = 1 * sizeof(ushort);
+                const int regTelId = 1 * sizeof(int);
+                const int PS_time = 1 * sizeof(int);
+                const int psResetCounter = 1 * sizeof(byte);
+                const int PS_FL = 1 * sizeof(byte);
+                const int tAMP = 1 * sizeof(byte);
+                const int tUHF = 1 * sizeof(byte);
+                const int PSSIrx = 1 * sizeof(byte);
+                const int PSSIdle = 1 * sizeof(byte);
+                const int Pf = 1 * sizeof(byte);
+                const int Pb = 1 * sizeof(byte);
+                const int uhfResetCounter = 1 * sizeof(byte);
+                const int UHF_FL = 1 * sizeof(byte);
+                const int UHF_time = 1 * sizeof(int);
+                const int upTime = 1 * sizeof(int);
+                const int current = 1 * sizeof(ushort);
+                const int Uuhf = 1 * sizeof(ushort);
                 const int otherVar = 17 * sizeof(ushort);
-                const int unicanLenght = psVar + checkVar + reserveVar + otherVar;
+                const int unicanLenght = psVar + checkVar + reserveVar + otherVar + UAB + regTelId
+                    + PS_time + psResetCounter + PS_FL + tAMP + tUHF + PSSIrx + PSSIdle + Pf + Pb
+                    + uhfResetCounter + UHF_FL + UHF_time + upTime + current + Uuhf;
                 UnicanMessage test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingBeacon.Text, 16),
                     unicanAddressTo = Convert.ToUInt16(AddresReceiveBeacon.Text, 16),
@@ -969,15 +988,15 @@ namespace HustonRTEMS {
                                 LogBox.Text += "\r\nSendMagnetometer1\r\n";
                             }));
                             SendMagnetometer1_Click(null, null);
-                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresBeacon.Text, 16) &&
-                             test.unicanAddressTo == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
+                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
+                             test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
                              test.unicanMSGId == Convert.ToInt16(IdReceiveBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendBeacon\r\n";
                             }));
                             SendBeacon_Click(null, null);
-                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresExBeacon.Text, 16) &&
-                             test.unicanAddressTo == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
+                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
+                             test.unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
                              test.unicanMSGId == Convert.ToInt16(IdReceiveExBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendExBeacon\r\n";
