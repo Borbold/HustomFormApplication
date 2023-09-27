@@ -830,26 +830,26 @@ namespace HustonRTEMS {
                     if(i < psVar) {
                         test.data[i] = PS[j].byte1;
                         test.data[++i] = PS[j].byte2;
-                    } else if(i == (psVar + checkVar + reserveVar + PSUAB)) {
+                    } else if(i == (psVar + checkVar + reserveVar)) {
                         occupiedValueI.it = Convert.ToInt16(PSUab.Text);
                         test.data[i] = occupiedValueI.byte1;
                         test.data[++i] = occupiedValueI.byte2;
-                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time)) {
+                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId)) {
                         occupiedValueF.fl = Convert.ToInt16(PStime.Text);
                         test.data[i] = occupiedValueF.byte1;
                         test.data[++i] = occupiedValueF.byte2;
                         test.data[++i] = occupiedValueF.byte3;
                         test.data[++i] = occupiedValueF.byte4;
-                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter)) {
+                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time)) {
                         test.data[i] = Convert.ToByte(PSps_reset_counter.Text);
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
-                            + PS_FL + tAMP)) {
+                            + PS_FL)) {
                         test.data[i] = Convert.ToByte(UHFt_amp.Text);
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
-                            + PS_FL + tAMP + tUHF)) {
+                            + PS_FL + tAMP)) {
                         test.data[i] = Convert.ToByte(UHFt_uhf.Text);
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
-                            + PS_FL + tAMP + tUHF + PSSIrx + PSSIdle + Pf + Pb + uhfResetCounter)) {
+                            + PS_FL + tAMP + tUHF + PSSIrx + PSSIdle + Pf + Pb)) {
                         test.data[i] = Convert.ToByte(UHFuhf_reset_counter.Text);
                     } else {
                         test.data[i] = 0;
