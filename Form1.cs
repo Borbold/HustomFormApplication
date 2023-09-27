@@ -806,7 +806,7 @@ namespace HustonRTEMS {
                 };
                 ItUn[] PS = new ItUn[unicanLenght];
                 ItUn occupiedValueI = new();
-                FlUn occupiedValueF = new();
+                LItUn occupiedValueLI = new();
                 test.data = new byte[unicanLenght];
                 //----
                 PS[0].it = Convert.ToInt16(PSUSB1.Text);
@@ -835,11 +835,11 @@ namespace HustonRTEMS {
                         test.data[i] = occupiedValueI.byte1;
                         test.data[++i] = occupiedValueI.byte2;
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId)) {
-                        occupiedValueF.fl = Convert.ToInt16(PStime.Text);
-                        test.data[i] = occupiedValueF.byte1;
-                        test.data[++i] = occupiedValueF.byte2;
-                        test.data[++i] = occupiedValueF.byte3;
-                        test.data[++i] = occupiedValueF.byte4;
+                        occupiedValueLI.it = Convert.ToInt32(PStime.Text);
+                        test.data[i] = occupiedValueLI.byte1;
+                        test.data[++i] = occupiedValueLI.byte2;
+                        test.data[++i] = occupiedValueLI.byte3;
+                        test.data[++i] = occupiedValueLI.byte4;
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time)) {
                         test.data[i] = Convert.ToByte(PSps_reset_counter.Text);
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
