@@ -815,7 +815,8 @@ namespace HustonRTEMS {
                         test.data[i] = PS[i].byte1;
                         test.data[++i] = PS[i].byte2;
                     } else {
-                        test.data[i] = i < psVar + checkVar ? (byte)255 : (byte)2;
+                        //test.data[i] = i < psVar + checkVar ? (byte)255 : (byte)2;
+                        test.data[i] = 0;
                     }
                 }
                 CTU.SendWithCAN(test, serialPort, LogBox);
