@@ -199,6 +199,9 @@
             label63 = new Label();
             label64 = new Label();
             tabPage4 = new TabPage();
+            TimeSendingPeriod = new TextBox();
+            LabelTimeSendingPeriod = new Label();
+            AutoTimeStamp = new CheckBox();
             label83 = new Label();
             AddresTime = new TextBox();
             label77 = new Label();
@@ -2286,6 +2289,9 @@
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(TimeSendingPeriod);
+            tabPage4.Controls.Add(LabelTimeSendingPeriod);
+            tabPage4.Controls.Add(AutoTimeStamp);
             tabPage4.Controls.Add(label83);
             tabPage4.Controls.Add(AddresTime);
             tabPage4.Controls.Add(label77);
@@ -2302,6 +2308,36 @@
             tabPage4.TabIndex = 6;
             tabPage4.Text = "Time";
             tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // TimeSendingPeriod
+            // 
+            TimeSendingPeriod.Location = new Point(335, 56);
+            TimeSendingPeriod.Name = "TimeSendingPeriod";
+            TimeSendingPeriod.Size = new Size(100, 25);
+            TimeSendingPeriod.TabIndex = 93;
+            TimeSendingPeriod.Visible = false;
+            TimeSendingPeriod.TextChanged += TimeSendingPeriod_TextChanged;
+            // 
+            // LabelTimeSendingPeriod
+            // 
+            LabelTimeSendingPeriod.AutoSize = true;
+            LabelTimeSendingPeriod.Location = new Point(335, 36);
+            LabelTimeSendingPeriod.Name = "LabelTimeSendingPeriod";
+            LabelTimeSendingPeriod.Size = new Size(113, 17);
+            LabelTimeSendingPeriod.TabIndex = 92;
+            LabelTimeSendingPeriod.Text = "Период отправки";
+            LabelTimeSendingPeriod.Visible = false;
+            // 
+            // AutoTimeStamp
+            // 
+            AutoTimeStamp.AutoSize = true;
+            AutoTimeStamp.Location = new Point(335, 12);
+            AutoTimeStamp.Name = "AutoTimeStamp";
+            AutoTimeStamp.Size = new Size(166, 21);
+            AutoTimeStamp.TabIndex = 91;
+            AutoTimeStamp.Text = "Автоотправка времени";
+            AutoTimeStamp.UseVisualStyleBackColor = true;
+            AutoTimeStamp.CheckedChanged += AutoTimeStamp_CheckedChanged;
             // 
             // label83
             // 
@@ -3968,5 +4004,8 @@
         private Label label119;
         private TextBox PSUab;
         private Label label120;
+        private CheckBox AutoTimeStamp;
+        private Label LabelTimeSendingPeriod;
+        private TextBox TimeSendingPeriod;
     }
 }

@@ -1300,5 +1300,32 @@ namespace HustonRTEMS {
         private void HowFilter_SelectedIndexChanged(object sender, EventArgs e) {
             FilterComboBox_SelectedIndexChanged(null, null);
         }
+
+        private void AutoTimeStamp_CheckedChanged(object sender, EventArgs e) {
+            if(AutoTimeStamp.Checked) {
+                LabelTimeSendingPeriod.Visible = true;
+                TimeSendingPeriod.Visible = true;
+            } else {
+                LabelTimeSendingPeriod.Visible = false;
+                TimeSendingPeriod.Visible = false;
+                TimeSendingPeriod.Text = "";
+            }
+        }
+        private void TimeSendingPeriod_TextChanged(object sender, EventArgs e) {
+            if(TimeSendingPeriod.Text.Length > 0) {
+                Thread sendTime = new(SendMessage);
+                sendTime.Start();
+            }
+        }
+        private void SendMessage() {
+            while(TimeSendingPeriod.Text.Length > 0) {
+                int sleepTime = Convert.ToInt16(TimeSendingPeriod.Text) * 1000;
+                Thread.Sleep(sleepTime);
+                LogBox.Invoke(new Action(() => {
+                    LogBox.Text += "\r\nSendTime\r\n";
+                }));
+                SendTime(null, null);
+            }
+        }
     }
 }
