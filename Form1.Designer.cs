@@ -280,6 +280,48 @@
             label95 = new Label();
             AddresReceiveExBeacon = new TextBox();
             label96 = new Label();
+            tabPage8 = new TabPage();
+            panel4 = new Panel();
+            eci_AV_z = new TextBox();
+            label128 = new Label();
+            wheel_rpm_y_minus = new TextBox();
+            label129 = new Label();
+            wheel_rpm_y_plus = new TextBox();
+            label130 = new Label();
+            wheel_rpm_x_minus = new TextBox();
+            label131 = new Label();
+            wheel_rpm_x_plus = new TextBox();
+            label132 = new Label();
+            orb_quat_vect_z = new TextBox();
+            label133 = new Label();
+            orb_quat_vect_y = new TextBox();
+            label134 = new Label();
+            orb_quat_vect_x = new TextBox();
+            label21212 = new Label();
+            orb_quat_w = new TextBox();
+            lable129 = new Label();
+            eci_AV_y = new TextBox();
+            label137 = new Label();
+            eci_AV_x = new TextBox();
+            label138 = new Label();
+            eci_quat_vect_z = new TextBox();
+            label139 = new Label();
+            eci_quat_vect_y = new TextBox();
+            label140 = new Label();
+            eci_quat_vect_x = new TextBox();
+            label141 = new Label();
+            eci_quat_w = new TextBox();
+            label142 = new Label();
+            AddresAdcsBeacon = new TextBox();
+            SendAdcsBeacon = new Button();
+            label105 = new Label();
+            label106 = new Label();
+            IdShippingAdcsBeacon = new TextBox();
+            label113 = new Label();
+            IdReceiveAdcsBeacon = new TextBox();
+            label114 = new Label();
+            AddresReceiveAdcsBeacon = new TextBox();
+            label121 = new Label();
             MainTabControll = new TabControl();
             Settings = new TabPage();
             TabSettings = new TabControl();
@@ -356,6 +398,8 @@
             tabPage7.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)BTemp).BeginInit();
+            tabPage8.SuspendLayout();
+            panel4.SuspendLayout();
             MainTabControll.SuspendLayout();
             Settings.SuspendLayout();
             TabSettings.SuspendLayout();
@@ -408,6 +452,7 @@
             TrackBarSpeedX.Controls.Add(tabPage4);
             TrackBarSpeedX.Controls.Add(tabPage6);
             TrackBarSpeedX.Controls.Add(tabPage7);
+            TrackBarSpeedX.Controls.Add(tabPage8);
             TrackBarSpeedX.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             TrackBarSpeedX.Location = new Point(6, 6);
             TrackBarSpeedX.Name = "TrackBarSpeedX";
@@ -3151,6 +3196,447 @@
             label96.TabIndex = 101;
             label96.Text = "Расширенный маяк";
             // 
+            // tabPage8
+            // 
+            tabPage8.Controls.Add(panel4);
+            tabPage8.Controls.Add(AddresAdcsBeacon);
+            tabPage8.Controls.Add(SendAdcsBeacon);
+            tabPage8.Controls.Add(label105);
+            tabPage8.Controls.Add(label106);
+            tabPage8.Controls.Add(IdShippingAdcsBeacon);
+            tabPage8.Controls.Add(label113);
+            tabPage8.Controls.Add(IdReceiveAdcsBeacon);
+            tabPage8.Controls.Add(label114);
+            tabPage8.Controls.Add(AddresReceiveAdcsBeacon);
+            tabPage8.Controls.Add(label121);
+            tabPage8.Location = new Point(4, 26);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Padding = new Padding(3);
+            tabPage8.Size = new Size(1204, 406);
+            tabPage8.TabIndex = 9;
+            tabPage8.Text = "AdcsBeacon";
+            tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            panel4.AutoScroll = true;
+            panel4.Controls.Add(eci_AV_z);
+            panel4.Controls.Add(label128);
+            panel4.Controls.Add(wheel_rpm_y_minus);
+            panel4.Controls.Add(label129);
+            panel4.Controls.Add(wheel_rpm_y_plus);
+            panel4.Controls.Add(label130);
+            panel4.Controls.Add(wheel_rpm_x_minus);
+            panel4.Controls.Add(label131);
+            panel4.Controls.Add(wheel_rpm_x_plus);
+            panel4.Controls.Add(label132);
+            panel4.Controls.Add(orb_quat_vect_z);
+            panel4.Controls.Add(label133);
+            panel4.Controls.Add(orb_quat_vect_y);
+            panel4.Controls.Add(label134);
+            panel4.Controls.Add(orb_quat_vect_x);
+            panel4.Controls.Add(label21212);
+            panel4.Controls.Add(orb_quat_w);
+            panel4.Controls.Add(lable129);
+            panel4.Controls.Add(eci_AV_y);
+            panel4.Controls.Add(label137);
+            panel4.Controls.Add(eci_AV_x);
+            panel4.Controls.Add(label138);
+            panel4.Controls.Add(eci_quat_vect_z);
+            panel4.Controls.Add(label139);
+            panel4.Controls.Add(eci_quat_vect_y);
+            panel4.Controls.Add(label140);
+            panel4.Controls.Add(eci_quat_vect_x);
+            panel4.Controls.Add(label141);
+            panel4.Controls.Add(eci_quat_w);
+            panel4.Controls.Add(label142);
+            panel4.Location = new Point(181, 6);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1020, 394);
+            panel4.TabIndex = 121;
+            // 
+            // eci_AV_z
+            // 
+            eci_AV_z.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            eci_AV_z.Location = new Point(355, 253);
+            eci_AV_z.Name = "eci_AV_z";
+            eci_AV_z.Size = new Size(100, 35);
+            eci_AV_z.TabIndex = 13;
+            eci_AV_z.Text = "0";
+            // 
+            // label128
+            // 
+            label128.AutoSize = true;
+            label128.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label128.Location = new Point(3, 256);
+            label128.Name = "label128";
+            label128.Size = new Size(339, 30);
+            label128.TabIndex = 28;
+            label128.Text = "Угловая скорость z (градусов/сек)";
+            // 
+            // wheel_rpm_y_minus
+            // 
+            wheel_rpm_y_minus.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            wheel_rpm_y_minus.Location = new Point(900, 127);
+            wheel_rpm_y_minus.Name = "wheel_rpm_y_minus";
+            wheel_rpm_y_minus.Size = new Size(100, 35);
+            wheel_rpm_y_minus.TabIndex = 29;
+            wheel_rpm_y_minus.Text = "0";
+            // 
+            // label129
+            // 
+            label129.AutoSize = true;
+            label129.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label129.Location = new Point(466, 131);
+            label129.Name = "label129";
+            label129.Size = new Size(428, 30);
+            label129.TabIndex = 26;
+            label129.Text = "Угловая скорость вращения маховиков ym";
+            // 
+            // wheel_rpm_y_plus
+            // 
+            wheel_rpm_y_plus.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            wheel_rpm_y_plus.Location = new Point(900, 86);
+            wheel_rpm_y_plus.Name = "wheel_rpm_y_plus";
+            wheel_rpm_y_plus.Size = new Size(100, 35);
+            wheel_rpm_y_plus.TabIndex = 27;
+            wheel_rpm_y_plus.Text = "0";
+            // 
+            // label130
+            // 
+            label130.AutoSize = true;
+            label130.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label130.Location = new Point(466, 90);
+            label130.Name = "label130";
+            label130.Size = new Size(422, 30);
+            label130.TabIndex = 24;
+            label130.Text = "Угловая скорость вращения маховиков yp";
+            // 
+            // wheel_rpm_x_minus
+            // 
+            wheel_rpm_x_minus.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            wheel_rpm_x_minus.Location = new Point(900, 45);
+            wheel_rpm_x_minus.Name = "wheel_rpm_x_minus";
+            wheel_rpm_x_minus.Size = new Size(100, 35);
+            wheel_rpm_x_minus.TabIndex = 25;
+            wheel_rpm_x_minus.Text = "0";
+            // 
+            // label131
+            // 
+            label131.AutoSize = true;
+            label131.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label131.Location = new Point(466, 51);
+            label131.Name = "label131";
+            label131.Size = new Size(428, 30);
+            label131.TabIndex = 22;
+            label131.Text = "Угловая скорость вращения маховиков xm";
+            // 
+            // wheel_rpm_x_plus
+            // 
+            wheel_rpm_x_plus.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            wheel_rpm_x_plus.Location = new Point(900, 4);
+            wheel_rpm_x_plus.Name = "wheel_rpm_x_plus";
+            wheel_rpm_x_plus.Size = new Size(100, 35);
+            wheel_rpm_x_plus.TabIndex = 23;
+            wheel_rpm_x_plus.Text = "0";
+            // 
+            // label132
+            // 
+            label132.AutoSize = true;
+            label132.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label132.Location = new Point(466, 8);
+            label132.Name = "label132";
+            label132.Size = new Size(422, 30);
+            label132.TabIndex = 20;
+            label132.Text = "Угловая скорость вращения маховиков xp";
+            // 
+            // orb_quat_vect_z
+            // 
+            orb_quat_vect_z.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            orb_quat_vect_z.Location = new Point(355, 417);
+            orb_quat_vect_z.Name = "orb_quat_vect_z";
+            orb_quat_vect_z.Size = new Size(100, 35);
+            orb_quat_vect_z.TabIndex = 21;
+            orb_quat_vect_z.Text = "0";
+            // 
+            // label133
+            // 
+            label133.AutoSize = true;
+            label133.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label133.Location = new Point(3, 420);
+            label133.Name = "label133";
+            label133.Size = new Size(326, 30);
+            label133.TabIndex = 18;
+            label133.Text = "Кватернион ориентации в ЭСК z";
+            // 
+            // orb_quat_vect_y
+            // 
+            orb_quat_vect_y.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            orb_quat_vect_y.Location = new Point(355, 376);
+            orb_quat_vect_y.Name = "orb_quat_vect_y";
+            orb_quat_vect_y.Size = new Size(100, 35);
+            orb_quat_vect_y.TabIndex = 19;
+            orb_quat_vect_y.Text = "0";
+            // 
+            // label134
+            // 
+            label134.AutoSize = true;
+            label134.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label134.Location = new Point(3, 379);
+            label134.Name = "label134";
+            label134.Size = new Size(326, 30);
+            label134.TabIndex = 16;
+            label134.Text = "Кватернион ориентации в ЭСК y";
+            // 
+            // orb_quat_vect_x
+            // 
+            orb_quat_vect_x.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            orb_quat_vect_x.Location = new Point(355, 335);
+            orb_quat_vect_x.Name = "orb_quat_vect_x";
+            orb_quat_vect_x.Size = new Size(100, 35);
+            orb_quat_vect_x.TabIndex = 17;
+            orb_quat_vect_x.Text = "0";
+            // 
+            // label21212
+            // 
+            label21212.AutoSize = true;
+            label21212.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label21212.Location = new Point(3, 340);
+            label21212.Name = "label21212";
+            label21212.Size = new Size(326, 30);
+            label21212.TabIndex = 14;
+            label21212.Text = "Кватернион ориентации в ЭСК x";
+            // 
+            // orb_quat_w
+            // 
+            orb_quat_w.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            orb_quat_w.Location = new Point(355, 294);
+            orb_quat_w.Name = "orb_quat_w";
+            orb_quat_w.Size = new Size(100, 35);
+            orb_quat_w.TabIndex = 15;
+            orb_quat_w.Text = "0";
+            // 
+            // lable129
+            // 
+            lable129.AutoSize = true;
+            lable129.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lable129.Location = new Point(3, 297);
+            lable129.Name = "lable129";
+            lable129.Size = new Size(331, 30);
+            lable129.TabIndex = 12;
+            lable129.Text = "Кватернион ориентации в ЭСК w";
+            // 
+            // eci_AV_y
+            // 
+            eci_AV_y.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            eci_AV_y.Location = new Point(355, 212);
+            eci_AV_y.Name = "eci_AV_y";
+            eci_AV_y.Size = new Size(100, 35);
+            eci_AV_y.TabIndex = 11;
+            eci_AV_y.Text = "0";
+            // 
+            // label137
+            // 
+            label137.AutoSize = true;
+            label137.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label137.Location = new Point(3, 215);
+            label137.Name = "label137";
+            label137.Size = new Size(339, 30);
+            label137.TabIndex = 10;
+            label137.Text = "Угловая скорость y (градусов/сек)";
+            // 
+            // eci_AV_x
+            // 
+            eci_AV_x.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            eci_AV_x.Location = new Point(355, 171);
+            eci_AV_x.Name = "eci_AV_x";
+            eci_AV_x.Size = new Size(100, 35);
+            eci_AV_x.TabIndex = 9;
+            eci_AV_x.Text = "0";
+            // 
+            // label138
+            // 
+            label138.AutoSize = true;
+            label138.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label138.Location = new Point(3, 174);
+            label138.Name = "label138";
+            label138.Size = new Size(339, 30);
+            label138.TabIndex = 8;
+            label138.Text = "Угловая скорость x (градусов/сек)";
+            // 
+            // eci_quat_vect_z
+            // 
+            eci_quat_vect_z.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            eci_quat_vect_z.Location = new Point(355, 130);
+            eci_quat_vect_z.Name = "eci_quat_vect_z";
+            eci_quat_vect_z.Size = new Size(100, 35);
+            eci_quat_vect_z.TabIndex = 7;
+            eci_quat_vect_z.Text = "0";
+            // 
+            // label139
+            // 
+            label139.AutoSize = true;
+            label139.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label139.Location = new Point(3, 135);
+            label139.Name = "label139";
+            label139.Size = new Size(326, 30);
+            label139.TabIndex = 6;
+            label139.Text = "Кватернион ориентации в ЭСК z";
+            // 
+            // eci_quat_vect_y
+            // 
+            eci_quat_vect_y.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            eci_quat_vect_y.Location = new Point(355, 89);
+            eci_quat_vect_y.Name = "eci_quat_vect_y";
+            eci_quat_vect_y.Size = new Size(100, 35);
+            eci_quat_vect_y.TabIndex = 5;
+            eci_quat_vect_y.Text = "0";
+            // 
+            // label140
+            // 
+            label140.AutoSize = true;
+            label140.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label140.Location = new Point(3, 92);
+            label140.Name = "label140";
+            label140.Size = new Size(326, 30);
+            label140.TabIndex = 4;
+            label140.Text = "Кватернион ориентации в ЭСК y";
+            // 
+            // eci_quat_vect_x
+            // 
+            eci_quat_vect_x.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            eci_quat_vect_x.Location = new Point(355, 48);
+            eci_quat_vect_x.Name = "eci_quat_vect_x";
+            eci_quat_vect_x.Size = new Size(100, 35);
+            eci_quat_vect_x.TabIndex = 3;
+            eci_quat_vect_x.Text = "0";
+            // 
+            // label141
+            // 
+            label141.AutoSize = true;
+            label141.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label141.Location = new Point(3, 51);
+            label141.Name = "label141";
+            label141.Size = new Size(326, 30);
+            label141.TabIndex = 2;
+            label141.Text = "Кватернион ориентации в ЭСК x";
+            // 
+            // eci_quat_w
+            // 
+            eci_quat_w.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            eci_quat_w.Location = new Point(355, 7);
+            eci_quat_w.Name = "eci_quat_w";
+            eci_quat_w.Size = new Size(100, 35);
+            eci_quat_w.TabIndex = 1;
+            eci_quat_w.Text = "0";
+            // 
+            // label142
+            // 
+            label142.AutoSize = true;
+            label142.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label142.Location = new Point(3, 10);
+            label142.Name = "label142";
+            label142.Size = new Size(331, 30);
+            label142.TabIndex = 0;
+            label142.Text = "Кватернион ориентации в ЭСК w";
+            // 
+            // AddresAdcsBeacon
+            // 
+            AddresAdcsBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresAdcsBeacon.Location = new Point(3, 244);
+            AddresAdcsBeacon.Name = "AddresAdcsBeacon";
+            AddresAdcsBeacon.Size = new Size(32, 29);
+            AddresAdcsBeacon.TabIndex = 120;
+            AddresAdcsBeacon.Text = "?";
+            // 
+            // SendAdcsBeacon
+            // 
+            SendAdcsBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendAdcsBeacon.Location = new Point(1, 346);
+            SendAdcsBeacon.Name = "SendAdcsBeacon";
+            SendAdcsBeacon.Size = new Size(156, 54);
+            SendAdcsBeacon.TabIndex = 119;
+            SendAdcsBeacon.Text = "Отправить данные иного маяка";
+            SendAdcsBeacon.UseVisualStyleBackColor = true;
+            SendAdcsBeacon.Click += SendAdcsBeacon_Click;
+            // 
+            // label105
+            // 
+            label105.AutoSize = true;
+            label105.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label105.Location = new Point(42, 247);
+            label105.Name = "label105";
+            label105.Size = new Size(115, 21);
+            label105.TabIndex = 118;
+            label105.Text = "Адрес датчика";
+            // 
+            // label106
+            // 
+            label106.AutoSize = true;
+            label106.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label106.Location = new Point(64, 153);
+            label106.Name = "label106";
+            label106.Size = new Size(74, 21);
+            label106.TabIndex = 117;
+            label106.Text = "Id ответа";
+            // 
+            // IdShippingAdcsBeacon
+            // 
+            IdShippingAdcsBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingAdcsBeacon.Location = new Point(6, 150);
+            IdShippingAdcsBeacon.Name = "IdShippingAdcsBeacon";
+            IdShippingAdcsBeacon.Size = new Size(52, 29);
+            IdShippingAdcsBeacon.TabIndex = 116;
+            IdShippingAdcsBeacon.Text = "?";
+            // 
+            // label113
+            // 
+            label113.AutoSize = true;
+            label113.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label113.Location = new Point(64, 117);
+            label113.Name = "label113";
+            label113.Size = new Size(84, 21);
+            label113.TabIndex = 115;
+            label113.Text = "Id запроса";
+            // 
+            // IdReceiveAdcsBeacon
+            // 
+            IdReceiveAdcsBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveAdcsBeacon.Location = new Point(6, 114);
+            IdReceiveAdcsBeacon.Name = "IdReceiveAdcsBeacon";
+            IdReceiveAdcsBeacon.Size = new Size(52, 29);
+            IdReceiveAdcsBeacon.TabIndex = 114;
+            IdReceiveAdcsBeacon.Text = "?";
+            // 
+            // label114
+            // 
+            label114.AutoSize = true;
+            label114.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label114.Location = new Point(64, 51);
+            label114.Name = "label114";
+            label114.Size = new Size(111, 21);
+            label114.TabIndex = 113;
+            label114.Text = "Адрес приема";
+            // 
+            // AddresReceiveAdcsBeacon
+            // 
+            AddresReceiveAdcsBeacon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveAdcsBeacon.Location = new Point(6, 48);
+            AddresReceiveAdcsBeacon.Name = "AddresReceiveAdcsBeacon";
+            AddresReceiveAdcsBeacon.Size = new Size(52, 29);
+            AddresReceiveAdcsBeacon.TabIndex = 112;
+            AddresReceiveAdcsBeacon.Text = "?";
+            // 
+            // label121
+            // 
+            label121.AutoSize = true;
+            label121.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label121.Location = new Point(6, 0);
+            label121.Name = "label121";
+            label121.Size = new Size(162, 37);
+            label121.TabIndex = 111;
+            label121.Text = "Иной маяк";
+            // 
             // MainTabControll
             // 
             MainTabControll.Controls.Add(Settings);
@@ -3690,6 +4176,10 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)BTemp).EndInit();
+            tabPage8.ResumeLayout(false);
+            tabPage8.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             MainTabControll.ResumeLayout(false);
             Settings.ResumeLayout(false);
             TabSettings.ResumeLayout(false);
@@ -4007,5 +4497,47 @@
         private CheckBox AutoTimeStamp;
         private Label LabelTimeSendingPeriod;
         private TextBox TimeSendingPeriod;
+        private TabPage tabPage8;
+        private Button SendAdcsBeacon;
+        private Label label105;
+        private Label label106;
+        private TextBox IdShippingAdcsBeacon;
+        private Label label113;
+        private TextBox IdReceiveAdcsBeacon;
+        private Label label114;
+        private TextBox AddresReceiveAdcsBeacon;
+        private Label label121;
+        private TextBox AddresAdcsBeacon;
+        private Panel panel4;
+        private TextBox eci_AV_z;
+        private Label label128;
+        private TextBox wheel_rpm_y_minus;
+        private Label label129;
+        private TextBox wheel_rpm_y_plus;
+        private Label label130;
+        private TextBox wheel_rpm_x_minus;
+        private Label label131;
+        private TextBox wheel_rpm_x_plus;
+        private Label label132;
+        private TextBox orb_quat_vect_z;
+        private Label label133;
+        private TextBox orb_quat_vect_y;
+        private Label label134;
+        private TextBox orb_quat_vect_x;
+        private Label label21212;
+        private TextBox orb_quat_w;
+        private Label lable129;
+        private TextBox eci_AV_y;
+        private Label label137;
+        private TextBox eci_AV_x;
+        private Label label138;
+        private TextBox eci_quat_vect_z;
+        private Label label139;
+        private TextBox eci_quat_vect_y;
+        private Label label140;
+        private TextBox eci_quat_vect_x;
+        private Label label141;
+        private TextBox eci_quat_w;
+        private Label label142;
     }
 }

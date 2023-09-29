@@ -2,6 +2,8 @@ using System.Configuration;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Intrinsics.X86;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace HustonRTEMS {
     public partial class MainForm: Form {
@@ -108,6 +110,11 @@ namespace HustonRTEMS {
                 IdReceiveExBeacon.Text = section.IdReceiveExBeacon;
                 IdShippingExBeacon.Text = section.IdShipingExBeacon;
                 AddresExBeacon.Text = section.SensorExBeaconAddress;
+
+                AddresReceiveAdcsBeacon.Text = section.ReceiveAddresAdcsBeacon;
+                IdReceiveAdcsBeacon.Text = section.IdReceiveAdcsBeacon;
+                IdShippingAdcsBeacon.Text = section.IdShipingAdcsBeacon;
+                AddresAdcsBeacon.Text = section.SensorAdcsBeaconAddress;
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -164,6 +171,11 @@ namespace HustonRTEMS {
                 section.IdReceiveExBeacon = IdReceiveExBeacon.Text;
                 section.IdShipingExBeacon = IdShippingExBeacon.Text;
                 section.SensorExBeaconAddress = AddresExBeacon.Text;
+
+                section.ReceiveAddresAdcsBeacon = AddresReceiveAdcsBeacon.Text;
+                section.IdReceiveAdcsBeacon = IdReceiveAdcsBeacon.Text;
+                section.IdShipingAdcsBeacon = IdShippingAdcsBeacon.Text;
+                section.SensorAdcsBeaconAddress = AddresAdcsBeacon.Text;
 
                 cfg.Save();
             }
@@ -913,6 +925,7 @@ namespace HustonRTEMS {
                 CTU.SendWithCAN(test, serialPort, LogBox);
             }
         }
+
         private void SendTime(object? sender, EventArgs? e) {
             if(UseInternet.Checked) {
                 //Need?
@@ -952,6 +965,122 @@ namespace HustonRTEMS {
                 for(int i = 0; i < timeVar; i++) {
                     timeV.it = arIValue[i];
                     test.data[i] = timeV.byte1;
+                }
+                CTU.SendWithCAN(test, serialPort, LogBox);
+            }
+        }
+
+        private void SendAdcsBeacon_Click(object? sender, EventArgs? e) {
+            if(UseInternet.Checked) {
+                //Need?
+            } else if(UseCan.Checked) {
+                const int time = 1 * sizeof(long);
+                const int uptime = 1 * sizeof(int);
+                const int eciQuatW = 1 * sizeof(int);
+                const int eciQuatX = 1 * sizeof(int);
+                const int eciQuatY = 1 * sizeof(int);
+                const int eciQuatZ = 1 * sizeof(int);
+                const int eciAVX = 1 * sizeof(int);
+                const int eciAVY = 1 * sizeof(int);
+                const int eciAVZ = 1 * sizeof(int);
+                const int orbQuatW = 1 * sizeof(int);
+                const int orbQuatX = 1 * sizeof(int);
+                const int orbQuatY = 1 * sizeof(int);
+                const int orbQuatZ = 1 * sizeof(int);
+                const int wheelRpmXPlus = 1 * sizeof(short);
+                const int wheelRpmXMinus = 1 * sizeof(short);
+                const int wheelRpmYPlus = 1 * sizeof(short);
+                const int wheelRpmYMinus = 1 * sizeof(short);
+                const int unicanLenght = time + uptime +
+                    eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ
+                    + 8 +
+                    orbQuatW + orbQuatX + orbQuatY + orbQuatZ
+                    + 456 +
+                    wheelRpmXPlus + wheelRpmXMinus + wheelRpmYPlus + wheelRpmYMinus
+                    + 20;
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingTime.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveTime.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresTime.Text, 16),
+                    unicanLength = unicanLenght,
+                    data = new byte[unicanLenght]
+                };
+                FlUn quat = new(), AV = new();
+                for(int i = 0; i < unicanLenght; i++) {
+                    if(i == (time + uptime)) {
+                        quat.fl = (float)Convert.ToDecimal(eci_quat_w.Text);
+                        test.data[i] = quat.byte1;
+                        test.data[++i] = quat.byte2;
+                        test.data[++i] = quat.byte3;
+                        test.data[++i] = quat.byte4;
+                        quat.fl = (float)Convert.ToDecimal(eci_quat_vect_x.Text);
+                        test.data[++i] = quat.byte1;
+                        test.data[++i] = quat.byte2;
+                        test.data[++i] = quat.byte3;
+                        test.data[++i] = quat.byte4;
+                        quat.fl = (float)Convert.ToDecimal(eci_quat_vect_y.Text);
+                        test.data[++i] = quat.byte1;
+                        test.data[++i] = quat.byte2;
+                        test.data[++i] = quat.byte3;
+                        test.data[++i] = quat.byte4;
+                        quat.fl = (float)Convert.ToDecimal(eci_quat_vect_z.Text);
+                        test.data[++i] = quat.byte1;
+                        test.data[++i] = quat.byte2;
+                        test.data[++i] = quat.byte3;
+                        test.data[++i] = quat.byte4;
+                        AV.fl = (float)Convert.ToDecimal(eci_AV_x.Text);
+                        test.data[++i] = AV.byte1;
+                        test.data[++i] = AV.byte2;
+                        test.data[++i] = AV.byte3;
+                        test.data[++i] = AV.byte4;
+                        AV.fl = (float)Convert.ToDecimal(eci_AV_y.Text);
+                        test.data[++i] = AV.byte1;
+                        test.data[++i] = AV.byte2;
+                        test.data[++i] = AV.byte3;
+                        test.data[++i] = AV.byte4;
+                        AV.fl = (float)Convert.ToDecimal(eci_AV_z.Text);
+                        test.data[++i] = AV.byte1;
+                        test.data[++i] = AV.byte2;
+                        test.data[++i] = AV.byte3;
+                        test.data[++i] = AV.byte4;
+                    } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ + 8)) {
+                        quat.fl = (float)Convert.ToDecimal(orb_quat_w.Text);
+                        test.data[i] = quat.byte1;
+                        test.data[++i] = quat.byte2;
+                        test.data[++i] = quat.byte3;
+                        test.data[++i] = quat.byte4;
+                        quat.fl = (float)Convert.ToDecimal(orb_quat_vect_x.Text);
+                        test.data[i] = quat.byte1;
+                        test.data[++i] = quat.byte2;
+                        test.data[++i] = quat.byte3;
+                        test.data[++i] = quat.byte4;
+                        quat.fl = (float)Convert.ToDecimal(orb_quat_vect_y.Text);
+                        test.data[i] = quat.byte1;
+                        test.data[++i] = quat.byte2;
+                        test.data[++i] = quat.byte3;
+                        test.data[++i] = quat.byte4;
+                        quat.fl = (float)Convert.ToDecimal(orb_quat_vect_z.Text);
+                        test.data[i] = quat.byte1;
+                        test.data[++i] = quat.byte2;
+                        test.data[++i] = quat.byte3;
+                        test.data[++i] = quat.byte4;
+                    } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ + 8 +
+                            orbQuatW + orbQuatX + orbQuatY + orbQuatZ + 456)) {
+                        int wheel = Convert.ToInt16(wheel_rpm_x_plus.Text);
+                        test.data[i] = (byte)(wheel);
+                        test.data[++i] = (byte)(wheel >> 8);
+                        wheel = Convert.ToInt16(wheel_rpm_x_minus.Text);
+                        test.data[i] = (byte)(wheel);
+                        test.data[++i] = (byte)(wheel >> 8);
+                        wheel = Convert.ToInt16(wheel_rpm_y_plus.Text);
+                        test.data[i] = (byte)(wheel);
+                        test.data[++i] = (byte)(wheel >> 8);
+                        wheel = Convert.ToInt16(wheel_rpm_y_minus.Text);
+                        test.data[i] = (byte)(wheel);
+                        test.data[++i] = (byte)(wheel >> 8);
+                    } else {
+                        test.data[i] = 0;
+                    }
                 }
                 CTU.SendWithCAN(test, serialPort, LogBox);
             }
@@ -1033,6 +1162,13 @@ namespace HustonRTEMS {
                                 LogBox.Text += "\r\nSendTime\r\n";
                             }));
                             SendTime(null, null);
+                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveAdcsBeacon.Text, 16) &&
+                             test.unicanAddressTo == Convert.ToInt16(AddresAdcsBeacon.Text, 16) &&
+                             test.unicanMSGId == Convert.ToInt16(IdReceiveAdcsBeacon.Text, 16)) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nSendAdcsBeacon\r\n";
+                            }));
+                            SendAdcsBeacon_Click(null, null);
                         }
                     }
                 }
