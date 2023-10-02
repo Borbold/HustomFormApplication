@@ -996,6 +996,54 @@ namespace HustonRTEMS {
         }
 
         private void SendRateSens(object? sender, EventArgs? e) {
+            if(UseInternet.Checked) {
+                //Need?
+            } else if(UseCan.Checked) {
+                // X
+                const int RTVar = 1 * sizeof(float);
+                const int unicanLenght = RTVar;
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingRSX.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveRSX.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresRSX.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn RTXV = new() {
+                    fl = (float)Convert.ToDecimal(RateSensValueX.Text)
+                };
+                test.data = new byte[unicanLenght] {
+                    RTXV.byte1, RTXV.byte2, RTXV.byte3, RTXV.byte4
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
+                // Y
+                test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingRSX.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveRSX.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresRSX.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn RTYV = new() {
+                    fl = (float)Convert.ToDecimal(RateSensValueX.Text)
+                };
+                test.data = new byte[unicanLenght] {
+                    RTYV.byte1, RTYV.byte2, RTYV.byte3, RTYV.byte4
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
+                // Z
+                test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingRSX.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveRSX.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresRSX.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn RTZV = new() {
+                    fl = (float)Convert.ToDecimal(RateSensValueX.Text)
+                };
+                test.data = new byte[unicanLenght] {
+                    RTZV.byte1, RTZV.byte2, RTZV.byte3, RTZV.byte4
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
+            }
         }
 
         private void SendAdcsBeacon_Click(object? sender, EventArgs? e) {

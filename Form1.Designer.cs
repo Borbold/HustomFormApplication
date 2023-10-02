@@ -312,41 +312,41 @@
             textBox17 = new TextBox();
             label146 = new Label();
             label147 = new Label();
-            textBox18 = new TextBox();
+            RateSensValueZ = new TextBox();
             label136 = new Label();
             textBox15 = new TextBox();
             label143 = new Label();
             label144 = new Label();
-            textBox16 = new TextBox();
+            RateSensValueY = new TextBox();
             label135 = new Label();
             textBox14 = new TextBox();
             label127 = new Label();
             label126 = new Label();
-            textBox13 = new TextBox();
-            textBox9 = new TextBox();
+            RateSensValueX = new TextBox();
+            AddresRSZ = new TextBox();
             label122 = new Label();
             label123 = new Label();
-            textBox10 = new TextBox();
+            IdShippingRSZ = new TextBox();
             label124 = new Label();
-            textBox11 = new TextBox();
+            IdReceiveRSZ = new TextBox();
             label125 = new Label();
-            textBox12 = new TextBox();
-            textBox5 = new TextBox();
+            AddresReceiveRSZ = new TextBox();
+            AddresRSY = new TextBox();
             label32 = new Label();
             label34 = new Label();
-            textBox6 = new TextBox();
+            IdShippingRSY = new TextBox();
             label36 = new Label();
-            textBox7 = new TextBox();
+            IdReceiveRSY = new TextBox();
             label42 = new Label();
-            textBox8 = new TextBox();
-            textBox1 = new TextBox();
+            AddresReceiveRSY = new TextBox();
+            AddresRSX = new TextBox();
             label28 = new Label();
             label29 = new Label();
-            textBox2 = new TextBox();
+            IdShippingRSX = new TextBox();
             label30 = new Label();
-            textBox3 = new TextBox();
+            IdReceiveRSX = new TextBox();
             label31 = new Label();
-            textBox4 = new TextBox();
+            AddresReceiveRSX = new TextBox();
             label21 = new Label();
             MainTabControll = new TabControl();
             Settings = new TabPage();
@@ -3476,41 +3476,41 @@
             tabPage9.Controls.Add(textBox17);
             tabPage9.Controls.Add(label146);
             tabPage9.Controls.Add(label147);
-            tabPage9.Controls.Add(textBox18);
+            tabPage9.Controls.Add(RateSensValueZ);
             tabPage9.Controls.Add(label136);
             tabPage9.Controls.Add(textBox15);
             tabPage9.Controls.Add(label143);
             tabPage9.Controls.Add(label144);
-            tabPage9.Controls.Add(textBox16);
+            tabPage9.Controls.Add(RateSensValueY);
             tabPage9.Controls.Add(label135);
             tabPage9.Controls.Add(textBox14);
             tabPage9.Controls.Add(label127);
             tabPage9.Controls.Add(label126);
-            tabPage9.Controls.Add(textBox13);
-            tabPage9.Controls.Add(textBox9);
+            tabPage9.Controls.Add(RateSensValueX);
+            tabPage9.Controls.Add(AddresRSZ);
             tabPage9.Controls.Add(label122);
             tabPage9.Controls.Add(label123);
-            tabPage9.Controls.Add(textBox10);
+            tabPage9.Controls.Add(IdShippingRSZ);
             tabPage9.Controls.Add(label124);
-            tabPage9.Controls.Add(textBox11);
+            tabPage9.Controls.Add(IdReceiveRSZ);
             tabPage9.Controls.Add(label125);
-            tabPage9.Controls.Add(textBox12);
-            tabPage9.Controls.Add(textBox5);
+            tabPage9.Controls.Add(AddresReceiveRSZ);
+            tabPage9.Controls.Add(AddresRSY);
             tabPage9.Controls.Add(label32);
             tabPage9.Controls.Add(label34);
-            tabPage9.Controls.Add(textBox6);
+            tabPage9.Controls.Add(IdShippingRSY);
             tabPage9.Controls.Add(label36);
-            tabPage9.Controls.Add(textBox7);
+            tabPage9.Controls.Add(IdReceiveRSY);
             tabPage9.Controls.Add(label42);
-            tabPage9.Controls.Add(textBox8);
-            tabPage9.Controls.Add(textBox1);
+            tabPage9.Controls.Add(AddresReceiveRSY);
+            tabPage9.Controls.Add(AddresRSX);
             tabPage9.Controls.Add(label28);
             tabPage9.Controls.Add(label29);
-            tabPage9.Controls.Add(textBox2);
+            tabPage9.Controls.Add(IdShippingRSX);
             tabPage9.Controls.Add(label30);
-            tabPage9.Controls.Add(textBox3);
+            tabPage9.Controls.Add(IdReceiveRSX);
             tabPage9.Controls.Add(label31);
-            tabPage9.Controls.Add(textBox4);
+            tabPage9.Controls.Add(AddresReceiveRSX);
             tabPage9.Controls.Add(label21);
             tabPage9.Location = new Point(4, 26);
             tabPage9.Name = "tabPage9";
@@ -3589,14 +3589,14 @@
             label147.TabIndex = 156;
             label147.Text = "Z";
             // 
-            // textBox18
+            // RateSensValueZ
             // 
-            textBox18.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox18.Location = new Point(955, 184);
-            textBox18.Name = "textBox18";
-            textBox18.Size = new Size(100, 35);
-            textBox18.TabIndex = 155;
-            textBox18.Text = "0";
+            RateSensValueZ.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            RateSensValueZ.Location = new Point(955, 184);
+            RateSensValueZ.Name = "RateSensValueZ";
+            RateSensValueZ.Size = new Size(100, 35);
+            RateSensValueZ.TabIndex = 155;
+            RateSensValueZ.Text = "0";
             // 
             // label136
             // 
@@ -3637,14 +3637,14 @@
             label144.TabIndex = 151;
             label144.Text = "Y";
             // 
-            // textBox16
+            // RateSensValueY
             // 
-            textBox16.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox16.Location = new Point(603, 184);
-            textBox16.Name = "textBox16";
-            textBox16.Size = new Size(100, 35);
-            textBox16.TabIndex = 150;
-            textBox16.Text = "0";
+            RateSensValueY.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            RateSensValueY.Location = new Point(603, 184);
+            RateSensValueY.Name = "RateSensValueY";
+            RateSensValueY.Size = new Size(100, 35);
+            RateSensValueY.TabIndex = 150;
+            RateSensValueY.Text = "0";
             // 
             // label135
             // 
@@ -3685,23 +3685,23 @@
             label126.TabIndex = 146;
             label126.Text = "X";
             // 
-            // textBox13
+            // RateSensValueX
             // 
-            textBox13.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox13.Location = new Point(263, 184);
-            textBox13.Name = "textBox13";
-            textBox13.Size = new Size(100, 35);
-            textBox13.TabIndex = 145;
-            textBox13.Text = "0";
+            RateSensValueX.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            RateSensValueX.Location = new Point(263, 184);
+            RateSensValueX.Name = "RateSensValueX";
+            RateSensValueX.Size = new Size(100, 35);
+            RateSensValueX.TabIndex = 145;
+            RateSensValueX.Text = "0";
             // 
-            // textBox9
+            // AddresRSZ
             // 
-            textBox9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox9.Location = new Point(955, 119);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(32, 29);
-            textBox9.TabIndex = 144;
-            textBox9.Text = "?";
+            AddresRSZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresRSZ.Location = new Point(955, 119);
+            AddresRSZ.Name = "AddresRSZ";
+            AddresRSZ.Size = new Size(32, 29);
+            AddresRSZ.TabIndex = 144;
+            AddresRSZ.Text = "?";
             // 
             // label122
             // 
@@ -3723,14 +3723,14 @@
             label123.TabIndex = 142;
             label123.Text = "Id ответа";
             // 
-            // textBox10
+            // IdShippingRSZ
             // 
-            textBox10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox10.Location = new Point(955, 84);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(52, 29);
-            textBox10.TabIndex = 141;
-            textBox10.Text = "?";
+            IdShippingRSZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingRSZ.Location = new Point(955, 84);
+            IdShippingRSZ.Name = "IdShippingRSZ";
+            IdShippingRSZ.Size = new Size(52, 29);
+            IdShippingRSZ.TabIndex = 141;
+            IdShippingRSZ.Text = "?";
             // 
             // label124
             // 
@@ -3742,14 +3742,14 @@
             label124.TabIndex = 140;
             label124.Text = "Id запроса";
             // 
-            // textBox11
+            // IdReceiveRSZ
             // 
-            textBox11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox11.Location = new Point(955, 48);
-            textBox11.Name = "textBox11";
-            textBox11.Size = new Size(52, 29);
-            textBox11.TabIndex = 139;
-            textBox11.Text = "?";
+            IdReceiveRSZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveRSZ.Location = new Point(955, 48);
+            IdReceiveRSZ.Name = "IdReceiveRSZ";
+            IdReceiveRSZ.Size = new Size(52, 29);
+            IdReceiveRSZ.TabIndex = 139;
+            IdReceiveRSZ.Text = "?";
             // 
             // label125
             // 
@@ -3761,23 +3761,23 @@
             label125.TabIndex = 138;
             label125.Text = "Адрес приема";
             // 
-            // textBox12
+            // AddresReceiveRSZ
             // 
-            textBox12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox12.Location = new Point(955, 13);
-            textBox12.Name = "textBox12";
-            textBox12.Size = new Size(52, 29);
-            textBox12.TabIndex = 137;
-            textBox12.Text = "?";
+            AddresReceiveRSZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveRSZ.Location = new Point(955, 13);
+            AddresReceiveRSZ.Name = "AddresReceiveRSZ";
+            AddresReceiveRSZ.Size = new Size(52, 29);
+            AddresReceiveRSZ.TabIndex = 137;
+            AddresReceiveRSZ.Text = "?";
             // 
-            // textBox5
+            // AddresRSY
             // 
-            textBox5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox5.Location = new Point(603, 119);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(32, 29);
-            textBox5.TabIndex = 136;
-            textBox5.Text = "?";
+            AddresRSY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresRSY.Location = new Point(603, 119);
+            AddresRSY.Name = "AddresRSY";
+            AddresRSY.Size = new Size(32, 29);
+            AddresRSY.TabIndex = 136;
+            AddresRSY.Text = "?";
             // 
             // label32
             // 
@@ -3799,14 +3799,14 @@
             label34.TabIndex = 134;
             label34.Text = "Id ответа";
             // 
-            // textBox6
+            // IdShippingRSY
             // 
-            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox6.Location = new Point(603, 84);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(52, 29);
-            textBox6.TabIndex = 133;
-            textBox6.Text = "?";
+            IdShippingRSY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingRSY.Location = new Point(603, 84);
+            IdShippingRSY.Name = "IdShippingRSY";
+            IdShippingRSY.Size = new Size(52, 29);
+            IdShippingRSY.TabIndex = 133;
+            IdShippingRSY.Text = "?";
             // 
             // label36
             // 
@@ -3818,14 +3818,14 @@
             label36.TabIndex = 132;
             label36.Text = "Id запроса";
             // 
-            // textBox7
+            // IdReceiveRSY
             // 
-            textBox7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox7.Location = new Point(603, 48);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(52, 29);
-            textBox7.TabIndex = 131;
-            textBox7.Text = "?";
+            IdReceiveRSY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveRSY.Location = new Point(603, 48);
+            IdReceiveRSY.Name = "IdReceiveRSY";
+            IdReceiveRSY.Size = new Size(52, 29);
+            IdReceiveRSY.TabIndex = 131;
+            IdReceiveRSY.Text = "?";
             // 
             // label42
             // 
@@ -3837,23 +3837,23 @@
             label42.TabIndex = 130;
             label42.Text = "Адрес приема";
             // 
-            // textBox8
+            // AddresReceiveRSY
             // 
-            textBox8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox8.Location = new Point(603, 13);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(52, 29);
-            textBox8.TabIndex = 129;
-            textBox8.Text = "?";
+            AddresReceiveRSY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveRSY.Location = new Point(603, 13);
+            AddresReceiveRSY.Name = "AddresReceiveRSY";
+            AddresReceiveRSY.Size = new Size(52, 29);
+            AddresReceiveRSY.TabIndex = 129;
+            AddresReceiveRSY.Text = "?";
             // 
-            // textBox1
+            // AddresRSX
             // 
-            textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.Location = new Point(263, 119);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(32, 29);
-            textBox1.TabIndex = 128;
-            textBox1.Text = "?";
+            AddresRSX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresRSX.Location = new Point(263, 119);
+            AddresRSX.Name = "AddresRSX";
+            AddresRSX.Size = new Size(32, 29);
+            AddresRSX.TabIndex = 128;
+            AddresRSX.Text = "?";
             // 
             // label28
             // 
@@ -3875,14 +3875,14 @@
             label29.TabIndex = 126;
             label29.Text = "Id ответа";
             // 
-            // textBox2
+            // IdShippingRSX
             // 
-            textBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox2.Location = new Point(263, 84);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(52, 29);
-            textBox2.TabIndex = 125;
-            textBox2.Text = "?";
+            IdShippingRSX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingRSX.Location = new Point(263, 84);
+            IdShippingRSX.Name = "IdShippingRSX";
+            IdShippingRSX.Size = new Size(52, 29);
+            IdShippingRSX.TabIndex = 125;
+            IdShippingRSX.Text = "?";
             // 
             // label30
             // 
@@ -3894,14 +3894,14 @@
             label30.TabIndex = 124;
             label30.Text = "Id запроса";
             // 
-            // textBox3
+            // IdReceiveRSX
             // 
-            textBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox3.Location = new Point(263, 48);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(52, 29);
-            textBox3.TabIndex = 123;
-            textBox3.Text = "?";
+            IdReceiveRSX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdReceiveRSX.Location = new Point(263, 48);
+            IdReceiveRSX.Name = "IdReceiveRSX";
+            IdReceiveRSX.Size = new Size(52, 29);
+            IdReceiveRSX.TabIndex = 123;
+            IdReceiveRSX.Text = "?";
             // 
             // label31
             // 
@@ -3913,14 +3913,14 @@
             label31.TabIndex = 122;
             label31.Text = "Адрес приема";
             // 
-            // textBox4
+            // AddresReceiveRSX
             // 
-            textBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox4.Location = new Point(263, 13);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(52, 29);
-            textBox4.TabIndex = 121;
-            textBox4.Text = "?";
+            AddresReceiveRSX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveRSX.Location = new Point(263, 13);
+            AddresReceiveRSX.Name = "AddresReceiveRSX";
+            AddresReceiveRSX.Size = new Size(52, 29);
+            AddresReceiveRSX.TabIndex = 121;
+            AddresReceiveRSX.Text = "?";
             // 
             // label21
             // 
@@ -4820,32 +4820,32 @@
         private Label label142;
         private TabPage tabPage9;
         private Label label21;
-        private TextBox textBox1;
+        private TextBox AddresRSX;
         private Label label28;
         private Label label29;
-        private TextBox textBox2;
+        private TextBox IdShippingRSX;
         private Label label30;
-        private TextBox textBox3;
+        private TextBox IdReceiveRSX;
         private Label label31;
-        private TextBox textBox4;
-        private TextBox textBox9;
+        private TextBox AddresReceiveRSX;
+        private TextBox AddresRSZ;
         private Label label122;
         private Label label123;
-        private TextBox textBox10;
+        private TextBox IdShippingRSZ;
         private Label label124;
-        private TextBox textBox11;
+        private TextBox IdReceiveRSZ;
         private Label label125;
-        private TextBox textBox12;
-        private TextBox textBox5;
+        private TextBox AddresReceiveRSZ;
+        private TextBox AddresRSY;
         private Label label32;
         private Label label34;
-        private TextBox textBox6;
+        private TextBox IdShippingRSY;
         private Label label36;
-        private TextBox textBox7;
+        private TextBox IdReceiveRSY;
         private Label label42;
-        private TextBox textBox8;
+        private TextBox AddresReceiveRSY;
         private Label label126;
-        private TextBox textBox13;
+        private TextBox RateSensValueX;
         private Label label127;
         private Label label135;
         private TextBox textBox14;
@@ -4853,12 +4853,12 @@
         private TextBox textBox17;
         private Label label146;
         private Label label147;
-        private TextBox textBox18;
+        private TextBox RateSensValueZ;
         private Label label136;
         private TextBox textBox15;
         private Label label143;
         private Label label144;
-        private TextBox textBox16;
+        private TextBox RateSensValueY;
         private TextBox RateSensSendingPeriod;
         private Label LabelRateSensSendingPeriod;
         private CheckBox AutoRateSens;
