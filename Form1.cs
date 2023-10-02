@@ -1,8 +1,10 @@
 using System.Configuration;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Intrinsics.X86;
+using System.Threading;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace HustonRTEMS {
@@ -757,6 +759,29 @@ namespace HustonRTEMS {
                     _ = await client.SendAsync(buffer, SocketFlags.None);
                 }
             } else if(UseCan.Checked) {
+                const int unicanLenght = 3 * sizeof(float);
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingRat.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveRat.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresRat.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn fuX = new() {
+                    fl = (float)Convert.ToDouble(LabRatesX.Text)
+                };
+                FlUn fuY = new() {
+                    fl = (float)Convert.ToDouble(LabRatesY.Text)
+                };
+                FlUn fuZ = new() {
+                    fl = (float)Convert.ToDouble(LabRatesZ.Text)
+                };
+                test.data = new byte[unicanLenght]
+                {
+                    fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4,
+                    fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
+                    fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
             }
         }
 
@@ -968,6 +993,9 @@ namespace HustonRTEMS {
                 }
                 CTU.SendWithCAN(test, serialPort, LogBox);
             }
+        }
+
+        private void SendRateSens(object? sender, EventArgs? e) {
         }
 
         private void SendAdcsBeacon_Click(object? sender, EventArgs? e) {
@@ -1437,6 +1465,8 @@ namespace HustonRTEMS {
             FilterComboBox_SelectedIndexChanged(null, null);
         }
 
+        // Automatic dispatch
+        private readonly CancellationTokenSource timeSource = new();
         private void AutoTimeStamp_CheckedChanged(object sender, EventArgs e) {
             if(AutoTimeStamp.Checked) {
                 LabelTimeSendingPeriod.Visible = true;
@@ -1448,20 +1478,44 @@ namespace HustonRTEMS {
             }
         }
         private void TimeSendingPeriod_TextChanged(object sender, EventArgs e) {
-            if(TimeSendingPeriod.Text.Length > 0) {
-                Thread sendTime = new(SendMessage);
-                sendTime.Start();
+            if(TimeSendingPeriod.Text.Length == 0) timeSource.Cancel();
+            CancellationToken token = timeSource.Token;
+            TaskFactory factory = new(token);
+            factory.StartNew(() => {
+                int sleepTime = Convert.ToInt16(TimeSendingPeriod.Text);
+                while(TimeSendingPeriod.Text.Length > 0 &&
+                        sleepTime == Convert.ToInt16(TimeSendingPeriod.Text)) {
+                    Thread.Sleep(sleepTime * 1000);
+                    Debug.WriteLine($"Send time {sleepTime}");
+                    SendTime(null, null);
+                }
+            }, token);
+        }
+
+        private void AutoRateSens_CheckedChanged(object sender, EventArgs e) {
+            if(AutoRateSens.Checked) {
+                LabelRateSensSendingPeriod.Visible = true;
+                RateSensSendingPeriod.Visible = true;
+            } else {
+                LabelRateSensSendingPeriod.Visible = false;
+                RateSensSendingPeriod.Visible = false;
+                RateSensSendingPeriod.Text = "";
             }
         }
-        private void SendMessage() {
-            while(TimeSendingPeriod.Text.Length > 0) {
-                int sleepTime = Convert.ToInt16(TimeSendingPeriod.Text) * 1000;
-                Thread.Sleep(sleepTime);
-                LogBox.Invoke(new Action(() => {
-                    LogBox.Text += "\r\nSendTime\r\n";
-                }));
-                SendTime(null, null);
-            }
+        private void RateSensSendingPeriod_TextChanged(object sender, EventArgs e) {
+            if(RateSensSendingPeriod.Text.Length == 0) timeSource.Cancel();
+            CancellationToken token = timeSource.Token;
+            TaskFactory factory = new(token);
+            factory.StartNew(() => {
+                int sleepTime = Convert.ToInt16(RateSensSendingPeriod.Text);
+                while(RateSensSendingPeriod.Text.Length > 0 &&
+                        sleepTime == Convert.ToInt16(RateSensSendingPeriod.Text)) {
+                    Thread.Sleep(sleepTime * 1000);
+                    Debug.WriteLine($"Send rate sens {sleepTime}");
+                    SendRateSens(null, null);
+                }
+            }, token);
         }
+        // Automatic dispatch
     }
 }

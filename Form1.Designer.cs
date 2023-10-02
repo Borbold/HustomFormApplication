@@ -50,22 +50,10 @@
             label43 = new Label();
             AddresReceiveMag = new TextBox();
             panel1 = new Panel();
-            label32 = new Label();
-            IdMag2Z = new TextBox();
-            label31 = new Label();
-            IdMag2Y = new TextBox();
-            label30 = new Label();
-            IdMag2X = new TextBox();
-            label29 = new Label();
-            IdMag1Z = new TextBox();
-            label28 = new Label();
-            IdMag1Y = new TextBox();
             label27 = new Label();
             AddresMag2 = new TextBox();
             label24 = new Label();
             AddresMag1 = new TextBox();
-            label21 = new Label();
-            IdMag1X = new TextBox();
             SendMagnetometer2 = new Button();
             TrackMagX = new TrackBar();
             SendMagnetometer1 = new Button();
@@ -154,14 +142,8 @@
             label70 = new Label();
             AddresReceiveRat = new TextBox();
             SendRatesensor = new Button();
-            label34 = new Label();
-            IdRatesZ = new TextBox();
-            label36 = new Label();
-            IdRatesY = new TextBox();
             label37 = new Label();
             AddresRat = new TextBox();
-            label42 = new Label();
-            IdRatesX = new TextBox();
             LabRatesY = new Label();
             LabRatesZ = new Label();
             LabRatesX = new Label();
@@ -322,6 +304,50 @@
             label114 = new Label();
             AddresReceiveAdcsBeacon = new TextBox();
             label121 = new Label();
+            tabPage9 = new TabPage();
+            RateSensSendingPeriod = new TextBox();
+            LabelRateSensSendingPeriod = new Label();
+            AutoRateSens = new CheckBox();
+            label145 = new Label();
+            textBox17 = new TextBox();
+            label146 = new Label();
+            label147 = new Label();
+            textBox18 = new TextBox();
+            label136 = new Label();
+            textBox15 = new TextBox();
+            label143 = new Label();
+            label144 = new Label();
+            textBox16 = new TextBox();
+            label135 = new Label();
+            textBox14 = new TextBox();
+            label127 = new Label();
+            label126 = new Label();
+            textBox13 = new TextBox();
+            textBox9 = new TextBox();
+            label122 = new Label();
+            label123 = new Label();
+            textBox10 = new TextBox();
+            label124 = new Label();
+            textBox11 = new TextBox();
+            label125 = new Label();
+            textBox12 = new TextBox();
+            textBox5 = new TextBox();
+            label32 = new Label();
+            label34 = new Label();
+            textBox6 = new TextBox();
+            label36 = new Label();
+            textBox7 = new TextBox();
+            label42 = new Label();
+            textBox8 = new TextBox();
+            textBox1 = new TextBox();
+            label28 = new Label();
+            label29 = new Label();
+            textBox2 = new TextBox();
+            label30 = new Label();
+            textBox3 = new TextBox();
+            label31 = new Label();
+            textBox4 = new TextBox();
+            label21 = new Label();
             MainTabControll = new TabControl();
             Settings = new TabPage();
             TabSettings = new TabControl();
@@ -400,6 +426,7 @@
             ((System.ComponentModel.ISupportInitialize)BTemp).BeginInit();
             tabPage8.SuspendLayout();
             panel4.SuspendLayout();
+            tabPage9.SuspendLayout();
             MainTabControll.SuspendLayout();
             Settings.SuspendLayout();
             TabSettings.SuspendLayout();
@@ -453,6 +480,7 @@
             TrackBarSpeedX.Controls.Add(tabPage6);
             TrackBarSpeedX.Controls.Add(tabPage7);
             TrackBarSpeedX.Controls.Add(tabPage8);
+            TrackBarSpeedX.Controls.Add(tabPage9);
             TrackBarSpeedX.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             TrackBarSpeedX.Location = new Point(6, 6);
             TrackBarSpeedX.Name = "TrackBarSpeedX";
@@ -703,22 +731,10 @@
             // panel1
             // 
             panel1.AutoScroll = true;
-            panel1.Controls.Add(label32);
-            panel1.Controls.Add(IdMag2Z);
-            panel1.Controls.Add(label31);
-            panel1.Controls.Add(IdMag2Y);
-            panel1.Controls.Add(label30);
-            panel1.Controls.Add(IdMag2X);
-            panel1.Controls.Add(label29);
-            panel1.Controls.Add(IdMag1Z);
-            panel1.Controls.Add(label28);
-            panel1.Controls.Add(IdMag1Y);
             panel1.Controls.Add(label27);
             panel1.Controls.Add(AddresMag2);
             panel1.Controls.Add(label24);
             panel1.Controls.Add(AddresMag1);
-            panel1.Controls.Add(label21);
-            panel1.Controls.Add(IdMag1X);
             panel1.Controls.Add(SendMagnetometer2);
             panel1.Controls.Add(TrackMagX);
             panel1.Controls.Add(SendMagnetometer1);
@@ -745,106 +761,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(923, 394);
             panel1.TabIndex = 39;
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label32.Location = new Point(680, 314);
-            label32.Name = "label32";
-            label32.Size = new Size(116, 21);
-            label32.TabIndex = 53;
-            label32.Text = "Id переменной";
-            // 
-            // IdMag2Z
-            // 
-            IdMag2Z.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdMag2Z.Location = new Point(624, 311);
-            IdMag2Z.Name = "IdMag2Z";
-            IdMag2Z.ReadOnly = true;
-            IdMag2Z.Size = new Size(50, 29);
-            IdMag2Z.TabIndex = 52;
-            IdMag2Z.Text = "?";
-            // 
-            // label31
-            // 
-            label31.AutoSize = true;
-            label31.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label31.Location = new Point(680, 263);
-            label31.Name = "label31";
-            label31.Size = new Size(116, 21);
-            label31.TabIndex = 51;
-            label31.Text = "Id переменной";
-            // 
-            // IdMag2Y
-            // 
-            IdMag2Y.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdMag2Y.Location = new Point(624, 260);
-            IdMag2Y.Name = "IdMag2Y";
-            IdMag2Y.ReadOnly = true;
-            IdMag2Y.Size = new Size(50, 29);
-            IdMag2Y.TabIndex = 50;
-            IdMag2Y.Text = "?";
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label30.Location = new Point(680, 212);
-            label30.Name = "label30";
-            label30.Size = new Size(116, 21);
-            label30.TabIndex = 49;
-            label30.Text = "Id переменной";
-            // 
-            // IdMag2X
-            // 
-            IdMag2X.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdMag2X.Location = new Point(624, 209);
-            IdMag2X.Name = "IdMag2X";
-            IdMag2X.ReadOnly = true;
-            IdMag2X.Size = new Size(50, 29);
-            IdMag2X.TabIndex = 48;
-            IdMag2X.Text = "?";
-            // 
-            // label29
-            // 
-            label29.AutoSize = true;
-            label29.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label29.Location = new Point(680, 153);
-            label29.Name = "label29";
-            label29.Size = new Size(116, 21);
-            label29.TabIndex = 47;
-            label29.Text = "Id переменной";
-            // 
-            // IdMag1Z
-            // 
-            IdMag1Z.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdMag1Z.Location = new Point(624, 150);
-            IdMag1Z.Name = "IdMag1Z";
-            IdMag1Z.ReadOnly = true;
-            IdMag1Z.Size = new Size(50, 29);
-            IdMag1Z.TabIndex = 46;
-            IdMag1Z.Text = "?";
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label28.Location = new Point(680, 102);
-            label28.Name = "label28";
-            label28.Size = new Size(116, 21);
-            label28.TabIndex = 45;
-            label28.Text = "Id переменной";
-            // 
-            // IdMag1Y
-            // 
-            IdMag1Y.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdMag1Y.Location = new Point(624, 99);
-            IdMag1Y.Name = "IdMag1Y";
-            IdMag1Y.ReadOnly = true;
-            IdMag1Y.Size = new Size(50, 29);
-            IdMag1Y.TabIndex = 44;
-            IdMag1Y.Text = "?";
             // 
             // label27
             // 
@@ -883,26 +799,6 @@
             AddresMag1.Size = new Size(32, 29);
             AddresMag1.TabIndex = 40;
             AddresMag1.Text = "?";
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label21.Location = new Point(680, 51);
-            label21.Name = "label21";
-            label21.Size = new Size(116, 21);
-            label21.TabIndex = 41;
-            label21.Text = "Id переменной";
-            // 
-            // IdMag1X
-            // 
-            IdMag1X.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdMag1X.Location = new Point(624, 48);
-            IdMag1X.Name = "IdMag1X";
-            IdMag1X.ReadOnly = true;
-            IdMag1X.Size = new Size(50, 29);
-            IdMag1X.TabIndex = 40;
-            IdMag1X.Text = "?";
             // 
             // SendMagnetometer2
             // 
@@ -1777,14 +1673,8 @@
             tabPage2.Controls.Add(label70);
             tabPage2.Controls.Add(AddresReceiveRat);
             tabPage2.Controls.Add(SendRatesensor);
-            tabPage2.Controls.Add(label34);
-            tabPage2.Controls.Add(IdRatesZ);
-            tabPage2.Controls.Add(label36);
-            tabPage2.Controls.Add(IdRatesY);
             tabPage2.Controls.Add(label37);
             tabPage2.Controls.Add(AddresRat);
-            tabPage2.Controls.Add(label42);
-            tabPage2.Controls.Add(IdRatesX);
             tabPage2.Controls.Add(LabRatesY);
             tabPage2.Controls.Add(LabRatesZ);
             tabPage2.Controls.Add(LabRatesX);
@@ -1871,46 +1761,6 @@
             SendRatesensor.UseVisualStyleBackColor = true;
             SendRatesensor.Click += SendRatesensor_Click;
             // 
-            // label34
-            // 
-            label34.AutoSize = true;
-            label34.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label34.Location = new Point(728, 136);
-            label34.Name = "label34";
-            label34.Size = new Size(116, 21);
-            label34.TabIndex = 74;
-            label34.Text = "Id переменной";
-            // 
-            // IdRatesZ
-            // 
-            IdRatesZ.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRatesZ.Location = new Point(672, 133);
-            IdRatesZ.Name = "IdRatesZ";
-            IdRatesZ.ReadOnly = true;
-            IdRatesZ.Size = new Size(50, 29);
-            IdRatesZ.TabIndex = 73;
-            IdRatesZ.Text = "?";
-            // 
-            // label36
-            // 
-            label36.AutoSize = true;
-            label36.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label36.Location = new Point(728, 85);
-            label36.Name = "label36";
-            label36.Size = new Size(116, 21);
-            label36.TabIndex = 72;
-            label36.Text = "Id переменной";
-            // 
-            // IdRatesY
-            // 
-            IdRatesY.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRatesY.Location = new Point(672, 82);
-            IdRatesY.Name = "IdRatesY";
-            IdRatesY.ReadOnly = true;
-            IdRatesY.Size = new Size(50, 29);
-            IdRatesY.TabIndex = 71;
-            IdRatesY.Text = "?";
-            // 
             // label37
             // 
             label37.AutoSize = true;
@@ -1929,26 +1779,6 @@
             AddresRat.Size = new Size(32, 29);
             AddresRat.TabIndex = 69;
             AddresRat.Text = "?";
-            // 
-            // label42
-            // 
-            label42.AutoSize = true;
-            label42.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label42.Location = new Point(728, 34);
-            label42.Name = "label42";
-            label42.Size = new Size(116, 21);
-            label42.TabIndex = 68;
-            label42.Text = "Id переменной";
-            // 
-            // IdRatesX
-            // 
-            IdRatesX.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            IdRatesX.Location = new Point(672, 31);
-            IdRatesX.Name = "IdRatesX";
-            IdRatesX.ReadOnly = true;
-            IdRatesX.Size = new Size(50, 29);
-            IdRatesX.TabIndex = 67;
-            IdRatesX.Text = "?";
             // 
             // LabRatesY
             // 
@@ -3631,11 +3461,476 @@
             // 
             label121.AutoSize = true;
             label121.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label121.Location = new Point(6, 0);
+            label121.Location = new Point(3, 3);
             label121.Name = "label121";
             label121.Size = new Size(162, 37);
             label121.TabIndex = 111;
             label121.Text = "Иной маяк";
+            // 
+            // tabPage9
+            // 
+            tabPage9.Controls.Add(RateSensSendingPeriod);
+            tabPage9.Controls.Add(LabelRateSensSendingPeriod);
+            tabPage9.Controls.Add(AutoRateSens);
+            tabPage9.Controls.Add(label145);
+            tabPage9.Controls.Add(textBox17);
+            tabPage9.Controls.Add(label146);
+            tabPage9.Controls.Add(label147);
+            tabPage9.Controls.Add(textBox18);
+            tabPage9.Controls.Add(label136);
+            tabPage9.Controls.Add(textBox15);
+            tabPage9.Controls.Add(label143);
+            tabPage9.Controls.Add(label144);
+            tabPage9.Controls.Add(textBox16);
+            tabPage9.Controls.Add(label135);
+            tabPage9.Controls.Add(textBox14);
+            tabPage9.Controls.Add(label127);
+            tabPage9.Controls.Add(label126);
+            tabPage9.Controls.Add(textBox13);
+            tabPage9.Controls.Add(textBox9);
+            tabPage9.Controls.Add(label122);
+            tabPage9.Controls.Add(label123);
+            tabPage9.Controls.Add(textBox10);
+            tabPage9.Controls.Add(label124);
+            tabPage9.Controls.Add(textBox11);
+            tabPage9.Controls.Add(label125);
+            tabPage9.Controls.Add(textBox12);
+            tabPage9.Controls.Add(textBox5);
+            tabPage9.Controls.Add(label32);
+            tabPage9.Controls.Add(label34);
+            tabPage9.Controls.Add(textBox6);
+            tabPage9.Controls.Add(label36);
+            tabPage9.Controls.Add(textBox7);
+            tabPage9.Controls.Add(label42);
+            tabPage9.Controls.Add(textBox8);
+            tabPage9.Controls.Add(textBox1);
+            tabPage9.Controls.Add(label28);
+            tabPage9.Controls.Add(label29);
+            tabPage9.Controls.Add(textBox2);
+            tabPage9.Controls.Add(label30);
+            tabPage9.Controls.Add(textBox3);
+            tabPage9.Controls.Add(label31);
+            tabPage9.Controls.Add(textBox4);
+            tabPage9.Controls.Add(label21);
+            tabPage9.Location = new Point(4, 26);
+            tabPage9.Name = "tabPage9";
+            tabPage9.Padding = new Padding(3);
+            tabPage9.Size = new Size(1204, 406);
+            tabPage9.TabIndex = 10;
+            tabPage9.Text = "RateSens";
+            tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // RateSensSendingPeriod
+            // 
+            RateSensSendingPeriod.Location = new Point(6, 124);
+            RateSensSendingPeriod.Name = "RateSensSendingPeriod";
+            RateSensSendingPeriod.Size = new Size(100, 25);
+            RateSensSendingPeriod.TabIndex = 162;
+            RateSensSendingPeriod.Visible = false;
+            RateSensSendingPeriod.TextChanged += RateSensSendingPeriod_TextChanged;
+            // 
+            // LabelRateSensSendingPeriod
+            // 
+            LabelRateSensSendingPeriod.AutoSize = true;
+            LabelRateSensSendingPeriod.Location = new Point(6, 104);
+            LabelRateSensSendingPeriod.Name = "LabelRateSensSendingPeriod";
+            LabelRateSensSendingPeriod.Size = new Size(113, 17);
+            LabelRateSensSendingPeriod.TabIndex = 161;
+            LabelRateSensSendingPeriod.Text = "Период отправки";
+            LabelRateSensSendingPeriod.Visible = false;
+            // 
+            // AutoRateSens
+            // 
+            AutoRateSens.AutoSize = true;
+            AutoRateSens.Location = new Point(6, 80);
+            AutoRateSens.Name = "AutoRateSens";
+            AutoRateSens.Size = new Size(168, 21);
+            AutoRateSens.TabIndex = 160;
+            AutoRateSens.Text = "Включить авт. отправку";
+            AutoRateSens.UseVisualStyleBackColor = true;
+            AutoRateSens.CheckedChanged += AutoRateSens_CheckedChanged;
+            // 
+            // label145
+            // 
+            label145.AutoSize = true;
+            label145.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label145.Location = new Point(1061, 228);
+            label145.Name = "label145";
+            label145.Size = new Size(138, 30);
+            label145.TabIndex = 159;
+            label145.Text = "Температура";
+            // 
+            // textBox17
+            // 
+            textBox17.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox17.Location = new Point(955, 225);
+            textBox17.Name = "textBox17";
+            textBox17.Size = new Size(100, 35);
+            textBox17.TabIndex = 158;
+            textBox17.Text = "0";
+            // 
+            // label146
+            // 
+            label146.AutoSize = true;
+            label146.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label146.Location = new Point(1061, 187);
+            label146.Name = "label146";
+            label146.Size = new Size(105, 30);
+            label146.TabIndex = 157;
+            label146.Text = "Значение";
+            // 
+            // label147
+            // 
+            label147.AutoSize = true;
+            label147.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label147.Location = new Point(955, 151);
+            label147.Name = "label147";
+            label147.Size = new Size(25, 30);
+            label147.TabIndex = 156;
+            label147.Text = "Z";
+            // 
+            // textBox18
+            // 
+            textBox18.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox18.Location = new Point(955, 184);
+            textBox18.Name = "textBox18";
+            textBox18.Size = new Size(100, 35);
+            textBox18.TabIndex = 155;
+            textBox18.Text = "0";
+            // 
+            // label136
+            // 
+            label136.AutoSize = true;
+            label136.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label136.Location = new Point(709, 228);
+            label136.Name = "label136";
+            label136.Size = new Size(138, 30);
+            label136.TabIndex = 154;
+            label136.Text = "Температура";
+            // 
+            // textBox15
+            // 
+            textBox15.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox15.Location = new Point(603, 225);
+            textBox15.Name = "textBox15";
+            textBox15.Size = new Size(100, 35);
+            textBox15.TabIndex = 153;
+            textBox15.Text = "0";
+            // 
+            // label143
+            // 
+            label143.AutoSize = true;
+            label143.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label143.Location = new Point(709, 187);
+            label143.Name = "label143";
+            label143.Size = new Size(105, 30);
+            label143.TabIndex = 152;
+            label143.Text = "Значение";
+            // 
+            // label144
+            // 
+            label144.AutoSize = true;
+            label144.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label144.Location = new Point(603, 151);
+            label144.Name = "label144";
+            label144.Size = new Size(25, 30);
+            label144.TabIndex = 151;
+            label144.Text = "Y";
+            // 
+            // textBox16
+            // 
+            textBox16.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox16.Location = new Point(603, 184);
+            textBox16.Name = "textBox16";
+            textBox16.Size = new Size(100, 35);
+            textBox16.TabIndex = 150;
+            textBox16.Text = "0";
+            // 
+            // label135
+            // 
+            label135.AutoSize = true;
+            label135.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label135.Location = new Point(369, 228);
+            label135.Name = "label135";
+            label135.Size = new Size(138, 30);
+            label135.TabIndex = 149;
+            label135.Text = "Температура";
+            // 
+            // textBox14
+            // 
+            textBox14.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox14.Location = new Point(263, 225);
+            textBox14.Name = "textBox14";
+            textBox14.Size = new Size(100, 35);
+            textBox14.TabIndex = 148;
+            textBox14.Text = "0";
+            // 
+            // label127
+            // 
+            label127.AutoSize = true;
+            label127.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label127.Location = new Point(369, 187);
+            label127.Name = "label127";
+            label127.Size = new Size(105, 30);
+            label127.TabIndex = 147;
+            label127.Text = "Значение";
+            // 
+            // label126
+            // 
+            label126.AutoSize = true;
+            label126.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label126.Location = new Point(263, 151);
+            label126.Name = "label126";
+            label126.Size = new Size(26, 30);
+            label126.TabIndex = 146;
+            label126.Text = "X";
+            // 
+            // textBox13
+            // 
+            textBox13.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox13.Location = new Point(263, 184);
+            textBox13.Name = "textBox13";
+            textBox13.Size = new Size(100, 35);
+            textBox13.TabIndex = 145;
+            textBox13.Text = "0";
+            // 
+            // textBox9
+            // 
+            textBox9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox9.Location = new Point(955, 119);
+            textBox9.Name = "textBox9";
+            textBox9.Size = new Size(32, 29);
+            textBox9.TabIndex = 144;
+            textBox9.Text = "?";
+            // 
+            // label122
+            // 
+            label122.AutoSize = true;
+            label122.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label122.Location = new Point(994, 122);
+            label122.Name = "label122";
+            label122.Size = new Size(115, 21);
+            label122.TabIndex = 143;
+            label122.Text = "Адрес датчика";
+            // 
+            // label123
+            // 
+            label123.AutoSize = true;
+            label123.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label123.Location = new Point(1013, 87);
+            label123.Name = "label123";
+            label123.Size = new Size(74, 21);
+            label123.TabIndex = 142;
+            label123.Text = "Id ответа";
+            // 
+            // textBox10
+            // 
+            textBox10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox10.Location = new Point(955, 84);
+            textBox10.Name = "textBox10";
+            textBox10.Size = new Size(52, 29);
+            textBox10.TabIndex = 141;
+            textBox10.Text = "?";
+            // 
+            // label124
+            // 
+            label124.AutoSize = true;
+            label124.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label124.Location = new Point(1013, 51);
+            label124.Name = "label124";
+            label124.Size = new Size(84, 21);
+            label124.TabIndex = 140;
+            label124.Text = "Id запроса";
+            // 
+            // textBox11
+            // 
+            textBox11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox11.Location = new Point(955, 48);
+            textBox11.Name = "textBox11";
+            textBox11.Size = new Size(52, 29);
+            textBox11.TabIndex = 139;
+            textBox11.Text = "?";
+            // 
+            // label125
+            // 
+            label125.AutoSize = true;
+            label125.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label125.Location = new Point(1013, 16);
+            label125.Name = "label125";
+            label125.Size = new Size(111, 21);
+            label125.TabIndex = 138;
+            label125.Text = "Адрес приема";
+            // 
+            // textBox12
+            // 
+            textBox12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox12.Location = new Point(955, 13);
+            textBox12.Name = "textBox12";
+            textBox12.Size = new Size(52, 29);
+            textBox12.TabIndex = 137;
+            textBox12.Text = "?";
+            // 
+            // textBox5
+            // 
+            textBox5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox5.Location = new Point(603, 119);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(32, 29);
+            textBox5.TabIndex = 136;
+            textBox5.Text = "?";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label32.Location = new Point(642, 122);
+            label32.Name = "label32";
+            label32.Size = new Size(115, 21);
+            label32.TabIndex = 135;
+            label32.Text = "Адрес датчика";
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label34.Location = new Point(661, 87);
+            label34.Name = "label34";
+            label34.Size = new Size(74, 21);
+            label34.TabIndex = 134;
+            label34.Text = "Id ответа";
+            // 
+            // textBox6
+            // 
+            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox6.Location = new Point(603, 84);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(52, 29);
+            textBox6.TabIndex = 133;
+            textBox6.Text = "?";
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label36.Location = new Point(661, 51);
+            label36.Name = "label36";
+            label36.Size = new Size(84, 21);
+            label36.TabIndex = 132;
+            label36.Text = "Id запроса";
+            // 
+            // textBox7
+            // 
+            textBox7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox7.Location = new Point(603, 48);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(52, 29);
+            textBox7.TabIndex = 131;
+            textBox7.Text = "?";
+            // 
+            // label42
+            // 
+            label42.AutoSize = true;
+            label42.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label42.Location = new Point(661, 16);
+            label42.Name = "label42";
+            label42.Size = new Size(111, 21);
+            label42.TabIndex = 130;
+            label42.Text = "Адрес приема";
+            // 
+            // textBox8
+            // 
+            textBox8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox8.Location = new Point(603, 13);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(52, 29);
+            textBox8.TabIndex = 129;
+            textBox8.Text = "?";
+            // 
+            // textBox1
+            // 
+            textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox1.Location = new Point(263, 119);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(32, 29);
+            textBox1.TabIndex = 128;
+            textBox1.Text = "?";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label28.Location = new Point(302, 122);
+            label28.Name = "label28";
+            label28.Size = new Size(115, 21);
+            label28.TabIndex = 127;
+            label28.Text = "Адрес датчика";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label29.Location = new Point(321, 87);
+            label29.Name = "label29";
+            label29.Size = new Size(74, 21);
+            label29.TabIndex = 126;
+            label29.Text = "Id ответа";
+            // 
+            // textBox2
+            // 
+            textBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox2.Location = new Point(263, 84);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(52, 29);
+            textBox2.TabIndex = 125;
+            textBox2.Text = "?";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label30.Location = new Point(321, 51);
+            label30.Name = "label30";
+            label30.Size = new Size(84, 21);
+            label30.TabIndex = 124;
+            label30.Text = "Id запроса";
+            // 
+            // textBox3
+            // 
+            textBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox3.Location = new Point(263, 48);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(52, 29);
+            textBox3.TabIndex = 123;
+            textBox3.Text = "?";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label31.Location = new Point(321, 16);
+            label31.Name = "label31";
+            label31.Size = new Size(111, 21);
+            label31.TabIndex = 122;
+            label31.Text = "Адрес приема";
+            // 
+            // textBox4
+            // 
+            textBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox4.Location = new Point(263, 13);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(52, 29);
+            textBox4.TabIndex = 121;
+            textBox4.Text = "?";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label21.Location = new Point(3, 3);
+            label21.Name = "label21";
+            label21.Size = new Size(258, 74);
+            label21.TabIndex = 112;
+            label21.Text = "Чувствительность\r\nк скорости";
             // 
             // MainTabControll
             // 
@@ -4180,6 +4475,8 @@
             tabPage8.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            tabPage9.ResumeLayout(false);
+            tabPage9.PerformLayout();
             MainTabControll.ResumeLayout(false);
             Settings.ResumeLayout(false);
             TabSettings.ResumeLayout(false);
@@ -4265,8 +4562,6 @@
         private TextBox AddresMag2;
         private Label label24;
         private TextBox AddresMag1;
-        private Label label21;
-        private TextBox IdMag1X;
         private Label label26;
         private TextBox IdAscelZ;
         private Label label25;
@@ -4275,16 +4570,6 @@
         private TextBox AddresAcs;
         private Label label23;
         private TextBox IdAscelX;
-        private Label label32;
-        private TextBox IdMag2Z;
-        private Label label31;
-        private TextBox IdMag2Y;
-        private Label label30;
-        private TextBox IdMag2X;
-        private Label label29;
-        private TextBox IdMag1Z;
-        private Label label28;
-        private TextBox IdMag1Y;
         private Button CANTestRead;
         private Button CANTestWrite;
         private Button OpenRKSCAN;
@@ -4318,14 +4603,8 @@
         private TabPage tabPage2;
         private TabPage tabPage3;
         private Button SendRatesensor;
-        private Label label34;
-        private TextBox IdRatesZ;
-        private Label label36;
-        private TextBox IdRatesY;
         private Label label37;
         private TextBox AddresRat;
-        private Label label42;
-        private TextBox IdRatesX;
         private Label LabRatesY;
         private Label LabRatesZ;
         private Label LabRatesX;
@@ -4539,5 +4818,49 @@
         private Label label141;
         private TextBox eci_quat_w;
         private Label label142;
+        private TabPage tabPage9;
+        private Label label21;
+        private TextBox textBox1;
+        private Label label28;
+        private Label label29;
+        private TextBox textBox2;
+        private Label label30;
+        private TextBox textBox3;
+        private Label label31;
+        private TextBox textBox4;
+        private TextBox textBox9;
+        private Label label122;
+        private Label label123;
+        private TextBox textBox10;
+        private Label label124;
+        private TextBox textBox11;
+        private Label label125;
+        private TextBox textBox12;
+        private TextBox textBox5;
+        private Label label32;
+        private Label label34;
+        private TextBox textBox6;
+        private Label label36;
+        private TextBox textBox7;
+        private Label label42;
+        private TextBox textBox8;
+        private Label label126;
+        private TextBox textBox13;
+        private Label label127;
+        private Label label135;
+        private TextBox textBox14;
+        private Label label145;
+        private TextBox textBox17;
+        private Label label146;
+        private Label label147;
+        private TextBox textBox18;
+        private Label label136;
+        private TextBox textBox15;
+        private Label label143;
+        private Label label144;
+        private TextBox textBox16;
+        private TextBox RateSensSendingPeriod;
+        private Label LabelRateSensSendingPeriod;
+        private CheckBox AutoRateSens;
     }
 }
