@@ -309,17 +309,17 @@
             LabelRateSensSendingPeriod = new Label();
             AutoRateSens = new CheckBox();
             label145 = new Label();
-            textBox17 = new TextBox();
+            RateSensTemperatureZ = new TextBox();
             label146 = new Label();
             label147 = new Label();
             RateSensValueZ = new TextBox();
             label136 = new Label();
-            textBox15 = new TextBox();
+            RateSensTemperatureY = new TextBox();
             label143 = new Label();
             label144 = new Label();
             RateSensValueY = new TextBox();
             label135 = new Label();
-            textBox14 = new TextBox();
+            RateSensTemperatureX = new TextBox();
             label127 = new Label();
             label126 = new Label();
             RateSensValueX = new TextBox();
@@ -3195,9 +3195,9 @@
             label133.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             label133.Location = new Point(3, 420);
             label133.Name = "label133";
-            label133.Size = new Size(326, 30);
+            label133.Size = new Size(329, 30);
             label133.TabIndex = 18;
-            label133.Text = "Кватернион ориентации в ЭСК z";
+            label133.Text = "Кватернион ориентации в ОСК z";
             // 
             // orb_quat_vect_y
             // 
@@ -3214,9 +3214,9 @@
             label134.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             label134.Location = new Point(3, 379);
             label134.Name = "label134";
-            label134.Size = new Size(326, 30);
+            label134.Size = new Size(329, 30);
             label134.TabIndex = 16;
-            label134.Text = "Кватернион ориентации в ЭСК y";
+            label134.Text = "Кватернион ориентации в ОСК y";
             // 
             // orb_quat_vect_x
             // 
@@ -3233,9 +3233,9 @@
             label21212.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             label21212.Location = new Point(3, 340);
             label21212.Name = "label21212";
-            label21212.Size = new Size(326, 30);
+            label21212.Size = new Size(329, 30);
             label21212.TabIndex = 14;
-            label21212.Text = "Кватернион ориентации в ЭСК x";
+            label21212.Text = "Кватернион ориентации в ОСК x";
             // 
             // orb_quat_w
             // 
@@ -3252,9 +3252,9 @@
             lable129.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             lable129.Location = new Point(3, 297);
             lable129.Name = "lable129";
-            lable129.Size = new Size(331, 30);
+            lable129.Size = new Size(334, 30);
             lable129.TabIndex = 12;
-            lable129.Text = "Кватернион ориентации в ЭСК w";
+            lable129.Text = "Кватернион ориентации в ОСК w";
             // 
             // eci_AV_y
             // 
@@ -3473,17 +3473,17 @@
             tabPage9.Controls.Add(LabelRateSensSendingPeriod);
             tabPage9.Controls.Add(AutoRateSens);
             tabPage9.Controls.Add(label145);
-            tabPage9.Controls.Add(textBox17);
+            tabPage9.Controls.Add(RateSensTemperatureZ);
             tabPage9.Controls.Add(label146);
             tabPage9.Controls.Add(label147);
             tabPage9.Controls.Add(RateSensValueZ);
             tabPage9.Controls.Add(label136);
-            tabPage9.Controls.Add(textBox15);
+            tabPage9.Controls.Add(RateSensTemperatureY);
             tabPage9.Controls.Add(label143);
             tabPage9.Controls.Add(label144);
             tabPage9.Controls.Add(RateSensValueY);
             tabPage9.Controls.Add(label135);
-            tabPage9.Controls.Add(textBox14);
+            tabPage9.Controls.Add(RateSensTemperatureX);
             tabPage9.Controls.Add(label127);
             tabPage9.Controls.Add(label126);
             tabPage9.Controls.Add(RateSensValueX);
@@ -3560,14 +3560,14 @@
             label145.TabIndex = 159;
             label145.Text = "Температура";
             // 
-            // textBox17
+            // RateSensTemperatureZ
             // 
-            textBox17.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox17.Location = new Point(955, 225);
-            textBox17.Name = "textBox17";
-            textBox17.Size = new Size(100, 35);
-            textBox17.TabIndex = 158;
-            textBox17.Text = "0";
+            RateSensTemperatureZ.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            RateSensTemperatureZ.Location = new Point(955, 225);
+            RateSensTemperatureZ.Name = "RateSensTemperatureZ";
+            RateSensTemperatureZ.Size = new Size(100, 35);
+            RateSensTemperatureZ.TabIndex = 158;
+            RateSensTemperatureZ.Text = "0";
             // 
             // label146
             // 
@@ -3608,14 +3608,14 @@
             label136.TabIndex = 154;
             label136.Text = "Температура";
             // 
-            // textBox15
+            // RateSensTemperatureY
             // 
-            textBox15.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox15.Location = new Point(603, 225);
-            textBox15.Name = "textBox15";
-            textBox15.Size = new Size(100, 35);
-            textBox15.TabIndex = 153;
-            textBox15.Text = "0";
+            RateSensTemperatureY.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            RateSensTemperatureY.Location = new Point(603, 225);
+            RateSensTemperatureY.Name = "RateSensTemperatureY";
+            RateSensTemperatureY.Size = new Size(100, 35);
+            RateSensTemperatureY.TabIndex = 153;
+            RateSensTemperatureY.Text = "0";
             // 
             // label143
             // 
@@ -3656,14 +3656,14 @@
             label135.TabIndex = 149;
             label135.Text = "Температура";
             // 
-            // textBox14
+            // RateSensTemperatureX
             // 
-            textBox14.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox14.Location = new Point(263, 225);
-            textBox14.Name = "textBox14";
-            textBox14.Size = new Size(100, 35);
-            textBox14.TabIndex = 148;
-            textBox14.Text = "0";
+            RateSensTemperatureX.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            RateSensTemperatureX.Location = new Point(263, 225);
+            RateSensTemperatureX.Name = "RateSensTemperatureX";
+            RateSensTemperatureX.Size = new Size(100, 35);
+            RateSensTemperatureX.TabIndex = 148;
+            RateSensTemperatureX.Text = "0";
             // 
             // label127
             // 
@@ -3928,9 +3928,9 @@
             label21.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             label21.Location = new Point(3, 3);
             label21.Name = "label21";
-            label21.Size = new Size(258, 74);
+            label21.Size = new Size(136, 74);
             label21.TabIndex = 112;
-            label21.Text = "Чувствительность\r\nк скорости";
+            label21.Text = "Угловая\r\nскорость";
             // 
             // MainTabControll
             // 
@@ -4848,14 +4848,14 @@
         private TextBox RateSensValueX;
         private Label label127;
         private Label label135;
-        private TextBox textBox14;
+        private TextBox RateSensTemperatureX;
         private Label label145;
-        private TextBox textBox17;
+        private TextBox RateSensTemperatureZ;
         private Label label146;
         private Label label147;
         private TextBox RateSensValueZ;
         private Label label136;
-        private TextBox textBox15;
+        private TextBox RateSensTemperatureY;
         private Label label143;
         private Label label144;
         private TextBox RateSensValueY;

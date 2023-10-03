@@ -1030,8 +1030,9 @@ namespace HustonRTEMS {
                 //Need?
             } else if(UseCan.Checked) {
                 // X
-                const int RTVar = 1 * sizeof(float);
-                const int unicanLenght = RTVar;
+                const int RSVar = 1 * sizeof(float);
+                const int RSTem = 1 * sizeof(byte);
+                const int unicanLenght = RSVar + RSTem + 1;
                 UnicanMessage test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingRSX.Text, 16),
                     unicanAddressTo = Convert.ToUInt16(AddresReceiveRSX.Text, 16),
@@ -1041,8 +1042,11 @@ namespace HustonRTEMS {
                 FlUn RSXV = new() {
                     fl = (float)Convert.ToDecimal(RateSensValueX.Text)
                 };
+                byte RSXT = Convert.ToByte(RateSensTemperatureX.Text);
                 test.data = new byte[unicanLenght] {
-                    RSXV.byte1, RSXV.byte2, RSXV.byte3, RSXV.byte4
+                    RSXV.byte1, RSXV.byte2, RSXV.byte3, RSXV.byte4,
+                    RSXT,
+                    0
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Y
@@ -1055,8 +1059,11 @@ namespace HustonRTEMS {
                 FlUn RSYV = new() {
                     fl = (float)Convert.ToDecimal(RateSensValueX.Text)
                 };
+                byte RSYT = Convert.ToByte(RateSensTemperatureY.Text);
                 test.data = new byte[unicanLenght] {
-                    RSYV.byte1, RSYV.byte2, RSYV.byte3, RSYV.byte4
+                    RSYV.byte1, RSYV.byte2, RSYV.byte3, RSYV.byte4,
+                    RSYT,
+                    0
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Z
@@ -1069,8 +1076,11 @@ namespace HustonRTEMS {
                 FlUn RSZV = new() {
                     fl = (float)Convert.ToDecimal(RateSensValueX.Text)
                 };
+                byte RSZT = Convert.ToByte(RateSensTemperatureZ.Text);
                 test.data = new byte[unicanLenght] {
-                    RSZV.byte1, RSZV.byte2, RSZV.byte3, RSZV.byte4
+                    RSZV.byte1, RSZV.byte2, RSZV.byte3, RSZV.byte4,
+                    RSZT,
+                    0
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
             }
