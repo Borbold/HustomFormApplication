@@ -301,5 +301,80 @@ namespace HustonRTEMS {
             get => (string)base["SensorAdcsBeaconAddress"];
             set => base["SensorAdcsBeaconAddress"] = value;
         }
+        // RateSens X
+        [ConfigurationProperty("ReceiveAddresRSX", IsRequired = false)]
+        public string ReceiveAddresRSX
+        {
+            get => (string)base["ReceiveAddresRSX"];
+            set => base["ReceiveAddresRSX"] = value;
+        }
+        [ConfigurationProperty("IdReceiveRSX", IsRequired = false)]
+        public string IdReceiveRSX
+        {
+            get => (string)base["IdReceiveRSX"];
+            set => base["IdReceiveRSX"] = value;
+        }
+        [ConfigurationProperty("IdShipingRSX", IsRequired = false)]
+        public string IdShipingRSX
+        {
+            get => (string)base["IdShipingRSX"];
+            set => base["IdShipingRSX"] = value;
+        }
+        [ConfigurationProperty("AddressRSX", IsRequired = false)]
+        public string AddressRSX
+        {
+            get => (string)base["AddressRSX"];
+            set => base["AddressRSX"] = value;
+        }
+        // RateSens Y
+        [ConfigurationProperty("ReceiveAddresRSY", IsRequired = false)]
+        public string ReceiveAddresRSY
+        {
+            get => (string)base["ReceiveAddresRSY"];
+            set => base["ReceiveAddresRSY"] = value;
+        }
+        [ConfigurationProperty("IdReceiveRSY", IsRequired = false)]
+        public string IdReceiveRSY
+        {
+            get => (string)base["IdReceiveRSY"];
+            set => base["IdReceiveRSY"] = value;
+        }
+        [ConfigurationProperty("IdShipingRSY", IsRequired = false)]
+        public string IdShipingRSY
+        {
+            get => (string)base["IdShipingRSY"];
+            set => base["IdShipingRSY"] = value;
+        }
+        [ConfigurationProperty("AddressRSY", IsRequired = false)]
+        public string AddressRSY
+        {
+            get => (string)base["AddressRSY"];
+            set => base["AddressRSY"] = value;
+        }
+        // RateSens Z
+        [ConfigurationProperty("ReceiveAddresRSZ", IsRequired = false)]
+        public string ReceiveAddresRSZ
+        {
+            get => (string)base["ReceiveAddresRSZ"];
+            set => base["ReceiveAddresRSZ"] = value;
+        }
+        [ConfigurationProperty("IdReceiveRSZ", IsRequired = false)]
+        public string IdReceiveRSZ
+        {
+            get => (string)base["IdReceiveRSZ"];
+            set => base["IdReceiveRSZ"] = value;
+        }
+        [ConfigurationProperty("IdShipingRSZ", IsRequired = false)]
+        public string IdShipingRSZ
+        {
+            get => (string)base["IdShipingRSZ"];
+            set => base["IdShipingRSZ"] = value;
+        }
+        [ConfigurationProperty("AddressRSZ", IsRequired = false)]
+        public string AddressRSZ
+        {
+            get => (string)base["AddressRSZ"];
+            set => base["AddressRSZ"] = value;
+        }
     }
 }

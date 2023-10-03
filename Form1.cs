@@ -117,6 +117,21 @@ namespace HustonRTEMS {
                 IdReceiveAdcsBeacon.Text = section.IdReceiveAdcsBeacon;
                 IdShippingAdcsBeacon.Text = section.IdShipingAdcsBeacon;
                 AddresAdcsBeacon.Text = section.SensorAdcsBeaconAddress;
+
+                AddresReceiveRSX.Text = section.ReceiveAddresRSX;
+                IdReceiveRSX.Text = section.IdReceiveRSX;
+                IdShippingRSX.Text = section.IdShipingRSX;
+                AddresRSX.Text = section.AddressRSX;
+
+                AddresReceiveRSY.Text = section.ReceiveAddresRSY;
+                IdReceiveRSY.Text = section.IdReceiveRSY;
+                IdShippingRSY.Text = section.IdShipingRSY;
+                AddresRSY.Text = section.AddressRSY;
+
+                AddresReceiveRSZ.Text = section.ReceiveAddresRSZ;
+                IdReceiveRSZ.Text = section.IdReceiveRSZ;
+                IdShippingRSZ.Text = section.IdShipingRSZ;
+                AddresRSZ.Text = section.AddressRSZ;
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -178,6 +193,21 @@ namespace HustonRTEMS {
                 section.IdReceiveAdcsBeacon = IdReceiveAdcsBeacon.Text;
                 section.IdShipingAdcsBeacon = IdShippingAdcsBeacon.Text;
                 section.SensorAdcsBeaconAddress = AddresAdcsBeacon.Text;
+
+                section.ReceiveAddresRSX = AddresReceiveRSX.Text;
+                section.IdReceiveRSX = IdReceiveRSX.Text;
+                section.IdShipingRSX = IdShippingRSX.Text;
+                section.AddressRSX = AddresRSX.Text;
+
+                section.ReceiveAddresRSY = AddresReceiveRSY.Text;
+                section.IdReceiveRSY = IdReceiveRSY.Text;
+                section.IdShipingRSY = IdShippingRSY.Text;
+                section.AddressRSY = AddresRSY.Text;
+
+                section.ReceiveAddresRSZ = AddresReceiveRSZ.Text;
+                section.IdReceiveRSZ = IdReceiveRSZ.Text;
+                section.IdShipingRSZ = IdShippingRSZ.Text;
+                section.AddressRSZ = AddresRSZ.Text;
 
                 cfg.Save();
             }
@@ -1008,39 +1038,39 @@ namespace HustonRTEMS {
                     unicanAddressFrom = Convert.ToUInt16(AddresRSX.Text, 16),
                     unicanLength = unicanLenght
                 };
-                FlUn RTXV = new() {
+                FlUn RSXV = new() {
                     fl = (float)Convert.ToDecimal(RateSensValueX.Text)
                 };
                 test.data = new byte[unicanLenght] {
-                    RTXV.byte1, RTXV.byte2, RTXV.byte3, RTXV.byte4
+                    RSXV.byte1, RSXV.byte2, RSXV.byte3, RSXV.byte4
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Y
                 test = new() {
-                    unicanMSGId = Convert.ToUInt16(IdShippingRSX.Text, 16),
-                    unicanAddressTo = Convert.ToUInt16(AddresReceiveRSX.Text, 16),
-                    unicanAddressFrom = Convert.ToUInt16(AddresRSX.Text, 16),
+                    unicanMSGId = Convert.ToUInt16(IdShippingRSY.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveRSY.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresRSY.Text, 16),
                     unicanLength = unicanLenght
                 };
-                FlUn RTYV = new() {
+                FlUn RSYV = new() {
                     fl = (float)Convert.ToDecimal(RateSensValueX.Text)
                 };
                 test.data = new byte[unicanLenght] {
-                    RTYV.byte1, RTYV.byte2, RTYV.byte3, RTYV.byte4
+                    RSYV.byte1, RSYV.byte2, RSYV.byte3, RSYV.byte4
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Z
                 test = new() {
-                    unicanMSGId = Convert.ToUInt16(IdShippingRSX.Text, 16),
-                    unicanAddressTo = Convert.ToUInt16(AddresReceiveRSX.Text, 16),
-                    unicanAddressFrom = Convert.ToUInt16(AddresRSX.Text, 16),
+                    unicanMSGId = Convert.ToUInt16(IdShippingRSZ.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveRSZ.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresRSZ.Text, 16),
                     unicanLength = unicanLenght
                 };
-                FlUn RTZV = new() {
+                FlUn RSZV = new() {
                     fl = (float)Convert.ToDecimal(RateSensValueX.Text)
                 };
                 test.data = new byte[unicanLenght] {
-                    RTZV.byte1, RTZV.byte2, RTZV.byte3, RTZV.byte4
+                    RSZV.byte1, RSZV.byte2, RSZV.byte3, RSZV.byte4
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
             }
