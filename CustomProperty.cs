@@ -70,37 +70,6 @@ namespace HustonRTEMS {
             get => (string)base["SensorTemAddress"];
             set => base["SensorTemAddress"] = value;
         }
-        // Magnetometer
-        [ConfigurationProperty("ReceiveMagAddres", IsRequired = false)]
-        public string ReceiveMagAddres
-        {
-            get => (string)base["ReceiveMagAddres"];
-            set => base["ReceiveMagAddres"] = value;
-        }
-        [ConfigurationProperty("IdReceiveMag", IsRequired = false)]
-        public string IdReceiveMag
-        {
-            get => (string)base["IdReceiveMag"];
-            set => base["IdReceiveMag"] = value;
-        }
-        [ConfigurationProperty("IdShipingMag", IsRequired = false)]
-        public string IdShipingMag
-        {
-            get => (string)base["IdShipingMag"];
-            set => base["IdShipingMag"] = value;
-        }
-        [ConfigurationProperty("SensorMagAddress1", IsRequired = false)]
-        public string SensorMagAddress1
-        {
-            get => (string)base["SensorMagAddress1"];
-            set => base["SensorMagAddress1"] = value;
-        }
-        [ConfigurationProperty("SensorMagAddress2", IsRequired = false)]
-        public string SensorMagAddress2
-        {
-            get => (string)base["SensorMagAddress2"];
-            set => base["SensorMagAddress2"] = value;
-        }
         // Acselerometer
         [ConfigurationProperty("ReceiveAcsAddres", IsRequired = false)]
         public string ReceiveAcsAddres
@@ -375,6 +344,81 @@ namespace HustonRTEMS {
         {
             get => (string)base["AddressRSZ"];
             set => base["AddressRSZ"] = value;
+        }
+        // Magnetometer X
+        [ConfigurationProperty("ReceiveAddresMagX", IsRequired = false)]
+        public string ReceiveAddresMagX
+        {
+            get => (string)base["ReceiveAddresMagX"];
+            set => base["ReceiveAddresMagX"] = value;
+        }
+        [ConfigurationProperty("IdReceiveMagX", IsRequired = false)]
+        public string IdReceiveMagX
+        {
+            get => (string)base["IdReceiveMagX"];
+            set => base["IdReceiveMagX"] = value;
+        }
+        [ConfigurationProperty("IdShipingMagX", IsRequired = false)]
+        public string IdShipingMagX
+        {
+            get => (string)base["IdShipingMagX"];
+            set => base["IdShipingMagX"] = value;
+        }
+        [ConfigurationProperty("AddressMagX", IsRequired = false)]
+        public string AddressMagX
+        {
+            get => (string)base["AddressMagX"];
+            set => base["AddressMagX"] = value;
+        }
+        // Magnetometer Y
+        [ConfigurationProperty("ReceiveAddresMagY", IsRequired = false)]
+        public string ReceiveAddresMagY
+        {
+            get => (string)base["ReceiveAddresMagY"];
+            set => base["ReceiveAddresMagY"] = value;
+        }
+        [ConfigurationProperty("IdReceiveMagY", IsRequired = false)]
+        public string IdReceiveMagY
+        {
+            get => (string)base["IdReceiveMagY"];
+            set => base["IdReceiveMagY"] = value;
+        }
+        [ConfigurationProperty("IdShipingMagY", IsRequired = false)]
+        public string IdShipingMagY
+        {
+            get => (string)base["IdShipingMagY"];
+            set => base["IdShipingMagY"] = value;
+        }
+        [ConfigurationProperty("AddressMagY", IsRequired = false)]
+        public string AddressMagY
+        {
+            get => (string)base["AddressMagY"];
+            set => base["AddressMagY"] = value;
+        }
+        // Magnetometer Z
+        [ConfigurationProperty("ReceiveAddresMagZ", IsRequired = false)]
+        public string ReceiveAddresMagZ
+        {
+            get => (string)base["ReceiveAddresMagZ"];
+            set => base["ReceiveAddresMagZ"] = value;
+        }
+        [ConfigurationProperty("IdReceiveMagZ", IsRequired = false)]
+        public string IdReceiveMagZ
+        {
+            get => (string)base["IdReceiveMagZ"];
+            set => base["IdReceiveMagZ"] = value;
+        }
+        [ConfigurationProperty("IdShipingMagZ", IsRequired = false)]
+        public string IdShipingMagZ
+        {
+            get => (string)base["IdShipingMagZ"];
+            set => base["IdShipingMagZ"] = value;
+        }
+        [ConfigurationProperty("AddressMagZ", IsRequired = false)]
+        public string AddressMagZ
+        {
+            get => (string)base["AddressMagZ"];
+            set => base["AddressMagZ"] = value;
         }
     }
 }

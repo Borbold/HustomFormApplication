@@ -72,12 +72,6 @@ namespace HustonRTEMS {
                 IdShippingTem.Text = section.IdShipingTem;
                 AddresTemperature.Text = section.SensorTemAddress;
 
-                AddresReceiveMag.Text = section.ReceiveMagAddres;
-                IdReceiveMag.Text = section.IdReceiveMag;
-                IdShippingMag.Text = section.IdShipingMag;
-                AddresMag1.Text = section.SensorMagAddress1;
-                AddresMag2.Text = section.SensorMagAddress2;
-
                 AddresReceiveAcs.Text = section.ReceiveAcsAddres;
                 IdReceiveAcs.Text = section.IdReceiveAcs;
                 IdShippingAcs.Text = section.IdShipingAcs;
@@ -132,6 +126,21 @@ namespace HustonRTEMS {
                 IdReceiveRSZ.Text = section.IdReceiveRSZ;
                 IdShippingRSZ.Text = section.IdShipingRSZ;
                 AddresRSZ.Text = section.AddressRSZ;
+
+                AddresReceiveMX.Text = section.ReceiveAddresMagX;
+                IdReceiveMX.Text = section.IdReceiveMagX;
+                IdShippingMX.Text = section.IdShipingMagX;
+                AddresMX.Text = section.AddressMagX;
+
+                AddresReceiveMY.Text = section.ReceiveAddresMagY;
+                IdReceiveMY.Text = section.IdReceiveMagY;
+                IdShippingMY.Text = section.IdShipingMagY;
+                AddresMY.Text = section.AddressMagY;
+
+                AddresReceiveMZ.Text = section.ReceiveAddresMagZ;
+                IdReceiveMZ.Text = section.IdReceiveMagZ;
+                IdShippingMZ.Text = section.IdShipingMagZ;
+                AddresMZ.Text = section.AddressMagZ;
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -147,12 +156,6 @@ namespace HustonRTEMS {
                 section.IdReceiveTem = IdReceiveTem.Text;
                 section.IdShipingTem = IdShippingTem.Text;
                 section.SensorTemAddress = AddresTemperature.Text;
-
-                section.ReceiveMagAddres = AddresReceiveMag.Text;
-                section.IdReceiveMag = IdReceiveMag.Text;
-                section.IdShipingMag = IdShippingMag.Text;
-                section.SensorMagAddress1 = AddresMag1.Text;
-                section.SensorMagAddress2 = AddresMag2.Text;
 
                 section.ReceiveAcsAddres = AddresReceiveAcs.Text;
                 section.IdReceiveAcs = IdReceiveAcs.Text;
@@ -209,6 +212,21 @@ namespace HustonRTEMS {
                 section.IdShipingRSZ = IdShippingRSZ.Text;
                 section.AddressRSZ = AddresRSZ.Text;
 
+                section.ReceiveAddresMagX = AddresReceiveMX.Text;
+                section.IdReceiveMagX = IdReceiveMX.Text;
+                section.IdShipingMagX = IdShippingMX.Text;
+                section.AddressMagX = AddresMX.Text;
+
+                section.ReceiveAddresMagY = AddresReceiveMY.Text;
+                section.IdReceiveMagY = IdReceiveMY.Text;
+                section.IdShipingMagY = IdShippingMY.Text;
+                section.AddressMagY = AddresMY.Text;
+
+                section.ReceiveAddresMagZ = AddresReceiveMZ.Text;
+                section.IdReceiveMagZ = IdReceiveMZ.Text;
+                section.IdShipingMagZ = IdShippingMZ.Text;
+                section.AddressMagZ = AddresMZ.Text;
+
                 cfg.Save();
             }
         }
@@ -250,26 +268,6 @@ namespace HustonRTEMS {
         }
         private void TrackBarPosZ_Scroll(object sender, EventArgs e) {
             Change_Val_Track(TrackBarPosZ.Value / 100.0f, LabPosZ);
-        }
-
-        private void TrackMagX_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagX.Value / 5.0f, LabMagX);
-        }
-        private void TrackMagY_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagY.Value / 5.0f, LabMagY);
-        }
-        private void TrackMagZ_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagZ.Value / 5.0f, LabMagZ);
-        }
-
-        private void TrackMagX_2_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagX_2.Value / 5.0f, LabMagX_2);
-        }
-        private void TrackMagY_2_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagY_2.Value / 5.0f, LabMagY_2);
-        }
-        private void TrackMagZ_2_Scroll(object sender, EventArgs e) {
-            Change_Val_Track(TrackMagZ_2.Value / 5.0f, LabMagZ_2);
         }
 
         private void TrackBarRatesX_Scroll(object sender, EventArgs e) {
@@ -383,23 +381,7 @@ namespace HustonRTEMS {
                                 byte1 = buffer[22 - raw_buffer_size],
                                 byte2 = buffer[23 - raw_buffer_size]
                             };
-                            if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
-                                    addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
-                                    addresOut.it == Convert.ToInt16(AddresMag1.Text, 16)) {
-                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for(int i = 0; i < message_size; i++) {
-                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
-                                }
-                                SendMagnetometer1_Click(null, null);
-                            } else if(id.it == Convert.ToInt16(IdReceiveMag.Text, 16) &&
-                                  addresIn.it == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
-                                  addresOut.it == Convert.ToInt16(AddresMag2.Text, 16)) {
-                                LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
-                                for(int i = 0; i < message_size; i++) {
-                                    LogBox2.Invoke(new Action(() => { LogBox2.Text += buffer[i] + " "; }));
-                                }
-                                SendMagnetometer2_Click(null, null);
-                            } else if(id.it == Convert.ToInt16(IdReceiveAcs.Text, 16) &&
+                            if(id.it == Convert.ToInt16(IdReceiveAcs.Text, 16) &&
                                   addresIn.it == Convert.ToInt16(AddresReceiveAcs.Text, 16) &&
                                   addresOut.it == Convert.ToInt16(AddresAcs.Text, 16)) {
                                 LogBox2.Invoke(new Action(() => { LogBox2.Text += "Get information\r\n"; }));
@@ -594,99 +576,6 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght]
                 {
                     fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4
-                };
-                CTU.SendWithCAN(test, serialPort, LogBox);
-            }
-        }
-
-        private async void SendMagnetometer1_Click(object? sender, EventArgs? e) {
-            if(UseInternet.Checked) {
-                int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
-                int addresValue = Convert.ToInt16(AddresMag1.Text, 16);
-                int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
-                int iCount = 0;
-                int fCount = 3;
-                int[] arIValue = Array.Empty<int>();
-                float[] arFValue = new float[fCount];
-                arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
-                arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
-                arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
-                GF.SendMessageInSocket(serverListener,
-                    idShipping, addresValue, addresReceive,
-                    iCount, fCount, arIValue, arFValue,
-                    LogBox, CheckKISS.Checked);
-
-                if(CheckBoxRTEMS.Checked) {
-                    _ = await client.SendAsync(buffer, SocketFlags.None);
-                }
-            } else if(UseCan.Checked) {
-                const int unicanLenght = 3 * sizeof(float);
-                UnicanMessage test = new() {
-                    unicanMSGId = Convert.ToUInt16(IdShippingMag.Text, 16),
-                    unicanAddressTo = Convert.ToUInt16(AddresReceiveMag.Text, 16),
-                    unicanAddressFrom = Convert.ToUInt16(AddresMag1.Text, 16),
-                    unicanLength = unicanLenght
-                };
-                FlUn fuX = new() {
-                    fl = (float)Convert.ToDouble(LabMagX.Text)
-                };
-                FlUn fuY = new() {
-                    fl = (float)Convert.ToDouble(LabMagY.Text)
-                };
-                FlUn fuZ = new() {
-                    fl = (float)Convert.ToDouble(LabMagZ.Text)
-                };
-                test.data = new byte[unicanLenght]
-                {
-                    fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4,
-                    fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
-                    fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
-                };
-                CTU.SendWithCAN(test, serialPort, LogBox);
-            }
-        }
-        private async void SendMagnetometer2_Click(object? sender, EventArgs? e) {
-            if(UseInternet.Checked) {
-                int idShipping = Convert.ToInt16(IdShippingMag.Text, 16);
-                int addresValue = Convert.ToInt16(AddresMag2.Text, 16);
-                int addresReceive = Convert.ToInt16(AddresReceiveMag.Text, 16);
-                int iCount = 0;
-                int fCount = 3;
-                int[] arIValue = Array.Empty<int>();
-                float[] arFValue = new float[fCount];
-                arFValue[0] = (float)Convert.ToDouble(LabMagX.Text);
-                arFValue[1] = (float)Convert.ToDouble(LabMagY.Text);
-                arFValue[2] = (float)Convert.ToDouble(LabMagZ.Text);
-                GF.SendMessageInSocket(serverListener,
-                    idShipping, addresValue, addresReceive,
-                    iCount, fCount, arIValue, arFValue,
-                    LogBox, CheckKISS.Checked);
-
-                if(CheckBoxRTEMS.Checked) {
-                    _ = await client.SendAsync(buffer, SocketFlags.None);
-                }
-            } else if(UseCan.Checked) {
-                const int unicanLenght = 3 * sizeof(float);
-                UnicanMessage test = new() {
-                    unicanMSGId = Convert.ToUInt16(IdShippingMag.Text, 16),
-                    unicanAddressTo = Convert.ToUInt16(AddresReceiveMag.Text, 16),
-                    unicanAddressFrom = Convert.ToUInt16(AddresMag2.Text, 16),
-                    unicanLength = unicanLenght
-                };
-                FlUn fuX = new() {
-                    fl = (float)Convert.ToDouble(LabMagX_2.Text)
-                };
-                FlUn fuY = new() {
-                    fl = (float)Convert.ToDouble(LabMagY_2.Text)
-                };
-                FlUn fuZ = new() {
-                    fl = (float)Convert.ToDouble(LabMagZ_2.Text)
-                };
-                test.data = new byte[unicanLenght]
-                {
-                    fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4,
-                    fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
-                    fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
             }
@@ -1086,6 +975,67 @@ namespace HustonRTEMS {
             }
         }
 
+        private void SendMagnetometer(object? sender, EventArgs? e) {
+            if(UseInternet.Checked) {
+                //Need?
+            } else if(UseCan.Checked) {
+                // X
+                const int MVar = 1 * sizeof(float);
+                const int MTem = 1 * sizeof(byte);
+                const int unicanLenght = MVar + MTem + 1;
+                UnicanMessage test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingMX.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveMX.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresMX.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn MXV = new() {
+                    fl = (float)Convert.ToDecimal(MagValueX.Text)
+                };
+                byte MXT = Convert.ToByte(MagTemperatureX.Text);
+                test.data = new byte[unicanLenght] {
+                    MXV.byte1, MXV.byte2, MXV.byte3, MXV.byte4,
+                    MXT,
+                    0
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
+                // Y
+                test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingMY.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveMY.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresMY.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn MYV = new() {
+                    fl = (float)Convert.ToDecimal(MagValueX.Text)
+                };
+                byte MYT = Convert.ToByte(MagTemperatureY.Text);
+                test.data = new byte[unicanLenght] {
+                    MYV.byte1, MYV.byte2, MYV.byte3, MYV.byte4,
+                    MYT,
+                    0
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
+                // Z
+                test = new() {
+                    unicanMSGId = Convert.ToUInt16(IdShippingMZ.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveMZ.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresMZ.Text, 16),
+                    unicanLength = unicanLenght
+                };
+                FlUn MZV = new() {
+                    fl = (float)Convert.ToDecimal(MagValueX.Text)
+                };
+                byte MZT = Convert.ToByte(MagTemperatureZ.Text);
+                test.data = new byte[unicanLenght] {
+                    MZV.byte1, MZV.byte2, MZV.byte3, MZV.byte4,
+                    MZT,
+                    0
+                };
+                CTU.SendWithCAN(test, serialPort, LogBox);
+            }
+        }
+
         private void SendAdcsBeacon_Click(object? sender, EventArgs? e) {
             if(UseInternet.Checked) {
                 //Need?
@@ -1250,14 +1200,7 @@ namespace HustonRTEMS {
                             LogBox.Text += $"To - {test.unicanAddressTo:X}; From - {test.unicanAddressFrom:X}; Id - {test.unicanMSGId:X};";
                         }));
 
-                        if(test.unicanAddressTo == Convert.ToInt16(AddresMag1.Text, 16) &&
-                             test.unicanAddressFrom == Convert.ToInt16(AddresReceiveMag.Text, 16) &&
-                             test.unicanMSGId == Convert.ToInt16(IdReceiveMag.Text, 16)) {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text += "\r\nSendMagnetometer1\r\n";
-                            }));
-                            SendMagnetometer1_Click(null, null);
-                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
+                        if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
                              test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
                              test.unicanMSGId == Convert.ToInt16(IdReceiveBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
@@ -1580,6 +1523,7 @@ namespace HustonRTEMS {
             }, token);
         }
 
+        private readonly CancellationTokenSource rateSensSource = new();
         private void AutoRateSens_CheckedChanged(object sender, EventArgs e) {
             if(AutoRateSens.Checked) {
                 LabelRateSensSendingPeriod.Visible = true;
@@ -1591,8 +1535,8 @@ namespace HustonRTEMS {
             }
         }
         private void RateSensSendingPeriod_TextChanged(object sender, EventArgs e) {
-            if(RateSensSendingPeriod.Text.Length == 0) timeSource.Cancel();
-            CancellationToken token = timeSource.Token;
+            if(RateSensSendingPeriod.Text.Length == 0) rateSensSource.Cancel();
+            CancellationToken token = rateSensSource.Token;
             TaskFactory factory = new(token);
             factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(RateSensSendingPeriod.Text);
@@ -1601,6 +1545,32 @@ namespace HustonRTEMS {
                     Thread.Sleep(sleepTime * 1000);
                     Debug.WriteLine($"Send rate sens {sleepTime}");
                     SendRateSens(null, null);
+                }
+            }, token);
+        }
+
+        private readonly CancellationTokenSource magSource = new();
+        private void AutoMag_CheckedChanged(object sender, EventArgs e) {
+            if(AutoMag.Checked) {
+                LabelMagSendingPeriod.Visible = true;
+                MagSendingPeriod.Visible = true;
+            } else {
+                LabelMagSendingPeriod.Visible = false;
+                MagSendingPeriod.Visible = false;
+                MagSendingPeriod.Text = "";
+            }
+        }
+        private void MagSendingPeriod_TextChanged(object sender, EventArgs e) {
+            if(MagSendingPeriod.Text.Length == 0) magSource.Cancel();
+            CancellationToken token = magSource.Token;
+            TaskFactory factory = new(token);
+            factory.StartNew(() => {
+                int sleepTime = Convert.ToInt16(MagSendingPeriod.Text);
+                while(MagSendingPeriod.Text.Length > 0 &&
+                        sleepTime == Convert.ToInt16(MagSendingPeriod.Text)) {
+                    Thread.Sleep(sleepTime * 1000);
+                    Debug.WriteLine($"Send rate sens {sleepTime}");
+                    SendMagnetometer(null, null);
                 }
             }, token);
         }
