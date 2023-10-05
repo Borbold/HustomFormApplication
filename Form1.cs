@@ -12,9 +12,6 @@ namespace HustonRTEMS {
         private enum VAR_NAME {
             Time, Plate_id, Sense_id, Value
         }
-        private readonly string[] variableNameLD = {
-            "Time", "Plate id", "Sense id", "Value", "Second"
-        };
 
         private readonly CanToUnican CTU = new();
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -141,7 +138,7 @@ namespace HustonRTEMS {
                 IdReceiveMZ.Text = section.IdReceiveMagZ;
                 IdShippingMZ.Text = section.IdShipingMagZ;
                 AddresMZ.Text = section.AddressMagZ;
-            }
+        }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             if(cfg.GetSection("customProperty") is CustomProperty section) {
@@ -1306,78 +1303,12 @@ namespace HustonRTEMS {
             }
         }
 
+        private readonly HandlerLittleD HLD = new();
         private void GetDBFileInfo_Click(object sender, EventArgs e) {
-            OpenFileDialog ofd = new() {
-                Title = "Select file",
-                Filter = "All files (*.*)|*.*|Text File (*.txt)|*.txt*",
-                FilterIndex = 1,
-            };
-            if(ofd.ShowDialog() == DialogResult.OK) {
-                NameDBFile.Text = ofd.FileName;
-            }
+            HLD.GetDBFileInfo(NameDBFile);
         }
         private void ReadDBFile_Click(object sender, EventArgs e) {
-            try {
-                FileStream fileStream = File.OpenRead(NameDBFile.Text);
-                BinaryReader binaryReader = new(fileStream);
-
-                byte[] result = binaryReader.ReadBytes((int)fileStream.Length);
-                int index = 0;
-                for(int i = 0; i < result.Length; i++) {
-                    if(result[i] == '_' && result[i + 1] == '_') {
-                        index = i + 13;
-                    }
-                }
-
-                uint intT = 0;
-                FlUn floatV = new();
-                for(int i = index, j = 0; i < result.Length; j = 0, i += 5) {
-                    if(j == 0) {
-                        intT |= result[i];
-                        intT |= (uint)result[i + 1] << 8;
-                        intT |= (uint)result[i + 2] << 16;
-                        intT |= (uint)result[i + 3] << 24;
-                        DateTime dt = new();
-                        dt = dt.AddSeconds(intT);
-                        dt = dt.AddYears(1969);
-                        DBAllText.Text += $"{variableNameLD[0]}: ";
-                        DBAllText.Text += dt;
-                        DBAllText.Text += ";\t";
-                        i += 4;
-                        j++;
-                    }
-                    if(j == 1) {
-                        GF.WriteDBInformation(result, i, DBAllText, variableNameLD, 1);
-                        i += 4;
-                        j++;
-                    }
-                    if(j == 2) {
-                        GF.WriteDBInformation(result, i, DBAllText, variableNameLD, 2);
-                        i += 4;
-                        j++;
-                    }
-                    if(j == 3) {
-                        floatV.byte1 = result[i];
-                        floatV.byte2 = result[i + 1];
-                        floatV.byte3 = result[i + 2];
-                        floatV.byte4 = result[i + 3];
-                        DBAllText.Text += $"{variableNameLD[3]}: ";
-                        DBAllText.Text += floatV.fl;
-                        DBAllText.Text += ";\t";
-                        i += 4;
-                        j++;
-                    }
-                    if(j == 4) {
-                        DBAllText.Text += $"{variableNameLD[4]}: ";
-                        DBAllText.Text += intT;
-                        DBAllText.Text += ";\n";
-                    }
-                }
-            }
-            catch(Exception ex) {
-                GF.ClearInvokeTextBox(LogBox2);
-                GF.InvokeTextBox(LogBox2, ex.Message);
-            }
+            HLD.ReadDBFile(NameDBFile, DBAllText, LogBox2);
         }
 
         private string allText;
@@ -1396,7 +1327,7 @@ namespace HustonRTEMS {
                         allDB = new();
                         foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Time]) == 0) {
+                            if(string.Compare(splitTimeText[0], HLD.variableNameLD[(int)VAR_NAME.Time]) == 0) {
                                 List<string> time = new();
                                 time.AddRange(splitTimeText[1].Split(new char[] { ' ', '.' }));
                                 time.Add(splitTimeText[2]);
@@ -1429,7 +1360,7 @@ namespace HustonRTEMS {
                         allDB = new();
                         foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Plate_id]) == 0) {
+                            if(string.Compare(splitTimeText[0], HLD.variableNameLD[(int)VAR_NAME.Plate_id]) == 0) {
                                 allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
                                 k++;
                             }
@@ -1454,7 +1385,7 @@ namespace HustonRTEMS {
                         allDB = new();
                         foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Sense_id]) == 0) {
+                            if(string.Compare(splitTimeText[0], HLD.variableNameLD[(int)VAR_NAME.Sense_id]) == 0) {
                                 allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
                                 k++;
                             }
@@ -1479,7 +1410,7 @@ namespace HustonRTEMS {
                         allDB = new();
                         foreach(string s in splitAllText) {
                             string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], variableNameLD[(int)VAR_NAME.Value]) == 0) {
+                            if(string.Compare(splitTimeText[0], HLD.variableNameLD[(int)VAR_NAME.Value]) == 0) {
                                 allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
                                 k++;
                             }
