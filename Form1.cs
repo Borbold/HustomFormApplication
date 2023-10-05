@@ -914,6 +914,7 @@ namespace HustonRTEMS {
             }
         }
 
+        private byte countRateSensSend = 0;
         private void SendRateSens(object? sender, EventArgs? e) {
             if(UseInternet.Checked) {
                 //Need?
@@ -935,7 +936,7 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     RSXV.byte1, RSXV.byte2, RSXV.byte3, RSXV.byte4,
                     RSXT,
-                    0
+                    (byte)(countRateSensSend << 1)
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Y
@@ -952,7 +953,7 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     RSYV.byte1, RSYV.byte2, RSYV.byte3, RSYV.byte4,
                     RSYT,
-                    0
+                    (byte)(countRateSensSend << 1)
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Z
@@ -969,12 +970,19 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     RSZV.byte1, RSZV.byte2, RSZV.byte3, RSZV.byte4,
                     RSZT,
-                    0
+                    (byte)(countRateSensSend << 1)
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
+
+                if(countRateSensSend == 128) countRateSensSend = 0;
+                countRateSensSend++;
+                CountSendingRateSens.Invoke(new Action(() => {
+                    CountSendingRateSens.Text = $"Количество отправок: {countRateSensSend}";
+                }));
             }
         }
 
+        private byte countMagSend = 0;
         private void SendMagnetometer(object? sender, EventArgs? e) {
             if(UseInternet.Checked) {
                 //Need?
@@ -996,7 +1004,7 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     MXV.byte1, MXV.byte2, MXV.byte3, MXV.byte4,
                     MXT,
-                    0
+                    (byte)(countRateSensSend << 1)
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Y
@@ -1013,7 +1021,7 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     MYV.byte1, MYV.byte2, MYV.byte3, MYV.byte4,
                     MYT,
-                    0
+                    (byte)(countRateSensSend << 1)
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Z
@@ -1030,9 +1038,16 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     MZV.byte1, MZV.byte2, MZV.byte3, MZV.byte4,
                     MZT,
-                    0
+                    (byte)(countRateSensSend << 1)
                 };
+
                 CTU.SendWithCAN(test, serialPort, LogBox);
+
+                if(countMagSend == 128) countMagSend = 0;
+                countMagSend++;
+                CountSendingMag.Invoke(new Action(() => {
+                    CountSendingMag.Text = $"Количество отправок: {countMagSend}";
+                }));
             }
         }
 

@@ -26,7 +26,7 @@
             LogBox = new TextBox();
             ListenPort = new Button();
             TemperatureLable = new Label();
-            LabelMagSendingPeriod = new TabControl();
+            Lala = new TabControl();
             TabTemperature = new TabPage();
             label87 = new Label();
             IdShippingTem = new TextBox();
@@ -354,7 +354,7 @@
             label156 = new Label();
             AddresReceiveMX = new TextBox();
             MagSendingPeriod = new TextBox();
-            label2 = new Label();
+            LabelMagSendingPeriod = new Label();
             AutoMag = new CheckBox();
             label1 = new Label();
             MainTabControll = new TabControl();
@@ -399,7 +399,9 @@
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
             LogBox2 = new TextBox();
-            LabelMagSendingPeriod.SuspendLayout();
+            CountSendingMag = new Label();
+            CountSendingRateSens = new Label();
+            Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
             TabAcselerometr.SuspendLayout();
@@ -470,25 +472,25 @@
             TemperatureLable.TabIndex = 4;
             TemperatureLable.Text = "Температура первого";
             // 
-            // LabelMagSendingPeriod
+            // Lala
             // 
-            LabelMagSendingPeriod.Controls.Add(TabTemperature);
-            LabelMagSendingPeriod.Controls.Add(TabAcselerometr);
-            LabelMagSendingPeriod.Controls.Add(tabPage1);
-            LabelMagSendingPeriod.Controls.Add(tabPage2);
-            LabelMagSendingPeriod.Controls.Add(tabPage3);
-            LabelMagSendingPeriod.Controls.Add(tabPage4);
-            LabelMagSendingPeriod.Controls.Add(tabPage6);
-            LabelMagSendingPeriod.Controls.Add(tabPage7);
-            LabelMagSendingPeriod.Controls.Add(tabPage8);
-            LabelMagSendingPeriod.Controls.Add(tabPage9);
-            LabelMagSendingPeriod.Controls.Add(TabMagnetometer);
-            LabelMagSendingPeriod.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelMagSendingPeriod.Location = new Point(6, 6);
-            LabelMagSendingPeriod.Name = "LabelMagSendingPeriod";
-            LabelMagSendingPeriod.SelectedIndex = 0;
-            LabelMagSendingPeriod.Size = new Size(1212, 436);
-            LabelMagSendingPeriod.TabIndex = 6;
+            Lala.Controls.Add(TabTemperature);
+            Lala.Controls.Add(TabAcselerometr);
+            Lala.Controls.Add(tabPage1);
+            Lala.Controls.Add(tabPage2);
+            Lala.Controls.Add(tabPage3);
+            Lala.Controls.Add(tabPage4);
+            Lala.Controls.Add(tabPage6);
+            Lala.Controls.Add(tabPage7);
+            Lala.Controls.Add(tabPage8);
+            Lala.Controls.Add(tabPage9);
+            Lala.Controls.Add(TabMagnetometer);
+            Lala.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            Lala.Location = new Point(6, 6);
+            Lala.Name = "Lala";
+            Lala.SelectedIndex = 0;
+            Lala.Size = new Size(1212, 436);
+            Lala.TabIndex = 6;
             // 
             // TabTemperature
             // 
@@ -3080,6 +3082,7 @@
             // 
             // tabPage9
             // 
+            tabPage9.Controls.Add(CountSendingRateSens);
             tabPage9.Controls.Add(RateSensSendingPeriod);
             tabPage9.Controls.Add(LabelRateSensSendingPeriod);
             tabPage9.Controls.Add(AutoRateSens);
@@ -3545,6 +3548,7 @@
             // 
             // TabMagnetometer
             // 
+            TabMagnetometer.Controls.Add(CountSendingMag);
             TabMagnetometer.Controls.Add(label11);
             TabMagnetometer.Controls.Add(MagTemperatureZ);
             TabMagnetometer.Controls.Add(label12);
@@ -3585,7 +3589,7 @@
             TabMagnetometer.Controls.Add(label156);
             TabMagnetometer.Controls.Add(AddresReceiveMX);
             TabMagnetometer.Controls.Add(MagSendingPeriod);
-            TabMagnetometer.Controls.Add(label2);
+            TabMagnetometer.Controls.Add(LabelMagSendingPeriod);
             TabMagnetometer.Controls.Add(AutoMag);
             TabMagnetometer.Controls.Add(label1);
             TabMagnetometer.Location = new Point(4, 26);
@@ -3977,15 +3981,15 @@
             MagSendingPeriod.Visible = false;
             MagSendingPeriod.TextChanged += MagSendingPeriod_TextChanged;
             // 
-            // label2
+            // LabelMagSendingPeriod
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(6, 104);
-            label2.Name = "label2";
-            label2.Size = new Size(113, 17);
-            label2.TabIndex = 164;
-            label2.Text = "Период отправки";
-            label2.Visible = false;
+            LabelMagSendingPeriod.AutoSize = true;
+            LabelMagSendingPeriod.Location = new Point(6, 104);
+            LabelMagSendingPeriod.Name = "LabelMagSendingPeriod";
+            LabelMagSendingPeriod.Size = new Size(113, 17);
+            LabelMagSendingPeriod.TabIndex = 164;
+            LabelMagSendingPeriod.Text = "Период отправки";
+            LabelMagSendingPeriod.Visible = false;
             // 
             // AutoMag
             // 
@@ -4339,7 +4343,7 @@
             // 
             // SensorReadings
             // 
-            SensorReadings.Controls.Add(LabelMagSendingPeriod);
+            SensorReadings.Controls.Add(Lala);
             SensorReadings.Location = new Point(4, 24);
             SensorReadings.Name = "SensorReadings";
             SensorReadings.Padding = new Padding(3);
@@ -4486,6 +4490,26 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
+            // CountSendingMag
+            // 
+            CountSendingMag.AutoSize = true;
+            CountSendingMag.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            CountSendingMag.Location = new Point(6, 378);
+            CountSendingMag.Name = "CountSendingMag";
+            CountSendingMag.Size = new Size(205, 25);
+            CountSendingMag.TabIndex = 205;
+            CountSendingMag.Text = "Количество отправок";
+            // 
+            // CountSendingRateSens
+            // 
+            CountSendingRateSens.AutoSize = true;
+            CountSendingRateSens.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            CountSendingRateSens.Location = new Point(6, 378);
+            CountSendingRateSens.Name = "CountSendingRateSens";
+            CountSendingRateSens.Size = new Size(205, 25);
+            CountSendingRateSens.TabIndex = 206;
+            CountSendingRateSens.Text = "Количество отправок";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -4501,7 +4525,7 @@
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             ResizeBegin += MainForm_ResizeBegin;
-            LabelMagSendingPeriod.ResumeLayout(false);
+            Lala.ResumeLayout(false);
             TabTemperature.ResumeLayout(false);
             TabTemperature.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).EndInit();
@@ -4563,7 +4587,7 @@
         private TextBox LogBox;
         private Button ListenPort;
         private Label TemperatureLable;
-        private TabControl LabelMagSendingPeriod;
+        private TabControl Lala;
         private TabPage TabTemperature;
         private TabPage TabMagnetometer;
         private TabPage TabAcselerometr;
@@ -4937,7 +4961,9 @@
         private Label label156;
         private TextBox AddresReceiveMX;
         private TextBox MagSendingPeriod;
-        private Label label2;
+        private Label LabelMagSendingPeriod;
         private CheckBox AutoMag;
+        private Label CountSendingRateSens;
+        private Label CountSendingMag;
     }
 }
