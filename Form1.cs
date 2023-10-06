@@ -3,16 +3,9 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Intrinsics.X86;
-using System.Threading;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace HustonRTEMS {
     public partial class MainForm: Form {
-        private enum VAR_NAME {
-            Time, Plate_id, Sense_id, Value
-        }
-
         private readonly CanToUnican CTU = new();
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
@@ -138,7 +131,7 @@ namespace HustonRTEMS {
                 IdReceiveMZ.Text = section.IdReceiveMagZ;
                 IdShippingMZ.Text = section.IdShipingMagZ;
                 AddresMZ.Text = section.AddressMagZ;
-        }
+            }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             if(cfg.GetSection("customProperty") is CustomProperty section) {
@@ -788,7 +781,7 @@ namespace HustonRTEMS {
                         test.data[++i] = occupiedValueI.byte2;
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId)) {
                         int psTime = Convert.ToInt32(PStime.Text);
-                        test.data[i] = (byte)(psTime);
+                        test.data[i] = (byte)psTime;
                         test.data[++i] = (byte)(psTime >> 8);
                         test.data[++i] = (byte)(psTime >> 16);
                         test.data[++i] = (byte)(psTime >> 24);
@@ -800,11 +793,11 @@ namespace HustonRTEMS {
                     } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
                             + PS_FL + tAMP)) {
                         test.data[i] = Convert.ToByte(UHFt_uhf.Text);
-                    } else if(i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
-                            + PS_FL + tAMP + tUHF + PSSIrx + PSSIdle + Pf + Pb)) {
-                        test.data[i] = Convert.ToByte(UHFuhf_reset_counter.Text);
                     } else {
-                        test.data[i] = 0;
+                        test.data[i] = i == (psVar + checkVar + reserveVar + PSUAB + regTelId + PS_time + psResetCounter
+                                                    + PS_FL + tAMP + tUHF + PSSIrx + PSSIdle + Pf + Pb)
+                            ? Convert.ToByte(UHFuhf_reset_counter.Text)
+                            : (byte)0;
                     }
                 }
                 CTU.SendWithCAN(test, serialPort, LogBox);
@@ -1145,16 +1138,16 @@ namespace HustonRTEMS {
                     } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ + 8 +
                             orbQuatW + orbQuatX + orbQuatY + orbQuatZ + 456)) {
                         int wheel = Convert.ToInt16(wheel_rpm_x_plus.Text);
-                        test.data[i] = (byte)(wheel);
+                        test.data[i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
                         wheel = Convert.ToInt16(wheel_rpm_x_minus.Text);
-                        test.data[i] = (byte)(wheel);
+                        test.data[i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
                         wheel = Convert.ToInt16(wheel_rpm_y_plus.Text);
-                        test.data[i] = (byte)(wheel);
+                        test.data[i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
                         wheel = Convert.ToInt16(wheel_rpm_y_minus.Text);
-                        test.data[i] = (byte)(wheel);
+                        test.data[i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
                     } else {
                         test.data[i] = 0;
@@ -1311,129 +1304,8 @@ namespace HustonRTEMS {
             HLD.ReadDBFile(NameDBFile, DBAllText, LogBox2);
         }
 
-        private string allText;
         private void FilterComboBox_SelectedIndexChanged(object? sender, EventArgs? e) {
-            if(DBAllText.Text.Length > 0 || (allText != null && allText.Length > 0)) {
-                Dictionary<int, EnVal> allDB;
-                Dictionary<int, EnVal> sortDB;
-                int k;
-
-                allText ??= DBAllText.Text;
-                string[] splitAllText = allText.Split(new char[] { '\n', '\t' });
-                string[] lineBreak = allText.Split('\n');
-                switch(FilterComboBox.SelectedIndex) {
-                    case 0:
-                        k = 0;
-                        allDB = new();
-                        foreach(string s in splitAllText) {
-                            string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], HLD.variableNameLD[(int)VAR_NAME.Time]) == 0) {
-                                List<string> time = new();
-                                time.AddRange(splitTimeText[1].Split(new char[] { ' ', '.' }));
-                                time.Add(splitTimeText[2]);
-                                time.AddRange(splitTimeText[3].Split(';'));
-                                DateTime dt = new(Convert.ToInt32(time[3]),
-                                    Convert.ToInt32(time[2]), Convert.ToInt32(time[1]),
-                                    Convert.ToInt32(time[4]), Convert.ToInt32(time[5]),
-                                    Convert.ToInt32(time[6]));
-                                allDB.Add(k, (EnVal)dt.Ticks);
-                                k++;
-                            }
-                        }
-
-                        sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        try {
-                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter,
-                                (EnVal)Convert.ToDecimal(FilterTextBox.Text));
-                        }
-                        catch(Exception ex) {
-                            LogBox2.Text = ex.Message;
-                        }
-
-                        DBAllText.Text = "";
-                        foreach(KeyValuePair<int, EnVal> sort in sortDB) {
-                            DBAllText.Text += lineBreak[sort.Key] + '\n';
-                        }
-                        break;
-                    case 1:
-                        k = 0;
-                        allDB = new();
-                        foreach(string s in splitAllText) {
-                            string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], HLD.variableNameLD[(int)VAR_NAME.Plate_id]) == 0) {
-                                allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
-                                k++;
-                            }
-                        }
-
-                        sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        try {
-                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter,
-                                (EnVal)Convert.ToDecimal(FilterTextBox.Text));
-                        }
-                        catch(Exception ex) {
-                            LogBox2.Text = ex.Message;
-                        }
-
-                        DBAllText.Text = "";
-                        foreach(KeyValuePair<int, EnVal> sort in sortDB) {
-                            DBAllText.Text += lineBreak[sort.Key] + '\n';
-                        }
-                        break;
-                    case 2:
-                        k = 0;
-                        allDB = new();
-                        foreach(string s in splitAllText) {
-                            string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], HLD.variableNameLD[(int)VAR_NAME.Sense_id]) == 0) {
-                                allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
-                                k++;
-                            }
-                        }
-
-                        sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        try {
-                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter,
-                                (EnVal)Convert.ToDecimal(FilterTextBox.Text));
-                        }
-                        catch(Exception ex) {
-                            LogBox2.Text = ex.Message;
-                        }
-
-                        DBAllText.Text = "";
-                        foreach(KeyValuePair<int, EnVal> sort in sortDB) {
-                            DBAllText.Text += lineBreak[sort.Key] + '\n';
-                        }
-                        break;
-                    case 3:
-                        k = 0;
-                        allDB = new();
-                        foreach(string s in splitAllText) {
-                            string[] splitTimeText = s.Split(':');
-                            if(string.Compare(splitTimeText[0], HLD.variableNameLD[(int)VAR_NAME.Value]) == 0) {
-                                allDB.Add(k, (EnVal)Convert.ToInt32(splitTimeText[1].Split(';')[0]));
-                                k++;
-                            }
-                        }
-
-                        sortDB = allDB.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-                        try {
-                            GF.CreateFilterDB(ref sortDB, allDB.Count, HowFilter,
-                                (EnVal)Convert.ToDecimal(FilterTextBox.Text));
-                        }
-                        catch(Exception ex) {
-                            LogBox2.Text = ex.Message;
-                        }
-
-                        DBAllText.Text = "";
-                        foreach(KeyValuePair<int, EnVal> sort in sortDB) {
-                            DBAllText.Text += lineBreak[sort.Key] + '\n';
-                        }
-                        break;
-                }
-            } else {
-                LogBox2.Text = "Text box clean. Fill it in with the data.";
-            }
+            HLD.SelectedIndexChanged(DBAllText, FilterComboBox, HowFilter, FilterTextBox, LogBox2);
         }
         private void FilterTextBox_TextChanged(object sender, EventArgs e) {
             FilterComboBox_SelectedIndexChanged(null, null);
@@ -1458,7 +1330,7 @@ namespace HustonRTEMS {
             if(TimeSendingPeriod.Text.Length == 0) timeSource.Cancel();
             CancellationToken token = timeSource.Token;
             TaskFactory factory = new(token);
-            factory.StartNew(() => {
+            _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(TimeSendingPeriod.Text);
                 while(TimeSendingPeriod.Text.Length > 0 &&
                         sleepTime == Convert.ToInt16(TimeSendingPeriod.Text)) {
@@ -1484,7 +1356,7 @@ namespace HustonRTEMS {
             if(RateSensSendingPeriod.Text.Length == 0) rateSensSource.Cancel();
             CancellationToken token = rateSensSource.Token;
             TaskFactory factory = new(token);
-            factory.StartNew(() => {
+            _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(RateSensSendingPeriod.Text);
                 while(RateSensSendingPeriod.Text.Length > 0 &&
                         sleepTime == Convert.ToInt16(RateSensSendingPeriod.Text)) {
@@ -1510,7 +1382,7 @@ namespace HustonRTEMS {
             if(MagSendingPeriod.Text.Length == 0) magSource.Cancel();
             CancellationToken token = magSource.Token;
             TaskFactory factory = new(token);
-            factory.StartNew(() => {
+            _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(MagSendingPeriod.Text);
                 while(MagSendingPeriod.Text.Length > 0 &&
                         sleepTime == Convert.ToInt16(MagSendingPeriod.Text)) {
