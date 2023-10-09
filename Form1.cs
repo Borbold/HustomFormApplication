@@ -1190,7 +1190,7 @@ namespace HustonRTEMS {
                     } while(byteWrite < serialPort.BytesToRead);
                     //--------------------------------
                     int k = 0;
-                    while(k + 8 + (data[k + 4] - '0') <= data.Length) {
+                    while(k < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length) {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text += $"\r\nk lenght: {k + 8 + (data[k + 4] - '0')} lenght data: {data.Length}";
                         }));
