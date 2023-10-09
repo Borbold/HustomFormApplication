@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HustonRTEMS {
     public partial class MainForm: Form {
@@ -132,6 +133,8 @@ namespace HustonRTEMS {
                 IdShippingMZ.Text = section.IdShipingMagZ;
                 AddresMZ.Text = section.AddressMagZ;
             }
+            flagRead = true;
+            Read();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             CloseRKSCAN_Click(null, null);
@@ -1167,10 +1170,15 @@ namespace HustonRTEMS {
             Read();
             Thread.Sleep(1000);
         }
+        char[] data = new char[20];
+        string dataS = "t38221542t3852FDF000";
         private void Read() {
+            for(int i = 0; i < 20; i++) {
+                data[i] = dataS[i];
+            }
             try {
                 if(flagRead) {
-                    char[] data;
+                    /*char[] data;
                     LogBox.Invoke(new Action(() => {
                         LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
                     }));
@@ -1187,9 +1195,10 @@ namespace HustonRTEMS {
                         }
 
                         byteWrite += copyByte;
-                    } while(byteWrite < serialPort.BytesToRead);
+                    } while(byteWrite < serialPort.BytesToRead);*/
                     //--------------------------------
                     int k = 0;
+                    List<UnicanMessage> lUM = new();
                     while(k + 4 < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length) {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text += $"\r\nk lenght: {k + 8 + (data[k + 4] - '0')} lenght data: {data.Length}";
@@ -1209,38 +1218,40 @@ namespace HustonRTEMS {
                             CTU.ConvertCan(ref test, canBuf);
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nПринято\r\n";
-                                LogBox.Text += $"To - {test.unicanAddressTo:X}; From - {test.unicanAddressFrom:X}; Id - {test.unicanMSGId:X};";
+                                LogBox.Text += $"To - {test.unicanAddressTo:X}; From - {test.unicanAddressFrom:X}; Id - {test.unicanMSGId:X};\r\n";
                             }));
-
-                            if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
-                                 test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
-                                 test.unicanMSGId == Convert.ToInt64(IdReceiveBeacon.Text, 16)) {
-                                LogBox.Invoke(new Action(() => {
-                                    LogBox.Text += "\r\nSendBeacon\r\n";
-                                }));
-                                SendBeacon_Click(null, null);
-                            } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
-                                 test.unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
-                                 test.unicanMSGId == Convert.ToInt64(IdReceiveExBeacon.Text, 16)) {
-                                LogBox.Invoke(new Action(() => {
-                                    LogBox.Text += "\r\nSendExBeacon\r\n";
-                                }));
-                                SendExBeacon_Click(null, null);
-                            } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
-                                 test.unicanAddressTo == Convert.ToInt16(AddresTime.Text, 16) &&
-                                 test.unicanMSGId == Convert.ToInt64(IdReceiveTime.Text, 16)) {
-                                LogBox.Invoke(new Action(() => {
-                                    LogBox.Text += "\r\nSendTime\r\n";
-                                }));
-                                SendTime(null, null);
-                            } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveAdcsBeacon.Text, 16) &&
-                                 test.unicanAddressTo == Convert.ToInt16(AddresAdcsBeacon.Text, 16) &&
-                                 test.unicanMSGId == Convert.ToInt64(IdReceiveAdcsBeacon.Text, 16)) {
-                                LogBox.Invoke(new Action(() => {
-                                    LogBox.Text += "\r\nSendAdcsBeacon\r\n";
-                                }));
-                                SendAdcsBeacon_Click(null, null);
-                            }
+                            lUM.Add(test);
+                        }
+                    }
+                    for(int i = lUM.Count - 1; i >= 0; i--) {
+                        if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
+                             lUM[i].unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
+                             lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveBeacon.Text, 16)) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nSendBeacon\r\n";
+                            }));
+                            SendBeacon_Click(null, null);
+                        } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
+                             lUM[i].unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
+                             lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveExBeacon.Text, 16)) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nSendExBeacon\r\n";
+                            }));
+                            SendExBeacon_Click(null, null);
+                        } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
+                             lUM[i].unicanAddressTo == Convert.ToInt16(AddresTime.Text, 16) &&
+                             lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveTime.Text, 16)) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nSendTime\r\n";
+                            }));
+                            SendTime(null, null);
+                        } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveAdcsBeacon.Text, 16) &&
+                             lUM[i].unicanAddressTo == Convert.ToInt16(AddresAdcsBeacon.Text, 16) &&
+                             lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveAdcsBeacon.Text, 16)) {
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nSendAdcsBeacon\r\n";
+                            }));
+                            SendAdcsBeacon_Click(null, null);
                         }
                     }
                 }
