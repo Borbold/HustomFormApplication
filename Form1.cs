@@ -1188,51 +1188,55 @@ namespace HustonRTEMS {
                         byteWrite += copyByte;
                     } while(byteWrite < serialPort.BytesToRead);
                     //--------------------------------
-                    if(data.Length > 0 && data[0] == 't') {
-                        string CI = string.Format("{0}{1}{2}", data[1], data[2], data[3]);
-                        string byteS = string.Format("{0}{1}{2}{3}", data[5], data[6], data[7], data[8]);
-                        CanMessage canBuf = new() {
-                            canExtbit = 0,
-                            canIdentifier = Convert.ToUInt32(CI, 16),
-                            canDLC = Convert.ToSByte(data[4]),
-                            data = Convert.FromHexString(byteS)
-                        };
-                        //---------------------------
-                        UnicanMessage test = new();
-                        CTU.ConvertCan(ref test, canBuf);
-                        LogBox.Invoke(new Action(() => {
-                            LogBox.Text += "\r\nПринято\r\n";
-                            LogBox.Text += $"To - {test.unicanAddressTo:X}; From - {test.unicanAddressFrom:X}; Id - {test.unicanMSGId:X};";
-                        }));
+                    int k = 0;
+                    while(k + 8 + data[k + 4] < data.Length) {
+                        if(data.Length > 0 && data[k] == 't') {
+                            string CI = string.Format("{0}{1}{2}", data[k + 1], data[k + 2], data[k + 3]);
+                            string byteS = string.Format("{0}{1}{2}{3}", data[k + 5], data[k + 6], data[k + 7], data[k + 8]);
+                            CanMessage canBuf = new() {
+                                canExtbit = 0,
+                                canIdentifier = Convert.ToUInt32(CI, 16),
+                                canDLC = Convert.ToSByte(data[k + 4]),
+                                data = Convert.FromHexString(byteS)
+                            };
+                            k += 8 + data[k + 4];
+                            //---------------------------
+                            UnicanMessage test = new();
+                            CTU.ConvertCan(ref test, canBuf);
+                            LogBox.Invoke(new Action(() => {
+                                LogBox.Text += "\r\nПринято\r\n";
+                                LogBox.Text += $"To - {test.unicanAddressTo:X}; From - {test.unicanAddressFrom:X}; Id - {test.unicanMSGId:X};";
+                            }));
 
-                        if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
-                             test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
-                             test.unicanMSGId == Convert.ToInt16(IdReceiveBeacon.Text, 16)) {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text += "\r\nSendBeacon\r\n";
-                            }));
-                            SendBeacon_Click(null, null);
-                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
-                             test.unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
-                             test.unicanMSGId == Convert.ToInt16(IdReceiveExBeacon.Text, 16)) {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text += "\r\nSendExBeacon\r\n";
-                            }));
-                            SendExBeacon_Click(null, null);
-                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
-                             test.unicanAddressTo == Convert.ToInt16(AddresTime.Text, 16) &&
-                             test.unicanMSGId == Convert.ToInt16(IdReceiveTime.Text, 16)) {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text += "\r\nSendTime\r\n";
-                            }));
-                            SendTime(null, null);
-                        } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveAdcsBeacon.Text, 16) &&
-                             test.unicanAddressTo == Convert.ToInt16(AddresAdcsBeacon.Text, 16) &&
-                             test.unicanMSGId == Convert.ToInt16(IdReceiveAdcsBeacon.Text, 16)) {
-                            LogBox.Invoke(new Action(() => {
-                                LogBox.Text += "\r\nSendAdcsBeacon\r\n";
-                            }));
-                            SendAdcsBeacon_Click(null, null);
+                            if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
+                                 test.unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
+                                 test.unicanMSGId == Convert.ToInt16(IdReceiveBeacon.Text, 16)) {
+                                LogBox.Invoke(new Action(() => {
+                                    LogBox.Text += "\r\nSendBeacon\r\n";
+                                }));
+                                SendBeacon_Click(null, null);
+                            } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
+                                 test.unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
+                                 test.unicanMSGId == Convert.ToInt16(IdReceiveExBeacon.Text, 16)) {
+                                LogBox.Invoke(new Action(() => {
+                                    LogBox.Text += "\r\nSendExBeacon\r\n";
+                                }));
+                                SendExBeacon_Click(null, null);
+                            } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
+                                 test.unicanAddressTo == Convert.ToInt16(AddresTime.Text, 16) &&
+                                 test.unicanMSGId == Convert.ToInt16(IdReceiveTime.Text, 16)) {
+                                LogBox.Invoke(new Action(() => {
+                                    LogBox.Text += "\r\nSendTime\r\n";
+                                }));
+                                SendTime(null, null);
+                            } else if(test.unicanAddressFrom == Convert.ToInt16(AddresReceiveAdcsBeacon.Text, 16) &&
+                                 test.unicanAddressTo == Convert.ToInt16(AddresAdcsBeacon.Text, 16) &&
+                                 test.unicanMSGId == Convert.ToInt16(IdReceiveAdcsBeacon.Text, 16)) {
+                                LogBox.Invoke(new Action(() => {
+                                    LogBox.Text += "\r\nSendAdcsBeacon\r\n";
+                                }));
+                                SendAdcsBeacon_Click(null, null);
+                            }
                         }
                     }
                 }
