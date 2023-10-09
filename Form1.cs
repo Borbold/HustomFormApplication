@@ -1165,7 +1165,11 @@ namespace HustonRTEMS {
 
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
             Thread.Sleep(1000);
-            Read();
+            CancellationToken token = timeSource.Token;
+            TaskFactory factory = new(token);
+            _ = factory.StartNew(() => {
+                Read();
+            }, token);
             Thread.Sleep(1000);
         }
         private void Read() {
@@ -1214,6 +1218,7 @@ namespace HustonRTEMS {
                             }));
                             lUM.Add(test);
                         }
+                        Thread.Sleep(1000);
                     }
                     for(int i = lUM.Count - 1; i >= 0; i--) {
                         if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
@@ -1245,6 +1250,7 @@ namespace HustonRTEMS {
                             }));
                             SendAdcsBeacon_Click(null, null);
                         }
+                        Thread.Sleep(1000);
                     }
                 }
             }
