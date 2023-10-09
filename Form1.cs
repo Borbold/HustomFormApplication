@@ -1216,7 +1216,7 @@ namespace HustonRTEMS {
                             lUM.Add(test);
                         }
                     }
-                    for(int i = lUM.Count - 1; i >= 0; i--) {
+                    for(int i = lUM.Count - 1; i >= 1; i--) {
                         if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveBeacon.Text, 16)) {
