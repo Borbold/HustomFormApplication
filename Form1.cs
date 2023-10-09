@@ -1190,9 +1190,8 @@ namespace HustonRTEMS {
                         byteWrite += copyByte;
                     } while(byteWrite < serialPort.BytesToRead);
                     //--------------------------------
-                    int k = 0;
                     List<UnicanMessage> lUM = new();
-                    while(k + 4 < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length) {
+                    for(int k = 0; k + 4 < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length;) {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text += $"\r\nk lenght: {k + 8 + (data[k + 4] - '0')} lenght data: {data.Length}";
                         }));
@@ -1216,7 +1215,7 @@ namespace HustonRTEMS {
                             lUM.Add(test);
                         }
                     }
-                    for(int i = 0; i < lUM.Count; i++) {
+                    for(int i = lUM.Count - 1; i >= 0; i--) {
                         if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveBeacon.Text, 16)) {
