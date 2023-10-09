@@ -1191,9 +1191,9 @@ namespace HustonRTEMS {
                     //--------------------------------
                     int k = 0;
                     LogBox.Invoke(new Action(() => {
-                        LogBox.Text += $"\r\nk lenght: {k + 8 + data[k + 4]} lenght data: {data.Length}";
+                        LogBox.Text += $"\r\nk lenght: {k + 8 + Convert.ToInt16(data[k + 4])} lenght data: {data.Length}";
                     }));
-                    while(k + 8 + data[k + 4] < data.Length) {
+                    while(k + 8 + Convert.ToInt16(data[k + 4]) < data.Length) {
                         if(data.Length > 0 && data[k] == 't') {
                             string CI = string.Format("{0}{1}{2}", data[k + 1], data[k + 2], data[k + 3]);
                             string byteS = string.Format("{0}{1}{2}{3}", data[k + 5], data[k + 6], data[k + 7], data[k + 8]);
@@ -1289,7 +1289,7 @@ namespace HustonRTEMS {
         }
         private void CloseRKSCAN_Click(object? sender, EventArgs? e) {
             flagRead = false;
-            if(serialPort.IsOpen) {
+            if(serialPort != null && serialPort.IsOpen) {
                 try {
                     // Закрыть
                     serialPort.Write("C\r");
