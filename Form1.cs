@@ -134,6 +134,7 @@ namespace HustonRTEMS {
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            CloseRKSCAN_Click(null, null);
             if(cfg.GetSection("customProperty") is CustomProperty section) {
                 section.IP = IPTextBox.Text;
                 section.PortRTEMS = PortRTEMS.Text;
@@ -1286,7 +1287,7 @@ namespace HustonRTEMS {
                 LogBox.Text = "serialPort is open";
             }
         }
-        private void CloseRKSCAN_Click(object sender, EventArgs e) {
+        private void CloseRKSCAN_Click(object? sender, EventArgs? e) {
             flagRead = false;
             if(serialPort.IsOpen) {
                 try {
