@@ -1189,6 +1189,9 @@ namespace HustonRTEMS {
                     } while(byteWrite < serialPort.BytesToRead);
                     //--------------------------------
                     int k = 0;
+                    LogBox.Invoke(new Action(() => {
+                        LogBox.Text += $"\r\nk lenght: {k + 8 + data[k + 4]} lenght data: {data.Length}";
+                    }));
                     while(k + 8 + data[k + 4] < data.Length) {
                         if(data.Length > 0 && data[k] == 't') {
                             string CI = string.Format("{0}{1}{2}", data[k + 1], data[k + 2], data[k + 3]);
