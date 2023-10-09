@@ -1205,7 +1205,7 @@ namespace HustonRTEMS {
                                 canDLC = Convert.ToSByte(data[k + 4]),
                                 data = Convert.FromHexString(byteS)
                             };
-                            k += 8 + (data[k + 4] - '0') - 1;
+                            k += 8 + (data[k + 4] - '0');
                             //---------------------------
                             UnicanMessage test = new();
                             CTU.ConvertCan(ref test, canBuf);
@@ -1216,7 +1216,7 @@ namespace HustonRTEMS {
                             lUM.Add(test);
                         }
                     }
-                    for(int i = lUM.Count - 1; i >= 1; i--) {
+                    for(int i = 0; i < lUM.Count; i++) {
                         if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveBeacon.Text, 16)) {
