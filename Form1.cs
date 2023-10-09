@@ -1203,7 +1203,7 @@ namespace HustonRTEMS {
                                 canDLC = Convert.ToSByte(data[k + 4]),
                                 data = Convert.FromHexString(byteS)
                             };
-                            k += 8 + data[k + 4];
+                            k += 8 + (data[k + 4] - '0');
                             //---------------------------
                             UnicanMessage test = new();
                             CTU.ConvertCan(ref test, canBuf);
