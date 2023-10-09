@@ -1072,9 +1072,9 @@ namespace HustonRTEMS {
                     wheelRpmXPlus + wheelRpmXMinus + wheelRpmYPlus + wheelRpmYMinus
                     + 3;
                 UnicanMessage test = new() {
-                    unicanMSGId = Convert.ToUInt16(IdShippingTime.Text, 16),
-                    unicanAddressTo = Convert.ToUInt16(AddresReceiveTime.Text, 16),
-                    unicanAddressFrom = Convert.ToUInt16(AddresTime.Text, 16),
+                    unicanMSGId = Convert.ToUInt16(IdShippingAdcsBeacon.Text, 16),
+                    unicanAddressTo = Convert.ToUInt16(AddresReceiveAdcsBeacon.Text, 16),
+                    unicanAddressFrom = Convert.ToUInt16(AddresAdcsBeacon.Text, 16),
                     unicanLength = unicanLenght,
                     data = new byte[unicanLenght]
                 };
