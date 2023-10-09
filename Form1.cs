@@ -1195,7 +1195,7 @@ namespace HustonRTEMS {
                     } while(byteWrite < serialPort.BytesToRead);
                     //--------------------------------
                     List<UnicanMessage> lUM = new();
-                    for(int k = 0; k + 4 < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length && k < 30;) {
+                    for(int k = 0; k + 4 < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length;) {
                         LogBox.Invoke(new Action(() => {
                             LogBox.Text += $"\r\nk lenght: {k + 8 + (data[k + 4] - '0')} lenght data: {data.Length}";
                         }));
@@ -1217,6 +1217,8 @@ namespace HustonRTEMS {
                                 LogBox.Text += $"To - {test.unicanAddressTo:X}; From - {test.unicanAddressFrom:X}; Id - {test.unicanMSGId:X};\r\n";
                             }));
                             lUM.Add(test);
+                        } else {
+                            k++;
                         }
                         Thread.Sleep(1000);
                     }
