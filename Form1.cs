@@ -1064,11 +1064,12 @@ namespace HustonRTEMS {
                 const int wheelRpmXMinus = 1 * sizeof(short);
                 const int wheelRpmYPlus = 1 * sizeof(short);
                 const int wheelRpmYMinus = 1 * sizeof(short);
+                const int otherVal = (3 * sizeof(int)) + sizeof(byte) + (7 * sizeof(int)) + sizeof(byte) + (3 * sizeof(int)) + (3 * sizeof(byte));
                 const int unicanLenght = time + uptime +
                     eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ
                     + sizeof(byte) +
                     orbQuatW + orbQuatX + orbQuatY + orbQuatZ
-                    + (3 * sizeof(int)) + sizeof(byte) + (7 * sizeof(int)) + sizeof(byte) + (3 * sizeof(int)) + (3 * sizeof(byte)) +
+                    + otherVal +
                     wheelRpmXPlus + wheelRpmXMinus + wheelRpmYPlus + wheelRpmYMinus
                     + (3 * sizeof(byte));
                 UnicanMessage test = new() {
@@ -1116,7 +1117,8 @@ namespace HustonRTEMS {
                         test.data[++i] = AV.byte2;
                         test.data[++i] = AV.byte3;
                         test.data[++i] = AV.byte4;
-                    } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ + 8)) {
+                    } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ +
+                            sizeof(byte))) {
                         quat.fl = (float)Convert.ToDecimal(orb_quat_w.Text);
                         test.data[i] = quat.byte1;
                         test.data[++i] = quat.byte2;
@@ -1137,8 +1139,10 @@ namespace HustonRTEMS {
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                    } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ + 8 +
-                            orbQuatW + orbQuatX + orbQuatY + orbQuatZ + 456)) {
+                    } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ +
+                            sizeof(byte) +
+                            orbQuatW + orbQuatX + orbQuatY + orbQuatZ +
+                            otherVal)) {
                         int wheel = Convert.ToInt16(wheel_rpm_x_plus.Text);
                         test.data[i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
