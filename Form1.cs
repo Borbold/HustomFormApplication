@@ -1000,7 +1000,7 @@ namespace HustonRTEMS {
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Y
-                test = new() {
+                /*test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingMY.Text, 16),
                     unicanAddressTo = Convert.ToUInt16(AddresReceiveMY.Text, 16),
                     unicanAddressFrom = Convert.ToUInt16(AddresMY.Text, 16),
@@ -1015,9 +1015,9 @@ namespace HustonRTEMS {
                     MYT,
                     (byte)(countRateSensSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, serialPort, LogBox);*/
                 // Z
-                test = new() {
+                /*test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingMZ.Text, 16),
                     unicanAddressTo = Convert.ToUInt16(AddresReceiveMZ.Text, 16),
                     unicanAddressFrom = Convert.ToUInt16(AddresMZ.Text, 16),
@@ -1032,8 +1032,7 @@ namespace HustonRTEMS {
                     MZT,
                     (byte)(countRateSensSend << 1)
                 };
-
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, serialPort, LogBox);*/
 
                 if(countMagSend == 128) countMagSend = 0;
                 countMagSend++;
@@ -1415,7 +1414,7 @@ namespace HustonRTEMS {
                 while(MagSendingPeriod.Text.Length > 0 &&
                         sleepTime == Convert.ToInt16(MagSendingPeriod.Text)) {
                     Thread.Sleep(sleepTime * 1000);
-                    Debug.WriteLine($"Send rate sens {sleepTime}");
+                    Debug.WriteLine($"Send magnwtometer {sleepTime}");
                     SendMagnetometer(null, null);
                 }
             }, token);
