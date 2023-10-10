@@ -1000,7 +1000,7 @@ namespace HustonRTEMS {
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Y
-                /*test = new() {
+                test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingMY.Text, 16),
                     unicanAddressTo = Convert.ToUInt16(AddresReceiveMY.Text, 16),
                     unicanAddressFrom = Convert.ToUInt16(AddresMY.Text, 16),
@@ -1015,9 +1015,9 @@ namespace HustonRTEMS {
                     MYT,
                     (byte)(countRateSensSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);*/
+                CTU.SendWithCAN(test, serialPort, LogBox);
                 // Z
-                /*test = new() {
+                test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingMZ.Text, 16),
                     unicanAddressTo = Convert.ToUInt16(AddresReceiveMZ.Text, 16),
                     unicanAddressFrom = Convert.ToUInt16(AddresMZ.Text, 16),
@@ -1032,7 +1032,7 @@ namespace HustonRTEMS {
                     MZT,
                     (byte)(countRateSensSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);*/
+                CTU.SendWithCAN(test, serialPort, LogBox);
 
                 if(countMagSend == 128) countMagSend = 0;
                 countMagSend++;
@@ -1368,7 +1368,7 @@ namespace HustonRTEMS {
             }, token);
         }
 
-        private readonly CancellationTokenSource rateSensSource = new();
+        private CancellationTokenSource rateSensSource = new();
         private void AutoRateSens_CheckedChanged(object sender, EventArgs e) {
             if(AutoRateSens.Checked) {
                 LabelRateSensSendingPeriod.Visible = true;
@@ -1377,10 +1377,11 @@ namespace HustonRTEMS {
                 LabelRateSensSendingPeriod.Visible = false;
                 RateSensSendingPeriod.Visible = false;
                 RateSensSendingPeriod.Text = "";
+                rateSensSource = new();
             }
         }
         private void RateSensSendingPeriod_TextChanged(object sender, EventArgs e) {
-            if(RateSensSendingPeriod.Text.Length == 0) rateSensSource.Cancel();
+            if(RateSensSendingPeriod.Text.Length == 0) { rateSensSource.Cancel(); return; }
             CancellationToken token = rateSensSource.Token;
             TaskFactory factory = new(token);
             _ = factory.StartNew(() => {
@@ -1394,7 +1395,7 @@ namespace HustonRTEMS {
             }, token);
         }
 
-        private readonly CancellationTokenSource magSource = new();
+        private CancellationTokenSource magSource = new();
         private void AutoMag_CheckedChanged(object sender, EventArgs e) {
             if(AutoMag.Checked) {
                 LabelMagSendingPeriod.Visible = true;
@@ -1403,10 +1404,11 @@ namespace HustonRTEMS {
                 LabelMagSendingPeriod.Visible = false;
                 MagSendingPeriod.Visible = false;
                 MagSendingPeriod.Text = "";
+                magSource = new();
             }
         }
         private void MagSendingPeriod_TextChanged(object sender, EventArgs e) {
-            if(MagSendingPeriod.Text.Length == 0) magSource.Cancel();
+            if(MagSendingPeriod.Text.Length == 0) { magSource.Cancel(); return; }
             CancellationToken token = magSource.Token;
             TaskFactory factory = new(token);
             _ = factory.StartNew(() => {
@@ -1414,7 +1416,7 @@ namespace HustonRTEMS {
                 while(MagSendingPeriod.Text.Length > 0 &&
                         sleepTime == Convert.ToInt16(MagSendingPeriod.Text)) {
                     Thread.Sleep(sleepTime * 1000);
-                    Debug.WriteLine($"Send magnwtometer {sleepTime}");
+                    Debug.WriteLine($"Send magnetometer {sleepTime}");
                     SendMagnetometer(null, null);
                 }
             }, token);
