@@ -1066,11 +1066,11 @@ namespace HustonRTEMS {
                 const int wheelRpmYMinus = 1 * sizeof(short);
                 const int unicanLenght = time + uptime +
                     eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ
-                    + 1 +
+                    + sizeof(byte) +
                     orbQuatW + orbQuatX + orbQuatY + orbQuatZ
-                    + 57 +
+                    + (3 * sizeof(int)) + sizeof(byte) + (7 * sizeof(int)) + sizeof(byte) + (3 * sizeof(int)) + (3 * sizeof(byte)) +
                     wheelRpmXPlus + wheelRpmXMinus + wheelRpmYPlus + wheelRpmYMinus
-                    + 3;
+                    + (3 * sizeof(byte));
                 UnicanMessage test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingAdcsBeacon.Text, 16),
                     unicanAddressTo = Convert.ToUInt16(AddresReceiveAdcsBeacon.Text, 16),
