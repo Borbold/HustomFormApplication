@@ -133,6 +133,8 @@ namespace HustonRTEMS {
                 IdShippingMZ.Text = section.IdShipingMagZ;
                 AddresMZ.Text = section.AddressMagZ;
             }
+            flagRead = true;
+            Read();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             CloseRKSCAN_Click(null, null);
@@ -1176,10 +1178,14 @@ namespace HustonRTEMS {
             }, token);
             Thread.Sleep(1000);
         }
+        char[] data = new char[20] {
+            't','3','8','2','2','1','5','4','2','\r',
+            't','3','8','5','2','F','D','F','0','\r',
+        };
         private void Read() {
             try {
                 if(flagRead) {
-                    char[] data;
+                    /*char[] data;
                     LogBox.Invoke(new Action(() => {
                         LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
                     }));
@@ -1196,7 +1202,7 @@ namespace HustonRTEMS {
                         }
 
                         byteWrite += copyByte;
-                    } while(byteWrite < serialPort.BytesToRead);
+                    } while(byteWrite < serialPort.BytesToRead);*/
                     //--------------------------------
                     List<UnicanMessage> lUM = new();
                     for(int k = 0; k + 4 < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length;) {
@@ -1226,7 +1232,7 @@ namespace HustonRTEMS {
                         }
                         Thread.Sleep(1000);
                     }
-                    for(int i = lUM.Count - 1; i >= 0; i--) {
+                    for(int i = 0; i < lUM.Count; i++) {
                         if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveBeacon.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresBeacon.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveBeacon.Text, 16)) {
@@ -1234,21 +1240,14 @@ namespace HustonRTEMS {
                                 LogBox.Text += "\r\nSendBeacon\r\n";
                             }));
                             CancellationToken token = timeSource.Token;
-                            TaskFactory factory = new(token);
-                            _ = factory.StartNew(() => {
-                                SendBeacon_Click(null, null);
-                            }, token);
+                            SendBeacon_Click(null, null);
                         } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveExBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendExBeacon\r\n";
                             }));
-                            CancellationToken token = timeSource.Token;
-                            TaskFactory factory = new(token);
-                            _ = factory.StartNew(() => {
-                                SendExBeacon_Click(null, null);
-                            }, token);
+                            SendExBeacon_Click(null, null);
                         } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresTime.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveTime.Text, 16)) {
@@ -1256,10 +1255,7 @@ namespace HustonRTEMS {
                                 LogBox.Text += "\r\nSendTime\r\n";
                             }));
                             CancellationToken token = timeSource.Token;
-                            TaskFactory factory = new(token);
-                            _ = factory.StartNew(() => {
-                                SendTime(null, null);
-                            }, token);
+                            SendTime(null, null);
                         } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveAdcsBeacon.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresAdcsBeacon.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveAdcsBeacon.Text, 16)) {
@@ -1267,10 +1263,7 @@ namespace HustonRTEMS {
                                 LogBox.Text += "\r\nSendAdcsBeacon\r\n";
                             }));
                             CancellationToken token = timeSource.Token;
-                            TaskFactory factory = new(token);
-                            _ = factory.StartNew(() => {
-                                SendAdcsBeacon_Click(null, null);
-                            }, token);
+                            SendAdcsBeacon_Click(null, null);
                         }
                         Thread.Sleep(1000);
                     }

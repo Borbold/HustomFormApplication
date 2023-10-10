@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HustonRTEMS {
     public class Crc16 {
@@ -92,7 +93,6 @@ namespace HustonRTEMS {
             public UnicanMessage[] umes;
             public int session_socket;
         };
-        private const int CAN_BUF_SIZE = 16;
 
         private struct CanBufferS {
             public CanMessage[] cmgs;
@@ -193,6 +193,9 @@ namespace HustonRTEMS {
             } else {
                 ushort crc;
                 CanSetIdentifier(ref umsg, ref cmsg, 0);
+                logBox.Invoke(new Action(() => {
+                    logBox.Text += $"\r\nMessage id: {umsg.unicanMSGId}; Data bit: {cmsg.canIdentifier >> 10}\r\n";
+                }));
                 crc = Crc16.ComputeCrc(umsg.data);
                 cmsg.canDLC = 6;
                 cmsg.data[0] = (byte)UINT16RIGHT(UNICAN_START_LONG_MESSAGE);
