@@ -133,8 +133,6 @@ namespace HustonRTEMS {
                 IdShippingMZ.Text = section.IdShipingMagZ;
                 AddresMZ.Text = section.AddressMagZ;
             }
-            /*flagRead = true;
-            Read();*/
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             CloseRKSCAN_Click(null, null);
@@ -1119,7 +1117,8 @@ namespace HustonRTEMS {
                         test.data[++i] = AV.byte2;
                         test.data[++i] = AV.byte3;
                         test.data[++i] = AV.byte4;
-                    } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ +
+                    } else if(i == (time + uptime +
+                            eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ +
                             sizeof(byte))) {
                         quat.fl = (float)Convert.ToDecimal(orb_quat_w.Text);
                         test.data[i] = quat.byte1;
@@ -1127,21 +1126,22 @@ namespace HustonRTEMS {
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
                         quat.fl = (float)Convert.ToDecimal(orb_quat_vect_x.Text);
-                        test.data[i] = quat.byte1;
+                        test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
                         quat.fl = (float)Convert.ToDecimal(orb_quat_vect_y.Text);
-                        test.data[i] = quat.byte1;
+                        test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
                         quat.fl = (float)Convert.ToDecimal(orb_quat_vect_z.Text);
-                        test.data[i] = quat.byte1;
+                        test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                    } else if(i == (time + uptime + eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ +
+                    } else if(i == (time + uptime +
+                            eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ +
                             sizeof(byte) +
                             orbQuatW + orbQuatX + orbQuatY + orbQuatZ +
                             otherVal)) {
@@ -1178,10 +1178,6 @@ namespace HustonRTEMS {
             }, token);
             Thread.Sleep(1000);
         }
-        /*char[] data = new char[20] {
-            't','3','8','2','2','1','5','4','2','\r',
-            't','3','8','5','2','F','D','F','0','\r',
-        };*/
         private void Read() {
             try {
                 if(flagRead) {
