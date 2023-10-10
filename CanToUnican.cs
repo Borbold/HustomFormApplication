@@ -161,9 +161,7 @@ namespace HustonRTEMS {
                 dataStr += byteS;
             }
 
-            string outText = outByte.canIdentifier.ToString().Length < 3
-                ? string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr)
-                : string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
+            string outText = string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
             writePort?.Write(outText);
             logBox.Invoke(new Action(() => {
                 logBox.Text += "Отправлено\r\n" + outText + "\r\n";
@@ -193,9 +191,6 @@ namespace HustonRTEMS {
             } else {
                 ushort crc;
                 CanSetIdentifier(ref umsg, ref cmsg, 0);
-                logBox.Invoke(new Action(() => {
-                    logBox.Text += $"\r\nMessage id: {umsg.unicanMSGId}; Data bit: {cmsg.canIdentifier >> 10}\r\n";
-                }));
                 crc = Crc16.ComputeCrc(umsg.data);
                 cmsg.canDLC = 6;
                 cmsg.data[0] = (byte)UINT16RIGHT(UNICAN_START_LONG_MESSAGE);
