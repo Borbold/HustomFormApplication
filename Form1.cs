@@ -133,8 +133,8 @@ namespace HustonRTEMS {
                 IdShippingMZ.Text = section.IdShipingMagZ;
                 AddresMZ.Text = section.AddressMagZ;
             }
-            flagRead = true;
-            Read();
+            /*flagRead = true;
+            Read();*/
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             CloseRKSCAN_Click(null, null);
@@ -1178,14 +1178,14 @@ namespace HustonRTEMS {
             }, token);
             Thread.Sleep(1000);
         }
-        char[] data = new char[20] {
+        /*char[] data = new char[20] {
             't','3','8','2','2','1','5','4','2','\r',
             't','3','8','5','2','F','D','F','0','\r',
-        };
+        };*/
         private void Read() {
             try {
                 if(flagRead) {
-                    /*char[] data;
+                    char[] data;
                     LogBox.Invoke(new Action(() => {
                         LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
                     }));
@@ -1202,7 +1202,7 @@ namespace HustonRTEMS {
                         }
 
                         byteWrite += copyByte;
-                    } while(byteWrite < serialPort.BytesToRead);*/
+                    } while(byteWrite < serialPort.BytesToRead);
                     //--------------------------------
                     List<UnicanMessage> lUM = new();
                     for(int k = 0; k + 4 < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length;) {
