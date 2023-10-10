@@ -996,7 +996,7 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     MXV.byte1, MXV.byte2, MXV.byte3, MXV.byte4,
                     MXT,
-                    (byte)(countRateSensSend << 1)
+                    (byte)(countMagSend << 1)
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Y
@@ -1013,7 +1013,7 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     MYV.byte1, MYV.byte2, MYV.byte3, MYV.byte4,
                     MYT,
-                    (byte)(countRateSensSend << 1)
+                    (byte)(countMagSend << 1)
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
                 // Z
@@ -1030,7 +1030,7 @@ namespace HustonRTEMS {
                 test.data = new byte[unicanLenght] {
                     MZV.byte1, MZV.byte2, MZV.byte3, MZV.byte4,
                     MZT,
-                    (byte)(countRateSensSend << 1)
+                    (byte)(countMagSend << 1)
                 };
                 CTU.SendWithCAN(test, serialPort, LogBox);
 
