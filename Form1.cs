@@ -1233,28 +1233,44 @@ namespace HustonRTEMS {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendBeacon\r\n";
                             }));
-                            SendBeacon_Click(null, null);
+                            CancellationToken token = timeSource.Token;
+                            TaskFactory factory = new(token);
+                            _ = factory.StartNew(() => {
+                                SendBeacon_Click(null, null);
+                            }, token);
                         } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveExBeacon.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresExBeacon.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveExBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendExBeacon\r\n";
                             }));
-                            SendExBeacon_Click(null, null);
+                            CancellationToken token = timeSource.Token;
+                            TaskFactory factory = new(token);
+                            _ = factory.StartNew(() => {
+                                SendExBeacon_Click(null, null);
+                            }, token);
                         } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveTime.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresTime.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveTime.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendTime\r\n";
                             }));
-                            SendTime(null, null);
+                            CancellationToken token = timeSource.Token;
+                            TaskFactory factory = new(token);
+                            _ = factory.StartNew(() => {
+                                SendTime(null, null);
+                            }, token);
                         } else if(lUM[i].unicanAddressFrom == Convert.ToInt16(AddresReceiveAdcsBeacon.Text, 16) &&
                              lUM[i].unicanAddressTo == Convert.ToInt16(AddresAdcsBeacon.Text, 16) &&
                              lUM[i].unicanMSGId == Convert.ToInt64(IdReceiveAdcsBeacon.Text, 16)) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += "\r\nSendAdcsBeacon\r\n";
                             }));
-                            SendAdcsBeacon_Click(null, null);
+                            CancellationToken token = timeSource.Token;
+                            TaskFactory factory = new(token);
+                            _ = factory.StartNew(() => {
+                                SendAdcsBeacon_Click(null, null);
+                            }, token);
                         }
                         Thread.Sleep(1000);
                     }
