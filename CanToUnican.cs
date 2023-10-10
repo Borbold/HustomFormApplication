@@ -150,7 +150,7 @@ namespace HustonRTEMS {
             }
         }
 
-        private void SendCanMessage(CanMessage outByte) {
+        private void SendCanMessage(CanMessage outByte, bool first) {
             string dataStr = "";
             for(int i = 0; i < outByte.canDLC; i++) {
                 string byteS = $"{outByte.data[i]:X}";
@@ -160,8 +160,10 @@ namespace HustonRTEMS {
 
                 dataStr += byteS;
             }
-
-            string outText = string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
+            // Sending the first message must be with the data bit
+            string outText = first
+                ? string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr)
+                : string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
             writePort?.Write(outText);
             logBox.Invoke(new Action(() => {
                 logBox.Text += "Отправлено\r\n" + outText + "\r\n";
@@ -187,7 +189,7 @@ namespace HustonRTEMS {
                 for(i = 0; i < umsg.unicanLength; i++) {
                     cmsg.data[i + 2] = umsg.data[i];
                 }
-                SendCanMessage(cmsg);
+                SendCanMessage(cmsg, true);
             } else {
                 ushort crc;
                 CanSetIdentifier(ref umsg, ref cmsg, 0);
@@ -199,7 +201,7 @@ namespace HustonRTEMS {
                 cmsg.data[3] = (byte)UINT16LEFT(umsg.unicanMSGId);
                 cmsg.data[4] = (byte)UINT16RIGHT(umsg.unicanLength + CRC_LENGTH);
                 cmsg.data[5] = (byte)UINT16LEFT(umsg.unicanLength + CRC_LENGTH);
-                SendCanMessage(cmsg);
+                SendCanMessage(cmsg, true);
 
                 CanMessage cbmsg = new() {
                     canRTR = 0,
@@ -245,7 +247,7 @@ namespace HustonRTEMS {
                 }
             }
             while(can_tx_buffer != null) {
-                SendCanMessage(can_tx_buffer.cmsg);
+                SendCanMessage(can_tx_buffer.cmsg, false);
                 can_tx_buffer = can_tx_buffer.next;
             }
             can_tx_buffer = null;
