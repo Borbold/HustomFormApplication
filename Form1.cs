@@ -1149,13 +1149,13 @@ namespace HustonRTEMS {
                         test.data[i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
                         wheel = Convert.ToInt16(wheel_rpm_x_minus.Text);
-                        test.data[i] = (byte)wheel;
+                        test.data[++i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
                         wheel = Convert.ToInt16(wheel_rpm_y_plus.Text);
-                        test.data[i] = (byte)wheel;
+                        test.data[++i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
                         wheel = Convert.ToInt16(wheel_rpm_y_minus.Text);
-                        test.data[i] = (byte)wheel;
+                        test.data[++i] = (byte)wheel;
                         test.data[++i] = (byte)(wheel >> 8);
                     } else {
                         test.data[i] = 0;
