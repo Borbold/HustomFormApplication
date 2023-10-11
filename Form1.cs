@@ -1386,8 +1386,7 @@ namespace HustonRTEMS {
             TaskFactory factory = new(token);
             _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(RateSensSendingPeriod.Text);
-                while(RateSensSendingPeriod.Text.Length > 0 &&
-                        sleepTime == Convert.ToInt16(RateSensSendingPeriod.Text)) {
+                while(CheckSendingPeriod(sleepTime)) {
                     Thread.Sleep(sleepTime * 1000);
                     Debug.WriteLine($"Send rate sens {sleepTime}");
                     SendRateSens(null, null);
@@ -1413,13 +1412,20 @@ namespace HustonRTEMS {
             TaskFactory factory = new(token);
             _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(MagSendingPeriod.Text);
-                while(MagSendingPeriod.Text.Length > 0 &&
-                        sleepTime == Convert.ToInt16(MagSendingPeriod.Text)) {
+                while(CheckSendingPeriod(sleepTime)) {
                     Thread.Sleep(sleepTime * 1000);
                     Debug.WriteLine($"Send magnetometer {sleepTime}");
                     SendMagnetometer(null, null);
                 }
             }, token);
+        }
+
+        private bool CheckSendingPeriod(int sleepTime) {
+            if(MagSendingPeriod.Text.Length > 0 &&
+                sleepTime == Convert.ToInt16(MagSendingPeriod.Text) &&
+                serialPort.IsOpen)
+                return true;
+            return false;
         }
         // Automatic dispatch
     }
