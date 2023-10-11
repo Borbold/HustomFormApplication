@@ -1428,5 +1428,13 @@ namespace HustonRTEMS {
             return false;
         }
         // Automatic dispatch
+
+        private void LogBox_TextChanged(object sender, EventArgs e) {
+            LogBox.SelectionStart = LogBox.TextLength;
+            LogBox.ScrollToCaret();
+            if(LogBox.TextLength > LogBox.MaxLength - 500) {
+                LogBox.Text = "";
+            }
+        }
     }
 }

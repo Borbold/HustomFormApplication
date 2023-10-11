@@ -270,6 +270,7 @@
             AddresReceiveAdcsBeacon = new TextBox();
             label121 = new Label();
             tabPage9 = new TabPage();
+            CountSendingRateSens = new Label();
             RateSensSendingPeriod = new TextBox();
             LabelRateSensSendingPeriod = new Label();
             AutoRateSens = new CheckBox();
@@ -314,6 +315,7 @@
             AddresReceiveRSX = new TextBox();
             label21 = new Label();
             TabMagnetometer = new TabPage();
+            CountSendingMag = new Label();
             label11 = new Label();
             MagTemperatureZ = new TextBox();
             label12 = new Label();
@@ -398,9 +400,8 @@
             NameDBFile = new TextBox();
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
+            tabPage10 = new TabPage();
             LogBox2 = new TextBox();
-            CountSendingMag = new Label();
-            CountSendingRateSens = new Label();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -442,7 +443,7 @@
             // 
             // LogBox
             // 
-            LogBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            LogBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             LogBox.Location = new Point(187, 491);
             LogBox.Multiline = true;
             LogBox.Name = "LogBox";
@@ -450,6 +451,7 @@
             LogBox.ScrollBars = ScrollBars.Vertical;
             LogBox.Size = new Size(520, 260);
             LogBox.TabIndex = 1;
+            LogBox.TextChanged += LogBox_TextChanged;
             // 
             // ListenPort
             // 
@@ -3134,6 +3136,16 @@
             tabPage9.Text = "RateSens";
             tabPage9.UseVisualStyleBackColor = true;
             // 
+            // CountSendingRateSens
+            // 
+            CountSendingRateSens.AutoSize = true;
+            CountSendingRateSens.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            CountSendingRateSens.Location = new Point(6, 378);
+            CountSendingRateSens.Name = "CountSendingRateSens";
+            CountSendingRateSens.Size = new Size(205, 25);
+            CountSendingRateSens.TabIndex = 206;
+            CountSendingRateSens.Text = "Количество отправок";
+            // 
             // RateSensSendingPeriod
             // 
             RateSensSendingPeriod.Location = new Point(6, 124);
@@ -3600,6 +3612,16 @@
             TabMagnetometer.Text = "Magnetometer";
             TabMagnetometer.UseVisualStyleBackColor = true;
             // 
+            // CountSendingMag
+            // 
+            CountSendingMag.AutoSize = true;
+            CountSendingMag.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            CountSendingMag.Location = new Point(6, 378);
+            CountSendingMag.Name = "CountSendingMag";
+            CountSendingMag.Size = new Size(205, 25);
+            CountSendingMag.TabIndex = 205;
+            CountSendingMag.Text = "Количество отправок";
+            // 
             // label11
             // 
             label11.AutoSize = true;
@@ -4017,6 +4039,7 @@
             MainTabControll.Controls.Add(Settings);
             MainTabControll.Controls.Add(SensorReadings);
             MainTabControll.Controls.Add(tabPage5);
+            MainTabControll.Controls.Add(tabPage10);
             MainTabControll.Location = new Point(12, 12);
             MainTabControll.Name = "MainTabControll";
             MainTabControll.SelectedIndex = 0;
@@ -4478,6 +4501,16 @@
             GetDBFileInfo.UseVisualStyleBackColor = true;
             GetDBFileInfo.Click += GetDBFileInfo_Click;
             // 
+            // tabPage10
+            // 
+            tabPage10.Location = new Point(4, 24);
+            tabPage10.Name = "tabPage10";
+            tabPage10.Padding = new Padding(3);
+            tabPage10.Size = new Size(1224, 445);
+            tabPage10.TabIndex = 3;
+            tabPage10.Text = "Command";
+            tabPage10.UseVisualStyleBackColor = true;
+            // 
             // LogBox2
             // 
             LogBox2.Anchor = AnchorStyles.Top;
@@ -4489,26 +4522,6 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
-            // 
-            // CountSendingMag
-            // 
-            CountSendingMag.AutoSize = true;
-            CountSendingMag.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            CountSendingMag.Location = new Point(6, 378);
-            CountSendingMag.Name = "CountSendingMag";
-            CountSendingMag.Size = new Size(205, 25);
-            CountSendingMag.TabIndex = 205;
-            CountSendingMag.Text = "Количество отправок";
-            // 
-            // CountSendingRateSens
-            // 
-            CountSendingRateSens.AutoSize = true;
-            CountSendingRateSens.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            CountSendingRateSens.Location = new Point(6, 378);
-            CountSendingRateSens.Name = "CountSendingRateSens";
-            CountSendingRateSens.Size = new Size(205, 25);
-            CountSendingRateSens.TabIndex = 206;
-            CountSendingRateSens.Text = "Количество отправок";
             // 
             // MainForm
             // 
@@ -4965,5 +4978,6 @@
         private CheckBox AutoMag;
         private Label CountSendingRateSens;
         private Label CountSendingMag;
+        private TabPage tabPage10;
     }
 }
