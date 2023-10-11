@@ -1359,8 +1359,7 @@ namespace HustonRTEMS {
             TaskFactory factory = new(token);
             _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(TimeSendingPeriod.Text);
-                while(TimeSendingPeriod.Text.Length > 0 &&
-                        sleepTime == Convert.ToInt16(TimeSendingPeriod.Text)) {
+                while(CheckSendingPeriod(sleepTime)) {
                     Thread.Sleep(sleepTime * 1000);
                     Debug.WriteLine($"Send time {sleepTime}");
                     SendTime(null, null);
@@ -1432,7 +1431,7 @@ namespace HustonRTEMS {
         private void LogBox_TextChanged(object sender, EventArgs e) {
             LogBox.SelectionStart = LogBox.TextLength;
             LogBox.ScrollToCaret();
-            if(LogBox.TextLength > LogBox.MaxLength - 500) {
+            if(LogBox.TextLength > LogBox.MaxLength - 1000) {
                 LogBox.Text = "";
             }
         }
