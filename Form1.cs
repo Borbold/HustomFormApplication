@@ -1359,7 +1359,7 @@ namespace HustonRTEMS {
             TaskFactory factory = new(token);
             _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(TimeSendingPeriod.Text);
-                while(CheckSendingPeriod(sleepTime)) {
+                while(CheckSendingPeriod(TimeSendingPeriod, sleepTime)) {
                     Thread.Sleep(sleepTime * 1000);
                     Debug.WriteLine($"Send time {sleepTime}");
                     SendTime(null, null);
@@ -1385,7 +1385,7 @@ namespace HustonRTEMS {
             TaskFactory factory = new(token);
             _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(RateSensSendingPeriod.Text);
-                while(CheckSendingPeriod(sleepTime)) {
+                while(CheckSendingPeriod(RateSensSendingPeriod, sleepTime)) {
                     Thread.Sleep(sleepTime * 1000);
                     Debug.WriteLine($"Send rate sens {sleepTime}");
                     SendRateSens(null, null);
@@ -1411,7 +1411,7 @@ namespace HustonRTEMS {
             TaskFactory factory = new(token);
             _ = factory.StartNew(() => {
                 int sleepTime = Convert.ToInt16(MagSendingPeriod.Text);
-                while(CheckSendingPeriod(sleepTime)) {
+                while(CheckSendingPeriod(MagSendingPeriod, sleepTime)) {
                     Thread.Sleep(sleepTime * 1000);
                     Debug.WriteLine($"Send magnetometer {sleepTime}");
                     SendMagnetometer(null, null);
@@ -1419,12 +1419,16 @@ namespace HustonRTEMS {
             }, token);
         }
 
-        private bool CheckSendingPeriod(int sleepTime) {
-            if(MagSendingPeriod.Text.Length > 0 &&
-                sleepTime == Convert.ToInt16(MagSendingPeriod.Text) &&
+        private bool CheckSendingPeriod(TextBox sendPerionText, int sleepTime) {
+            bool check = false;
+            sendPerionText.Invoke(new Action(() => {
+                if(serialPort == null) { LogBox2.Text = "serialPort is no open"; return; }
+                if(sendPerionText.TextLength > 0 &&
+                sleepTime == Convert.ToInt16(sendPerionText.Text) &&
                 serialPort.IsOpen)
-                return true;
-            return false;
+                    check = true;
+            }));
+            return check;
         }
         // Automatic dispatch
 
