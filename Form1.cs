@@ -939,7 +939,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn RSYV = new() {
-                    fl = (float)Convert.ToDecimal(RateSensValueX.Text)
+                    fl = (float)Convert.ToDecimal(RateSensValueY.Text)
                 };
                 byte RSYT = Convert.ToByte(RateSensTemperatureY.Text);
                 test.data = new byte[unicanLenght] {
@@ -956,7 +956,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn RSZV = new() {
-                    fl = (float)Convert.ToDecimal(RateSensValueX.Text)
+                    fl = (float)Convert.ToDecimal(RateSensValueZ.Text)
                 };
                 byte RSZT = Convert.ToByte(RateSensTemperatureZ.Text);
                 test.data = new byte[unicanLenght] {
@@ -1007,7 +1007,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn MYV = new() {
-                    fl = (float)Convert.ToDecimal(MagValueX.Text)
+                    fl = (float)Convert.ToDecimal(MagValueY.Text)
                 };
                 byte MYT = Convert.ToByte(MagTemperatureY.Text);
                 test.data = new byte[unicanLenght] {
@@ -1024,7 +1024,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn MZV = new() {
-                    fl = (float)Convert.ToDecimal(MagValueX.Text)
+                    fl = (float)Convert.ToDecimal(MagValueZ.Text)
                 };
                 byte MZT = Convert.ToByte(MagTemperatureZ.Text);
                 test.data = new byte[unicanLenght] {

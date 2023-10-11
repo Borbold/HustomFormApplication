@@ -161,8 +161,7 @@ namespace HustonRTEMS {
                 dataStr += byteS;
             }
             // Sending the first message must be with the data bit
-            int ff = (int)Convert.ToInt64(outByte.canIdentifier.ToString(), 16);
-            string outText = Convert.ToInt64(outByte.canIdentifier.ToString(), 16).ToString().Length < 3
+            string outText = outByte.canIdentifier < 255
                 ? string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr)
                 : string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
             writePort?.Write(outText);
