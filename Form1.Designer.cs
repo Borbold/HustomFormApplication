@@ -400,8 +400,16 @@
             NameDBFile = new TextBox();
             LabelDBFile = new Label();
             GetDBFileInfo = new Button();
-            tabPage10 = new TabPage();
+            TabPageCommand = new TabPage();
+            CommandPanel3 = new Panel();
+            ToServer = new Button();
+            CommandPanel2 = new Panel();
+            CommandPanel1 = new Panel();
             LogBox2 = new TextBox();
+            BaseStationAd = new TextBox();
+            DeviceAd = new TextBox();
+            label2 = new Label();
+            label157 = new Label();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -439,6 +447,8 @@
             CANPage.SuspendLayout();
             SensorReadings.SuspendLayout();
             tabPage5.SuspendLayout();
+            TabPageCommand.SuspendLayout();
+            CommandPanel3.SuspendLayout();
             SuspendLayout();
             // 
             // LogBox
@@ -4039,7 +4049,7 @@
             MainTabControll.Controls.Add(Settings);
             MainTabControll.Controls.Add(SensorReadings);
             MainTabControll.Controls.Add(tabPage5);
-            MainTabControll.Controls.Add(tabPage10);
+            MainTabControll.Controls.Add(TabPageCommand);
             MainTabControll.Location = new Point(12, 12);
             MainTabControll.Name = "MainTabControll";
             MainTabControll.SelectedIndex = 0;
@@ -4501,15 +4511,58 @@
             GetDBFileInfo.UseVisualStyleBackColor = true;
             GetDBFileInfo.Click += GetDBFileInfo_Click;
             // 
-            // tabPage10
+            // TabPageCommand
             // 
-            tabPage10.Location = new Point(4, 24);
-            tabPage10.Name = "tabPage10";
-            tabPage10.Padding = new Padding(3);
-            tabPage10.Size = new Size(1224, 445);
-            tabPage10.TabIndex = 3;
-            tabPage10.Text = "Command";
-            tabPage10.UseVisualStyleBackColor = true;
+            TabPageCommand.Controls.Add(CommandPanel3);
+            TabPageCommand.Controls.Add(CommandPanel2);
+            TabPageCommand.Controls.Add(CommandPanel1);
+            TabPageCommand.Location = new Point(4, 24);
+            TabPageCommand.Name = "TabPageCommand";
+            TabPageCommand.Padding = new Padding(3);
+            TabPageCommand.Size = new Size(1224, 445);
+            TabPageCommand.TabIndex = 3;
+            TabPageCommand.Text = "Command";
+            TabPageCommand.UseVisualStyleBackColor = true;
+            // 
+            // CommandPanel3
+            // 
+            CommandPanel3.Controls.Add(label157);
+            CommandPanel3.Controls.Add(label2);
+            CommandPanel3.Controls.Add(DeviceAd);
+            CommandPanel3.Controls.Add(BaseStationAd);
+            CommandPanel3.Controls.Add(ToServer);
+            CommandPanel3.Dock = DockStyle.Right;
+            CommandPanel3.Location = new Point(1021, 3);
+            CommandPanel3.Name = "CommandPanel3";
+            CommandPanel3.Size = new Size(200, 439);
+            CommandPanel3.TabIndex = 1;
+            // 
+            // ToServer
+            // 
+            ToServer.Location = new Point(122, 413);
+            ToServer.Name = "ToServer";
+            ToServer.Size = new Size(75, 23);
+            ToServer.TabIndex = 0;
+            ToServer.Text = "To server";
+            ToServer.UseVisualStyleBackColor = true;
+            ToServer.Visible = false;
+            // 
+            // CommandPanel2
+            // 
+            CommandPanel2.AutoScroll = true;
+            CommandPanel2.Location = new Point(269, 3);
+            CommandPanel2.Name = "CommandPanel2";
+            CommandPanel2.Size = new Size(746, 439);
+            CommandPanel2.TabIndex = 2;
+            // 
+            // CommandPanel1
+            // 
+            CommandPanel1.AutoScroll = true;
+            CommandPanel1.Dock = DockStyle.Left;
+            CommandPanel1.Location = new Point(3, 3);
+            CommandPanel1.Name = "CommandPanel1";
+            CommandPanel1.Size = new Size(260, 439);
+            CommandPanel1.TabIndex = 0;
             // 
             // LogBox2
             // 
@@ -4522,6 +4575,40 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
+            // 
+            // BaseStationAd
+            // 
+            BaseStationAd.Location = new Point(3, 369);
+            BaseStationAd.Name = "BaseStationAd";
+            BaseStationAd.Size = new Size(67, 23);
+            BaseStationAd.TabIndex = 1;
+            BaseStationAd.Text = "0x1C";
+            // 
+            // DeviceAd
+            // 
+            DeviceAd.Location = new Point(3, 413);
+            DeviceAd.Name = "DeviceAd";
+            DeviceAd.Size = new Size(67, 23);
+            DeviceAd.TabIndex = 2;
+            DeviceAd.Text = "0x5";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(3, 351);
+            label2.Name = "label2";
+            label2.Size = new Size(113, 15);
+            label2.TabIndex = 3;
+            label2.Text = "Base station address";
+            // 
+            // label157
+            // 
+            label157.AutoSize = true;
+            label157.Location = new Point(3, 395);
+            label157.Name = "label157";
+            label157.Size = new Size(85, 15);
+            label157.TabIndex = 4;
+            label157.Text = "Device address";
             // 
             // MainForm
             // 
@@ -4592,6 +4679,9 @@
             SensorReadings.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             tabPage5.PerformLayout();
+            TabPageCommand.ResumeLayout(false);
+            CommandPanel3.ResumeLayout(false);
+            CommandPanel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -4978,6 +5068,14 @@
         private CheckBox AutoMag;
         private Label CountSendingRateSens;
         private Label CountSendingMag;
-        private TabPage tabPage10;
+        private TabPage TabPageCommand;
+        private Panel CommandPanel1;
+        private Panel CommandPanel2;
+        private Panel CommandPanel3;
+        private Button ToServer;
+        private TextBox BaseStationAd;
+        private Label label2;
+        private TextBox DeviceAd;
+        private Label label157;
     }
 }

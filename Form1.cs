@@ -3,10 +3,12 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace HustonRTEMS {
     public partial class MainForm: Form {
+        private SerialPort _serialPort;
+        private XMLReader _xmlRreader;
+        private Socket serverListener, client;
         private readonly CanToUnican CTU = new();
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         private readonly GeneralFunctional GF = new();
@@ -133,6 +135,10 @@ namespace HustonRTEMS {
                 IdShippingMZ.Text = section.IdShipingMagZ;
                 AddresMZ.Text = section.AddressMagZ;
             }
+
+            _xmlRreader = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices\\VMS_msgid.xml",
+                CommandPanel1, CommandPanel2, CommandPanel3, ToServer, _serialPort, BaseStationAd, DeviceAd);
+            _xmlRreader.MoldButtonName();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             CloseRKSCAN_Click(null, null);
@@ -303,7 +309,6 @@ namespace HustonRTEMS {
             }
         }
 
-        private Socket serverListener, client;
         private async void Open_thread() {
             while(flagRead) {
                 Thread.Sleep(1000);
@@ -569,7 +574,7 @@ namespace HustonRTEMS {
                 {
                     fuX.byte1, fuX.byte2, fuX.byte3, fuX.byte4
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
             }
         }
 
@@ -621,7 +626,7 @@ namespace HustonRTEMS {
                     fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
                     fuW.byte1, fuW.byte2, fuW.byte3, fuW.byte4,
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
             }
         }
 
@@ -692,7 +697,7 @@ namespace HustonRTEMS {
                     fuY.byte1, fuY.byte2, fuY.byte3, fuY.byte4,
                     fuZ.byte1, fuZ.byte2, fuZ.byte3, fuZ.byte4,
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
             }
         }
 
@@ -802,7 +807,7 @@ namespace HustonRTEMS {
                             : (byte)0;
                     }
                 }
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
             }
         }
         private void SendExBeacon_Click(object? sender, EventArgs? e) {
@@ -858,7 +863,7 @@ namespace HustonRTEMS {
                         test.data[++i] = acVar[j].byte4;
                     }
                 }
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
             }
         }
 
@@ -902,7 +907,7 @@ namespace HustonRTEMS {
                     timeV.it = arIValue[i];
                     test.data[i] = timeV.byte1;
                 }
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
             }
         }
 
@@ -930,7 +935,7 @@ namespace HustonRTEMS {
                     RSXT,
                     (byte)(countRateSensSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
                 // Y
                 test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingRSY.Text, 16),
@@ -947,7 +952,7 @@ namespace HustonRTEMS {
                     RSYT,
                     (byte)(countRateSensSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
                 // Z
                 test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingRSZ.Text, 16),
@@ -964,7 +969,7 @@ namespace HustonRTEMS {
                     RSZT,
                     (byte)(countRateSensSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
 
                 if(countRateSensSend == 128) countRateSensSend = 0;
                 countRateSensSend++;
@@ -998,7 +1003,7 @@ namespace HustonRTEMS {
                     MXT,
                     (byte)(countMagSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
                 // Y
                 test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingMY.Text, 16),
@@ -1015,7 +1020,7 @@ namespace HustonRTEMS {
                     MYT,
                     (byte)(countMagSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
                 // Z
                 test = new() {
                     unicanMSGId = Convert.ToUInt16(IdShippingMZ.Text, 16),
@@ -1032,7 +1037,7 @@ namespace HustonRTEMS {
                     MZT,
                     (byte)(countMagSend << 1)
                 };
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
 
                 if(countMagSend == 128) countMagSend = 0;
                 countMagSend++;
@@ -1160,7 +1165,7 @@ namespace HustonRTEMS {
                         test.data[i] = 0;
                     }
                 }
-                CTU.SendWithCAN(test, serialPort, LogBox);
+                CTU.SendWithCAN(test, _serialPort, LogBox);
             }
         }
         // Send data
@@ -1182,14 +1187,14 @@ namespace HustonRTEMS {
                 if(flagRead) {
                     char[] data;
                     LogBox.Invoke(new Action(() => {
-                        LogBox.Text += "\r\n " + serialPort.BytesToRead + ": ";
+                        LogBox.Text += "\r\n " + _serialPort.BytesToRead + ": ";
                     }));
-                    int byteWrite = 0, offsetByte = serialPort.BytesToRead;
+                    int byteWrite = 0, offsetByte = _serialPort.BytesToRead;
                     do {
-                        int copyByte = byteWrite + offsetByte > serialPort.BytesToRead ?
-                            serialPort.BytesToRead - byteWrite : offsetByte;
+                        int copyByte = byteWrite + offsetByte > _serialPort.BytesToRead ?
+                            _serialPort.BytesToRead - byteWrite : offsetByte;
                         data = new char[copyByte];
-                        _ = serialPort.Read(data, 0, copyByte);
+                        _ = _serialPort.Read(data, 0, copyByte);
                         for(int i = 0; i < data.Length; i++) {
                             LogBox.Invoke(new Action(() => {
                                 LogBox.Text += $"{data[i]}";
@@ -1197,7 +1202,7 @@ namespace HustonRTEMS {
                         }
 
                         byteWrite += copyByte;
-                    } while(byteWrite < serialPort.BytesToRead);
+                    } while(byteWrite < _serialPort.BytesToRead);
                     //--------------------------------
                     List<UnicanMessage> lUM = new();
                     for(int k = 0; k + 4 < data.Length && k + 8 + (data[k + 4] - '0') <= data.Length;) {
@@ -1279,21 +1284,20 @@ namespace HustonRTEMS {
             Read();
         }
 
-        private SerialPort serialPort;
         private void OpenRKSCAN_Click(object sender, EventArgs e) {
             flagRead = true;
-            serialPort = new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
+            _serialPort = new(CANPort.Text, 9600, Parity.None, 8, StopBits.One);
 
-            if(!serialPort.IsOpen) {
-                serialPort.DataReceived += new SerialDataReceivedEventHandler(ComPort_DataReceived);
+            if(!_serialPort.IsOpen) {
+                _serialPort.DataReceived += new SerialDataReceivedEventHandler(ComPort_DataReceived);
                 try {
-                    serialPort.Open();
+                    _serialPort.Open();
                     // Установить скорость
-                    serialPort.Write(string.Format("S{0}\r", CANSpeed.SelectedIndex));
+                    _serialPort.Write(string.Format("S{0}\r", CANSpeed.SelectedIndex));
                     Thread.Sleep(100);
                     Read();
                     // Открыть
-                    serialPort.Write("O\r");
+                    _serialPort.Write("O\r");
                     Thread.Sleep(100);
                     Read();
 
@@ -1308,12 +1312,12 @@ namespace HustonRTEMS {
         }
         private void CloseRKSCAN_Click(object? sender, EventArgs? e) {
             flagRead = false;
-            if(serialPort != null && serialPort.IsOpen) {
+            if(_serialPort != null && _serialPort.IsOpen) {
                 try {
                     // Закрыть
-                    serialPort.Write("C\r");
+                    _serialPort.Write("C\r");
                     Thread.Sleep(1000);
-                    serialPort.Close();
+                    _serialPort.Close();
 
                     LogBox.Text = "Port close";
                 }
@@ -1422,10 +1426,10 @@ namespace HustonRTEMS {
         private bool CheckSendingPeriod(TextBox sendPerionText, int sleepTime) {
             bool check = false;
             sendPerionText.Invoke(new Action(() => {
-                if(serialPort == null) { LogBox2.Text = "serialPort is no open"; return; }
+                if(_serialPort == null) { LogBox2.Text = "serialPort is no open"; return; }
                 if(sendPerionText.TextLength > 0 &&
                 sleepTime == Convert.ToInt16(sendPerionText.Text) &&
-                serialPort.IsOpen)
+                _serialPort.IsOpen)
                     check = true;
             }));
             return check;
