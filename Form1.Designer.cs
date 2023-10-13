@@ -402,14 +402,14 @@
             GetDBFileInfo = new Button();
             TabPageCommand = new TabPage();
             CommandPanel3 = new Panel();
+            label157 = new Label();
+            LabelBSA = new Label();
+            DeviceAd = new TextBox();
+            BaseStationAd = new TextBox();
             ToServer = new Button();
             CommandPanel2 = new Panel();
             CommandPanel1 = new Panel();
             LogBox2 = new TextBox();
-            BaseStationAd = new TextBox();
-            DeviceAd = new TextBox();
-            label2 = new Label();
-            label157 = new Label();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -4527,7 +4527,7 @@
             // CommandPanel3
             // 
             CommandPanel3.Controls.Add(label157);
-            CommandPanel3.Controls.Add(label2);
+            CommandPanel3.Controls.Add(LabelBSA);
             CommandPanel3.Controls.Add(DeviceAd);
             CommandPanel3.Controls.Add(BaseStationAd);
             CommandPanel3.Controls.Add(ToServer);
@@ -4536,6 +4536,44 @@
             CommandPanel3.Name = "CommandPanel3";
             CommandPanel3.Size = new Size(200, 439);
             CommandPanel3.TabIndex = 1;
+            // 
+            // label157
+            // 
+            label157.AutoSize = true;
+            label157.Location = new Point(3, 395);
+            label157.Name = "label157";
+            label157.Size = new Size(85, 15);
+            label157.TabIndex = 4;
+            label157.Tag = "NotInvisible";
+            label157.Text = "Device address";
+            // 
+            // LabelBSA
+            // 
+            LabelBSA.AutoSize = true;
+            LabelBSA.Location = new Point(3, 351);
+            LabelBSA.Name = "LabelBSA";
+            LabelBSA.Size = new Size(113, 15);
+            LabelBSA.TabIndex = 3;
+            LabelBSA.Tag = "NotInvisible";
+            LabelBSA.Text = "Base station address";
+            // 
+            // DeviceAd
+            // 
+            DeviceAd.Location = new Point(3, 413);
+            DeviceAd.Name = "DeviceAd";
+            DeviceAd.Size = new Size(67, 23);
+            DeviceAd.TabIndex = 2;
+            DeviceAd.Tag = "NotInvisible";
+            DeviceAd.Text = "0x5";
+            // 
+            // BaseStationAd
+            // 
+            BaseStationAd.Location = new Point(3, 369);
+            BaseStationAd.Name = "BaseStationAd";
+            BaseStationAd.Size = new Size(67, 23);
+            BaseStationAd.TabIndex = 1;
+            BaseStationAd.Tag = "NotInvisible";
+            BaseStationAd.Text = "0x1C";
             // 
             // ToServer
             // 
@@ -4575,40 +4613,6 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
-            // 
-            // BaseStationAd
-            // 
-            BaseStationAd.Location = new Point(3, 369);
-            BaseStationAd.Name = "BaseStationAd";
-            BaseStationAd.Size = new Size(67, 23);
-            BaseStationAd.TabIndex = 1;
-            BaseStationAd.Text = "0x1C";
-            // 
-            // DeviceAd
-            // 
-            DeviceAd.Location = new Point(3, 413);
-            DeviceAd.Name = "DeviceAd";
-            DeviceAd.Size = new Size(67, 23);
-            DeviceAd.TabIndex = 2;
-            DeviceAd.Text = "0x5";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(3, 351);
-            label2.Name = "label2";
-            label2.Size = new Size(113, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Base station address";
-            // 
-            // label157
-            // 
-            label157.AutoSize = true;
-            label157.Location = new Point(3, 395);
-            label157.Name = "label157";
-            label157.Size = new Size(85, 15);
-            label157.TabIndex = 4;
-            label157.Text = "Device address";
             // 
             // MainForm
             // 
@@ -5074,7 +5078,7 @@
         private Panel CommandPanel3;
         private Button ToServer;
         private TextBox BaseStationAd;
-        private Label label2;
+        private Label LabelBSA;
         private TextBox DeviceAd;
         private Label label157;
     }

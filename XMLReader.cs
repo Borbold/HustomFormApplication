@@ -42,11 +42,12 @@ namespace HustonRTEMS {
         }
 
         protected void RemoveAll(Panel panel) {
-            for(int i = 0; i < panel.Controls.Count;)
-                if(panel.Controls[i].Name != "BaseStationAd" && panel.Controls[i].Name != "DeviceAd")
+            for(int i = 0; i < panel.Controls.Count;) { 
+                if(panel.Controls[i].Tag != null && panel.Controls[i].Tag.ToString() != "NotInvisible")
                     panel.Controls.RemoveAt(i);
                 else
                     i++;
+            }
         }
         protected void CreateLabel(string text, Point location, int width, Panel page) {
             Label newLab = new() {
