@@ -137,7 +137,8 @@ namespace HustonRTEMS {
             }
 
             _xmlRreader = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices\\VMS_msgid.xml",
-                CommandPanel1, CommandPanel2, CommandPanel3, ToServer, _serialPort, BaseStationAd, DeviceAd);
+                CommandPanel1, CommandPanel2, CommandPanel3, ToServer, _serialPort, BaseStationAd, DeviceAd,
+                LogBox);
             _xmlRreader.MoldButtonName();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -822,12 +823,12 @@ namespace HustonRTEMS {
                     unicanMSGId = Convert.ToUInt16(IdShippingExBeacon.Text, 16),
                     unicanAddressTo = Convert.ToUInt16(AddresReceiveExBeacon.Text, 16),
                     unicanAddressFrom = Convert.ToUInt16(AddresExBeacon.Text, 16),
-                    unicanLength = unicanLenght
+                    unicanLength = unicanLenght,
+                    data = new byte[unicanLenght]
                 };
                 ItUn[] temV = new ItUn[temVar];
                 FlUn[] rootVar = new FlUn[rotVar];
                 FlUn[] acVar = new FlUn[accVar];
-                test.data = new byte[unicanLenght];
                 for(int i = 0; i < unicanLenght; i++) {
                     if(i < temVar) {
                         temV[i].it = Convert.ToInt16(LabBTemp.Text);
