@@ -551,7 +551,7 @@ namespace HustonRTEMS {
                 int fCount = 1;
                 int[] arIValue = Array.Empty<int>();
                 float[] arFValue = new float[fCount];
-                arFValue[0] = (float)Convert.ToDouble(LabTemp.Text);
+                arFValue[0] = Convert.ToSingle(LabTemp.Text);
                 GF.SendMessageInSocket(serverListener,
                     idShipping, addresValue, addresReceive,
                     iCount, fCount, arIValue, arFValue,
@@ -569,7 +569,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn fuX = new() {
-                    fl = (float)Convert.ToDouble(LabTemp.Text)
+                    fl = Convert.ToSingle(LabTemp.Text)
                 };
                 test.data = new byte[unicanLenght]
                 {
@@ -588,10 +588,10 @@ namespace HustonRTEMS {
                 int fCount = 4;
                 int[] arIValue = Array.Empty<int>();
                 float[] arFValue = new float[fCount];
-                arFValue[0] = (float)Convert.ToDouble(LabRotX.Text);
-                arFValue[1] = (float)Convert.ToDouble(LabRotY.Text);
-                arFValue[2] = (float)Convert.ToDouble(LabRotZ.Text);
-                arFValue[3] = (float)Convert.ToDouble(LabRotW.Text);
+                arFValue[0] = Convert.ToSingle(LabRotX.Text);
+                arFValue[1] = Convert.ToSingle(LabRotY.Text);
+                arFValue[2] = Convert.ToSingle(LabRotZ.Text);
+                arFValue[3] = Convert.ToSingle(LabRotW.Text);
                 GF.SendMessageInSocket(serverListener,
                     idShipping, addresValue, addresReceive,
                     iCount, fCount, arIValue, arFValue,
@@ -609,16 +609,16 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn fuX = new() {
-                    fl = (float)Convert.ToDouble(LabRotX.Text)
+                    fl = Convert.ToSingle(LabRotX.Text)
                 };
                 FlUn fuY = new() {
-                    fl = (float)Convert.ToDouble(LabRotY.Text)
+                    fl = Convert.ToSingle(LabRotY.Text)
                 };
                 FlUn fuZ = new() {
-                    fl = (float)Convert.ToDouble(LabRotZ.Text)
+                    fl = Convert.ToSingle(LabRotZ.Text)
                 };
                 FlUn fuW = new() {
-                    fl = (float)Convert.ToDouble(LabRotW.Text)
+                    fl = Convert.ToSingle(LabRotW.Text)
                 };
                 test.data = new byte[unicanLenght]
                 {
@@ -640,9 +640,9 @@ namespace HustonRTEMS {
                 int fCount = 3;
                 int[] arIValue = Array.Empty<int>();
                 float[] arFValue = new float[fCount];
-                arFValue[0] = (float)Convert.ToDouble(LabPosX.Text);
-                arFValue[1] = (float)Convert.ToDouble(LabPosY.Text);
-                arFValue[2] = (float)Convert.ToDouble(LabPosZ.Text);
+                arFValue[0] = Convert.ToSingle(LabPosX.Text);
+                arFValue[1] = Convert.ToSingle(LabPosY.Text);
+                arFValue[2] = Convert.ToSingle(LabPosZ.Text);
                 GF.SendMessageInSocket(serverListener,
                     idShipping, addresValue, addresReceive,
                     iCount, fCount, arIValue, arFValue,
@@ -664,9 +664,9 @@ namespace HustonRTEMS {
                 int fCount = 3;
                 int[] arIValue = Array.Empty<int>();
                 float[] arFValue = new float[fCount];
-                arFValue[0] = (float)Convert.ToDouble(LabRatesX.Text);
-                arFValue[1] = (float)Convert.ToDouble(LabRatesY.Text);
-                arFValue[2] = (float)Convert.ToDouble(LabRatesZ.Text);
+                arFValue[0] = Convert.ToSingle(LabRatesX.Text);
+                arFValue[1] = Convert.ToSingle(LabRatesY.Text);
+                arFValue[2] = Convert.ToSingle(LabRatesZ.Text);
                 GF.SendMessageInSocket(serverListener,
                     idShipping, addresValue, addresReceive,
                     iCount, fCount, arIValue, arFValue,
@@ -684,13 +684,13 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn fuX = new() {
-                    fl = (float)Convert.ToDouble(LabRatesX.Text)
+                    fl = Convert.ToSingle(LabRatesX.Text)
                 };
                 FlUn fuY = new() {
-                    fl = (float)Convert.ToDouble(LabRatesY.Text)
+                    fl = Convert.ToSingle(LabRatesY.Text)
                 };
                 FlUn fuZ = new() {
-                    fl = (float)Convert.ToDouble(LabRatesZ.Text)
+                    fl = Convert.ToSingle(LabRatesZ.Text)
                 };
                 test.data = new byte[unicanLenght]
                 {
@@ -711,9 +711,9 @@ namespace HustonRTEMS {
                 int fCount = 3;
                 int[] arIValue = Array.Empty<int>();
                 float[] arFValue = new float[fCount];
-                arFValue[0] = (float)Convert.ToDouble(LabAccelX.Text);
-                arFValue[1] = (float)Convert.ToDouble(LabAccelY.Text);
-                arFValue[2] = (float)Convert.ToDouble(LabAccelZ.Text);
+                arFValue[0] = Convert.ToSingle(LabAccelX.Text);
+                arFValue[1] = Convert.ToSingle(LabAccelY.Text);
+                arFValue[2] = Convert.ToSingle(LabAccelZ.Text);
                 GF.SendMessageInSocket(serverListener,
                     idShipping, addresValue, addresReceive,
                     iCount, fCount, arIValue, arFValue,
@@ -834,15 +834,15 @@ namespace HustonRTEMS {
                         temV[i].it = Convert.ToInt16(LabBTemp.Text);
                     } else if(i < temVar + rotVar) {
                         int j = i - temVar;
-                        rootVar[j].fl = (float)Convert.ToDecimal(LabRatesX.Text);
-                        rootVar[j + 1].fl = (float)Convert.ToDecimal(LabRatesY.Text);
-                        rootVar[j + 2].fl = (float)Convert.ToDecimal(LabRatesZ.Text);
+                        rootVar[j].fl = Convert.ToSingle(LabRatesX.Text);
+                        rootVar[j + 1].fl = Convert.ToSingle(LabRatesY.Text);
+                        rootVar[j + 2].fl = Convert.ToSingle(LabRatesZ.Text);
                         i += 2;
                     } else {
                         int j = i - (temVar + rotVar);
-                        acVar[j].fl = (float)Convert.ToDecimal(LabAccelX.Text);
-                        acVar[j + 1].fl = (float)Convert.ToDecimal(LabAccelY.Text);
-                        acVar[j + 2].fl = (float)Convert.ToDecimal(LabAccelZ.Text);
+                        acVar[j].fl = Convert.ToSingle(LabAccelX.Text);
+                        acVar[j + 1].fl = Convert.ToSingle(LabAccelY.Text);
+                        acVar[j + 2].fl = Convert.ToSingle(LabAccelZ.Text);
                         i += 2;
                     }
                 }
@@ -928,7 +928,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn RSXV = new() {
-                    fl = (float)Convert.ToDecimal(RateSensValueX.Text)
+                    fl = Convert.ToSingle(RateSensValueX.Text)
                 };
                 byte RSXT = Convert.ToByte(RateSensTemperatureX.Text);
                 test.data = new byte[unicanLenght] {
@@ -945,7 +945,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn RSYV = new() {
-                    fl = (float)Convert.ToDecimal(RateSensValueY.Text)
+                    fl = Convert.ToSingle(RateSensValueY.Text)
                 };
                 byte RSYT = Convert.ToByte(RateSensTemperatureY.Text);
                 test.data = new byte[unicanLenght] {
@@ -962,7 +962,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn RSZV = new() {
-                    fl = (float)Convert.ToDecimal(RateSensValueZ.Text)
+                    fl = Convert.ToSingle(RateSensValueZ.Text)
                 };
                 byte RSZT = Convert.ToByte(RateSensTemperatureZ.Text);
                 test.data = new byte[unicanLenght] {
@@ -996,7 +996,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn MXV = new() {
-                    fl = (float)Convert.ToDecimal(MagValueX.Text)
+                    fl = Convert.ToSingle(MagValueX.Text)
                 };
                 byte MXT = Convert.ToByte(MagTemperatureX.Text);
                 test.data = new byte[unicanLenght] {
@@ -1013,7 +1013,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn MYV = new() {
-                    fl = (float)Convert.ToDecimal(MagValueY.Text)
+                    fl = Convert.ToSingle(MagValueY.Text)
                 };
                 byte MYT = Convert.ToByte(MagTemperatureY.Text);
                 test.data = new byte[unicanLenght] {
@@ -1030,7 +1030,7 @@ namespace HustonRTEMS {
                     unicanLength = unicanLenght
                 };
                 FlUn MZV = new() {
-                    fl = (float)Convert.ToDecimal(MagValueZ.Text)
+                    fl = Convert.ToSingle(MagValueZ.Text)
                 };
                 byte MZT = Convert.ToByte(MagTemperatureZ.Text);
                 test.data = new byte[unicanLenght] {
@@ -1087,37 +1087,37 @@ namespace HustonRTEMS {
                 FlUn quat = new(), AV = new();
                 for(int i = 0; i < unicanLenght; i++) {
                     if(i == (time + uptime)) {
-                        quat.fl = (float)Convert.ToDecimal(eci_quat_w.Text);
+                        quat.fl = Convert.ToSingle(eci_quat_w.Text);
                         test.data[i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                        quat.fl = (float)Convert.ToDecimal(eci_quat_vect_x.Text);
+                        quat.fl = Convert.ToSingle(eci_quat_vect_x.Text);
                         test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                        quat.fl = (float)Convert.ToDecimal(eci_quat_vect_y.Text);
+                        quat.fl = Convert.ToSingle(eci_quat_vect_y.Text);
                         test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                        quat.fl = (float)Convert.ToDecimal(eci_quat_vect_z.Text);
+                        quat.fl = Convert.ToSingle(eci_quat_vect_z.Text);
                         test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                        AV.fl = (float)Convert.ToDecimal(eci_AV_x.Text);
+                        AV.fl = Convert.ToSingle(eci_AV_x.Text);
                         test.data[++i] = AV.byte1;
                         test.data[++i] = AV.byte2;
                         test.data[++i] = AV.byte3;
                         test.data[++i] = AV.byte4;
-                        AV.fl = (float)Convert.ToDecimal(eci_AV_y.Text);
+                        AV.fl = Convert.ToSingle(eci_AV_y.Text);
                         test.data[++i] = AV.byte1;
                         test.data[++i] = AV.byte2;
                         test.data[++i] = AV.byte3;
                         test.data[++i] = AV.byte4;
-                        AV.fl = (float)Convert.ToDecimal(eci_AV_z.Text);
+                        AV.fl = Convert.ToSingle(eci_AV_z.Text);
                         test.data[++i] = AV.byte1;
                         test.data[++i] = AV.byte2;
                         test.data[++i] = AV.byte3;
@@ -1125,22 +1125,22 @@ namespace HustonRTEMS {
                     } else if(i == (time + uptime +
                             eciQuatW + eciQuatX + eciQuatY + eciQuatZ + eciAVX + eciAVY + eciAVZ +
                             sizeof(byte))) {
-                        quat.fl = (float)Convert.ToDecimal(orb_quat_w.Text);
+                        quat.fl = Convert.ToSingle(orb_quat_w.Text);
                         test.data[i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                        quat.fl = (float)Convert.ToDecimal(orb_quat_vect_x.Text);
+                        quat.fl = Convert.ToSingle(orb_quat_vect_x.Text);
                         test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                        quat.fl = (float)Convert.ToDecimal(orb_quat_vect_y.Text);
+                        quat.fl = Convert.ToSingle(orb_quat_vect_y.Text);
                         test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;
                         test.data[++i] = quat.byte4;
-                        quat.fl = (float)Convert.ToDecimal(orb_quat_vect_z.Text);
+                        quat.fl = Convert.ToSingle(orb_quat_vect_z.Text);
                         test.data[++i] = quat.byte1;
                         test.data[++i] = quat.byte2;
                         test.data[++i] = quat.byte3;

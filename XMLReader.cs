@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace HustonRTEMS {
     internal class XMLReader {
@@ -44,7 +39,7 @@ namespace HustonRTEMS {
         }
 
         protected void RemoveAll(Panel panel) {
-            for(int i = 0; i < panel.Controls.Count;) { 
+            for(int i = 0; i < panel.Controls.Count;) {
                 if(panel.Controls[i].Tag != null && panel.Controls[i].Tag.ToString() != "NotInvisible")
                     panel.Controls.RemoveAt(i);
                 else
@@ -115,13 +110,13 @@ namespace HustonRTEMS {
         }
     }
 
-    partial class XMLCreator: XMLReader {
+    internal partial class XMLCreator: XMLReader {
         protected readonly CanToUnican CTU = new();
-        private string _pacName;
-        private int _nameWidth, _infoWidth, _descWidth;
-        private List<string> listTypeValue = new();
-        private List<object> listInfoBox = new();
-        private List<int> listLen = new();
+        private readonly string _pacName;
+        private readonly int _nameWidth, _infoWidth, _descWidth;
+        private readonly List<string> listTypeValue = new();
+        private readonly List<object> listInfoBox = new();
+        private readonly List<ushort> listLen = new(), listOff = new();
         private ushort _pacId = 0;
 
         public XMLCreator(string pathXML, Panel panelNames, Panel panelInfo, Panel panelButton,
@@ -135,7 +130,7 @@ namespace HustonRTEMS {
             _pacName = pacName;
         }
 
-        public  void MoldInteractPanel(Object? sender, EventArgs e) {
+        public void MoldInteractPanel(object? sender, EventArgs e) {
             RemoveAll(_panelButton);
             xmlDoc = new(_pathXML);
             int offsetY = 25;
@@ -173,11 +168,13 @@ namespace HustonRTEMS {
                             locDesc.Offset(0, offsetY);
                         }
                         if(xmlDoc.Name == "FldLen")
-                            listLen.Add(Convert.ToInt32(xmlDoc.ReadInnerXml()));
+                            listLen.Add(Convert.ToUInt16(xmlDoc.ReadInnerXml()));
+                        if(xmlDoc.Name == "FldOffset")
+                            listOff.Add(Convert.ToUInt16(xmlDoc.ReadInnerXml()));
                         if(xmlDoc.Name == "PacDesc") {
                             string desc = xmlDoc.ReadInnerXml(), lDesc = "";
                             for(int i = 0, j = 0; i < desc.Length; i += 20, j++) {
-                                lDesc += desc.Substring(i, Math.Abs(20 - desc.Length * j));
+                                lDesc += desc.Substring(i, Math.Abs(20 - (desc.Length * j)));
                                 lDesc += "\n";
                             }
                             CreateLabel(lDesc != "" ? lDesc : desc, locName,
@@ -193,20 +190,39 @@ namespace HustonRTEMS {
             CreateButtonToServer(_toServer, _panelButton, Test);
         }
 
-        private void Test(Object? sender, EventArgs e) {
-            ushort unicanLenght = 0;
+        private void Test(object? sender, EventArgs e) {
+            ushort unicanBitsLenght = 0;
+            List<byte> dataBytes = new();
             for(int i = 0; i < listTypeValue.Count; i++) {
                 string? type = listTypeValue[i];
                 if(listInfoBox[i] is TextBox) {
-                    var l = listInfoBox[i] as TextBox;
-                    Debug.WriteLine(string.Format("Type: {0}; Value: {1}; Len: {2}; Dev: {3};", type, l?.Text, listLen[i], _deviceAd.Text));
-                    unicanLenght += (ushort)listLen[i];
-                } else if(listInfoBox[i] is CheckBox) {
-                    var c = listInfoBox[i] as CheckBox;
-                    Debug.WriteLine(string.Format("Type: {0}; Value: {1};", type, c?.Checked));
-                    unicanLenght += (ushort)listLen[i];
+                    TextBox? l = listInfoBox[i] as TextBox;
+                    Debug.WriteLine(string.Format("Type: {0}; Value: {1}; Len: {2}; Dev: {3};", type, l.Text, listLen[i], _deviceAd.Text));
+                    unicanBitsLenght += listLen[i];
+                    byte[] getB = GetBytes(l.Text, (int)Math.Ceiling(listLen[i] / 8.0), type);
+                    for(int j = 0; j < Math.Ceiling(listLen[i] / 8.0); j++) {
+                        dataBytes.Add(getB[j]);
+                    }
                 }
             }
+            for(int i = 0; i < listTypeValue.Count; i++) {
+                string? type = listTypeValue[i];
+                if(listInfoBox[i] is CheckBox) {
+                    CheckBox? c = listInfoBox[i] as CheckBox;
+                    Debug.WriteLine(string.Format("Type: {0}; Value: {1};", type, c.Checked));
+                    unicanBitsLenght += listLen[i];
+                    for(int j = i; j < listTypeValue.Count; j++) {
+                        if(listInfoBox[j] is TextBox) {
+                            int k = listOff[j] / 8;
+                            dataBytes[k] = (byte)(dataBytes[k] << 1);
+                            dataBytes[k] |= (byte)(c.Checked ? 1 : 0);
+                            break;
+                        }
+                    }
+                }
+            }
+            // Bits in bytes
+            ushort unicanLenght = (ushort)(unicanBitsLenght / 8);
             UnicanMessage test = new() {
                 unicanMSGId = _pacId,
                 unicanAddressTo = Convert.ToUInt16(_baseSatationAd.Text, 16),
@@ -214,7 +230,49 @@ namespace HustonRTEMS {
                 unicanLength = unicanLenght,
                 data = new byte[unicanLenght]
             };
+            for(int i = 0; i < dataBytes.Count; i++) {
+                byte b = dataBytes[i];
+                test.data[i] = b;
+            }
             CTU.SendWithCAN(test, _serialPort, _logBox);
+        }
+
+        private byte[] GetBytes(string text, int lenght, string type) {
+            int locL = 0;
+            byte[] bytes = new byte[lenght];
+            switch(type) {
+                case "float":
+                    float getFloat = Convert.ToSingle(text);
+                    FlUn flUn = new() {
+                        fl = getFloat
+                    };
+                    bytes[0] = flUn.byte1;
+                    bytes[1] = flUn.byte2;
+                    bytes[2] = flUn.byte3;
+                    bytes[3] = flUn.byte4;
+                    break;
+                case "int":
+                    int getInt = Convert.ToInt32(text);
+                    bytes[locL] = (byte)getInt;         locL++;
+                    if(locL >= lenght) break;
+                    bytes[locL] = (byte)(getInt >> 8);  locL++;
+                    if(locL >= lenght) break;
+                    bytes[locL] = (byte)(getInt >> 16); locL++;
+                    if(locL >= lenght) break;
+                    bytes[locL] = (byte)(getInt >> 24);
+                    break;
+                case "uint":
+                    uint getUInt = Convert.ToUInt32(text);
+                    bytes[locL] = (byte)getUInt;        locL++;
+                    if(locL >= lenght) break;
+                    bytes[locL] = (byte)(getUInt >> 8); locL++;
+                    if(locL >= lenght) break;
+                    bytes[locL] = (byte)(getUInt >> 16);locL++;
+                    if(locL >= lenght) break;
+                    bytes[locL] = (byte)(getUInt >> 24);
+                    break;
+            }
+            return bytes;
         }
     }
 }
