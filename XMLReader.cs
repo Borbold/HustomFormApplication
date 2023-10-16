@@ -133,6 +133,7 @@ namespace HustonRTEMS {
         public void MoldInteractPanel(object? sender, EventArgs e) {
             RemoveAll(_panelButton);
             xmlDoc = new(_pathXML);
+            string comType = "";
             int offsetY = 25;
             Point locName = new(), locTextBox = new(_nameWidth, 0), locDesc = new(_nameWidth + _infoWidth, 0);
             bool checkPacName = false;
@@ -143,8 +144,23 @@ namespace HustonRTEMS {
                         if(xmlDoc.ReadInnerXml() == _pacName) checkPacName = true;
                     }
                     if(checkPacName) {
+                        if(xmlDoc.Name == "PacType") {
+                            comType = xmlDoc.ReadInnerXml();
+                        }
                         if(xmlDoc.Name == "PacId") {
                             _pacId = Convert.ToUInt16(xmlDoc.ReadInnerXml(), 16);
+                            switch(comType) {
+                                case "command":
+                                    _deviceAd.Text = "0x1";
+                                    // TODO: modify to sample from the text in xml
+                                    _baseSatationAd.Text = "0x9";
+                                    break;
+                                case "datain":
+                                    _baseSatationAd.Text = "0x1";
+                                    // TODO: modify to sample from the text in xml
+                                    _deviceAd.Text = "0x9";
+                                    break;
+                            }
                         }
                         if(xmlDoc.Name == "FldName") {
                             CreateLabel(xmlDoc.ReadInnerXml(), locName,
