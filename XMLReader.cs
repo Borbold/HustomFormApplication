@@ -40,7 +40,8 @@ namespace HustonRTEMS {
 
         protected void RemoveAll(Panel panel) {
             for(int i = 0; i < panel.Controls.Count;) {
-                if(panel.Controls[i].Tag != null && panel.Controls[i].Tag.ToString() != "NotInvisible")
+                string? tag = panel.Controls[i].Tag != null ? panel.Controls[i].Tag.ToString() : "";
+                if(string.Compare(tag, "NotInvisible") != 0)
                     panel.Controls.RemoveAt(i);
                 else
                     i++;
@@ -189,7 +190,7 @@ namespace HustonRTEMS {
                             listOff.Add(Convert.ToUInt16(xmlDoc.ReadInnerXml()));
                         if(xmlDoc.Name == "PacDesc") {
                             string desc = xmlDoc.ReadInnerXml(), lDesc = "";
-                            for(int i = 0, j = 0; i < desc.Length; i += 20, j++) {
+                            for(int i = 0, j = 0; desc.Length >= 20 && i < desc.Length; i += 20, j++) {
                                 lDesc += desc.Substring(i, Math.Abs(20 - (desc.Length * j)));
                                 lDesc += "\n";
                             }
