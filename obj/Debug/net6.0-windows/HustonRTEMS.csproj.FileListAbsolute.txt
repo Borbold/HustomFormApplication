@@ -62,3 +62,4 @@ D:\VS_project\HustomFormApplication\obj\Debug\net6.0-windows\refint\HustonRTEMS.
 D:\VS_project\HustomFormApplication\obj\Debug\net6.0-windows\HustonRTEMS.pdb
 D:\VS_project\HustomFormApplication\obj\Debug\net6.0-windows\HustonRTEMS.genruntimeconfig.cache
 D:\VS_project\HustomFormApplication\obj\Debug\net6.0-windows\ref\HustonRTEMS.dll
+D:\VS_Code\HustonRTEMS\obj\Debug\net6.0-windows\HustonRTEMS.Properties.Resources.resources

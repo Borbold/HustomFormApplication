@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO.Ports;
 using System.Xml;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using HustonUI;
 
 namespace HustonRTEMS {
     internal class XMLReader {
@@ -31,74 +31,17 @@ namespace HustonRTEMS {
             Point location = new();
             while(xmlDoc.Read()) {
                 if(xmlDoc.NodeType == XmlNodeType.Element && xmlDoc.Name == "PacName") {
-                    CreateButton(xmlDoc.ReadElementContentAsString(), location, _panelNames.Width - 20, _panelNames);
+                    string text = xmlDoc.ReadElementContentAsString();
+                    XMLCreator creator = new(_pathXML, _panelNames, _panelInfo, _panelButton,
+                        _toServer, _serialPort, _baseSatationAd, _deviceAd, text, _logBox);
+                    Button newButton = UICreator.CreateButton(text, location, _panelNames.Width - 20, _panelNames);
+                    newButton.Click += new EventHandler(creator.MoldInteractPanel);
                     location.Offset(0, 20);
                 }
             }
             xmlDoc.Close();
         }
 
-        protected void RemoveAll(Panel panel) {
-            for(int i = 0; i < panel.Controls.Count;) {
-                string? tag = panel.Controls[i].Tag != null ? panel.Controls[i].Tag.ToString() : "";
-                if(string.Compare(tag, "NotInvisible") != 0)
-                    panel.Controls.RemoveAt(i);
-                else
-                    i++;
-            }
-        }
-        protected void CreateLabel(string text, Point location, int width, Panel page) {
-            Label newLab = new() {
-                Text = text,
-                Font = new Font(FontFamily.GenericSansSerif, 10),
-                Location = location,
-                Width = width,
-            };
-            page.Controls.Add(newLab);
-        }
-        protected void CreateLabel(string text, Point location, int width, int height, Panel page) {
-            Label newLab = new() {
-                Text = text,
-                Font = new Font(FontFamily.GenericSansSerif, 10),
-                Location = location,
-                Width = width,
-                Height = height,
-            };
-            page.Controls.Add(newLab);
-        }
-        protected TextBox CreateTextBox(string name, string text, Point location, int width, Panel page) {
-            TextBox newTextBox = new() {
-                Name = name,
-                Text = text,
-                Font = new Font(FontFamily.GenericSansSerif, 10),
-                Location = location,
-                Width = width,
-            };
-            page.Controls.Add(newTextBox);
-            return newTextBox;
-        }
-        protected CheckBox CreateCheckBox(string name, Point location, int width, Panel page) {
-            CheckBox newCheckBox = new() {
-                Name = name,
-                Font = new Font(FontFamily.GenericSansSerif, 10),
-                Location = location,
-                Width = width,
-            };
-            page.Controls.Add(newCheckBox);
-            return newCheckBox;
-        }
-        protected void CreateButton(string text, Point location, int width, Panel page) {
-            Button newButton = new() {
-                Text = text,
-                Font = new Font(FontFamily.GenericSansSerif, 10),
-                Location = location,
-                Width = width,
-            };
-            XMLCreator creator = new(_pathXML, _panelNames, _panelInfo, _panelButton,
-                _toServer, _serialPort, _baseSatationAd, _deviceAd, text, _logBox);
-            newButton.Click += new EventHandler(creator.MoldInteractPanel);
-            page.Controls.Add(newButton);
-        }
         protected void CreateButtonToServer(Button toButton, Panel page, EventHandler toEvent) {
             Button newButton = new() {
                 Location = toButton.Location,
@@ -132,13 +75,13 @@ namespace HustonRTEMS {
         }
 
         public void MoldInteractPanel(object? sender, EventArgs e) {
-            RemoveAll(_panelButton);
+            UICreator.RemoveAll(_panelButton);
             xmlDoc = new(_pathXML);
             string comType = "";
             int offsetY = 25;
             Point locName = new(), locTextBox = new(_nameWidth, 0), locDesc = new(_nameWidth + _infoWidth, 0);
             bool checkPacName = false;
-            RemoveAll(_panelInfo);
+            UICreator.RemoveAll(_panelInfo);
             while(xmlDoc.Read()) {
                 if(xmlDoc.NodeType == XmlNodeType.Element) {
                     if(!checkPacName && xmlDoc.Name == "PacName") {
@@ -164,23 +107,23 @@ namespace HustonRTEMS {
                             }
                         }
                         if(xmlDoc.Name == "FldName") {
-                            CreateLabel(xmlDoc.ReadInnerXml(), locName,
+                            UICreator.CreateLabel(xmlDoc.ReadInnerXml(), locName,
                                 _nameWidth, _panelInfo);
                             locName.Offset(0, offsetY);
                         }
                         if(xmlDoc.Name == "FldType") {
                             listTypeValue.Add(xmlDoc.ReadInnerXml());
                             if(listTypeValue.Last() != "bit") {
-                                listInfoBox.Add(CreateTextBox(string.Format("Value{0}", listTypeValue.Count), "0", locTextBox,
+                                listInfoBox.Add(UICreator.CreateTextBox(string.Format("Value{0}", listTypeValue.Count), "0", locTextBox,
                                     _infoWidth, _panelInfo));
                             } else {
-                                listInfoBox.Add(CreateCheckBox(string.Format("Value{0}", listTypeValue.Count), locTextBox,
+                                listInfoBox.Add(UICreator.CreateCheckBox(string.Format("Value{0}", listTypeValue.Count), locTextBox,
                                     _infoWidth, _panelInfo));
                             }
                             locTextBox.Offset(0, offsetY);
                         }
                         if(xmlDoc.Name == "FldDesc") {
-                            CreateLabel(xmlDoc.ReadInnerXml(), locDesc,
+                            UICreator.CreateLabel(xmlDoc.ReadInnerXml(), locDesc,
                                 _descWidth, _panelInfo);
                             locDesc.Offset(0, offsetY);
                         }
@@ -194,7 +137,7 @@ namespace HustonRTEMS {
                                 lDesc += desc.Substring(i, Math.Abs(20 - (desc.Length * j)));
                                 lDesc += "\n";
                             }
-                            CreateLabel(lDesc != "" ? lDesc : desc, locName,
+                            UICreator.CreateLabel(lDesc != "" ? lDesc : desc, locName,
                                 _descWidth, 200, _panelButton);
                         }
                     }

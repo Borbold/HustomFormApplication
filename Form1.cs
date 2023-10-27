@@ -8,6 +8,7 @@ namespace HustonRTEMS {
     public partial class MainForm: Form {
         private SerialPort _serialPort;
         private XMLReader _xmlRreader;
+        private LogReader _logReader;
         private Socket serverListener, client;
         private readonly CanToUnican CTU = new();
         private readonly Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -140,6 +141,10 @@ namespace HustonRTEMS {
                 CommandPanel1, CommandPanel2, CommandPanel3, ToServer, _serialPort, BaseStationAd, DeviceAd,
                 LogBox);
             _xmlRreader.MoldButtonName();
+
+            _logReader = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\logs\\HistoryLog_2023-10-24_10-21-35.csv",
+                CommandPanel4);
+            _logReader.ReadLog();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             CloseRKSCAN_Click(null, null);

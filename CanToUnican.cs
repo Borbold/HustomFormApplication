@@ -165,7 +165,7 @@ namespace HustonRTEMS {
                 ? string.Format("t0{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr)
                 : string.Format("t{0:X}{1}{2}\r", outByte.canIdentifier, outByte.canDLC, dataStr);
             writePort?.Write(outText);
-            logBox.Invoke(new Action(() => {
+            logBox?.Invoke(new Action(() => {
                 logBox.Text += "Отправлено\r\n" + outText + "\r\n";
             }));
         }
