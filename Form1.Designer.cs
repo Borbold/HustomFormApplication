@@ -4536,6 +4536,7 @@
             // 
             // CommandPanel3
             // 
+            CommandPanel3.AutoScroll = true;
             CommandPanel3.Controls.Add(label157);
             CommandPanel3.Controls.Add(LabelBSA);
             CommandPanel3.Controls.Add(DeviceAd);

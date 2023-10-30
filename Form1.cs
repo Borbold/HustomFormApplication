@@ -137,10 +137,11 @@ namespace HustonRTEMS {
                 AddresMZ.Text = section.AddressMagZ;
             }
 
-            _xmlRreader = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices\\VMS_msgid.xml",
+            string[] files = Directory.GetFiles("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices");
+            _xmlRreader = new(files,
                 CommandPanel1, CommandPanel2, CommandPanel3, ToServer, _serialPort, BaseStationAd, DeviceAd,
                 LogBox);
-            _xmlRreader.MoldButtonName();
+            _xmlRreader.MoldComboBoxName();
 
             _logReader = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\logs\\HistoryLog_2023-10-24_10-21-35.csv",
                 CommandPanel4);

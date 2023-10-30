@@ -1,4 +1,6 @@
-﻿namespace HustonUI {
+﻿using System.Diagnostics;
+
+namespace HustonUI {
     internal class UICreator {
         public static void RemoveAll(Panel panel) {
             for(int i = 0; i < panel.Controls.Count;) {
@@ -38,7 +40,9 @@
                 Location = location,
                 Width = width,
             };
-            page.Controls.Add(newTextBox);
+            page.Invoke(new Action(() => {
+                page.Controls.Add(newTextBox);
+            }));
             return newTextBox;
         }
         public static CheckBox CreateCheckBox(string name, Point location, int width, Panel page) {

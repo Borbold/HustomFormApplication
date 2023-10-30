@@ -5,19 +5,20 @@ using HustonUI;
 
 namespace HustonRTEMS {
     internal class XMLReader {
-        protected XmlTextReader? xmlDoc;
+        private XmlTextReader? _xmlDoc;
+
         protected Panel _panelNames, _panelInfo, _panelButton;
         protected Button _toServer;
         protected SerialPort _serialPort;
         protected TextBox _baseSatationAd, _deviceAd, _logBox;
-        protected string _pathXML;
+        protected string[] _namesXML;
 
-        public XMLReader(string pathXML, Panel panelNames, Panel panelInfo, Panel panelButton,
+        public XMLReader(string[] namesXML, Panel panelNames, Panel panelInfo, Panel panelButton,
                 Button toServer, SerialPort serialPort, TextBox baseSatationAd, TextBox deviceAd,
                 TextBox logBox) {
             _panelNames = panelNames;
             _panelInfo = panelInfo;
-            _pathXML = pathXML;
+            _namesXML = namesXML;
             _toServer = toServer;
             _panelButton = panelButton;
             _serialPort = serialPort;
@@ -26,20 +27,44 @@ namespace HustonRTEMS {
             _logBox = logBox;
         }
 
-        public void MoldButtonName() {
-            xmlDoc = new(_pathXML);
+        public void MoldComboBoxName() {
             Point location = new();
-            while(xmlDoc.Read()) {
-                if(xmlDoc.NodeType == XmlNodeType.Element && xmlDoc.Name == "PacName") {
-                    string text = xmlDoc.ReadElementContentAsString();
-                    XMLCreator creator = new(_pathXML, _panelNames, _panelInfo, _panelButton,
+            int numberBut = 0;
+            foreach (string name in _namesXML) {
+                string[] splitName = name.Split('\\');
+                Button newButton = UICreator.CreateButton(splitName[^1], location, _panelNames.Width - 20, _panelNames);
+                newButton.Tag = numberBut;
+                newButton.Click += new EventHandler(MoldButtonName);
+                location.Offset(0, 20);
+                numberBut++;
+            }
+        }
+
+        private void MoldButtonName(object? sender, EventArgs e) {
+            UICreator.RemoveAll(_panelNames);
+            Point location = new();
+
+            Button backButton = UICreator.CreateButton("Back", location, _panelNames.Width - 20, _panelNames);
+            backButton.Click += new EventHandler((object ? sender, EventArgs e) => {
+                UICreator.RemoveAll(_panelNames);
+                MoldComboBoxName();
+            });
+            location.Offset(0, 20);
+
+            int numberBut = 0;
+            _xmlDoc = new(_namesXML[(int)(sender as Control).Tag]);
+            while(_xmlDoc.Read()) {
+                if(_xmlDoc.NodeType == XmlNodeType.Element && _xmlDoc.Name == "PacName") {
+                    string text = _xmlDoc.ReadElementContentAsString();
+                    XMLCreator creator = new(_namesXML, _panelNames, _panelInfo, _panelButton,
                         _toServer, _serialPort, _baseSatationAd, _deviceAd, text, _logBox);
                     Button newButton = UICreator.CreateButton(text, location, _panelNames.Width - 20, _panelNames);
+                    newButton.Tag = (sender as Control).Tag;
                     newButton.Click += new EventHandler(creator.MoldInteractPanel);
                     location.Offset(0, 20);
                 }
             }
-            xmlDoc.Close();
+            _xmlDoc.Close();
         }
 
         protected void CreateButtonToServer(Button toButton, Panel page, EventHandler toEvent) {
@@ -55,6 +80,8 @@ namespace HustonRTEMS {
     }
 
     internal partial class XMLCreator: XMLReader {
+        private XmlTextReader? _xmlDoc;
+
         protected readonly CanToUnican CTU = new();
         private readonly string _pacName;
         private readonly int _nameWidth, _infoWidth, _descWidth;
@@ -63,7 +90,7 @@ namespace HustonRTEMS {
         private readonly List<ushort> listLen = new(), listOff = new();
         private ushort _pacId = 0;
 
-        public XMLCreator(string pathXML, Panel panelNames, Panel panelInfo, Panel panelButton,
+        public XMLCreator(string[] pathXML, Panel panelNames, Panel panelInfo, Panel panelButton,
                 Button toServer, SerialPort serialPort, TextBox baseSatationAd, TextBox deviceAd, string pacName,
                 TextBox logBox) :
                 base(pathXML, panelNames, panelInfo, panelButton, toServer, serialPort, baseSatationAd, deviceAd,
@@ -76,23 +103,23 @@ namespace HustonRTEMS {
 
         public void MoldInteractPanel(object? sender, EventArgs e) {
             UICreator.RemoveAll(_panelButton);
-            xmlDoc = new(_pathXML);
+            _xmlDoc = new(_namesXML[(int)(sender as Control).Tag]);
             string comType = "";
             int offsetY = 25;
             Point locName = new(), locTextBox = new(_nameWidth, 0), locDesc = new(_nameWidth + _infoWidth, 0);
             bool checkPacName = false;
             UICreator.RemoveAll(_panelInfo);
-            while(xmlDoc.Read()) {
-                if(xmlDoc.NodeType == XmlNodeType.Element) {
-                    if(!checkPacName && xmlDoc.Name == "PacName") {
-                        if(xmlDoc.ReadInnerXml() == _pacName) checkPacName = true;
+            while(_xmlDoc.Read()) {
+                if(_xmlDoc.NodeType == XmlNodeType.Element) {
+                    if(!checkPacName && _xmlDoc.Name == "PacName") {
+                        if(_xmlDoc.ReadInnerXml() == _pacName) checkPacName = true;
                     }
                     if(checkPacName) {
-                        if(xmlDoc.Name == "PacType") {
-                            comType = xmlDoc.ReadInnerXml();
+                        if(_xmlDoc.Name == "PacType") {
+                            comType = _xmlDoc.ReadInnerXml();
                         }
-                        if(xmlDoc.Name == "PacId") {
-                            _pacId = Convert.ToUInt16(xmlDoc.ReadInnerXml(), 16);
+                        if(_xmlDoc.Name == "PacId") {
+                            _pacId = (ushort)Convert.ToUInt32(_xmlDoc.ReadInnerXml(), 16);
                             switch(comType) {
                                 case "command":
                                     _deviceAd.Text = "0x1";
@@ -106,13 +133,13 @@ namespace HustonRTEMS {
                                     break;
                             }
                         }
-                        if(xmlDoc.Name == "FldName") {
-                            UICreator.CreateLabel(xmlDoc.ReadInnerXml(), locName,
+                        if(_xmlDoc.Name == "FldName") {
+                            UICreator.CreateLabel(_xmlDoc.ReadInnerXml(), locName,
                                 _nameWidth, _panelInfo);
                             locName.Offset(0, offsetY);
                         }
-                        if(xmlDoc.Name == "FldType") {
-                            listTypeValue.Add(xmlDoc.ReadInnerXml());
+                        if(_xmlDoc.Name == "FldType") {
+                            listTypeValue.Add(_xmlDoc.ReadInnerXml());
                             if(listTypeValue.Last() != "bit") {
                                 listInfoBox.Add(UICreator.CreateTextBox(string.Format("Value{0}", listTypeValue.Count), "0", locTextBox,
                                     _infoWidth, _panelInfo));
@@ -122,35 +149,36 @@ namespace HustonRTEMS {
                             }
                             locTextBox.Offset(0, offsetY);
                         }
-                        if(xmlDoc.Name == "FldDesc") {
-                            UICreator.CreateLabel(xmlDoc.ReadInnerXml(), locDesc,
+                        if(_xmlDoc.Name == "FldDesc") {
+                            UICreator.CreateLabel(_xmlDoc.ReadInnerXml(), locDesc,
                                 _descWidth, _panelInfo);
                             locDesc.Offset(0, offsetY);
                         }
-                        if(xmlDoc.Name == "FldLen")
-                            listLen.Add(Convert.ToUInt16(xmlDoc.ReadInnerXml()));
-                        if(xmlDoc.Name == "FldOffset")
-                            listOff.Add(Convert.ToUInt16(xmlDoc.ReadInnerXml()));
-                        if(xmlDoc.Name == "PacDesc") {
-                            string desc = xmlDoc.ReadInnerXml(), lDesc = "";
-                            for(int i = 0, j = 0; desc.Length >= 20 && i < desc.Length; i += 20, j++) {
-                                lDesc += desc.Substring(i, Math.Abs(20 - (desc.Length * j)));
+                        if(_xmlDoc.Name == "FldLen")
+                            listLen.Add(Convert.ToUInt16(_xmlDoc.ReadInnerXml()));
+                        if(_xmlDoc.Name == "FldOffset")
+                            listOff.Add(Convert.ToUInt16(_xmlDoc.ReadInnerXml()));
+                        if(_xmlDoc.Name == "PacDesc") {
+                            string desc = _xmlDoc.ReadInnerXml(), lDesc = "";
+                            for(int i = 0, j = 20; desc.Length >= 20 && i < desc.Length; i += 20) {
+                                int k = j + i > desc.Length ? desc.Length - i : j;
+                                lDesc += desc.Substring(i, k);
                                 lDesc += "\n";
                             }
                             UICreator.CreateLabel(lDesc != "" ? lDesc : desc, locName,
                                 _descWidth, 200, _panelButton);
                         }
                     }
-                    if(xmlDoc.Name == "PacName") {
-                        if(checkPacName && xmlDoc.ReadInnerXml() != _pacName) break;
+                    if(_xmlDoc.Name == "PacName") {
+                        if(checkPacName && _xmlDoc.ReadInnerXml() != _pacName) break;
                     }
                 }
             }
-            xmlDoc.Close();
-            CreateButtonToServer(_toServer, _panelButton, Test);
+            _xmlDoc.Close();
+            CreateButtonToServer(_toServer, _panelButton, SendTo);
         }
 
-        private void Test(object? sender, EventArgs e) {
+        private void SendTo(object? sender, EventArgs e) {
             ushort unicanBitsLenght = 0;
             List<byte> dataBytes = new();
             for(int i = 0; i < listTypeValue.Count; i++) {
