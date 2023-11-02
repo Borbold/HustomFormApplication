@@ -410,6 +410,12 @@
             ToServer = new Button();
             CommandPanel2 = new Panel();
             CommandPanel1 = new Panel();
+            tabPage10 = new TabPage();
+            AmountBytes = new TextBox();
+            ButtonCutFile = new Button();
+            NameCutFile = new TextBox();
+            label2 = new Label();
+            GetCutFileInfo = new Button();
             LogBox2 = new TextBox();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
@@ -450,6 +456,7 @@
             tabPage5.SuspendLayout();
             TabPageCommand.SuspendLayout();
             CommandPanel3.SuspendLayout();
+            tabPage10.SuspendLayout();
             SuspendLayout();
             // 
             // LogBox
@@ -4051,6 +4058,7 @@
             MainTabControll.Controls.Add(SensorReadings);
             MainTabControll.Controls.Add(tabPage5);
             MainTabControll.Controls.Add(TabPageCommand);
+            MainTabControll.Controls.Add(tabPage10);
             MainTabControll.Location = new Point(12, 12);
             MainTabControll.Name = "MainTabControll";
             MainTabControll.SelectedIndex = 0;
@@ -4485,7 +4493,7 @@
             // NameDBFile
             // 
             NameDBFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            NameDBFile.Location = new Point(49, 323);
+            NameDBFile.Location = new Point(49, 329);
             NameDBFile.Name = "NameDBFile";
             NameDBFile.ReadOnly = true;
             NameDBFile.Size = new Size(209, 29);
@@ -4495,7 +4503,7 @@
             // 
             LabelDBFile.AutoSize = true;
             LabelDBFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            LabelDBFile.Location = new Point(6, 326);
+            LabelDBFile.Location = new Point(6, 332);
             LabelDBFile.Name = "LabelDBFile";
             LabelDBFile.Size = new Size(37, 21);
             LabelDBFile.TabIndex = 2;
@@ -4508,7 +4516,7 @@
             GetDBFileInfo.Name = "GetDBFileInfo";
             GetDBFileInfo.Size = new Size(123, 75);
             GetDBFileInfo.TabIndex = 1;
-            GetDBFileInfo.Text = "Получить информацию из файла";
+            GetDBFileInfo.Text = "Получить путь к файлу";
             GetDBFileInfo.UseVisualStyleBackColor = true;
             GetDBFileInfo.Click += GetDBFileInfo_Click;
             // 
@@ -4536,7 +4544,6 @@
             // 
             // CommandPanel3
             // 
-            CommandPanel3.AutoScroll = true;
             CommandPanel3.Controls.Add(label157);
             CommandPanel3.Controls.Add(LabelBSA);
             CommandPanel3.Controls.Add(DeviceAd);
@@ -4614,6 +4621,70 @@
             CommandPanel1.Name = "CommandPanel1";
             CommandPanel1.Size = new Size(260, 439);
             CommandPanel1.TabIndex = 0;
+            // 
+            // tabPage10
+            // 
+            tabPage10.Controls.Add(AmountBytes);
+            tabPage10.Controls.Add(ButtonCutFile);
+            tabPage10.Controls.Add(NameCutFile);
+            tabPage10.Controls.Add(label2);
+            tabPage10.Controls.Add(GetCutFileInfo);
+            tabPage10.Location = new Point(4, 24);
+            tabPage10.Name = "tabPage10";
+            tabPage10.Padding = new Padding(3);
+            tabPage10.Size = new Size(1224, 445);
+            tabPage10.TabIndex = 4;
+            tabPage10.Text = "Cutting";
+            tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // AmountBytes
+            // 
+            AmountBytes.Location = new Point(3, 299);
+            AmountBytes.Name = "AmountBytes";
+            AmountBytes.Size = new Size(100, 23);
+            AmountBytes.TabIndex = 7;
+            AmountBytes.Text = "126";
+            // 
+            // ButtonCutFile
+            // 
+            ButtonCutFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ButtonCutFile.Location = new Point(135, 364);
+            ButtonCutFile.Name = "ButtonCutFile";
+            ButtonCutFile.Size = new Size(123, 75);
+            ButtonCutFile.TabIndex = 6;
+            ButtonCutFile.Text = "Порезать файл";
+            ButtonCutFile.UseVisualStyleBackColor = true;
+            ButtonCutFile.Click += ButtonCutFile_Click;
+            // 
+            // NameCutFile
+            // 
+            NameCutFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            NameCutFile.Location = new Point(49, 328);
+            NameCutFile.Name = "NameCutFile";
+            NameCutFile.ReadOnly = true;
+            NameCutFile.Size = new Size(209, 29);
+            NameCutFile.TabIndex = 5;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(6, 331);
+            label2.Name = "label2";
+            label2.Size = new Size(37, 21);
+            label2.TabIndex = 4;
+            label2.Text = "File:";
+            // 
+            // GetCutFileInfo
+            // 
+            GetCutFileInfo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            GetCutFileInfo.Location = new Point(6, 364);
+            GetCutFileInfo.Name = "GetCutFileInfo";
+            GetCutFileInfo.Size = new Size(123, 75);
+            GetCutFileInfo.TabIndex = 2;
+            GetCutFileInfo.Text = "Получить путь к файлу";
+            GetCutFileInfo.UseVisualStyleBackColor = true;
+            GetCutFileInfo.Click += GetCutFileInfo_Click;
             // 
             // LogBox2
             // 
@@ -4699,6 +4770,8 @@
             TabPageCommand.ResumeLayout(false);
             CommandPanel3.ResumeLayout(false);
             CommandPanel3.PerformLayout();
+            tabPage10.ResumeLayout(false);
+            tabPage10.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -5095,5 +5168,11 @@
         private TextBox DeviceAd;
         private Label label157;
         private Panel CommandPanel4;
+        private TabPage tabPage10;
+        private Button GetCutFileInfo;
+        private TextBox NameCutFile;
+        private Label label2;
+        private Button ButtonCutFile;
+        private TextBox AmountBytes;
     }
 }

@@ -9,17 +9,6 @@
         private readonly GeneralFunctional GF = new();
         private string? allText;
 
-        public void GetDBFileInfo(TextBox nameDBFile) {
-            OpenFileDialog ofd = new() {
-                Title = "Select file",
-                Filter = "All files (*.*)|*.*|Text File (*.txt)|*.txt*",
-                FilterIndex = 1,
-            };
-            if(ofd.ShowDialog() == DialogResult.OK) {
-                nameDBFile.Text = ofd.FileName;
-            }
-        }
-
         public void ReadDBFile(TextBox nameDBFile, RichTextBox DBAllText, TextBox logBox) {
             try {
                 FileStream fileStream = File.OpenRead(nameDBFile.Text);

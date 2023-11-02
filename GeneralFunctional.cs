@@ -331,5 +331,16 @@ namespace HustonRTEMS {
             DBAllText.Text += intV.it;
             DBAllText.Text += ";\t";
         }
+
+        public void GetFileInfo(TextBox nameDBFile) {
+            OpenFileDialog ofd = new() {
+                Title = "Select file",
+                Filter = "All files (*.*)|*.*|Text File (*.txt)|*.txt*",
+                FilterIndex = 1,
+            };
+            if(ofd.ShowDialog() == DialogResult.OK) {
+                nameDBFile.Text = ofd.FileName;
+            }
+        }
     }
 }

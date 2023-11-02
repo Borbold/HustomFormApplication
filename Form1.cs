@@ -1336,7 +1336,7 @@ namespace HustonRTEMS {
 
         private readonly HandlerLittleD HLD = new();
         private void GetDBFileInfo_Click(object sender, EventArgs e) {
-            HLD.GetDBFileInfo(NameDBFile);
+            GF.GetFileInfo(NameDBFile);
         }
         private void ReadDBFile_Click(object sender, EventArgs e) {
             HLD.ReadDBFile(NameDBFile, DBAllText, LogBox2);
@@ -1450,5 +1450,24 @@ namespace HustonRTEMS {
                 LogBox.Text = "";
             }
         }
+
+        // Cutting
+        private readonly CuttingFile CF = new();
+        private void GetCutFileInfo_Click(object sender, EventArgs e) {
+            GF.GetFileInfo(NameCutFile);
+        }
+
+        private void ButtonCutFile_Click(object sender, EventArgs e) {
+            try {
+                string cutFolder = "D:\\CutFile";
+                CF.ReadFileForCut(NameCutFile.Text, cutFolder,
+                    Convert.ToInt32(AmountBytes.Text));
+                LogBox2.Text = "Cutting file. Path: " + cutFolder;
+            }
+            catch(Exception ex) {
+                LogBox2.Text = ex.Message;
+            }
+        }
+        // Cutting
     }
 }
