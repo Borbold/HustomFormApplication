@@ -1,4 +1,6 @@
-﻿namespace HustonRTEMS {
+﻿using System.Diagnostics;
+
+namespace HustonRTEMS {
     internal class CuttingFile {
         public void ReadFileForCut(string pathFile, string cutFolder, int amountBytes) {
             FileStream fileStream = File.OpenRead(pathFile);
@@ -15,9 +17,10 @@
             while(countFile >= numberFile) {
                 FileStream fileWrite = File.OpenWrite(cutFolder + "\\Test_" + numberFile.ToString());
                 BinaryWriter binaryWriter = new(fileWrite);
-                for(int i = 0; i < result.Length / countFile; i++) {
+                int start = (numberFile - 1) * (result.Length / countFile);
+                int end = result.Length / (countFile - (numberFile - 1));
+                for(int i = start; i < end; i++)
                     binaryWriter.Write(result[i]);
-                }
                 binaryWriter.Close();
                 fileWrite.Close();
                 numberFile++;
