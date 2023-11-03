@@ -1452,8 +1452,9 @@ namespace HustonRTEMS {
         }
 
         // Cutting
-        private readonly CuttingFile CF = new();
+        private CuttingFile CF;
         private void GetCutFileInfo_Click(object sender, EventArgs e) {
+            CF = new(PanelCutFileName, DisplayCRCFile);
             GF.GetFileInfo(NameCutFile);
         }
 
@@ -1463,6 +1464,7 @@ namespace HustonRTEMS {
                 CF.ReadFileForCut(NameCutFile.Text, cutFolder,
                     Convert.ToInt32(AmountBytes.Text));
                 LogBox2.Text = "Cutting file. Path: " + cutFolder;
+                CF.InteractiveTextBox();
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;

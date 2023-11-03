@@ -411,12 +411,15 @@
             CommandPanel2 = new Panel();
             CommandPanel1 = new Panel();
             tabPage10 = new TabPage();
+            DisplayCRCFile = new TextBox();
+            PanelCutFileName = new Panel();
             AmountBytes = new TextBox();
             ButtonCutFile = new Button();
             NameCutFile = new TextBox();
             label2 = new Label();
             GetCutFileInfo = new Button();
             LogBox2 = new TextBox();
+            label158 = new Label();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -4624,6 +4627,9 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(label158);
+            tabPage10.Controls.Add(DisplayCRCFile);
+            tabPage10.Controls.Add(PanelCutFileName);
             tabPage10.Controls.Add(AmountBytes);
             tabPage10.Controls.Add(ButtonCutFile);
             tabPage10.Controls.Add(NameCutFile);
@@ -4636,6 +4642,21 @@
             tabPage10.TabIndex = 4;
             tabPage10.Text = "Cutting";
             tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // DisplayCRCFile
+            // 
+            DisplayCRCFile.Location = new Point(891, 21);
+            DisplayCRCFile.Name = "DisplayCRCFile";
+            DisplayCRCFile.Size = new Size(100, 23);
+            DisplayCRCFile.TabIndex = 9;
+            // 
+            // PanelCutFileName
+            // 
+            PanelCutFileName.AutoScroll = true;
+            PanelCutFileName.Location = new Point(997, 3);
+            PanelCutFileName.Name = "PanelCutFileName";
+            PanelCutFileName.Size = new Size(221, 439);
+            PanelCutFileName.TabIndex = 8;
             // 
             // AmountBytes
             // 
@@ -4697,6 +4718,15 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
+            // 
+            // label158
+            // 
+            label158.AutoSize = true;
+            label158.Location = new Point(891, 3);
+            label158.Name = "label158";
+            label158.Size = new Size(68, 15);
+            label158.TabIndex = 10;
+            label158.Text = "CRC файла";
             // 
             // MainForm
             // 
@@ -5174,5 +5204,8 @@
         private Label label2;
         private Button ButtonCutFile;
         private TextBox AmountBytes;
+        private Panel PanelCutFileName;
+        private TextBox DisplayCRCFile;
+        private Label label158;
     }
 }
