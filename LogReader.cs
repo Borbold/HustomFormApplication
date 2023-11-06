@@ -40,7 +40,7 @@ namespace HustonRTEMS {
                         newButton.Invoke(new Action(() => {
                             newButton.ReadOnly = true;
                             newButton.Cursor = Cursors.Default;
-                            newButton.MouseDown += new MouseEventHandler(TestDown);
+                            newButton.MouseDown += new MouseEventHandler(TextSelection);
                         }));
                         location.Offset(0, 20);
                         str_buf = "";
@@ -82,7 +82,7 @@ namespace HustonRTEMS {
         }
 
         private TextBox previousBut = new();
-        private void TestDown(object sender, EventArgs e) {
+        private void TextSelection(object sender, EventArgs e) {
             previousBut.BackColor = Color.WhiteSmoke;
             ((TextBox)sender).BackColor = Color.CadetBlue;
             previousBut = (TextBox)sender;

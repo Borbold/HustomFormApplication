@@ -60,7 +60,8 @@ namespace HustonRTEMS {
                     newButton.Invoke(new Action(() => {
                         newButton.ReadOnly = true;
                         newButton.Cursor = Cursors.Default;
-                        newButton.MouseDown += new MouseEventHandler(TestDown);
+                        newButton.MouseDown += new MouseEventHandler(TextSelection);
+                        newButton.Tag = i;
                     }));
                 }
             }, logToken);
@@ -73,17 +74,24 @@ namespace HustonRTEMS {
                     newButton.Invoke(new Action(() => {
                         newButton.ReadOnly = true;
                         newButton.Cursor = Cursors.Default;
-                        newButton.MouseDown += new MouseEventHandler(TestDown);
+                        newButton.MouseDown += new MouseEventHandler(TextSelection);
+                        newButton.Tag = i;
                     }));
                 }
             }, logToken);
         }
         private TextBox previousBut = new();
-        private void TestDown(object sender, EventArgs e) {
+        private void TextSelection(object sender, EventArgs e) {
             previousBut.BackColor = Color.WhiteSmoke;
             ((TextBox)sender).BackColor = Color.CadetBlue;
             previousBut = (TextBox)sender;
             _butPanel.Select();
+        }
+
+        public void SendCutFile(Panel sendPanel) {
+            if(previousBut.Text != "") {
+                sendPanel.Controls.Add(previousBut);
+            }
         }
     }
 }

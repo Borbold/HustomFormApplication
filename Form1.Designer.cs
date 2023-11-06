@@ -411,6 +411,10 @@
             CommandPanel2 = new Panel();
             CommandPanel1 = new Panel();
             tabPage10 = new TabPage();
+            SendCutFile = new Button();
+            BackCutFile = new Button();
+            PanelReceiveCutFiles = new Panel();
+            label158 = new Label();
             DisplayCRCFile = new TextBox();
             PanelCutFileName = new Panel();
             AmountBytes = new TextBox();
@@ -419,7 +423,6 @@
             label2 = new Label();
             GetCutFileInfo = new Button();
             LogBox2 = new TextBox();
-            label158 = new Label();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -4627,6 +4630,9 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(SendCutFile);
+            tabPage10.Controls.Add(BackCutFile);
+            tabPage10.Controls.Add(PanelReceiveCutFiles);
             tabPage10.Controls.Add(label158);
             tabPage10.Controls.Add(DisplayCRCFile);
             tabPage10.Controls.Add(PanelCutFileName);
@@ -4642,6 +4648,43 @@
             tabPage10.TabIndex = 4;
             tabPage10.Text = "Cutting";
             tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // SendCutFile
+            // 
+            SendCutFile.Location = new Point(891, 79);
+            SendCutFile.Name = "SendCutFile";
+            SendCutFile.Size = new Size(100, 23);
+            SendCutFile.TabIndex = 13;
+            SendCutFile.Text = "<-";
+            SendCutFile.UseVisualStyleBackColor = true;
+            SendCutFile.Click += SendCutFile_Click;
+            // 
+            // BackCutFile
+            // 
+            BackCutFile.Location = new Point(891, 50);
+            BackCutFile.Name = "BackCutFile";
+            BackCutFile.Size = new Size(100, 23);
+            BackCutFile.TabIndex = 12;
+            BackCutFile.Text = "->";
+            BackCutFile.UseVisualStyleBackColor = true;
+            BackCutFile.Click += BackCutFile_Click;
+            // 
+            // PanelReceiveCutFiles
+            // 
+            PanelReceiveCutFiles.AutoScroll = true;
+            PanelReceiveCutFiles.Location = new Point(664, 0);
+            PanelReceiveCutFiles.Name = "PanelReceiveCutFiles";
+            PanelReceiveCutFiles.Size = new Size(221, 439);
+            PanelReceiveCutFiles.TabIndex = 11;
+            // 
+            // label158
+            // 
+            label158.AutoSize = true;
+            label158.Location = new Point(891, 3);
+            label158.Name = "label158";
+            label158.Size = new Size(68, 15);
+            label158.TabIndex = 10;
+            label158.Text = "CRC файла";
             // 
             // DisplayCRCFile
             // 
@@ -4718,15 +4761,6 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
-            // 
-            // label158
-            // 
-            label158.AutoSize = true;
-            label158.Location = new Point(891, 3);
-            label158.Name = "label158";
-            label158.Size = new Size(68, 15);
-            label158.TabIndex = 10;
-            label158.Text = "CRC файла";
             // 
             // MainForm
             // 
@@ -5207,5 +5241,8 @@
         private Panel PanelCutFileName;
         private TextBox DisplayCRCFile;
         private Label label158;
+        private Panel PanelReceiveCutFiles;
+        private Button SendCutFile;
+        private Button BackCutFile;
     }
 }
