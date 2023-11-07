@@ -1473,7 +1473,7 @@ namespace HustonRTEMS {
 
         private void SendCutFile_Click(object sender, EventArgs e) {
             try {
-                CF.SendCutFile(PanelReceiveCutFiles);
+                CF.SendCutFile(PanelReceiveCutFiles, PanelCutFileName);
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;
@@ -1482,7 +1482,7 @@ namespace HustonRTEMS {
 
         private void BackCutFile_Click(object sender, EventArgs e) {
             try {
-                CF.SendCutFile(PanelCutFileName);
+                CF.SendCutFile(PanelCutFileName, PanelReceiveCutFiles);
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;

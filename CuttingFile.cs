@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Xml.Linq;
 using HustonUI;
 
 namespace HustonRTEMS {
@@ -88,9 +89,15 @@ namespace HustonRTEMS {
             _butPanel.Select();
         }
 
-        public void SendCutFile(Panel sendPanel) {
+        public void SendCutFile(Panel sendPanel, Panel resemblPanel) {
             if(previousBut.Text != "") {
-                sendPanel.Controls.Add(previousBut);
+                resemblPanel.Controls.Remove(previousBut);
+                TextBox newButton = UICreator.CreateTextBox("none", previousBut.Text,
+                    new Point(0, 20 * (int)previousBut.Tag), sendPanel.Width - 20, sendPanel);
+                newButton.ReadOnly = true;
+                newButton.Cursor = Cursors.Default;
+                newButton.MouseDown += new MouseEventHandler(TextSelection);
+                newButton.Tag = previousBut.Tag;
             }
         }
     }
