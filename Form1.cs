@@ -1454,16 +1454,15 @@ namespace HustonRTEMS {
         // Cutting
         private CuttingFile CF;
         private void GetCutFileInfo_Click(object sender, EventArgs e) {
-            CF = new(PanelCutFileName, DisplayCRCFile);
+            string cutFolder = "D:\\CutFile";
+            CF = new(PanelCutFileName, DisplayCRCFile, cutFolder);
             GF.GetFileInfo(NameCutFile);
         }
 
         private void ButtonCutFile_Click(object sender, EventArgs e) {
             try {
-                string cutFolder = "D:\\CutFile";
-                CF.ReadFileForCut(NameCutFile.Text, cutFolder,
+                CF.ReadFileForCut(NameCutFile.Text,
                     Convert.ToInt32(AmountBytes.Text));
-                LogBox2.Text = "Cutting file. Path: " + cutFolder;
                 CF.InteractiveTextBox();
             }
             catch(Exception ex) {
@@ -1486,6 +1485,13 @@ namespace HustonRTEMS {
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;
+            }
+        }
+
+        private void SendReceiveCutFiles_Click(object sender, EventArgs e) {
+            Control.ControlCollection sendControl = PanelReceiveCutFiles.Controls;
+            for(int i = 0; i < sendControl.Count; i++) {
+                Debug.WriteLine(sendControl[i].Name.ToString());
             }
         }
         // Cutting

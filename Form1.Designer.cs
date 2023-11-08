@@ -423,6 +423,7 @@
             label2 = new Label();
             GetCutFileInfo = new Button();
             LogBox2 = new TextBox();
+            SendReceiveCutFiles = new Button();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -4630,6 +4631,7 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(SendReceiveCutFiles);
             tabPage10.Controls.Add(SendCutFile);
             tabPage10.Controls.Add(BackCutFile);
             tabPage10.Controls.Add(PanelReceiveCutFiles);
@@ -4761,6 +4763,17 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
+            // 
+            // SendReceiveCutFiles
+            // 
+            SendReceiveCutFiles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendReceiveCutFiles.Location = new Point(535, 364);
+            SendReceiveCutFiles.Name = "SendReceiveCutFiles";
+            SendReceiveCutFiles.Size = new Size(123, 75);
+            SendReceiveCutFiles.TabIndex = 14;
+            SendReceiveCutFiles.Text = "Отправить выбранные файлы";
+            SendReceiveCutFiles.UseVisualStyleBackColor = true;
+            SendReceiveCutFiles.Click += SendReceiveCutFiles_Click;
             // 
             // MainForm
             // 
@@ -5244,5 +5257,6 @@
         private Panel PanelReceiveCutFiles;
         private Button SendCutFile;
         private Button BackCutFile;
+        private Button SendReceiveCutFiles;
     }
 }

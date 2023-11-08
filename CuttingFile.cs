@@ -8,15 +8,17 @@ namespace HustonRTEMS {
         private Panel _butPanel;
         private TextBox _displayCRC;
         private short _countFile;
+        private string _cutFolder;
 
         private string _fileName = "Test_";
 
-        public CuttingFile(Panel butPanel, TextBox displayCRC) {
+        public CuttingFile(Panel butPanel, TextBox displayCRC, string cutFolder) {
             _butPanel = butPanel;
             _displayCRC = displayCRC;
+            _cutFolder = cutFolder;
         }
 
-        public void ReadFileForCut(string pathFile, string cutFolder, int amountBytes) {
+        public void ReadFileForCut(string pathFile, int amountBytes) {
             UICreator.RemoveAll(_butPanel);
 
             FileStream fileStream = File.OpenRead(pathFile);
@@ -24,14 +26,14 @@ namespace HustonRTEMS {
 
             byte[] result = binaryReader.ReadBytes((int)fileStream.Length);
 
-            DirectoryInfo directoryInfo = new(cutFolder);
+            DirectoryInfo directoryInfo = new(_cutFolder);
             foreach(FileInfo file in directoryInfo.GetFiles())
                 file.Delete();
 
             _countFile = (short)(result.Length / amountBytes);
             short numberFile = 1;
             while(_countFile >= numberFile) {
-                FileStream fileWrite = File.OpenWrite($"{cutFolder}\\{_fileName}{numberFile}");
+                FileStream fileWrite = File.OpenWrite($"{_cutFolder}\\{_fileName}{numberFile}");
                 BinaryWriter binaryWriter = new(fileWrite);
                 int start = (numberFile - 1) * (result.Length / _countFile);
                 int end = result.Length / (_countFile - (numberFile - 1));
@@ -56,7 +58,7 @@ namespace HustonRTEMS {
             _ = logFac.StartNew(() => {
                 for(int i = 0; i < _countFile / 2; i++) {
                     string name = $"{_fileName}{i}";
-                    TextBox newButton = UICreator.CreateTextBox("none", name, new Point(0, 20 * i),
+                    TextBox newButton = UICreator.CreateTextBox($"{_cutFolder}\\{name}", name, new Point(0, 20 * i),
                         _butPanel.Width - 20, _butPanel);
                     newButton.Invoke(new Action(() => {
                         newButton.ReadOnly = true;
@@ -70,7 +72,7 @@ namespace HustonRTEMS {
             _ = logFac.StartNew(() => {
                 for(int i = _countFile / 2; i < _countFile; i++) {
                     string name = $"{_fileName}{i}";
-                    TextBox newButton = UICreator.CreateTextBox("none", name, new Point(0, 20 * i),
+                    TextBox newButton = UICreator.CreateTextBox($"{_cutFolder}\\{name}", name, new Point(0, 20 * i),
                         _butPanel.Width - 20, _butPanel);
                     newButton.Invoke(new Action(() => {
                         newButton.ReadOnly = true;
@@ -91,8 +93,10 @@ namespace HustonRTEMS {
 
         public void SendCutFile(Panel sendPanel, Panel resemblPanel) {
             if(previousBut.Text != "") {
+                sendPanel.AutoScroll = false;
                 resemblPanel.Controls.Remove(previousBut);
-                TextBox newButton = UICreator.CreateTextBox("none", previousBut.Text,
+                sendPanel.AutoScroll = true;
+                TextBox newButton = UICreator.CreateTextBox(previousBut.Name, previousBut.Text,
                     new Point(0, 20 * (int)previousBut.Tag), sendPanel.Width - 20, sendPanel);
                 newButton.ReadOnly = true;
                 newButton.Cursor = Cursors.Default;
