@@ -1455,7 +1455,8 @@ namespace HustonRTEMS {
         private CuttingFile CF;
         private void GetCutFileInfo_Click(object sender, EventArgs e) {
             string cutFolder = "D:\\CutFile";
-            CF = new(PanelCutFileName, DisplayCRCFile, cutFolder);
+            CF = new(PanelCutFileName, DisplayCRCFile, cutFolder,
+                Convert.ToInt32(LengthOneFile.Text));
             GF.GetFileInfo(NameCutFile);
         }
 
@@ -1489,9 +1490,40 @@ namespace HustonRTEMS {
         }
 
         private void SendReceiveCutFiles_Click(object sender, EventArgs e) {
-            Control.ControlCollection sendControl = PanelReceiveCutFiles.Controls;
-            for(int i = 0; i < sendControl.Count; i++) {
-                Debug.WriteLine(sendControl[i].Name.ToString());
+            try {
+                Control.ControlCollection sendControl = PanelReceiveCutFiles.Controls;
+                for(int i = 0; i < sendControl.Count; i++) {
+                    string path = sendControl[i].Name.ToString();
+                    Debug.WriteLine(path);
+
+                    FileStream fileStream = File.OpenRead(path);
+                    BinaryReader binaryReader = new(fileStream);
+                    byte[] result = binaryReader.ReadBytes((int)fileStream.Length);
+
+                    ushort unicanLenght = (ushort)(result.Length * sizeof(byte));
+                    UnicanMessage test = new() {
+                        unicanMSGId = Convert.ToUInt16(IdShippingExBeacon.Text, 16),
+                        unicanAddressTo = Convert.ToUInt16(AddresReceiveExBeacon.Text, 16),
+                        unicanAddressFrom = Convert.ToUInt16(AddresExBeacon.Text, 16),
+                        unicanLength = unicanLenght,
+                        data = new byte[unicanLenght]
+                    };
+                    ItUn[] byteV = new ItUn[unicanLenght];
+                    for(int k = 0; k < unicanLenght; k++) {
+                        byteV[k].it = Convert.ToInt16(result[k]);
+                    }
+                    for(int k = 0; k < unicanLenght; k++) {
+                        test.data[k] = byteV[k].byte1;
+                        test.data[++k] = byteV[k].byte2;
+                    }
+                    binaryReader.Close();
+                    fileStream.Close();
+                    Thread.Sleep(1000);
+                    CTU.SendWithCAN(test, _serialPort, LogBox);
+                }
+            }
+            catch(Exception ex) {
+                LogBox2.Text = ex.Message;
             }
         }
         // Cutting

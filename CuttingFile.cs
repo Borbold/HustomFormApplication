@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Security.Policy;
 using System.Xml.Linq;
 using HustonUI;
 
@@ -9,13 +10,15 @@ namespace HustonRTEMS {
         private TextBox _displayCRC;
         private short _countFile;
         private string _cutFolder;
+        private int _lengthFile;
 
         private string _fileName = "Test_";
 
-        public CuttingFile(Panel butPanel, TextBox displayCRC, string cutFolder) {
+        public CuttingFile(Panel butPanel, TextBox displayCRC, string cutFolder, int lengthFile) {
             _butPanel = butPanel;
             _displayCRC = displayCRC;
             _cutFolder = cutFolder;
+            _lengthFile = lengthFile;
         }
 
         public void ReadFileForCut(string pathFile, int amountBytes) {
@@ -23,7 +26,6 @@ namespace HustonRTEMS {
 
             FileStream fileStream = File.OpenRead(pathFile);
             BinaryReader binaryReader = new(fileStream);
-
             byte[] result = binaryReader.ReadBytes((int)fileStream.Length);
 
             DirectoryInfo directoryInfo = new(_cutFolder);
@@ -35,8 +37,8 @@ namespace HustonRTEMS {
             while(_countFile >= numberFile) {
                 FileStream fileWrite = File.OpenWrite($"{_cutFolder}\\{_fileName}{numberFile}");
                 BinaryWriter binaryWriter = new(fileWrite);
-                int start = (numberFile - 1) * (result.Length / _countFile);
-                int end = result.Length / (_countFile - (numberFile - 1));
+                int start = _lengthFile * (numberFile - 1);
+                int end = (_lengthFile * numberFile) > result.Length ? result.Length : _lengthFile * numberFile;
                 for(int i = start; i < end; i++)
                     binaryWriter.Write(result[i]);
                 binaryWriter.Close();

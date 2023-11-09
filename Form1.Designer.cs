@@ -411,6 +411,9 @@
             CommandPanel2 = new Panel();
             CommandPanel1 = new Panel();
             tabPage10 = new TabPage();
+            label159 = new Label();
+            LengthOneFile = new TextBox();
+            SendReceiveCutFiles = new Button();
             SendCutFile = new Button();
             BackCutFile = new Button();
             PanelReceiveCutFiles = new Panel();
@@ -423,7 +426,6 @@
             label2 = new Label();
             GetCutFileInfo = new Button();
             LogBox2 = new TextBox();
-            SendReceiveCutFiles = new Button();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -4631,6 +4633,8 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(label159);
+            tabPage10.Controls.Add(LengthOneFile);
             tabPage10.Controls.Add(SendReceiveCutFiles);
             tabPage10.Controls.Add(SendCutFile);
             tabPage10.Controls.Add(BackCutFile);
@@ -4650,6 +4654,34 @@
             tabPage10.TabIndex = 4;
             tabPage10.Text = "Cutting";
             tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // label159
+            // 
+            label159.AutoSize = true;
+            label159.Location = new Point(891, 383);
+            label159.Name = "label159";
+            label159.Size = new Size(84, 30);
+            label159.TabIndex = 16;
+            label159.Text = "Длина одного\r\nфайла (byte)";
+            // 
+            // LengthOneFile
+            // 
+            LengthOneFile.Location = new Point(891, 416);
+            LengthOneFile.Name = "LengthOneFile";
+            LengthOneFile.Size = new Size(100, 23);
+            LengthOneFile.TabIndex = 15;
+            LengthOneFile.Text = "256";
+            // 
+            // SendReceiveCutFiles
+            // 
+            SendReceiveCutFiles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            SendReceiveCutFiles.Location = new Point(535, 364);
+            SendReceiveCutFiles.Name = "SendReceiveCutFiles";
+            SendReceiveCutFiles.Size = new Size(123, 75);
+            SendReceiveCutFiles.TabIndex = 14;
+            SendReceiveCutFiles.Text = "Отправить выбранные файлы";
+            SendReceiveCutFiles.UseVisualStyleBackColor = true;
+            SendReceiveCutFiles.Click += SendReceiveCutFiles_Click;
             // 
             // SendCutFile
             // 
@@ -4763,17 +4795,6 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
-            // 
-            // SendReceiveCutFiles
-            // 
-            SendReceiveCutFiles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            SendReceiveCutFiles.Location = new Point(535, 364);
-            SendReceiveCutFiles.Name = "SendReceiveCutFiles";
-            SendReceiveCutFiles.Size = new Size(123, 75);
-            SendReceiveCutFiles.TabIndex = 14;
-            SendReceiveCutFiles.Text = "Отправить выбранные файлы";
-            SendReceiveCutFiles.UseVisualStyleBackColor = true;
-            SendReceiveCutFiles.Click += SendReceiveCutFiles_Click;
             // 
             // MainForm
             // 
@@ -5258,5 +5279,7 @@
         private Button SendCutFile;
         private Button BackCutFile;
         private Button SendReceiveCutFiles;
+        private Label label159;
+        private TextBox LengthOneFile;
     }
 }
