@@ -411,10 +411,16 @@
             CommandPanel2 = new Panel();
             CommandPanel1 = new Panel();
             tabPage10 = new TabPage();
+            label160 = new Label();
+            AddresCutFile = new TextBox();
+            label161 = new Label();
+            IdShippingCutFile = new TextBox();
+            label163 = new Label();
+            AddresReceiveCutFile = new TextBox();
             label159 = new Label();
             LengthOneFile = new TextBox();
             SendReceiveCutFiles = new Button();
-            SendCutFile = new Button();
+            FlipCutFile = new Button();
             BackCutFile = new Button();
             PanelReceiveCutFiles = new Panel();
             label158 = new Label();
@@ -4633,10 +4639,16 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(label160);
+            tabPage10.Controls.Add(AddresCutFile);
+            tabPage10.Controls.Add(label161);
+            tabPage10.Controls.Add(IdShippingCutFile);
+            tabPage10.Controls.Add(label163);
+            tabPage10.Controls.Add(AddresReceiveCutFile);
             tabPage10.Controls.Add(label159);
             tabPage10.Controls.Add(LengthOneFile);
             tabPage10.Controls.Add(SendReceiveCutFiles);
-            tabPage10.Controls.Add(SendCutFile);
+            tabPage10.Controls.Add(FlipCutFile);
             tabPage10.Controls.Add(BackCutFile);
             tabPage10.Controls.Add(PanelReceiveCutFiles);
             tabPage10.Controls.Add(label158);
@@ -4654,6 +4666,63 @@
             tabPage10.TabIndex = 4;
             tabPage10.Text = "Cutting";
             tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // label160
+            // 
+            label160.AutoSize = true;
+            label160.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label160.Location = new Point(44, 119);
+            label160.Name = "label160";
+            label160.Size = new Size(115, 21);
+            label160.TabIndex = 117;
+            label160.Text = "Адрес датчика";
+            // 
+            // AddresCutFile
+            // 
+            AddresCutFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresCutFile.Location = new Point(6, 116);
+            AddresCutFile.Name = "AddresCutFile";
+            AddresCutFile.Size = new Size(32, 29);
+            AddresCutFile.TabIndex = 116;
+            AddresCutFile.Text = "?";
+            // 
+            // label161
+            // 
+            label161.AutoSize = true;
+            label161.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label161.Location = new Point(64, 84);
+            label161.Name = "label161";
+            label161.Size = new Size(74, 21);
+            label161.TabIndex = 115;
+            label161.Text = "Id ответа";
+            // 
+            // IdShippingCutFile
+            // 
+            IdShippingCutFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            IdShippingCutFile.Location = new Point(6, 81);
+            IdShippingCutFile.Name = "IdShippingCutFile";
+            IdShippingCutFile.Size = new Size(52, 29);
+            IdShippingCutFile.TabIndex = 114;
+            IdShippingCutFile.Text = "?";
+            // 
+            // label163
+            // 
+            label163.AutoSize = true;
+            label163.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label163.Location = new Point(64, 49);
+            label163.Name = "label163";
+            label163.Size = new Size(111, 21);
+            label163.TabIndex = 111;
+            label163.Text = "Адрес приема";
+            // 
+            // AddresReceiveCutFile
+            // 
+            AddresReceiveCutFile.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            AddresReceiveCutFile.Location = new Point(6, 46);
+            AddresReceiveCutFile.Name = "AddresReceiveCutFile";
+            AddresReceiveCutFile.Size = new Size(52, 29);
+            AddresReceiveCutFile.TabIndex = 110;
+            AddresReceiveCutFile.Text = "?";
             // 
             // label159
             // 
@@ -4683,15 +4752,15 @@
             SendReceiveCutFiles.UseVisualStyleBackColor = true;
             SendReceiveCutFiles.Click += SendReceiveCutFiles_Click;
             // 
-            // SendCutFile
+            // FlipCutFile
             // 
-            SendCutFile.Location = new Point(891, 79);
-            SendCutFile.Name = "SendCutFile";
-            SendCutFile.Size = new Size(100, 23);
-            SendCutFile.TabIndex = 13;
-            SendCutFile.Text = "<-";
-            SendCutFile.UseVisualStyleBackColor = true;
-            SendCutFile.Click += SendCutFile_Click;
+            FlipCutFile.Location = new Point(891, 79);
+            FlipCutFile.Name = "FlipCutFile";
+            FlipCutFile.Size = new Size(100, 23);
+            FlipCutFile.TabIndex = 13;
+            FlipCutFile.Text = "<-";
+            FlipCutFile.UseVisualStyleBackColor = true;
+            FlipCutFile.Click += SendCutFile_Click;
             // 
             // BackCutFile
             // 
@@ -4701,7 +4770,7 @@
             BackCutFile.TabIndex = 12;
             BackCutFile.Text = "->";
             BackCutFile.UseVisualStyleBackColor = true;
-            BackCutFile.Click += BackCutFile_Click;
+            BackCutFile.Click += FlipCutFile_Click;
             // 
             // PanelReceiveCutFiles
             // 
@@ -5276,10 +5345,16 @@
         private TextBox DisplayCRCFile;
         private Label label158;
         private Panel PanelReceiveCutFiles;
-        private Button SendCutFile;
+        private Button FlipCutFile;
         private Button BackCutFile;
         private Button SendReceiveCutFiles;
         private Label label159;
         private TextBox LengthOneFile;
+        private Label label160;
+        private TextBox AddresCutFile;
+        private Label label161;
+        private TextBox IdShippingCutFile;
+        private Label label163;
+        private TextBox AddresReceiveCutFile;
     }
 }
