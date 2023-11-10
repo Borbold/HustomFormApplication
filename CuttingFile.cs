@@ -23,7 +23,7 @@ namespace HustonRTEMS {
             _lengthFile = lengthFile;
         }
 
-        public void ReadFileForCut(string pathFile, int amountBytes) {
+        public void ReadFileForCut(string pathFile) {
             UICreator.RemoveAll(_butPanel);
 
             FileStream fileStream = File.OpenRead(pathFile);
@@ -34,7 +34,7 @@ namespace HustonRTEMS {
             foreach(FileInfo file in directoryInfo.GetFiles())
                 file.Delete();
 
-            _countFile = (short)(result.Length / amountBytes);
+            _countFile = (short)(result.Length / _lengthFile);
             short numberFile = 1;
             while(_countFile >= numberFile) {
                 FileStream fileWrite = File.OpenWrite($"{_cutFolder}\\{_fileName}{numberFile}");

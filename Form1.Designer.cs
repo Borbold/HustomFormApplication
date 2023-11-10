@@ -426,7 +426,6 @@
             label158 = new Label();
             DisplayCRCFile = new TextBox();
             PanelCutFileName = new Panel();
-            AmountBytes = new TextBox();
             ButtonCutFile = new Button();
             NameCutFile = new TextBox();
             label2 = new Label();
@@ -4654,7 +4653,6 @@
             tabPage10.Controls.Add(label158);
             tabPage10.Controls.Add(DisplayCRCFile);
             tabPage10.Controls.Add(PanelCutFileName);
-            tabPage10.Controls.Add(AmountBytes);
             tabPage10.Controls.Add(ButtonCutFile);
             tabPage10.Controls.Add(NameCutFile);
             tabPage10.Controls.Add(label2);
@@ -4803,14 +4801,6 @@
             PanelCutFileName.Name = "PanelCutFileName";
             PanelCutFileName.Size = new Size(221, 439);
             PanelCutFileName.TabIndex = 8;
-            // 
-            // AmountBytes
-            // 
-            AmountBytes.Location = new Point(3, 299);
-            AmountBytes.Name = "AmountBytes";
-            AmountBytes.Size = new Size(100, 23);
-            AmountBytes.TabIndex = 7;
-            AmountBytes.Text = "126";
             // 
             // ButtonCutFile
             // 
@@ -5340,7 +5330,6 @@
         private TextBox NameCutFile;
         private Label label2;
         private Button ButtonCutFile;
-        private TextBox AmountBytes;
         private Panel PanelCutFileName;
         private TextBox DisplayCRCFile;
         private Label label158;

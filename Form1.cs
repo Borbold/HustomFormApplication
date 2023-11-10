@@ -1462,8 +1462,7 @@ namespace HustonRTEMS {
 
         private void ButtonCutFile_Click(object sender, EventArgs e) {
             try {
-                CF.ReadFileForCut(NameCutFile.Text,
-                    Convert.ToInt32(AmountBytes.Text));
+                CF.ReadFileForCut(NameCutFile.Text);
                 CF.InteractiveTextBox();
             }
             catch(Exception ex) {
