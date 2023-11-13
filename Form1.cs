@@ -135,6 +135,10 @@ namespace HustonRTEMS {
                 IdReceiveMZ.Text = section.IdReceiveMagZ;
                 IdShippingMZ.Text = section.IdShipingMagZ;
                 AddresMZ.Text = section.AddressMagZ;
+
+                AddresReceiveCutFile.Text = section.AddresReceiveCutFile;
+                IdShippingCutFile.Text = section.IdShippingCutFile;
+                AddresCutFile.Text = section.AddresCutFile;
             }
 
             string[] files = Directory.GetFiles("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices");
@@ -231,6 +235,10 @@ namespace HustonRTEMS {
                 section.IdReceiveMagZ = IdReceiveMZ.Text;
                 section.IdShipingMagZ = IdShippingMZ.Text;
                 section.AddressMagZ = AddresMZ.Text;
+
+                section.AddresReceiveCutFile = AddresReceiveCutFile.Text;
+                section.IdShippingCutFile = IdShippingCutFile.Text;
+                section.AddresCutFile = AddresCutFile.Text;
 
                 cfg.Save();
             }

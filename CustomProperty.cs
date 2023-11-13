@@ -420,5 +420,25 @@ namespace HustonRTEMS {
             get => (string)base["AddressMagZ"];
             set => base["AddressMagZ"] = value;
         }
+        // Cutting
+        [ConfigurationProperty("AddresReceiveCutFile", IsRequired = false)]
+        public string AddresReceiveCutFile
+        {
+            get => (string)base["AddresReceiveCutFile"];
+            set => base["AddresReceiveCutFile"] = value;
+        }
+        [ConfigurationProperty("IdShippingCutFile", IsRequired = false)]
+        public string IdShippingCutFile
+        {
+            get => (string)base["IdShippingCutFile"];
+            set => base["IdShippingCutFile"] = value;
+        }
+        [ConfigurationProperty("AddresCutFile", IsRequired = false)]
+        public string AddresCutFile
+        {
+            get => (string)base["AddresCutFile"];
+            set => base["AddresCutFile"] = value;
+        }
+        // Cutting
     }
 }
