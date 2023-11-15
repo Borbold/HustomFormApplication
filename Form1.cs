@@ -140,15 +140,15 @@ namespace HustonRTEMS {
                 IdShippingCutFile.Text = section.IdShippingCutFile;
                 AddresCutFile.Text = section.AddresCutFile;
             }
-
+            // XML
             string[] files = Directory.GetFiles("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices");
             _xmlRreader = new(files,
                 CommandPanel1, CommandPanel2, CommandPanel3, ToServer, _serialPort, BaseStationAd, DeviceAd,
                 LogBox);
             _xmlRreader.MoldComboBoxName();
-
+            // Log
             _logReader = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\logs\\HistoryLog_2023-10-24_10-21-35.csv",
-                CommandPanel4);
+                CommandPanel2, CommandPanel4);
             _logReader.ReadLog();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {

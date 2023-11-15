@@ -4,13 +4,15 @@ using System.Diagnostics;
 namespace HustonRTEMS {
     internal class LogReader {
         private string _pathLog;
-        private Panel _butPanel;
+        private Panel _butPanel, _infoPanel;
 
-        public LogReader(string pathLog, Panel butPanel) {
+        public LogReader(string pathLog, Panel infoPanel, Panel butPanel) {
             _pathLog = pathLog;
+            _infoPanel = infoPanel;
             _butPanel = butPanel;
         }
 
+        private List<string> logSave = new();
         public void ReadLog() {
             FileStream fileStream = File.OpenRead(_pathLog);
             BinaryReader binaryReader = new(fileStream);
@@ -32,6 +34,8 @@ namespace HustonRTEMS {
                     char buf = first[i];
                     str_buf += buf;
                     if(buf == '\n') {
+                        str_buf = str_buf.Remove(str_buf.Length - 2);
+                        logSave.Add(str_buf);
                         string[] str = str_buf.Split(';');
                         str[0] = str[0].Replace('_', '-');
                         string name = $"{str[0]}; {str[4]}; {str[3]}; {str[5]:X};";
@@ -49,36 +53,6 @@ namespace HustonRTEMS {
                 binaryReader.Close();
                 fileStream.Close();
             }, logToken);
-
-            /*char[] second = new char[10000];
-            binaryReader.Read(second);
-            CancellationTokenSource logSource2 = new();
-            CancellationToken logToken2 = logSource.Token;
-            TaskFactory logFac2 = new(logToken);
-            string str_buf2 = "";
-            _ = logFac2.StartNew(() => {
-                for(int i = 0; i < second.Length; i++) {
-                    char buf = second[i];
-                    str_buf2 += buf;
-                    if(buf == '\n') {
-                        string[] str = str_buf2.Split(';');
-                        str[0] = str[0].Replace('_', '-');
-                        string name = $"{str[0]}; {str[4]}; {str[3]}; {str[5]:X};";
-                        TextBox newButton = UICreator.CreateTextBox("none", name, location,
-                            _butPanel.Width - 20, _butPanel);
-                        newButton.Invoke(new Action(() => {
-                            newButton.ReadOnly = true;
-                            newButton.Cursor = Cursors.Default;
-                            newButton.MouseDown += new MouseEventHandler(TestDown);
-                        }));
-                        location.Offset(0, 20);
-                        str_buf2 = "";
-                    }
-                }
-                while(!firstOver) { }
-                binaryReader.Close();
-                fileStream.Close();
-            }, logToken2);*/
         }
 
         private TextBox previousBut = new();
@@ -87,6 +61,27 @@ namespace HustonRTEMS {
             ((TextBox)sender).BackColor = Color.CadetBlue;
             previousBut = (TextBox)sender;
             _butPanel.Select();
+            OutputInformationLog(previousBut.Location.Y / 20);
+        }
+
+        private void OutputInformationLog(int numberLog) {
+            UICreator.RemoveAll(_infoPanel);
+            Point location = new();
+            string[] splitString = logSave[numberLog].Split(';');
+            int countValue = Convert.ToInt16(splitString[6]);
+            List<string> value = new();
+            string lv = "";
+            for(int i = 0; i < splitString[8].Length; i++) {
+                lv += splitString[8][i];
+                if((i + 1) % 2 == 0) {
+                    value.Add(lv);
+                    lv = "";
+                }
+            }
+            for(int i = 0; i < countValue; i++) {
+                UICreator.CreateLabel($"Val{i}: {value[i]:X}", location, _infoPanel.Width, _infoPanel);
+                location.Offset(0, 20);
+            }
         }
     }
 }

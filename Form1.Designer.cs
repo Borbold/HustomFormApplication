@@ -4551,9 +4551,9 @@
             // CommandPanel4
             // 
             CommandPanel4.AutoScroll = true;
-            CommandPanel4.Location = new Point(697, 3);
+            CommandPanel4.Location = new Point(704, 3);
             CommandPanel4.Name = "CommandPanel4";
-            CommandPanel4.Size = new Size(321, 439);
+            CommandPanel4.Size = new Size(314, 439);
             CommandPanel4.TabIndex = 3;
             // 
             // CommandPanel3
@@ -4624,7 +4624,7 @@
             CommandPanel2.AutoScroll = true;
             CommandPanel2.Location = new Point(269, 3);
             CommandPanel2.Name = "CommandPanel2";
-            CommandPanel2.Size = new Size(422, 439);
+            CommandPanel2.Size = new Size(429, 439);
             CommandPanel2.TabIndex = 2;
             // 
             // CommandPanel1
