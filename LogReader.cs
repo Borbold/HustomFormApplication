@@ -1,10 +1,14 @@
 ﻿using HustonUI;
+using MPAPI;
 using System.Diagnostics;
+using System.Xml;
 
 namespace HustonRTEMS {
     internal class LogReader {
         private string _pathLog;
         private Panel _butPanel, _infoPanel;
+
+        private XmlTextReader? _xmlDoc;
 
         public LogReader(string pathLog, Panel infoPanel, Panel butPanel) {
             _pathLog = pathLog;
@@ -42,7 +46,7 @@ namespace HustonRTEMS {
                         logSave.Add(str_buf);
                         string[] str = str_buf.Split(';');
                         str[0] = str[0].Replace('_', '-');
-                        string name = $"{str[0]}; {str[4]}; {str[3]}; {str[5]:X};";
+                        string name = $"{str[0]}; {str[3]}; {str[4]}; {str[5]:X};";
                         TextBox newButton = UICreator.CreateTextBox("none", name, location,
                             _butPanel.Width - 20, _butPanel);
                         newButton.Invoke(new Action(() => {
@@ -73,9 +77,42 @@ namespace HustonRTEMS {
         }
 
         private void OutputInformationLog(int numberLog) {
+            string[] splitString = logSave[numberLog].Split(';');
+
+            _xmlDoc = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\maps\\map.xml");
+            string devModel = "";
+            while(_xmlDoc.Read()) {
+                if(_xmlDoc.NodeType == XmlNodeType.Element) {
+                    if(_xmlDoc.Name == "DevModel") {
+                        devModel = _xmlDoc.ReadInnerXml();
+                    }
+                    if(_xmlDoc.Name == "DevAddress") {
+                        string devAdd = _xmlDoc.ReadInnerXml();
+                        if(devAdd == ("0x" + splitString[3])) {
+                            break;
+                        } else {
+                            devModel = "";
+                        }
+                    }
+                }
+            }
+            _xmlDoc.Close();
+
+            _xmlDoc = new($"C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices\\{devModel}.xml");
+            while(_xmlDoc.Read()) {
+                if(_xmlDoc.NodeType == XmlNodeType.Element) {
+                    if(_xmlDoc.Name == "PacId") {
+                        string pacId = _xmlDoc.ReadInnerXml();
+                        if(pacId == ("0x" + splitString[5])) {
+                            break;
+                        }
+                    }
+                }
+            }
+            _xmlDoc.Close();
+
             UICreator.RemoveAll(_infoPanel);
             Point location = new();
-            string[] splitString = logSave[numberLog].Split(';');
             int countValue = Convert.ToInt16(splitString[6]);
             List<string> value = new();
             string lv = "";
