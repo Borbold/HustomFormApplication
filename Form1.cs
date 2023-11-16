@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection.Metadata;
 
 namespace HustonRTEMS {
     public partial class MainForm: Form {

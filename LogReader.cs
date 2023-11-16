@@ -18,23 +18,27 @@ namespace HustonRTEMS {
             BinaryReader binaryReader = new(fileStream);
             Point location = new();
 
-            char[] buffer = new char[120];
-            binaryReader.Read(buffer);
-            buffer = new char[1];
+            char[] header = new char[120];
+            binaryReader.Read(header);
 
-            char[] first = new char[10000];
-            binaryReader.Read(first);
+            char[] logRes = new char[fileStream.Length - 120];
+            binaryReader.Read(logRes);
 
             CancellationTokenSource logSource = new();
             CancellationToken logToken = logSource.Token;
             TaskFactory logFac = new(logToken);
             string str_buf = "";
             _ = logFac.StartNew(() => {
-                for(int i = 0; i < first.Length; i++) {
-                    char buf = first[i];
-                    str_buf += buf;
-                    if(buf == '\n') {
-                        str_buf = str_buf.Remove(str_buf.Length - 2);
+                int i = 0;
+                if(logRes.Length > 20000) {
+                    i = logRes.Length - 20000;
+                    while(logRes[i] != '\n') i++;
+                    i++;
+                }
+
+                int iTag = 0;
+                for(; i < logRes.Length; i++) {
+                    if(logRes[i] == '\r' && logRes[i + 1] == '\n') {
                         logSave.Add(str_buf);
                         string[] str = str_buf.Split(';');
                         str[0] = str[0].Replace('_', '-');
@@ -45,10 +49,14 @@ namespace HustonRTEMS {
                             newButton.ReadOnly = true;
                             newButton.Cursor = Cursors.Default;
                             newButton.MouseDown += new MouseEventHandler(TextSelection);
+                            newButton.Tag = iTag;
                         }));
                         location.Offset(0, 20);
                         str_buf = "";
+                        iTag++;
+                        i = (i + 2) > logRes.Length ? i + 2 : i;
                     }
+                    str_buf += logRes[i];
                 }
                 binaryReader.Close();
                 fileStream.Close();
@@ -61,7 +69,7 @@ namespace HustonRTEMS {
             ((TextBox)sender).BackColor = Color.CadetBlue;
             previousBut = (TextBox)sender;
             _butPanel.Select();
-            OutputInformationLog(previousBut.Location.Y / 20);
+            OutputInformationLog((int)previousBut.Tag);
         }
 
         private void OutputInformationLog(int numberLog) {
@@ -79,7 +87,7 @@ namespace HustonRTEMS {
                 }
             }
             for(int i = 0; i < countValue; i++) {
-                UICreator.CreateLabel($"Val{i}: {value[i]:X}", location, _infoPanel.Width, _infoPanel);
+                UICreator.CreateLabel($"Val{i + 1}: {Convert.ToInt16(value[i], 16)}", location, _infoPanel.Width, _infoPanel);
                 location.Offset(0, 20);
             }
         }
