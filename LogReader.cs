@@ -78,6 +78,7 @@ namespace HustonRTEMS {
 
         private void OutputInformationLog(int numberLog) {
             string[] splitString = logSave[numberLog].Split(';');
+            splitString[5] = splitString[5][0] == ' ' ? splitString[5].Substring(1) : splitString[5];
 
             _xmlDoc = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\maps\\map.xml");
             string devModel = "";
@@ -98,12 +99,38 @@ namespace HustonRTEMS {
             }
             _xmlDoc.Close();
 
+            UICreator.RemoveAll(_infoPanel);
             _xmlDoc = new($"C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices\\{devModel}.xml");
+            int nameW = _infoPanel.Width - 300, infoW = nameW;
+            int offsetY = 25, fieldOffset = 0;
+            Point locName = new(), locInfo = new(nameW, 0);
             while(_xmlDoc.Read()) {
                 if(_xmlDoc.NodeType == XmlNodeType.Element) {
                     if(_xmlDoc.Name == "PacId") {
                         string pacId = _xmlDoc.ReadInnerXml();
-                        if(pacId == ("0x" + splitString[5])) {
+                        if(Convert.ToInt16(pacId, 16) == Convert.ToInt16(splitString[5], 16)) {
+                            while(_xmlDoc.Read()) {
+                                if(_xmlDoc.Name == "Packet") {
+                                    break;
+                                } else {
+                                    if(_xmlDoc.Name == "FldName") {
+                                        UICreator.CreateLabel(_xmlDoc.ReadInnerXml(), locName,
+                                            nameW, _infoPanel);
+                                        locName.Offset(0, offsetY);
+                                    }
+
+                                    if(_xmlDoc.Name == "FldOffset")
+                                        fieldOffset = Convert.ToInt16(_xmlDoc.ReadInnerXml()) / 4;
+                                    if(_xmlDoc.NodeType != XmlNodeType.EndElement && _xmlDoc.Name == "FldLen") {
+                                        int fieldLen = Convert.ToInt16(_xmlDoc.ReadInnerXml()) / 4;
+                                        long val = Convert.ToInt64(splitString[8].Substring(fieldOffset, fieldLen), 16);
+                                        UICreator.CreateTextBox("none", val.ToString(), locInfo,
+                                            infoW, _infoPanel);
+                                        locInfo.Offset(0, offsetY);
+                                        fieldOffset = -1;
+                                    }
+                                }
+                            }
                             break;
                         }
                     }
@@ -111,8 +138,7 @@ namespace HustonRTEMS {
             }
             _xmlDoc.Close();
 
-            UICreator.RemoveAll(_infoPanel);
-            Point location = new();
+            /*Point location = new();
             int countValue = Convert.ToInt16(splitString[6]);
             List<string> value = new();
             string lv = "";
@@ -126,7 +152,7 @@ namespace HustonRTEMS {
             for(int i = 0; i < countValue; i++) {
                 UICreator.CreateLabel($"Val{i + 1}: {Convert.ToInt16(value[i], 16)}", location, _infoPanel.Width, _infoPanel);
                 location.Offset(0, 20);
-            }
+            }*/
         }
     }
 }
