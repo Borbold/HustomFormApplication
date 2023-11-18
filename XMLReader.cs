@@ -95,7 +95,7 @@ namespace HustonRTEMS {
                 TextBox logBox) :
                 base(pathXML, panelNames, panelInfo, panelButton, toServer, serialPort, baseSatationAd, deviceAd,
                     logBox) {
-            _nameWidth = _panelNames.Width - 55;
+            _nameWidth = _panelNames.Width - 75;
             _infoWidth = _nameWidth - 100;
             _descWidth = _nameWidth + 100;
             _pacName = pacName;
@@ -165,7 +165,7 @@ namespace HustonRTEMS {
                                 lDesc += desc.Substring(i, k);
                                 lDesc += "\n";
                             }
-                            UICreator.CreateLabel(lDesc != "" ? lDesc : desc, locName,
+                            UICreator.CreateLabel(lDesc != "" ? lDesc : desc, new Point(0, 0),
                                 _descWidth, 200, _panelButton);
                         }
                     }

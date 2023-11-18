@@ -149,7 +149,7 @@ namespace HustonRTEMS {
             _xmlRreader.MoldComboBoxName();
             // Log
             _logReader = new("C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\logs\\HistoryLog_2023-10-24_10-21-35.csv",
-                CommandPanel2, CommandPanel4);
+                CommandPanel2, CommandPanel4, CommandPanel3);
             _logReader.ReadLog();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {

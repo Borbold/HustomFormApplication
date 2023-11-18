@@ -6,14 +6,15 @@ using System.Xml;
 namespace HustonRTEMS {
     internal class LogReader {
         private string _pathLog;
-        private Panel _butPanel, _infoPanel;
+        private Panel _butPanel, _infoPanel, _comPanel;
 
         private XmlTextReader? _xmlDoc;
 
-        public LogReader(string pathLog, Panel infoPanel, Panel butPanel) {
+        public LogReader(string pathLog, Panel infoPanel, Panel butPanel, Panel comPanel) {
             _pathLog = pathLog;
             _infoPanel = infoPanel;
             _butPanel = butPanel;
+            _comPanel = comPanel;
         }
 
         private List<string> logSave = new();
@@ -100,10 +101,11 @@ namespace HustonRTEMS {
             _xmlDoc.Close();
 
             UICreator.RemoveAll(_infoPanel);
+            UICreator.RemoveAll(_comPanel);
             _xmlDoc = new($"C:\\Users\\Ivar\\Documents\\SX-Houston-app_v214\\resources\\devices\\{devModel}.xml");
-            int nameW = _infoPanel.Width - 300, infoW = nameW;
+            int nameW = _infoPanel.Width - 200, infoW = nameW - 50, descW = infoW;
             int offsetY = 25, fieldOffset = 0;
-            Point locName = new(), locInfo = new(nameW, 0);
+            Point locName = new(), locInfo = new(nameW, 0), locDesc = new(infoW + nameW, 0);
             while(_xmlDoc.Read()) {
                 if(_xmlDoc.NodeType == XmlNodeType.Element) {
                     if(_xmlDoc.Name == "PacId") {
@@ -117,17 +119,28 @@ namespace HustonRTEMS {
                                         UICreator.CreateLabel(_xmlDoc.ReadInnerXml(), locName,
                                             nameW, _infoPanel);
                                         locName.Offset(0, offsetY);
-                                    }
-
-                                    if(_xmlDoc.Name == "FldOffset")
+                                    } else if(_xmlDoc.Name == "FldOffset")
                                         fieldOffset = Convert.ToInt16(_xmlDoc.ReadInnerXml()) / 4;
-                                    if(_xmlDoc.NodeType != XmlNodeType.EndElement && _xmlDoc.Name == "FldLen") {
+                                    else if(_xmlDoc.NodeType != XmlNodeType.EndElement && _xmlDoc.Name == "FldLen") {
                                         int fieldLen = Convert.ToInt16(_xmlDoc.ReadInnerXml()) / 4;
                                         long val = Convert.ToInt64(splitString[8].Substring(fieldOffset, fieldLen), 16);
                                         UICreator.CreateTextBox("none", val.ToString(), locInfo,
                                             infoW, _infoPanel);
                                         locInfo.Offset(0, offsetY);
                                         fieldOffset = -1;
+                                    } else if(_xmlDoc.Name == "FldDesc") {
+                                        UICreator.CreateLabel(_xmlDoc.ReadInnerXml(), locDesc,
+                                            descW, _infoPanel);
+                                        locDesc.Offset(0, offsetY);
+                                    } else if(_xmlDoc.Name == "PacDesc") {
+                                        string desc = _xmlDoc.ReadInnerXml(), lDesc = "";
+                                        for(int i = 0, j = 20; desc.Length >= 20 && i < desc.Length; i += 20) {
+                                            int k = j + i > desc.Length ? desc.Length - i : j;
+                                            lDesc += desc.Substring(i, k);
+                                            lDesc += "\n";
+                                        }
+                                        UICreator.CreateLabel(lDesc != "" ? lDesc : desc, new Point(0, 0),
+                                            _comPanel.Width, 200, _comPanel);
                                     }
                                 }
                             }
