@@ -109,6 +109,24 @@ namespace HustonRTEMS {
             }
         }
 
+        public void FlipCutFileAll(Panel sendPanel, Panel resemblPanel) {
+            Control[] listC = new Control[resemblPanel.Controls.Count];
+            for(int i = 0; i < resemblPanel.Controls.Count; i++)
+                listC[i] = resemblPanel.Controls[i];
+            for(int i = 0; i < listC.Length; i++) {
+                Control locC = listC[i];
+                sendPanel.AutoScroll = false;
+                resemblPanel.Controls.Remove(locC);
+                sendPanel.AutoScroll = true;
+                TextBox newButton = UICreator.CreateTextBox(locC.Name, locC.Text,
+                    new Point(0, 20 * (int)locC.Tag), sendPanel.Width - 20, sendPanel);
+                newButton.ReadOnly = true;
+                newButton.Cursor = Cursors.Default;
+                newButton.MouseDown += new MouseEventHandler(TextSelection);
+                newButton.Tag = locC.Tag;
+            }
+        }
+
         public void SendCutFile(Panel sendPanel,
                 ushort id, ushort addressTo, ushort addressFrom,
                 SerialPort serialPort, TextBox logBox) {

@@ -431,6 +431,8 @@
             label2 = new Label();
             GetCutFileInfo = new Button();
             LogBox2 = new TextBox();
+            FlipCutFileAll = new Button();
+            BackCutFileAll = new Button();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -4638,6 +4640,8 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(BackCutFileAll);
+            tabPage10.Controls.Add(FlipCutFileAll);
             tabPage10.Controls.Add(label160);
             tabPage10.Controls.Add(AddresCutFile);
             tabPage10.Controls.Add(label161);
@@ -4758,7 +4762,7 @@
             FlipCutFile.TabIndex = 13;
             FlipCutFile.Text = "<-";
             FlipCutFile.UseVisualStyleBackColor = true;
-            FlipCutFile.Click += SendCutFile_Click;
+            FlipCutFile.Click += FlipCutFile_Click;
             // 
             // BackCutFile
             // 
@@ -4768,7 +4772,7 @@
             BackCutFile.TabIndex = 12;
             BackCutFile.Text = "->";
             BackCutFile.UseVisualStyleBackColor = true;
-            BackCutFile.Click += FlipCutFile_Click;
+            BackCutFile.Click += BackCutFile_Click;
             // 
             // PanelReceiveCutFiles
             // 
@@ -4854,6 +4858,26 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
+            // 
+            // FlipCutFileAll
+            // 
+            FlipCutFileAll.Location = new Point(891, 108);
+            FlipCutFileAll.Name = "FlipCutFileAll";
+            FlipCutFileAll.Size = new Size(100, 42);
+            FlipCutFileAll.TabIndex = 118;
+            FlipCutFileAll.Text = "All\r\n<-";
+            FlipCutFileAll.UseVisualStyleBackColor = true;
+            FlipCutFileAll.Click += FlipCutFileAll_Click;
+            // 
+            // BackCutFileAll
+            // 
+            BackCutFileAll.Location = new Point(891, 156);
+            BackCutFileAll.Name = "BackCutFileAll";
+            BackCutFileAll.Size = new Size(100, 42);
+            BackCutFileAll.TabIndex = 119;
+            BackCutFileAll.Text = "All\r\n->";
+            BackCutFileAll.UseVisualStyleBackColor = true;
+            BackCutFileAll.Click += BackCutFileAll_Click;
             // 
             // MainForm
             // 
@@ -5345,5 +5369,7 @@
         private TextBox IdShippingCutFile;
         private Label label163;
         private TextBox AddresReceiveCutFile;
+        private Button FlipCutFileAll;
+        private Button BackCutFileAll;
     }
 }

@@ -1479,7 +1479,7 @@ namespace HustonRTEMS {
             }
         }
 
-        private void SendCutFile_Click(object sender, EventArgs e) {
+        private void FlipCutFile_Click(object sender, EventArgs e) {
             try {
                 CF.FlipCutFile(PanelReceiveCutFiles, PanelCutFileName);
             }
@@ -1487,8 +1487,7 @@ namespace HustonRTEMS {
                 LogBox2.Text = ex.Message;
             }
         }
-
-        private void FlipCutFile_Click(object sender, EventArgs e) {
+        private void BackCutFile_Click(object sender, EventArgs e) {
             try {
                 CF.FlipCutFile(PanelCutFileName, PanelReceiveCutFiles);
             }
@@ -1497,9 +1496,26 @@ namespace HustonRTEMS {
             }
         }
 
+        private void FlipCutFileAll_Click(object sender, EventArgs e) {
+            try {
+                CF.FlipCutFileAll(PanelReceiveCutFiles, PanelCutFileName);
+            }
+            catch(Exception ex) {
+                LogBox2.Text = ex.Message;
+            }
+        }
+        private void BackCutFileAll_Click(object sender, EventArgs e) {
+            try {
+                CF.FlipCutFileAll(PanelCutFileName, PanelReceiveCutFiles);
+            }
+            catch(Exception ex) {
+                LogBox2.Text = ex.Message;
+            }
+        }
+
         private void SendReceiveCutFiles_Click(object sender, EventArgs e) {
             try {
-                CF.SendCutFile(PanelReceiveCutFiles,
+                CF?.SendCutFile(PanelReceiveCutFiles,
                     Convert.ToUInt16(IdShippingCutFile.Text, 16),
                     Convert.ToUInt16(AddresReceiveCutFile.Text, 16),
                     Convert.ToUInt16(AddresCutFile.Text, 16),
