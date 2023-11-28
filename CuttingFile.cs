@@ -14,7 +14,7 @@ namespace HustonRTEMS {
         private string _cutFolder;
         private int _lengthFile;
 
-        private string _fileName = "Test_";
+        private string _fileName = "File_";
 
         public CuttingFile(Panel butPanel, TextBox displayCRC, string cutFolder, int lengthFile) {
             _butPanel = butPanel;
@@ -61,7 +61,7 @@ namespace HustonRTEMS {
 
             _ = logFac.StartNew(() => {
                 for(int i = 0; i < _countFile / 2; i++) {
-                    string name = $"{_fileName}{i}";
+                    string name = $"{_fileName}{i + 1}";
                     TextBox newButton = UICreator.CreateTextBox($"{_cutFolder}\\{name}", name, new Point(0, 20 * i),
                         _butPanel.Width - 20, _butPanel);
                     newButton.Invoke(new Action(() => {
@@ -75,7 +75,7 @@ namespace HustonRTEMS {
 
             _ = logFac.StartNew(() => {
                 for(int i = _countFile / 2; i < _countFile; i++) {
-                    string name = $"{_fileName}{i}";
+                    string name = $"{_fileName}{i + 1}";
                     TextBox newButton = UICreator.CreateTextBox($"{_cutFolder}\\{name}", name, new Point(0, 20 * i),
                         _butPanel.Width - 20, _butPanel);
                     newButton.Invoke(new Action(() => {
