@@ -127,38 +127,50 @@ namespace HustonRTEMS {
             }
         }
 
+        CancellationTokenSource sourceSendCutFile;
         public void SendCutFile(Panel sendPanel,
                 ushort id, ushort addressTo, ushort addressFrom,
                 SerialPort serialPort, TextBox logBox) {
+            sourceSendCutFile = new();
+            CancellationToken logToken = sourceSendCutFile.Token;
+            TaskFactory logFac = new(logToken);
             Control.ControlCollection sendControl = sendPanel.Controls;
-            for(int i = 0; i < sendControl.Count; i++) {
-                string path = sendControl[i].Name.ToString();
 
-                FileStream fileStream = File.OpenRead(path);
-                BinaryReader binaryReader = new(fileStream);
-                byte[] result = binaryReader.ReadBytes((int)fileStream.Length);
+            _ = logFac.StartNew(() => {
+                for(int i = 0; i < sendControl.Count; i++) {
+                    if(sourceSendCutFile.IsCancellationRequested) return;
+                    string path = sendControl[i].Name.ToString();
 
-                ushort unicanLenght = (ushort)(result.Length * sizeof(byte));
-                UnicanMessage test = new() {
-                    unicanMSGId = id,
-                    unicanAddressTo = addressTo,
-                    unicanAddressFrom = addressFrom,
-                    unicanLength = unicanLenght,
-                    data = new byte[unicanLenght]
-                };
-                ItUn[] byteV = new ItUn[unicanLenght];
-                for(int k = 0; k < unicanLenght; k++) {
-                    byteV[k].it = Convert.ToInt16(result[k]);
+                    FileStream fileStream = File.OpenRead(path);
+                    BinaryReader binaryReader = new(fileStream);
+                    byte[] result = binaryReader.ReadBytes((int)fileStream.Length);
+
+                    ushort unicanLenght = (ushort)(result.Length * sizeof(byte));
+                    UnicanMessage test = new() {
+                        unicanMSGId = id,
+                        unicanAddressTo = addressTo,
+                        unicanAddressFrom = addressFrom,
+                        unicanLength = unicanLenght,
+                        data = new byte[unicanLenght]
+                    };
+                    ItUn[] byteV = new ItUn[unicanLenght];
+                    for(int k = 0; k < unicanLenght; k++) {
+                        byteV[k].it = Convert.ToInt16(result[k]);
+                    }
+                    for(int k = 0; k < unicanLenght; k++) {
+                        test.data[k] = byteV[k].byte1;
+                        test.data[++k] = byteV[k].byte2;
+                    }
+                    binaryReader.Close();
+                    fileStream.Close();
+                    Thread.Sleep(500);
+                    CTU.SendWithCAN(test, serialPort, logBox);
                 }
-                for(int k = 0; k < unicanLenght; k++) {
-                    test.data[k] = byteV[k].byte1;
-                    test.data[++k] = byteV[k].byte2;
-                }
-                binaryReader.Close();
-                fileStream.Close();
-                Thread.Sleep(500);
-                CTU.SendWithCAN(test, serialPort, logBox);
-            }
+            }, logToken);
+        }
+
+        public void CancelSendCutFile() {
+            sourceSendCutFile.Cancel();
         }
     }
 }

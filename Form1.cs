@@ -1481,7 +1481,7 @@ namespace HustonRTEMS {
 
         private void FlipCutFile_Click(object sender, EventArgs e) {
             try {
-                CF.FlipCutFile(PanelReceiveCutFiles, PanelCutFileName);
+                CF?.FlipCutFile(PanelReceiveCutFiles, PanelCutFileName);
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;
@@ -1489,7 +1489,7 @@ namespace HustonRTEMS {
         }
         private void BackCutFile_Click(object sender, EventArgs e) {
             try {
-                CF.FlipCutFile(PanelCutFileName, PanelReceiveCutFiles);
+                CF?.FlipCutFile(PanelCutFileName, PanelReceiveCutFiles);
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;
@@ -1498,7 +1498,7 @@ namespace HustonRTEMS {
 
         private void FlipCutFileAll_Click(object sender, EventArgs e) {
             try {
-                CF.FlipCutFileAll(PanelReceiveCutFiles, PanelCutFileName);
+                CF?.FlipCutFileAll(PanelReceiveCutFiles, PanelCutFileName);
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;
@@ -1506,7 +1506,7 @@ namespace HustonRTEMS {
         }
         private void BackCutFileAll_Click(object sender, EventArgs e) {
             try {
-                CF.FlipCutFileAll(PanelCutFileName, PanelReceiveCutFiles);
+                CF?.FlipCutFileAll(PanelCutFileName, PanelReceiveCutFiles);
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;
@@ -1520,6 +1520,14 @@ namespace HustonRTEMS {
                     Convert.ToUInt16(AddresReceiveCutFile.Text, 16),
                     Convert.ToUInt16(AddresCutFile.Text, 16),
                     _serialPort, LogBox);
+            }
+            catch(Exception ex) {
+                LogBox2.Text = ex.Message;
+            }
+        }
+        private void StopSendReceiveCutFiles_Click(object sender, EventArgs e) {
+            try {
+                CF?.CancelSendCutFile();
             }
             catch(Exception ex) {
                 LogBox2.Text = ex.Message;

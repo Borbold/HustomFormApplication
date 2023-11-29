@@ -411,6 +411,8 @@
             CommandPanel2 = new Panel();
             CommandPanel1 = new Panel();
             tabPage10 = new TabPage();
+            BackCutFileAll = new Button();
+            FlipCutFileAll = new Button();
             label160 = new Label();
             AddresCutFile = new TextBox();
             label161 = new Label();
@@ -431,8 +433,7 @@
             label2 = new Label();
             GetCutFileInfo = new Button();
             LogBox2 = new TextBox();
-            FlipCutFileAll = new Button();
-            BackCutFileAll = new Button();
+            StopSendReceiveCutFiles = new Button();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -4640,6 +4641,7 @@
             // 
             // tabPage10
             // 
+            tabPage10.Controls.Add(StopSendReceiveCutFiles);
             tabPage10.Controls.Add(BackCutFileAll);
             tabPage10.Controls.Add(FlipCutFileAll);
             tabPage10.Controls.Add(label160);
@@ -4668,6 +4670,26 @@
             tabPage10.TabIndex = 4;
             tabPage10.Text = "Cutting";
             tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // BackCutFileAll
+            // 
+            BackCutFileAll.Location = new Point(891, 156);
+            BackCutFileAll.Name = "BackCutFileAll";
+            BackCutFileAll.Size = new Size(100, 42);
+            BackCutFileAll.TabIndex = 119;
+            BackCutFileAll.Text = "All\r\n->";
+            BackCutFileAll.UseVisualStyleBackColor = true;
+            BackCutFileAll.Click += BackCutFileAll_Click;
+            // 
+            // FlipCutFileAll
+            // 
+            FlipCutFileAll.Location = new Point(891, 108);
+            FlipCutFileAll.Name = "FlipCutFileAll";
+            FlipCutFileAll.Size = new Size(100, 42);
+            FlipCutFileAll.TabIndex = 118;
+            FlipCutFileAll.Text = "All\r\n<-";
+            FlipCutFileAll.UseVisualStyleBackColor = true;
+            FlipCutFileAll.Click += FlipCutFileAll_Click;
             // 
             // label160
             // 
@@ -4859,25 +4881,16 @@
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
             // 
-            // FlipCutFileAll
+            // StopSendReceiveCutFiles
             // 
-            FlipCutFileAll.Location = new Point(891, 108);
-            FlipCutFileAll.Name = "FlipCutFileAll";
-            FlipCutFileAll.Size = new Size(100, 42);
-            FlipCutFileAll.TabIndex = 118;
-            FlipCutFileAll.Text = "All\r\n<-";
-            FlipCutFileAll.UseVisualStyleBackColor = true;
-            FlipCutFileAll.Click += FlipCutFileAll_Click;
-            // 
-            // BackCutFileAll
-            // 
-            BackCutFileAll.Location = new Point(891, 156);
-            BackCutFileAll.Name = "BackCutFileAll";
-            BackCutFileAll.Size = new Size(100, 42);
-            BackCutFileAll.TabIndex = 119;
-            BackCutFileAll.Text = "All\r\n->";
-            BackCutFileAll.UseVisualStyleBackColor = true;
-            BackCutFileAll.Click += BackCutFileAll_Click;
+            StopSendReceiveCutFiles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            StopSendReceiveCutFiles.Location = new Point(535, 277);
+            StopSendReceiveCutFiles.Name = "StopSendReceiveCutFiles";
+            StopSendReceiveCutFiles.Size = new Size(123, 75);
+            StopSendReceiveCutFiles.TabIndex = 120;
+            StopSendReceiveCutFiles.Text = "Остановить отправку";
+            StopSendReceiveCutFiles.UseVisualStyleBackColor = true;
+            StopSendReceiveCutFiles.Click += StopSendReceiveCutFiles_Click;
             // 
             // MainForm
             // 
@@ -5371,5 +5384,6 @@
         private TextBox AddresReceiveCutFile;
         private Button FlipCutFileAll;
         private Button BackCutFileAll;
+        private Button StopSendReceiveCutFiles;
     }
 }
