@@ -411,6 +411,7 @@
             CommandPanel2 = new Panel();
             CommandPanel1 = new Panel();
             tabPage10 = new TabPage();
+            StopSendReceiveCutFiles = new Button();
             BackCutFileAll = new Button();
             FlipCutFileAll = new Button();
             label160 = new Label();
@@ -433,7 +434,6 @@
             label2 = new Label();
             GetCutFileInfo = new Button();
             LogBox2 = new TextBox();
-            StopSendReceiveCutFiles = new Button();
             Lala.SuspendLayout();
             TabTemperature.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TrackBarTemp).BeginInit();
@@ -478,6 +478,7 @@
             // 
             // LogBox
             // 
+            LogBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             LogBox.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             LogBox.Location = new Point(187, 491);
             LogBox.Multiline = true;
@@ -4071,6 +4072,7 @@
             // 
             // MainTabControll
             // 
+            MainTabControll.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             MainTabControll.Controls.Add(Settings);
             MainTabControll.Controls.Add(SensorReadings);
             MainTabControll.Controls.Add(tabPage5);
@@ -4095,6 +4097,7 @@
             // 
             // TabSettings
             // 
+            TabSettings.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             TabSettings.Controls.Add(IzernetPage);
             TabSettings.Controls.Add(CANPage);
             TabSettings.Location = new Point(6, 6);
@@ -4671,6 +4674,17 @@
             tabPage10.Text = "Cutting";
             tabPage10.UseVisualStyleBackColor = true;
             // 
+            // StopSendReceiveCutFiles
+            // 
+            StopSendReceiveCutFiles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            StopSendReceiveCutFiles.Location = new Point(535, 277);
+            StopSendReceiveCutFiles.Name = "StopSendReceiveCutFiles";
+            StopSendReceiveCutFiles.Size = new Size(123, 75);
+            StopSendReceiveCutFiles.TabIndex = 120;
+            StopSendReceiveCutFiles.Text = "Остановить отправку";
+            StopSendReceiveCutFiles.UseVisualStyleBackColor = true;
+            StopSendReceiveCutFiles.Click += StopSendReceiveCutFiles_Click;
+            // 
             // BackCutFileAll
             // 
             BackCutFileAll.Location = new Point(891, 156);
@@ -4871,7 +4885,7 @@
             // 
             // LogBox2
             // 
-            LogBox2.Anchor = AnchorStyles.Top;
+            LogBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             LogBox2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             LogBox2.Location = new Point(720, 491);
             LogBox2.Multiline = true;
@@ -4880,17 +4894,6 @@
             LogBox2.ScrollBars = ScrollBars.Vertical;
             LogBox2.Size = new Size(520, 260);
             LogBox2.TabIndex = 14;
-            // 
-            // StopSendReceiveCutFiles
-            // 
-            StopSendReceiveCutFiles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            StopSendReceiveCutFiles.Location = new Point(535, 277);
-            StopSendReceiveCutFiles.Name = "StopSendReceiveCutFiles";
-            StopSendReceiveCutFiles.Size = new Size(123, 75);
-            StopSendReceiveCutFiles.TabIndex = 120;
-            StopSendReceiveCutFiles.Text = "Остановить отправку";
-            StopSendReceiveCutFiles.UseVisualStyleBackColor = true;
-            StopSendReceiveCutFiles.Click += StopSendReceiveCutFiles_Click;
             // 
             // MainForm
             // 
